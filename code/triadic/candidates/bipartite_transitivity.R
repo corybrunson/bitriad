@@ -1,12 +1,14 @@
 # bipartite triadic closure (Opsahl 2012)
 # Proportion of L_4s that lie in C_6s; differs from mine in that
 # (a) multiple L_4s through the same three primary vertices are counted and
-# (b) chords (edges between nonconsecutive vertices in the L_4) are permitted.
+# (b) chords (edges between nonconsecutive vertices in L_4) are permitted.
 bipartite.transitivity <- function(
-  bigraph, type = 'global', vids = which(V(bigraph)$type == 1), status = FALSE
+  bigraph, type = 'global', vids = which(V(bigraph)$type == 1),
+  status = FALSE
 ) {
   # Check that nodes are of common type (requires attribute 'type')
-  stopifnot(all(V(bigraph)$type[vids] == 1) | !any(V(bigraph)$type[vids] == 1))
+  stopifnot(all(V(bigraph)$type[vids] == 1) |
+            !any(V(bigraph)$type[vids] == 1))
   # If global, need to look at all vertices
   vs <- if(type != 'local') which(V(bigraph)$type == 1) else vids
   if(status) {
@@ -36,11 +38,12 @@ bipartite.transitivity <- function(
         matrix(rep(NA, 6), nr = 6)[, c()] else
         # Include each 4-path (y, w, v, x, z)
         # where z is a neighbor of x besides v and y
-        rbind(y, n1[n1p[1, j]], v, n1[n1p[2, j]], setdiff(n1s[[n1p[2, j]]], y),
+        rbind(y, n1[n1p[1, j]], v, n1[n1p[2, j]],
+              setdiff(n1s[[n1p[2, j]]], y),
           # And an indicator of whether the 4-path is closed
           sapply(setdiff(n1s[[n1p[2, j]]], y), function(z) length(
-            setdiff(intersect(neighborhood(bigraph, order = 1, nodes = y)[[1]],
-                              neighborhood(bigraph, order = 1, nodes = z)[[1]]),
+            setdiff(intersect(neighborhood(bigraph, 1, nodes = y)[[1]],
+                              neighborhood(bigraph, 1, nodes = z)[[1]]),
                     c(n1[n1p[1, j]], n1[n1p[2, j]]))) > 0))
       })
     })
@@ -61,4 +64,3 @@ bipartite.transitivity <- function(
   return(list(stratified = data.frame(l4 = l4[vids], c6 = c6[vids]),
               global = bC))
 }
-

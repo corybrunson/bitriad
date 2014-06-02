@@ -6,7 +6,8 @@ inclusive.transitivity <- function(
   bigraph, type = 'global', vids = V(bigraph)[V(bigraph)$type == 1]
 ) {
   # Check that nodes are of common type (requires attribute 'type')
-  stopifnot(all(V(bigraph)$type[vids] == 1) | !any(V(bigraph)$type[vids] == 1))
+  stopifnot(all(V(bigraph)$type[vids] == 1) |
+            !any(V(bigraph)$type[vids] == 1))
   # If global, need to look at all vertices
   vs <- if(type != 'local') V(bigraph)[V(bigraph)$type == 1] else vids
   # Array of vees with distinct collaborations
@@ -40,7 +41,7 @@ inclusive.transitivity <- function(
   if(type != 'local') nC <- length(which(as.logical(L4[4, ]))) / dim(L4)[2]
   if(type != 'global') {
     # Histograms of L_4s and C_6s centered at each vertex,
-    # tallied only for vertices of given type though histogram ranges over all
+    # tallied only for vertices of given type though hist ranges over all
     l4 <- hist(L4[2, ], breaks = 0:vcount(bigraph) + .5)$counts
     c6 <- hist(L4[2, L4[4, ] == 1], breaks = 0:vcount(bigraph) + .5)$counts
   }
@@ -49,4 +50,3 @@ inclusive.transitivity <- function(
   return(list(stratified = data.frame(l4 = l4[vids], c6 = c6[vids]),
               global = nC))
 }
-
