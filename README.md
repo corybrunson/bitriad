@@ -1,4 +1,4 @@
 triadic
 =======
 
-Tools, data, and exposition on triadic analysis for two-mode networks
+Tools, data, and exposition for triadic analysis of two-mode networks
