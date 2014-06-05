@@ -3,7 +3,9 @@ Triadic analyses of two-mode networks
 
 The paper "Triadic analysis for two-mode networks" makes a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This R Markdown file will apply these tools to the study of several manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
 
-We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also pull data from the github account corybrunson:
+We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the github account corybrunson; the function 'source_https' is taken from [tonybreyal][].
+
+[tonybreyal] http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal"
 
 ```{r}
 library(igraph)
@@ -12,18 +14,28 @@ mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
 mycsv <- function(data.file, ...) {
   read.csv(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
 }
+source_https <- function(url, ...) {
+  # load package
+  require(RCurl)
+ 
+  # parse and evaluate each .R script
+  sapply(c(url, ...), function(u) {
+    eval(parse(text = getURL(u, followlocation = TRUE,
+                             cainfo = system.file("CurlSSL", "cacert.pem",
+                                                  package = "RCurl"))),
+         envir = .GlobalEnv)
+  })
+}
 myfn <- function(fn.file) {
-  source(file = getURL(paste(mydir, 'functions/', fn.file, sep = '')))
+  source_https(paste(mydir, 'functions/', fn.file, sep = ''))
 }
 ```
-
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
 
 ## Network 1: Southern women
 
 In their book *Deep South*, social anthropologists Davis, Gardner, and Gardner presented, amidst other more typical tables of sociometric data, tables of coattendance at distinct events by three groups of acquainted women in the town of Natchez, Mississippi. One of these, labeled Clique A, is depicted in Fig. 11 on p. 209. The clique consists of five women, designated "Miss A" through "Miss E", each of whom attended some of five recorded events, which we refer to as bridge, dinner, movies, dance, and visiting. The attendance table is reproduced in the file "DGG\_Clique\_A.csv", which we load into R directly as a graph:
-
 
 ```{r}
 women <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
@@ -37,7 +49,7 @@ women.mat <- get.adjacency(women)[1:5, 6:10]
 print(women.mat)
 ```
 
-This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them all. First let's visualize the network, using the Fruchterman-Reingold algorithm and the visual scheme from [Opsahl's paper][]:
+First let's visualize the network, using the Fruchterman-Reingold algorithm and the visual scheme from [Opsahl's paper][]:
 
 [Opsahl's paper] http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/ "Opsahl"
 
@@ -63,3 +75,19 @@ plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
 ```
 
 The individuals and events are pretty evenly connected--three ties each, except for one individal (Miss B) and one event (visiting) having two ties each.
+
+This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them all. We can view the (undirected) triad census of the one-mode projection, taking the second of the bipartite projections corresponding to the nodes of type 1 (actors) rather than 0 (events):
+
+```{r}
+myfn('simple.triad.census.R')
+simple.triad.census(bipartite.projection(women)[[2]])
+```
+
+We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the (currently cumbersome) function 'two.mode.triad.census':
+
+```{r}
+myfn('partition.bijections.R')
+myfn('two.mode.triad.census.R')
+two.mode.triad.census(women)
+```
+
