@@ -5,15 +5,20 @@ The paper "Triadic analysis for two-mode networks" makes a case for adopting a c
 
 We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also pull data from the github account corybrunson:
 
-```{r}
+
+```r
 library(igraph)
 library(RCurl)
-mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
+```
+
+```
+## Loading required package: bitops
+```
+
+```r
+mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/data/'
 mycsv <- function(data.file, ...) {
-  read.csv(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
-}
-myfn <- function(fn.file) {
-  source(file = getURL(paste(mydir, 'functions/', fn.file, sep = '')))
+  read.csv(text = getURL(paste(mydir, data.file, sep = '')), ...)
 }
 ```
 
@@ -25,23 +30,41 @@ The author is neither a programmer nor a computer scientist by training; any sug
 In their book *Deep South*, social anthropologists Davis, Gardner, and Gardner presented, amidst other more typical tables of sociometric data, tables of coattendance at distinct events by three groups of acquainted women in the town of Natchez, Mississippi. One of these, labeled Clique A, is depicted in Fig. 11 on p. 209. The clique consists of five women, designated "Miss A" through "Miss E", each of whom attended some of five recorded events, which we refer to as bridge, dinner, movies, dance, and visiting. The attendance table is reproduced in the file "DGG\_Clique\_A.csv", which we load into R directly as a graph:
 
 
-```{r}
+
+```r
 women <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
 V(women)$type <- !V(women)$type
 ```
 
+```
+## Error: invalid argument type
+```
+
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
 
-```{r}
+
+```r
 women.mat <- get.adjacency(women)[1:5, 6:10]
+```
+
+```
+## Error: index larger than maximal 0
+```
+
+```r
 print(women.mat)
+```
+
+```
+## Error: object 'women.mat' not found
 ```
 
 This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them all. First let's visualize the network, using the Fruchterman-Reingold algorithm and the visual scheme from [Opsahl's paper][]:
 
 [Opsahl's paper] http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/ "Opsahl"
 
-```{r}
+
+```r
 plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
      vertex.color = rep(c('SkyBlue2', 'lightcoral'), times = c(5, 5)),
      vertex.shape = rep(c('circle', 'square'), times = c(5, 5)),
@@ -50,9 +73,23 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
      vertex.label.family = 'sans', vertex.label.color = 'black')
 ```
 
+```
+## Warning: no non-missing arguments to min; returning Inf
+## Warning: no non-missing arguments to max; returning -Inf
+## Warning: no non-missing arguments to min; returning Inf
+## Warning: no non-missing arguments to max; returning -Inf
+```
+
+```
+## Error: no coordinates were supplied
+```
+
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
 The layout helps distinguish the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes along parallel lines:
 
-```{r}
+
+```r
 plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
                               rep(c(1, -1), each = 5)), nc = 2),
      vertex.color = rep(c('SkyBlue2', 'lightcoral'), times = c(5, 5)),
@@ -61,5 +98,7 @@ plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'black')
 ```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
 The individuals and events are pretty evenly connected--three ties each, except for one individal (Miss B) and one event (visiting) having two ties each.
