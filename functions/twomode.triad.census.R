@@ -15,7 +15,7 @@ onemode.projection <- function(bigraph, type = 1, name = 'name') {
     return(bipartite.projection(bigraph, multiplicity = TRUE)[[1 + type]])
 }
 
-# FUNCTION: Count disconnected triples with a single edge of weight x
+# FUNCTION: Tally disconnected triples with a single edge of weight x
 one.tied.triads <- function(graph) {
     # Create a data frame of weights and number of nonadjacent nodes
     counts <- data.frame(
@@ -41,16 +41,17 @@ edge.weight <- function(graph, vp) {
 }
 
 # FUNCTION: Count open and closed wedges, subtracting triad weight if nonzero
-# (Better to run through each triangle thrice and divide by three than
-# to test each 2-path for minimality)
 connected.triples <- function(
     bigraph, type = 1,
     # Construct the one-mode projection if it's not already prepared
     graph = onemode.projection(bigraph, type = type, name = 'id')
     ) {
     trips <- do.call(rbind, lapply(1:vcount(graph), function(i) {
+        nbhd <- neighborhood(graph, 1, i)[[1]]
+        # Skip nodes with not enough neighbors
+        if(length(nbhd) < 2) return(NULL)
         # horizontal array of pairs of neighbors of i
-        v <- combn(setdiff(neighborhood(graph, 1, i)[[1]], i), 2)
+        v <- combn(setdiff(nbhd, i), 2)
         # vector of triad weights
         w <- sapply(1:dim(v)[2], function(j) {
             share.weight(bigraph, V(graph)$name[c(i, v[, j])])
@@ -94,8 +95,9 @@ max.triad.weight <- function(bigraph, type = 1) {
     return(n)
 }
 
-# FUNCTION: Triad census for two-mode networks (returns single matrix)
-twomode.triad.census <- function(bigraph, type = 1, rowcolnames = FALSE) {
+# FUNCTION: Triad census for two-mode networks
+# (Uses connected.triples; iterates over nodes)
+twomode.triad.census1 <- function(bigraph, type = 1, rowcolnames = FALSE) {
     # Drop trivial cases
     if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
     # Create one-mode projection
@@ -139,3 +141,55 @@ twomode.triad.census <- function(bigraph, type = 1, rowcolnames = FALSE) {
     return(as.matrix(C))
 }
 
+# FUNCTION: Tally triples with exactly two edges among them
+two.tied.triads <- function(graph) {
+    
+}
+
+# FUNCTION: Tally triangles, subtracting triad weight if nonzero
+three.tied.triads <- function(
+    bigraph, type = 1,
+    # Construct the one-mode projection if it's not already prepared
+    graph = onemode.projection(bigraph, type = type, name = 'id')
+) {
+    
+}
+
+# FUNCTION: Triad census for two-mode networks
+# (Mimics original; iterates over paths of length 2)
+twomode.triad.census2 <- function(bigraph, type = 1, rowcolnames = FALSE) {
+    # Drop trivial cases
+    if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
+    # Create one-mode projection
+    graph <- onemode.projection(bigraph, type = type, name = 'id')
+    
+    # Find maximum values of x and of w
+    max.x <- max(E(graph)$weight)
+    max.w <- max.triad.weight(bigraph)
+    # Initialize matrix
+    C <- as.data.frame(matrix(0, nr = choose(max.x + 3, 3), nc = max.w + 1))
+    
+    # Tally one-tied triads
+    ot <- one.tied.triads(graph)
+    # Insert the totals at the proper entries of C
+    # (No repeats, so no information loss)
+    C[sapply(ot$x, function(x) partition.position(c(x, 0, 0))) + 1, 1] <- ot$n
+    
+    # Tally two-tied triads
+    
+    # The remaining triads share no secondary nodes; count them as empty
+    # (No triads should have yet been counted as empty)
+    C[1, 1] <- choose(vcount(graph), 3) - sum(C)
+    # Clear names
+    colnames(C) <- NULL
+    if(rowcolnames) {
+        colnames(C) <- 0:(ncol(C) - 1)
+        rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
+            '(', paste(position.partition(i, k = 3), collapse = ','),
+            ')', sep = ''))
+    }
+    return(as.matrix(C))
+}
+
+# Pick the better implementation (2 once it's completed)
+twomode.triad.census <- twomode.triad.census1

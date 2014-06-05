@@ -10,22 +10,13 @@ We use the "igraph" package, which provides the class of graphs and the basic su
 
 ```r
 library(igraph)
-library(RCurl)
-```
-
-```
-## Loading required package: bitops
-```
-
-```r
 mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
 mycsv <- function(data.file, ...) {
+  require(RCurl)
   read.csv(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
 }
 source_https <- function(url, ...) {
-  # load package
   require(RCurl)
- 
   # parse and evaluate each .R script
   sapply(c(url, ...), function(u) {
     eval(parse(text = getURL(u, followlocation = TRUE,
@@ -48,6 +39,14 @@ In their book *Deep South*, social anthropologists Davis, Gardner, and Gardner p
 
 ```r
 women <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
+```
+
+```
+## Loading required package: RCurl
+## Loading required package: bitops
+```
+
+```r
 V(women)$type <- !V(women)$type
 ```
 
@@ -55,8 +54,7 @@ Since the graph is bipartite, we can get all the incidence information we need f
 
 
 ```r
-women.mat <- get.adjacency(women)[1:5, 6:10]
-print(women.mat)
+get.adjacency(women)[1:5, 6:10]
 ```
 
 ```
@@ -109,16 +107,6 @@ This social network is just large enough exhibit a diversity of triads and just 
 myfn('simple.triad.census.R')
 ```
 
-```
-## $`https://raw.githubusercontent.com/corybrunson/triadic/master/functions/simple.triad.census.R`
-## function (graph) 
-## {
-##     tc <- triad.census(as.directed(graph))
-##     if (is.nan(tc[1])) 
-##         tc[1] <- choose(vcount(graph), 3) - sum(tc, na.rm = TRUE)
-##     tc[c(1, 3, 11, 16)]
-## }
-```
 
 ```r
 simple.triad.census(bipartite.projection(women)[[2]])
@@ -133,147 +121,25 @@ We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 
 
 ```r
 myfn('partition.bijections.R')
+myfn('twomode.triad.census.R')
 ```
 
-```
-## $`https://raw.githubusercontent.com/corybrunson/triadic/master/functions/partition.bijections.R`
-## function (lambda) 
-## {
-##     combination.position(partition.combination(lambda))
-## }
-```
 
 ```r
-myfn('two.mode.triad.census.R')
+twomode.triad.census(women, rowcolnames = TRUE)
 ```
 
 ```
-## $`https://raw.githubusercontent.com/corybrunson/triadic/master/functions/two.mode.triad.census.R`
-## function (bigraph, type = 1, max.wt = Inf) 
-## {
-##     V(bigraph)$name <- V(bigraph)
-##     if (vcount(bigraph) == 0) 
-##         return(list(pw = 0, C = matrix(0, nr = 0, nc = 0), D = matrix(0, 
-##             nr = 0, nc = 2)))
-##     h <- bipartite.projection(bigraph, multiplicity = T)[[1 + 
-##         type]]
-##     vl <- do.call(cbind, lapply(V(h)[1:(vcount(h) - 1)], function(v) {
-##         d2 <- as.numeric(V(h)[which(shortest.paths(h, v, (v + 
-##             1):vcount(h), weights = NA) == 2) + v])
-##         gasp <- get.all.shortest.paths(h, v, d2, weights = NA)[[1]]
-##         do.call(cbind, gasp[sapply(gasp, length) == 3])
-##     }))
-##     tl <- do.call(cbind, cliques(h, min = 3, max = 3))
-##     pw <- if (max.wt == Inf) 
-##         max(E(h)$weight)
-##     else if (!is.null(max.wt)) 
-##         max.wt
-##     else quantile(E(h)$weight, 0.95)
-##     C <- as.data.frame(matrix(0, nr = choose(pw + 3, 3), nc = pw + 
-##         1))
-##     D <- matrix(0, nr = 0, nc = 2)
-##     pb <- txtProgressBar(min = 1, max = ecount(h), style = 3)
-##     for (e in 1:ecount(h)) {
-##         i <- partition.position(c(E(h)[e]$weight, 0, 0)) + 1
-##         if (E(h)[e]$weight > pw) {
-##             rep.count <- vcount(h) - length(unique(unlist(neighborhood(h, 
-##                 1, nodes = get.edge(h, e)))))
-##             stopifnot(rep.count >= 0)
-##             if (rep.count > 0) 
-##                 D <- rbind(D, t(sapply(1:rep.count, function(x) c(i + 
-##                   1, 1))))
-##         }
-##         else {
-##             C[i, 1] <- C[i, 1] + vcount(h) - length(unique(unlist(neighborhood(h, 
-##                 1, nodes = get.edge(h, e)))))
-##         }
-##         setTxtProgressBar(pb, e)
-##     }
-##     close(pb)
-##     if (!is.null(vl)) {
-##         bar <- dim(vl)[2] > 1
-##         if (bar) 
-##             pb <- txtProgressBar(min = 1, max = dim(vl)[2], style = 3)
-##         for (v in 1:dim(vl)[2]) {
-##             lamb <- sort(c(E(h, P = vl[1:2, v])$weight, E(h, 
-##                 P = vl[2:3, v])$weight), decreasing = TRUE)
-##             i <- partition.position(c(lamb, 0)) + 1
-##             if (lamb[1] > pw) {
-##                 D <- rbind(D, c(i, 1))
-##             }
-##             else {
-##                 C[i, 1] <- C[i, 1] + 1
-##             }
-##             if (bar) 
-##                 setTxtProgressBar(pb, v)
-##         }
-##         if (bar) 
-##             close(pb)
-##     }
-##     if (!is.null(tl)) {
-##         bar <- dim(tl)[2] > 1
-##         if (bar) 
-##             pb <- txtProgressBar(min = 1, max = dim(tl)[2], style = 3)
-##         for (t in 1:dim(tl)[2]) {
-##             tr <- as.numeric(V(h)$name[tl[, t]])
-##             s <- induced.subgraph(bigraph, vids = unique(unlist(neighborhood(bigraph, 
-##                 1, tr))))
-##             tw <- length(which(degree(s) * (V(s)$type != type) == 
-##                 3))
-##             lambda <- sort(c(E(h, P = tl[1:2, t])$weight - tw, 
-##                 E(h, P = tl[2:3, t])$weight - tw, E(h, P = tl[c(1, 
-##                   3), t])$weight - tw), decreasing = TRUE)
-##             i <- partition.position(lambda) + 1
-##             if (lambda[1] > pw || tw > pw) {
-##                 D <- rbind(D, c(i, 1))
-##             }
-##             else {
-##                 C[i, tw + 1] <- C[i, tw + 1] + 1
-##             }
-##             if (bar) 
-##                 setTxtProgressBar(pb, t)
-##         }
-##         if (bar) 
-##             close(pb)
-##     }
-##     C[1, 1] <- C[1, 1] + choose(vcount(h), 3) - sum(C) - dim(D)[1]
-##     C <- C[, 1:max(which(colSums(C) > 0))]
-##     if (dim(D)[1] > 0) 
-##         D <- aggregate(rep(1, dim(D)[1]), by = list(D[, 1], D[, 
-##             2]), "sum")
-##     return(list(pw, C, D))
-## }
+##         0 1 2
+## (0,0,0) 0 0 0
+## (1,0,0) 0 1 0
+## (1,1,0) 0 3 0
+## (1,1,1) 1 0 0
+## (2,0,0) 0 0 0
+## (2,1,0) 3 0 0
+## (2,1,1) 2 0 0
+## (2,2,0) 0 0 0
+## (2,2,1) 0 0 0
+## (2,2,2) 0 0 0
 ```
 
-```r
-two.mode.triad.census(women)
-```
-
-```
-##   |                                                                         |                                                                 |   0%  |                                                                         |========                                                         |  12%  |                                                                         |================                                                 |  25%  |                                                                         |========================                                         |  38%  |                                                                         |================================                                 |  50%  |                                                                         |=========================================                        |  62%  |                                                                         |=================================================                |  75%  |                                                                         |=========================================================        |  88%  |                                                                         |=================================================================| 100%
-##   |                                                                         |                                                                 |   0%  |                                                                         |================================                                 |  50%  |                                                                         |=================================================================| 100%
-##   |                                                                         |                                                                 |   0%  |                                                                         |===========                                                      |  17%  |                                                                         |======================                                           |  33%  |                                                                         |================================                                 |  50%  |                                                                         |===========================================                      |  67%  |                                                                         |======================================================           |  83%  |                                                                         |=================================================================| 100%
-```
-
-```
-## [[1]]
-## [1] 2
-## 
-## [[2]]
-##    V1 V2
-## 1   0  0
-## 2   0  1
-## 3   0  3
-## 4   1  0
-## 5   0  0
-## 6   3  0
-## 7   2  0
-## 8   0  0
-## 9   0  0
-## 10  0  0
-## 
-## [[3]]
-##      [,1] [,2]
-```
-
-(Note: This function needs to be cleaned up quite a bit.)

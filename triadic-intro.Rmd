@@ -43,8 +43,7 @@ V(women)$type <- !V(women)$type
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
 
 ```{r}
-women.mat <- get.adjacency(women)[1:5, 6:10]
-print(women.mat)
+get.adjacency(women)[1:5, 6:10]
 ```
 
 First let's visualize the network, using the Fruchterman-Reingold algorithm and the visual scheme from [Opsahl's paper][]:
@@ -76,16 +75,22 @@ The individuals and events are pretty evenly connected--three ties each, except 
 
 This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them all. We can view the (undirected) triad census of the one-mode projection, taking the second of the bipartite projections corresponding to the nodes of type 1 (actors) rather than 0 (events):
 
-```{r}
+```{r, results = 'hide'}
 myfn('simple.triad.census.R')
+```
+
+```{r}
 simple.triad.census(bipartite.projection(women)[[2]])
 ```
 
 We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the (currently cumbersome) function 'two.mode.triad.census':
 
-```{r}
+```{r, results = 'hide'}
 myfn('partition.bijections.R')
 myfn('twomode.triad.census.R')
-twomode.triad.census(women)
+```
+
+```{r}
+twomode.triad.census(women, rowcolnames = TRUE)
 ```
 
