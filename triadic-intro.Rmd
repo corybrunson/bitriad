@@ -85,8 +85,7 @@ We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 
 
 ```{r}
 myfn('partition.bijections.R')
-myfn('two.mode.triad.census.R')
-two.mode.triad.census(women)
+myfn('twomode.triad.census.R')
+twomode.triad.census(women)
 ```
 
-(Note: This function needs to be cleaned up quite a bit.)
