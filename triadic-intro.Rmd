@@ -9,15 +9,13 @@ We use the "igraph" package, which provides the class of graphs and the basic su
 
 ```{r}
 library(igraph)
-library(RCurl)
 mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
 mycsv <- function(data.file, ...) {
+  require(RCurl)
   read.csv(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
 }
 source_https <- function(url, ...) {
-  # load package
   require(RCurl)
- 
   # parse and evaluate each .R script
   sapply(c(url, ...), function(u) {
     eval(parse(text = getURL(u, followlocation = TRUE,
@@ -91,3 +89,4 @@ myfn('two.mode.triad.census.R')
 two.mode.triad.census(women)
 ```
 
+(Note: This function needs to be cleaned up quite a bit.)

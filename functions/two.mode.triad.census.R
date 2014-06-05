@@ -1,6 +1,5 @@
 # FUNCTION: Triad census for two-mode networks
 # REQUIRES NAMED NODES OF BOTH MODES IN ORDER TO MATCH PROJECTION AND ORIGINAL
-# OBNOXIOUS WARNING MESSAGES
 two.mode.triad.census <- function(bigraph, type = 1, max.wt = Inf) {
   V(bigraph)$name <- V(bigraph)
   if(vcount(bigraph) == 0) return(list(pw = 0,
