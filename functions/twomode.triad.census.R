@@ -176,7 +176,7 @@ three.tied.triads <- function(
 
 # FUNCTION: Triad census for two-mode networks
 # (Iterates over paths of length 2)
-twomode.triad.census2 <- function(bigraph, type = 0, rowcolnames = FALSE,
+twomode.triad.census2 <- function(bigraph, type = 0, rcnames = FALSE,
                                   verbose = FALSE) {
     # Drop trivial cases
     if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
@@ -230,7 +230,7 @@ twomode.triad.census2 <- function(bigraph, type = 0, rowcolnames = FALSE,
     stopifnot(sum(C) == choose(vcount(graph), 3))
     # Clear names
     colnames(C) <- NULL
-    if(rowcolnames) {
+    if(rcnames) {
         colnames(C) <- 0:(ncol(C) - 1)
         rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
             '(', paste(position.partition(i, k = 3), collapse = ','),

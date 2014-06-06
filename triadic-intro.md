@@ -60,21 +60,7 @@ get.incidence(women)
 ## Miss E      0      1      0     1        1
 ```
 
-First let's visualize the network, using the Fruchterman-Reingold algorithm and the visual scheme from [Opsahl's paper](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/ "Opsahl"):
-
-
-```r
-plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
-     vertex.color = ifelse(V(women)$type == 0, 'SkyBlue2', 'lightcoral'),
-     vertex.shape = ifelse(V(women)$type == 0, 'circle', 'square'),
-     edge.width = 2, edge.color = 'black',
-     vertex.label = c(LETTERS[1:5], 1:5),
-     vertex.label.family = 'sans', vertex.label.color = 'black')
-```
-
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
-
-The layout helps distinguish the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes along parallel lines:
+First let's visualize the network, using the visual scheme from [Opsahl's paper](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/ "Opsahl"):
 
 
 ```r
@@ -87,11 +73,26 @@ plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
      vertex.label.family = 'sans', vertex.label.color = 'black')
 ```
 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
+The individuals and events are pretty evenly connected--three ties each, except for one individal (Miss B) and one event (visiting) having two ties each. The layout clearly distinguishes the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes using the Fruchterman-Reingold algorithm:
+
+
+```r
+set.seed(10)
+plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
+     vertex.color = ifelse(V(women)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(women)$type == 0, 'circle', 'square'),
+     edge.width = 2, edge.color = 'black',
+     vertex.label = c(LETTERS[1:5], 1:5),
+     vertex.label.family = 'sans', vertex.label.color = 'black')
+```
+
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
-The individuals and events are pretty evenly connected--three ties each, except for one individal (Miss B) and one event (visiting) having two ties each.
+This layout reveals a symmetry of the network between its actor and event nodes: Exchanging Miss A and Event 2, Miss B and Event 5, and so on yields a graph isomorphism. Thus any structural information we learn about the actors in this network can be flipped into equivalent information about the events.
 
-This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them all. We can view the (undirected) triad census of the one-mode projection, taking the second of the bipartite projections corresponding to the nodes of type 1 (actors) rather than 0 (events):
+This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them in detail. (Future networks will only be examined cursorily or through statistics.) We can view the (undirected) triad census of the one-mode projection, taking the actor-based one-mode projection:
 
 
 ```r
@@ -100,14 +101,14 @@ myfn('simple.triad.census.R')
 
 
 ```r
-simple.triad.census(bipartite.projection(women)[[2]])
+simple.triad.census(bipartite.projection(women)[[1]])
 ```
 
 ```
 ## [1] 0 0 3 7
 ```
 
-We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the (currently cumbersome) function 'two.mode.triad.census':
+We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the function 'twomode.triad.census':
 
 
 ```r
@@ -117,20 +118,10 @@ myfn('twomode.triad.census.R')
 
 
 ```r
-twomode.triad.census(women, rowcolnames = TRUE)
+twomode.triad.census(women, rcnames = TRUE)
 ```
 
 ```
-##         0 1
-## (0,0,0) 0 0
-## (1,0,0) 0 1
-## (1,1,0) 0 3
-## (1,1,1) 1 0
-## (2,0,0) 0 0
-## (2,1,0) 3 0
-## (2,1,1) 2 0
-## (2,2,0) 0 0
-## (2,2,1) 0 0
-## (2,2,2) 0 0
+## Error: unused argument (rcnames = TRUE)
 ```
 
