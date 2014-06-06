@@ -3,14 +3,14 @@
 # (a) multiple L_4s through the same three primary vertices are counted and
 # (b) chords (edges between nonconsecutive vertices in L_4) are permitted.
 bipartite.transitivity <- function(
-  bigraph, type = 'global', vids = which(V(bigraph)$type == 1),
+  bigraph, type = 'global', vids = which(V(bigraph)$type == 0),
   status = FALSE
 ) {
   # Check that nodes are of common type (requires attribute 'type')
-  stopifnot(all(V(bigraph)$type[vids] == 1) |
-            !any(V(bigraph)$type[vids] == 1))
+  stopifnot(all(V(bigraph)$type[vids] == 0) |
+            !any(V(bigraph)$type[vids] == 0))
   # If global, need to look at all vertices
-  vs <- if(type != 'local') which(V(bigraph)$type == 1) else vids
+  vs <- if(type != 'local') which(V(bigraph)$type == 0) else vids
   if(status) {
     pb <- txtProgressBar(min = 0, max = length(vs), style = 3)
     step <- 0}

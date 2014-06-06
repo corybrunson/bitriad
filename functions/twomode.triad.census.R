@@ -1,6 +1,6 @@
 # FUNCTION: Two-mode dyad census (equivalently, distribution of edge weights
 # in the one-mode projection when edges are weighted by shared event count)
-twomode.dyad.census <- function(bigraph, type = 1) {
+twomode.dyad.census <- function(bigraph, type = 0) {
     graph <- bipartite.projection(bigraph, multiplicity = TRUE)[[1 + type]]
     disconnected <- choose(vcount(graph), 2) - ecount(graph)
     return(c('0' = if(disconnected == 0) NULL else disconnected,
@@ -10,7 +10,7 @@ twomode.dyad.census <- function(bigraph, type = 1) {
 # FUNCTION: Produce a one-mode projection onto nodes of the given type
 # so that the names of the projection nodes are the indices of their
 # counterparts in the original bigraph
-onemode.projection <- function(bigraph, type = 1, name = 'name') {
+onemode.projection <- function(bigraph, type = 0, name = 'name') {
     if(name == 'id') V(bigraph)$name <- V(bigraph)
     return(bipartite.projection(bigraph, multiplicity = TRUE)[[1 + type]])
 }
@@ -42,7 +42,7 @@ edge.weight <- function(graph, vp) {
 
 # FUNCTION: Count open and closed wedges, subtracting triad weight if nonzero
 connected.triples <- function(
-    bigraph, type = 1,
+    bigraph, type = 0,
     # Construct the one-mode projection if it's not already prepared
     graph = onemode.projection(bigraph, type = type, name = 'id')
     ) {
@@ -74,7 +74,7 @@ connected.triples <- function(
 
 # FUNCTION: Triad census for two-mode networks
 # (Iterates over nodes)
-twomode.triad.census1 <- function(bigraph, type = 1, rcnames = FALSE,
+twomode.triad.census1 <- function(bigraph, type = 0, rcnames = FALSE,
                                   verbose = FALSE) {
     # Drop trivial cases
     if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
@@ -152,7 +152,7 @@ two.tied.triads <- function(graph) {
 
 # FUNCTION: Tally triangles, subtracting triad weight if nonzero
 three.tied.triads <- function(
-    bigraph, type = 1,
+    bigraph, type = 0,
     # Construct the one-mode projection if it's not already prepared
     graph = onemode.projection(bigraph, type = type, name = 'id')
 ) {
@@ -176,7 +176,7 @@ three.tied.triads <- function(
 
 # FUNCTION: Triad census for two-mode networks
 # (Iterates over paths of length 2)
-twomode.triad.census2 <- function(bigraph, type = 1, rowcolnames = FALSE,
+twomode.triad.census2 <- function(bigraph, type = 0, rowcolnames = FALSE,
                                   verbose = FALSE) {
     # Drop trivial cases
     if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))

@@ -3,9 +3,7 @@ Triadic analyses of two-mode networks
 
 The paper "Triadic analysis for two-mode networks" makes a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This R Markdown file will apply these tools to the study of several manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
 
-We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the github account corybrunson; the function 'source_https' is taken from [tonybreyal][].
-
-[tonybreyal] http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal"
+We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the github account corybrunson; the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
 
 
 ```r
@@ -46,36 +44,29 @@ women <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
 ## Loading required package: bitops
 ```
 
-```r
-V(women)$type <- !V(women)$type
-```
-
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
 
 
 ```r
-get.adjacency(women)[1:5, 6:10]
+get.incidence(women)
 ```
 
 ```
-## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##        Bridge Dinner Movies Dance Visiting
-## Miss A      1      .      1     1        .
-## Miss B      .      .      1     1        .
-## Miss C      1      1      .     .        1
-## Miss D      1      1      1     .        .
-## Miss E      .      1      .     1        1
+## Miss A      1      0      1     1        0
+## Miss B      0      0      1     1        0
+## Miss C      1      1      0     0        1
+## Miss D      1      1      1     0        0
+## Miss E      0      1      0     1        1
 ```
 
-First let's visualize the network, using the Fruchterman-Reingold algorithm and the visual scheme from [Opsahl's paper][]:
-
-[Opsahl's paper] http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/ "Opsahl"
+First let's visualize the network, using the Fruchterman-Reingold algorithm and the visual scheme from [Opsahl's paper](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/ "Opsahl"):
 
 
 ```r
 plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
-     vertex.color = rep(c('SkyBlue2', 'lightcoral'), times = c(5, 5)),
-     vertex.shape = rep(c('circle', 'square'), times = c(5, 5)),
+     vertex.color = ifelse(V(women)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(women)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'black')
@@ -89,8 +80,8 @@ The layout helps distinguish the nodes but offers only indirect insight into the
 ```r
 plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
                               rep(c(1, -1), each = 5)), nc = 2),
-     vertex.color = rep(c('SkyBlue2', 'lightcoral'), times = c(5, 5)),
-     vertex.shape = rep(c('circle', 'square'), times = c(5, 5)),
+     vertex.color = ifelse(V(women)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(women)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'black')
@@ -130,16 +121,16 @@ twomode.triad.census(women, rowcolnames = TRUE)
 ```
 
 ```
-##         0 1 2
-## (0,0,0) 0 0 0
-## (1,0,0) 0 1 0
-## (1,1,0) 0 3 0
-## (1,1,1) 1 0 0
-## (2,0,0) 0 0 0
-## (2,1,0) 3 0 0
-## (2,1,1) 2 0 0
-## (2,2,0) 0 0 0
-## (2,2,1) 0 0 0
-## (2,2,2) 0 0 0
+##         0 1
+## (0,0,0) 0 0
+## (1,0,0) 0 1
+## (1,1,0) 0 3
+## (1,1,1) 1 0
+## (2,0,0) 0 0
+## (2,1,0) 3 0
+## (2,1,1) 2 0
+## (2,2,0) 0 0
+## (2,2,1) 0 0
+## (2,2,2) 0 0
 ```
 

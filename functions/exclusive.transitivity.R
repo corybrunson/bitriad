@@ -1,11 +1,11 @@
 # exclusive clustering (Brunson)
 Exclusive.transitivity <- function(
-  bigraph, type = 'global', vids = V(bigraph)[V(bigraph)$type == 1]
+  bigraph, type = 'global', vids = V(bigraph)[V(bigraph)$type == 0]
 ) {
   # Check that nodes are of common type (requires attribute 'type')
-  stopifnot(all(V(bigraph)$type[vids] == 1) | !any(V(bigraph)$type[vids] == 1))
+  stopifnot(all(V(bigraph)$type[vids] == 0) | !any(V(bigraph)$type[vids] == 0))
   # If global, need to look at all vertices
-  vs <- if(type != 'local') V(bigraph)[V(bigraph)$type == 1] else vids
+  vs <- if(type != 'local') V(bigraph)[V(bigraph)$type == 0] else vids
   # Array of vees with pairwise exclusive collaborations
   # and an indicator of triadic exclusive collaborations below
   L4 <- matrix(unlist(lapply(vs, function(v) {
