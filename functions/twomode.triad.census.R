@@ -74,7 +74,8 @@ connected.triples <- function(
 
 # FUNCTION: Triad census for two-mode networks
 # (Iterates over nodes)
-twomode.triad.census1 <- function(bigraph, type = 1, rcnames = FALSE) {
+twomode.triad.census1 <- function(bigraph, type = 1, rcnames = FALSE,
+                                  verbose = FALSE) {
     # Drop trivial cases
     if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
     # Create one-mode projection
@@ -90,6 +91,7 @@ twomode.triad.census1 <- function(bigraph, type = 1, rcnames = FALSE) {
     # Insert the totals at the proper entries of C
     # (No repeats, so no information loss)
     C[sapply(ot$x, function(x) partition.position(c(x, 0, 0))) + 1, 1] <- ot$n
+    if(verbose) print('One-tied triads tallied')
     
     # Tally connected triples (be sure to specify consistent type)
     ct <- connected.triples(bigraph, type = type, graph = graph)
@@ -98,6 +100,8 @@ twomode.triad.census1 <- function(bigraph, type = 1, rcnames = FALSE) {
     C <- C[, 1:(max.w + 1)]
     # For each value of w:
     for(w in 0:max.w) {
+        if(verbose) print(paste('Tallying weight-', w, ' connected triples',
+                                sep = ''))
         # Which rows have weight w?
         rs <- which(ct$w == w)
         # Insert the totals at the proper rows in column w + 1 of C
@@ -106,6 +110,7 @@ twomode.triad.census1 <- function(bigraph, type = 1, rcnames = FALSE) {
             partition.position(as.numeric(ct[i, 1:3])) + 1
         }), w + 1] <- ct$n[rs]
     }
+    if(verbose) print('Connected triples tallied')
     
     # The remaining triads share no secondary nodes; count them as empty
     # (No triads should have yet been counted as empty)
@@ -171,7 +176,8 @@ three.tied.triads <- function(
 
 # FUNCTION: Triad census for two-mode networks
 # (Iterates over paths of length 2)
-twomode.triad.census2 <- function(bigraph, type = 1, rowcolnames = FALSE) {
+twomode.triad.census2 <- function(bigraph, type = 1, rowcolnames = FALSE,
+                                  verbose = FALSE) {
     # Drop trivial cases
     if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
     # Create one-mode projection
@@ -187,6 +193,7 @@ twomode.triad.census2 <- function(bigraph, type = 1, rowcolnames = FALSE) {
     # Insert the totals at the proper entries of C
     # (Aggregated, so no repeats, so no information loss)
     C[sapply(ot$x, function(x) partition.position(c(x, 0, 0))) + 1, 1] <- ot$n
+    if(verbose) print('One-tied triads tallied')
     
     # Tally two-tied triads
     tt <- two.tied.triads(graph)
@@ -195,6 +202,7 @@ twomode.triad.census2 <- function(bigraph, type = 1, rowcolnames = FALSE) {
     C[sapply(1:dim(tt)[1], function(i) {
         partition.position(c(tt[i, 1], tt[i, 2], 0))
     }) + 1, 1] <- tt$n
+    if(verbose) print('Two-tied triads tallied')
     
     # Tally triangles
     tht <- three.tied.triads(bigraph, type = type, graph = graph)
@@ -203,6 +211,8 @@ twomode.triad.census2 <- function(bigraph, type = 1, rowcolnames = FALSE) {
     C <- C[, 1:(max.w + 1)]
     # For each value of w:
     for(w in 0:max.w) {
+        if(verbose) print(paste('Tallying weight-', w, ' three-tied triads',
+                                sep = ''))
         # Which rows have weight w?
         rs <- which(tht$w == w)
         # Insert the totals at the proper rows in column w + 1 of C
@@ -211,6 +221,7 @@ twomode.triad.census2 <- function(bigraph, type = 1, rowcolnames = FALSE) {
             partition.position(as.numeric(tht[i, 1:3])) + 1
         }), w + 1] <- tht$n[rs]
     }
+    if(verbose) print('Three-tied triads tallied')
     
     # The remaining triads share no secondary nodes; count them as empty
     # (No triads should have yet been counted as empty)
