@@ -1,5 +1,5 @@
 # exclusive clustering (Brunson)
-Exclusive.transitivity <- function(
+exclusive.transitivity <- function(
   bigraph, type = 'global', vids = V(bigraph)[V(bigraph)$type == 0]
 ) {
   # Check that nodes are of common type (requires attribute 'type')
