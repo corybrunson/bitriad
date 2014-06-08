@@ -151,6 +151,18 @@ tc2CO(tmtc)
 ```
 
 
+```r
+global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc),
+               C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
+global.c1
+```
+
+```
+##      C    C.O    C.N    C.X 
+## 0.8750 0.6111 0.7826 0.6000
+```
+
+
 
 ### Local clustering coefficients
 
@@ -160,7 +172,8 @@ The classical local clustering coeffiicent at a node Q is the proportion of pair
 
 
 ```r
-transitivity(onemode.projection(women), type = 'local')
+local.c <- transitivity(onemode.projection(women), type = 'local')
+local.c
 ```
 
 ```
@@ -171,11 +184,44 @@ Our two-mode-sensitive candidates, as implemented independently (rather than thr
 
 
 ```r
-cbind(bipartite.transitivity(women), type = 'local',
-      inclusive.transitivity(women), type = 'local',
-      exclusive.transitivity(women), type = 'local')
+local.c.df <- cbind(c = local.c,
+                     c.O = bipartite.transitivity(women, type = 'local'),
+                     c.N = inclusive.transitivity(women, type = 'local'),
+                     c.X = exclusive.transitivity(women, type = 'local'))
+```
+
+![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-171.png) ![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-172.png) ![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-173.png) ![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-174.png) ![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-175.png) ![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-176.png) 
+
+```r
+rownames(local.c.df) <- V(onemode.projection(women))$name
+local.c.df
 ```
 
 ```
-## Error: could not find function "exclusive.transitivity"
+##             c    c.O    c.N  c.X
+## Miss A 0.8333 0.5000 0.6667 0.50
+## Miss B 1.0000 0.6667 0.6667 1.00
+## Miss C 1.0000 0.6667 1.0000 0.50
+## Miss D 0.8333 0.6000 0.8333 0.50
+## Miss E 0.8333 0.7143 0.8000 0.75
 ```
+
+As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census:
+
+
+```r
+global.c2 <- c(transitivity(onemode.projection(women)),
+               bipartite.transitivity(women),
+               inclusive.transitivity(women),
+               exclusive.transitivity(women))
+data.frame(Census = global.c1, Separate = global.c2)
+```
+
+```
+##     Census Separate
+## C   0.8750   0.8750
+## C.O 0.6111   0.6111
+## C.N 0.7826   0.7826
+## C.X 0.6000   0.6000
+```
+

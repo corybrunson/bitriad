@@ -1,5 +1,5 @@
 # Hall's criterion for the existence of a system of distinct representatives
-sdr.criterion <- function(lst) all(sapply(0:(2 ^ length(lst) - 1), function(i) {
+hall.criterion <- function(lst) all(sapply(0:(2 ^ length(lst) - 1), function(i) {
   w <- which(intToBits(i) == 1)
   length(unique(unlist(lst[w]))) >= length(w)
 }))
@@ -33,9 +33,9 @@ inclusive.transitivity <- function(
       # If only one affiliation links either of them to v then no L_4 or C_6
       if(length(intersect(n1, unique(unlist(n1s)))) == 1) c(F, F) else
       # Otherwise L_4 and, provided Hall criterion is met, C_6
-        c(T, sdr.criterion(list(intersect(n1, n1s[[1]]),
-                                intersect(n1, n1s[[2]]),
-                                m)))
+        c(T, hall.criterion(list(intersect(n1, n1s[[1]]),
+                                 intersect(n1, n1s[[2]]),
+                                 m)))
     })
     # Restrict p to only those pairs that form L_4s with v at the center
     wh <- which(lc[1, ])

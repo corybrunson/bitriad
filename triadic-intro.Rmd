@@ -123,6 +123,12 @@ In the paper "Triadic analysis for two-mode networks", i discuss in detail three
 tc2CO(tmtc)
 ```
 
+```{r}
+global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc),
+               C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
+global.c1
+```
+
 ```{r, echo = FALSE, results = 'hide'}
 myfn('bipartite.transitivity.R')
 myfn('inclusive.transitivity.R')
@@ -136,13 +142,28 @@ So far we have only tried to gauge transitivity tendencies in the network as a w
 The classical local clustering coeffiicent at a node Q is the proportion of pairs of neighbors of Q who are themselves neighobrs. From the images above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Miss B and Miss C among their neighobrs) and 1 (for Miss B and Miss C). To verify, we specify the type to 'local' in the base igraph function:
 
 ```{r}
-transitivity(onemode.projection(women), type = 'local')
+local.c <- transitivity(onemode.projection(women), type = 'local')
+local.c
 ```
 
 Our two-mode-sensitive candidates, as implemented independently (rather than through the two-mode triad census) are specialized with a similar local option for type:
 
 ```{r}
-cbind(bipartite.transitivity(women), type = 'local',
-      inclusive.transitivity(women), type = 'local',
-      exclusive.transitivity(women), type = 'local')
+local.c.df <- cbind(c = local.c,
+                     c.O = bipartite.transitivity(women, type = 'local'),
+                     c.N = inclusive.transitivity(women, type = 'local'),
+                     c.X = exclusive.transitivity(women, type = 'local'))
+rownames(local.c.df) <- V(onemode.projection(women))$name
+local.c.df
 ```
+
+As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census:
+
+```{r}
+global.c2 <- c(transitivity(onemode.projection(women)),
+               bipartite.transitivity(women),
+               inclusive.transitivity(women),
+               exclusive.transitivity(women))
+data.frame(Census = global.c1, Separate = global.c2)
+```
+
