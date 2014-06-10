@@ -25,7 +25,7 @@ myscript <- function(src.file) source_https(paste(mydir, src.file, sep = ''))
 myfn <- function(fn.file) {
   source_https(paste(mydir, 'functions/', fn.file, sep = ''))
 }
-mysrc('scripts/triadic.R')
+myscript('scripts/triadic.R')
 ```
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
