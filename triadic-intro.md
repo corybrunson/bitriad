@@ -7,11 +7,37 @@ We use the "igraph" package, which provides the class of graphs and the basic su
 
 
 ```r
+mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
+mycsv <- function(data.file, ...) {
+  require(RCurl)
+  read.csv(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
+}
+source_https <- function(url, ...) {
+  require(RCurl)
+  # parse and evaluate each .R script
+  sapply(c(url, ...), function(u) {
+    eval(parse(text = getURL(u, followlocation = TRUE,
+                             cainfo = system.file("CurlSSL", "cacert.pem",
+                                                  package = "RCurl"))),
+         envir = .GlobalEnv)
+  })
+}
+mysrc <- function(src.file) source_https(paste(mydir, src.file, sep = ''))
+myfn <- function(fn.file) {
+  source_https(paste(mydir, 'functions/', fn.file, sep = ''))
+}
 mysrc('scripts/triadic.R')
 ```
 
 ```
-## Error: could not find function "mysrc"
+## Loading required package: RCurl
+## Loading required package: bitops
+```
+
+```
+## Error: <text>:1:5: unexpected symbol
+## 1: Not Found
+##         ^
 ```
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
@@ -25,10 +51,6 @@ In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two
 women <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
 ```
 
-```
-## Error: could not find function "graph.incidence"
-```
-
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
 
 
@@ -37,7 +59,12 @@ get.incidence(women)
 ```
 
 ```
-## Error: could not find function "get.incidence"
+##        Bridge Dinner Movies Dance Visiting
+## Miss A      1      0      1     1        0
+## Miss B      0      0      1     1        0
+## Miss C      1      1      0     0        1
+## Miss D      1      1      1     0        0
+## Miss E      0      1      0     1        1
 ```
 
 ### Visualization
@@ -55,10 +82,6 @@ plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
      vertex.label.family = 'sans', vertex.label.color = 'black')
 ```
 
-```
-## Error: could not find function "V"
-```
-
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
 The individuals and events are pretty evenly connected--three ties each, except for one individal (Miss B) and one event (visiting) having two ties each. The layout clearly distinguishes the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes using the Fruchterman-Reingold algorithm:
@@ -72,10 +95,6 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
      edge.width = 2, edge.color = 'black',
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'black')
-```
-
-```
-## Error: could not find function "layout.fruchterman.reingold"
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
@@ -167,7 +186,7 @@ C
 ##     }
 ##     object
 ## }
-## <bytecode: 0x7fb03bd4f8d8>
+## <bytecode: 0x7f8795e6f468>
 ## <environment: namespace:stats>
 ```
 
@@ -176,9 +195,6 @@ The value tells us what proportion of the time each pair of three women have co-
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
 
 
-```
-## Error: could not find function "myfn"
-```
 
 
 ```r
@@ -206,7 +222,7 @@ global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.N = tc2Cin(tmtc), C.X = tc2C
 ```
 
 ```
-## Error: could not find function "tc2C"
+## Error: object 'tmtc' not found
 ```
 
 ```r
