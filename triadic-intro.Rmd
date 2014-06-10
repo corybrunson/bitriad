@@ -5,7 +5,7 @@ The paper "Triadic analysis for two-mode networks" will make a case for adopting
 
 We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the github account corybrunson; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
 
-```{r, echo = FALSE, results = 'hide'}
+```{r, echo = FALSE, results = 'hide', message = FALSE}
 mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
 mycsv <- function(data.file, ...) {
   require(RCurl)
@@ -83,7 +83,7 @@ stc
 
 We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the function 'twomode.triad.census':
 
-```{r, cache = TRUE}
+```{r}
 tmtc <- twomode.triad.census(women, rcnames = TRUE)
 tmtc
 ```
@@ -105,13 +105,13 @@ Naturally, this diagnostic can also be recovered from the two-mode census; for t
 myfn('tc2ccs.R')
 ```
 
-```{r, cache = TRUE}
+```{r}
 tc2C(tmtc)
 ```
 
 In the paper "Triadic analysis for two-mode networks", i discuss in detail three alternative clustering coefficients specifically designed for two-mode networks. The first of these is [Opsahl's]((http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/):
 
-```{r, cache = TRUE}
+```{r}
 tc2CO(tmtc)
 ```
 

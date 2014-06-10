@@ -6,18 +6,6 @@ The paper "Triadic analysis for two-mode networks" will make a case for adopting
 We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the github account corybrunson; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
 
 
-```
-## Loading required package: RCurl
-## Loading required package: bitops
-```
-
-```
-## Warning: unsupported URL scheme
-```
-
-```
-## Error: cannot open the connection
-```
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
 
@@ -87,18 +75,12 @@ This social network is just large enough exhibit a diversity of triads and just 
 
 ```r
 stc <- simple.triad.census(bipartite.projection(women)[[1]], rcnames = TRUE)
-```
-
-```
-## Error: could not find function "simple.triad.census"
-```
-
-```r
 stc
 ```
 
 ```
-## Error: object 'stc' not found
+## 0 1 2 3 
+## 0 0 3 7
 ```
 
 We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the function 'twomode.triad.census':
@@ -106,18 +88,21 @@ We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 
 
 ```r
 tmtc <- twomode.triad.census(women, rcnames = TRUE)
-```
-
-```
-## Error: could not find function "twomode.triad.census"
-```
-
-```r
 tmtc
 ```
 
 ```
-## Error: object 'tmtc' not found
+##         0 1
+## (0,0,0) 0 0
+## (1,0,0) 0 1
+## (1,1,0) 0 3
+## (1,1,1) 1 0
+## (2,0,0) 0 0
+## (2,1,0) 3 0
+## (2,1,1) 2 0
+## (2,2,0) 0 0
+## (2,2,1) 0 0
+## (2,2,2) 0 0
 ```
 
 The arrangement is far less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all--even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
@@ -127,46 +112,12 @@ The classical (global) clustering coefficient for a one-mode network may be defi
 
 ```r
 C <- 3 * stc[4] / (stc[3] + 3 * stc[4])
-```
-
-```
-## Error: object 'stc' not found
-```
-
-```r
 C
 ```
 
 ```
-## function (object, contr, how.many, ...) 
-## {
-##     if (!nlevels(object)) 
-##         stop("object not interpretable as a factor")
-##     if (!missing(contr) && is.name(Xcontr <- substitute(contr))) 
-##         contr <- switch(as.character(Xcontr), poly = "contr.poly", 
-##             helmert = "contr.helmert", sum = "contr.sum", treatment = "contr.treatment", 
-##             SAS = "contr.SAS", contr)
-##     if (missing(contr)) {
-##         oc <- getOption("contrasts")
-##         contr <- if (length(oc) < 2L) 
-##             if (is.ordered(object)) 
-##                 contr.poly
-##             else contr.treatment
-##         else oc[1 + is.ordered(object)]
-##     }
-##     if (missing(how.many) && missing(...)) 
-##         contrasts(object) <- contr
-##     else {
-##         if (is.character(contr)) 
-##             contr <- get(contr, mode = "function")
-##         if (is.function(contr)) 
-##             contr <- contr(nlevels(object), ...)
-##         contrasts(object, how.many) <- contr
-##     }
-##     object
-## }
-## <bytecode: 0x7fd4d4176b88>
-## <environment: namespace:stats>
+##     3 
+## 0.875
 ```
 
 The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity--the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
@@ -181,7 +132,7 @@ tc2C(tmtc)
 ```
 
 ```
-## Error: could not find function "tc2C"
+## [1] 0.875
 ```
 
 In the paper "Triadic analysis for two-mode networks", i discuss in detail three alternative clustering coefficients specifically designed for two-mode networks. The first of these is [Opsahl's]((http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/):
@@ -192,24 +143,18 @@ tc2CO(tmtc)
 ```
 
 ```
-## Error: could not find function "tc2CO"
+## [1] 0.6111
 ```
 
 
 ```r
 global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
-```
-
-```
-## Error: object 'tmtc' not found
-```
-
-```r
 global.c1
 ```
 
 ```
-## Error: object 'global.c1' not found
+##      C    C.O    C.N    C.X 
+## 0.8750 0.6111 0.7826 0.6000
 ```
 
 ### Local clustering coefficients
@@ -221,18 +166,11 @@ The classical local clustering coeffiicent at a node Q is the proportion of pair
 
 ```r
 local.c <- transitivity(onemode.projection(women), type = 'local')
-```
-
-```
-## Error: could not find function "onemode.projection"
-```
-
-```r
 local.c
 ```
 
 ```
-## Error: object 'local.c' not found
+## [1] 0.8333 1.0000 1.0000 0.8333 0.8333
 ```
 
 Our two-mode-sensitive candidates, as implemented independently (rather than through the two-mode triad census) are specialized with a similar local option for type:
@@ -243,26 +181,17 @@ local.c.df <- cbind(c = local.c,
                     c.O = opsahl.transitivity(women, type = 'local'),
                     c.N = incl.transitivity(women, type = 'local'),
                     c.X = excl.transitivity(women, type = 'local'))
-```
-
-```
-## Error: object 'local.c' not found
-```
-
-```r
 rownames(local.c.df) <- V(onemode.projection(women))$name
-```
-
-```
-## Error: could not find function "onemode.projection"
-```
-
-```r
 local.c.df
 ```
 
 ```
-## Error: object 'local.c.df' not found
+##             c    c.O    c.N  c.X
+## Miss A 0.8333 0.5000 0.6667 0.50
+## Miss B 1.0000 0.6667 0.6667 1.00
+## Miss C 1.0000 0.6667 1.0000 0.50
+## Miss D 0.8333 0.6000 0.8333 0.50
+## Miss E 0.8333 0.7143 0.8000 0.75
 ```
 
 ### Comparison between implementations
@@ -275,17 +204,14 @@ global.c2 <- c(transitivity(onemode.projection(women)),
                opsahl.transitivity(women),
                incl.transitivity(women),
                excl.transitivity(women))
-```
-
-```
-## Error: could not find function "onemode.projection"
-```
-
-```r
 data.frame(Census = global.c1, Separate = global.c2)
 ```
 
 ```
-## Error: object 'global.c1' not found
+##     Census Separate
+## C   0.8750   0.8750
+## C.O 0.6111   0.6111
+## C.N 0.7826   0.7826
+## C.X 0.6000   0.6000
 ```
 

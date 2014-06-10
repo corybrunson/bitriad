@@ -185,16 +185,6 @@ hljs.initHighlightingOnLoad();
 
 <p>We use the &ldquo;igraph&rdquo; package, which provides the class of graphs and the basic suite of tools we build upon. We&#39;ll also read data and functions from the github account corybrunson; the custom functions below make use of the function &#39;source_https&#39; is taken from <a href="http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/" title="tonybreyal">tonybreyal</a>.</p>
 
-<pre><code>## Loading required package: RCurl
-## Loading required package: bitops
-</code></pre>
-
-<pre><code>## Warning: unsupported URL scheme
-</code></pre>
-
-<pre><code>## Error: cannot open the connection
-</code></pre>
-
 <p>The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.</p>
 
 <h2>Network 1: Southern women</h2>
@@ -252,29 +242,30 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
 <p>This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them in detail. (Future networks will only be examined cursorily or through statistics.) We can view the (undirected) triad census of the one-mode projection, taking the actor-based one-mode projection:</p>
 
 <pre><code class="r">stc &lt;- simple.triad.census(bipartite.projection(women)[[1]], rcnames = TRUE)
+stc
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;simple.triad.census&quot;
-</code></pre>
-
-<pre><code class="r">stc
-</code></pre>
-
-<pre><code>## Error: object &#39;stc&#39; not found
+<pre><code>## 0 1 2 3 
+## 0 0 3 7
 </code></pre>
 
 <p>We have no disconnected triples at all; only three &#39;wedges&#39; or &#39;vees&#39; and seven &#39;triangles&#39;. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the function &#39;twomode.triad.census&#39;:</p>
 
 <pre><code class="r">tmtc &lt;- twomode.triad.census(women, rcnames = TRUE)
+tmtc
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;twomode.triad.census&quot;
-</code></pre>
-
-<pre><code class="r">tmtc
-</code></pre>
-
-<pre><code>## Error: object &#39;tmtc&#39; not found
+<pre><code>##         0 1
+## (0,0,0) 0 0
+## (1,0,0) 0 1
+## (1,1,0) 0 3
+## (1,1,1) 1 0
+## (2,0,0) 0 0
+## (2,1,0) 3 0
+## (2,1,1) 2 0
+## (2,2,0) 0 0
+## (2,2,1) 0 0
+## (2,2,2) 0 0
 </code></pre>
 
 <p>The arrangement is far less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all&ndash;even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the &ldquo;triad weight&rdquo; that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).</p>
@@ -282,43 +273,11 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
 <p>The classical (global) clustering coefficient for a one-mode network may be defined either as the proportion of &ldquo;wedges&rdquo; that are &ldquo;closed&rdquo; or as the ratio of (three times) the number of &ldquo;triangles&rdquo; to the number of &ldquo;wedges&rdquo;. Here wedges are 2-paths, distinguished by the relative positions of the nodes but not by their progression, and a wedge is considered closed if its end nodes are tied. (To avoid confusion i won&#39;t get into the other definition.) Since every triad of three edges counts thrice as a closed wedge, we can compute the clustering coefficient of the one-mode projection directly from the simple census:</p>
 
 <pre><code class="r">C &lt;- 3 * stc[4] / (stc[3] + 3 * stc[4])
+C
 </code></pre>
 
-<pre><code>## Error: object &#39;stc&#39; not found
-</code></pre>
-
-<pre><code class="r">C
-</code></pre>
-
-<pre><code>## function (object, contr, how.many, ...) 
-## {
-##     if (!nlevels(object)) 
-##         stop(&quot;object not interpretable as a factor&quot;)
-##     if (!missing(contr) &amp;&amp; is.name(Xcontr &lt;- substitute(contr))) 
-##         contr &lt;- switch(as.character(Xcontr), poly = &quot;contr.poly&quot;, 
-##             helmert = &quot;contr.helmert&quot;, sum = &quot;contr.sum&quot;, treatment = &quot;contr.treatment&quot;, 
-##             SAS = &quot;contr.SAS&quot;, contr)
-##     if (missing(contr)) {
-##         oc &lt;- getOption(&quot;contrasts&quot;)
-##         contr &lt;- if (length(oc) &lt; 2L) 
-##             if (is.ordered(object)) 
-##                 contr.poly
-##             else contr.treatment
-##         else oc[1 + is.ordered(object)]
-##     }
-##     if (missing(how.many) &amp;&amp; missing(...)) 
-##         contrasts(object) &lt;- contr
-##     else {
-##         if (is.character(contr)) 
-##             contr &lt;- get(contr, mode = &quot;function&quot;)
-##         if (is.function(contr)) 
-##             contr &lt;- contr(nlevels(object), ...)
-##         contrasts(object, how.many) &lt;- contr
-##     }
-##     object
-## }
-## &lt;bytecode: 0x7fd4d4176b88&gt;
-## &lt;environment: namespace:stats&gt;
+<pre><code>##     3 
+## 0.875
 </code></pre>
 
 <p>The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity&ndash;the tendency for near-connections to indicate direct connections, or for &ldquo;friends of friends&rdquo; to in fact be &ldquo;friends&rdquo;.</p>
@@ -328,7 +287,7 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
 <pre><code class="r">tc2C(tmtc)
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;tc2C&quot;
+<pre><code>## [1] 0.875
 </code></pre>
 
 <p>In the paper &ldquo;Triadic analysis for two-mode networks&rdquo;, i discuss in detail three alternative clustering coefficients specifically designed for two-mode networks. The first of these is <a href="(http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/">Opsahl&#39;s</a>:</p>
@@ -336,19 +295,15 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
 <pre><code class="r">tc2CO(tmtc)
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;tc2CO&quot;
+<pre><code>## [1] 0.6111
 </code></pre>
 
 <pre><code class="r">global.c1 &lt;- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
+global.c1
 </code></pre>
 
-<pre><code>## Error: object &#39;tmtc&#39; not found
-</code></pre>
-
-<pre><code class="r">global.c1
-</code></pre>
-
-<pre><code>## Error: object &#39;global.c1&#39; not found
+<pre><code>##      C    C.O    C.N    C.X 
+## 0.8750 0.6111 0.7826 0.6000
 </code></pre>
 
 <h3>Local clustering coefficients</h3>
@@ -358,15 +313,10 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
 <p>The classical local clustering coeffiicent at a node Q is the proportion of pairs of neighbors of Q who are themselves neighobrs. From the images above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we&#39;ll observe are 5/6 (for women who count Miss B and Miss C among their neighobrs) and 1 (for Miss B and Miss C). To verify, we specify the type to &#39;local&#39; in the base igraph function:</p>
 
 <pre><code class="r">local.c &lt;- transitivity(onemode.projection(women), type = &#39;local&#39;)
+local.c
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;onemode.projection&quot;
-</code></pre>
-
-<pre><code class="r">local.c
-</code></pre>
-
-<pre><code>## Error: object &#39;local.c&#39; not found
+<pre><code>## [1] 0.8333 1.0000 1.0000 0.8333 0.8333
 </code></pre>
 
 <p>Our two-mode-sensitive candidates, as implemented independently (rather than through the two-mode triad census) are specialized with a similar local option for type:</p>
@@ -375,21 +325,16 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
                     c.O = opsahl.transitivity(women, type = &#39;local&#39;),
                     c.N = incl.transitivity(women, type = &#39;local&#39;),
                     c.X = excl.transitivity(women, type = &#39;local&#39;))
+rownames(local.c.df) &lt;- V(onemode.projection(women))$name
+local.c.df
 </code></pre>
 
-<pre><code>## Error: object &#39;local.c&#39; not found
-</code></pre>
-
-<pre><code class="r">rownames(local.c.df) &lt;- V(onemode.projection(women))$name
-</code></pre>
-
-<pre><code>## Error: could not find function &quot;onemode.projection&quot;
-</code></pre>
-
-<pre><code class="r">local.c.df
-</code></pre>
-
-<pre><code>## Error: object &#39;local.c.df&#39; not found
+<pre><code>##             c    c.O    c.N  c.X
+## Miss A 0.8333 0.5000 0.6667 0.50
+## Miss B 1.0000 0.6667 0.6667 1.00
+## Miss C 1.0000 0.6667 1.0000 0.50
+## Miss D 0.8333 0.6000 0.8333 0.50
+## Miss E 0.8333 0.7143 0.8000 0.75
 </code></pre>
 
 <h3>Comparison between implementations</h3>
@@ -400,15 +345,14 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
                opsahl.transitivity(women),
                incl.transitivity(women),
                excl.transitivity(women))
+data.frame(Census = global.c1, Separate = global.c2)
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;onemode.projection&quot;
-</code></pre>
-
-<pre><code class="r">data.frame(Census = global.c1, Separate = global.c2)
-</code></pre>
-
-<pre><code>## Error: object &#39;global.c1&#39; not found
+<pre><code>##     Census Separate
+## C   0.8750   0.8750
+## C.O 0.6111   0.6111
+## C.N 0.7826   0.7826
+## C.X 0.6000   0.6000
 </code></pre>
 
 </body>
