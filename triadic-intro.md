@@ -186,7 +186,7 @@ C
 ##     }
 ##     object
 ## }
-## <bytecode: 0x7f8795e6f468>
+## <bytecode: 0x7fdb8583eb10>
 ## <environment: namespace:stats>
 ```
 

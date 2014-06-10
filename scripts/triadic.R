@@ -29,6 +29,5 @@ myfn('partition.bijections.R')
 myfn('twomode.transitivity.R')
 
 # Triad census functions
-myfn('simple.triad.census.R')
 myfn('twomode.triad.census.R')
 myfn('tc2ccs.R')
