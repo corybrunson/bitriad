@@ -130,9 +130,7 @@ global.c1
 ```
 
 ```{r, echo = FALSE, results = 'hide'}
-myfn('bipartite.transitivity.R')
-myfn('inclusive.transitivity.R')
-myfn('exclusive.transitivity.R')
+myfn('twomode.transitivity.R')
 ```
 
 ### Local clustering coefficients
@@ -150,9 +148,9 @@ Our two-mode-sensitive candidates, as implemented independently (rather than thr
 
 ```{r}
 local.c.df <- cbind(c = local.c,
-                     c.O = bipartite.transitivity(women, type = 'local'),
-                     c.N = inclusive.transitivity(women, type = 'local'),
-                     c.X = exclusive.transitivity(women, type = 'local'))
+                     c.O = opsahl.transitivity(women, type = 'local'),
+                     c.N = incl.transitivity(women, type = 'local'),
+                     c.X = excl.transitivity(women, type = 'local'))
 rownames(local.c.df) <- V(onemode.projection(women))$name
 local.c.df
 ```
@@ -161,9 +159,9 @@ As a reality check, we can test the 'global' option for type of these implementa
 
 ```{r}
 global.c2 <- c(transitivity(onemode.projection(women)),
-               bipartite.transitivity(women),
-               inclusive.transitivity(women),
-               exclusive.transitivity(women))
+               opsahl.transitivity(women),
+               incl.transitivity(women),
+               excl.transitivity(women))
 data.frame(Census = global.c1, Separate = global.c2)
 ```
 

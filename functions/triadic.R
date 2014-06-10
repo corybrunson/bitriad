@@ -9,11 +9,7 @@ source.dir <- function(file) source(paste(dir, file, sep = ''))
 source.dir('partition.bijections.R')
 
 # Candidate clustering coefficients
-source.dir('assortative.transitivity.R')
-source.dir('bipartite.transitivity.R')
-source.dir('sdr.criterion.R')
-source.dir('inclusive.transitivity.R')
-source.dir('exclusive.transitivity.R')
+source.dir('twomode.transitivity.R')
 
 # Triad census functions
 source.dir('simple.triad.census.R')
