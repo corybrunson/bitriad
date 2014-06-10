@@ -124,8 +124,7 @@ tc2CO(tmtc)
 ```
 
 ```{r}
-global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc),
-               C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
+global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
 global.c1
 ```
 
@@ -148,14 +147,14 @@ Our two-mode-sensitive candidates, as implemented independently (rather than thr
 
 ```{r}
 local.c.df <- cbind(c = local.c,
-                     c.O = opsahl.transitivity(women, type = 'local'),
-                     c.N = incl.transitivity(women, type = 'local'),
-                     c.X = excl.transitivity(women, type = 'local'))
+                    c.O = opsahl.transitivity(women, type = 'local'),
+                    c.N = incl.transitivity(women, type = 'local'),
+                    c.X = excl.transitivity(women, type = 'local'))
 rownames(local.c.df) <- V(onemode.projection(women))$name
 local.c.df
 ```
 
-As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census:
+As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census.
 
 ```{r}
 global.c2 <- c(transitivity(onemode.projection(women)),

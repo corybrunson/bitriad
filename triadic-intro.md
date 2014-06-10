@@ -152,8 +152,7 @@ tc2CO(tmtc)
 
 
 ```r
-global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc),
-               C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
+global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
 global.c1
 ```
 
@@ -185,32 +184,23 @@ Our two-mode-sensitive candidates, as implemented independently (rather than thr
 
 ```r
 local.c.df <- cbind(c = local.c,
-                     c.O = opsahl.transitivity(women, type = 'local'),
-                     c.N = incl.transitivity(women, type = 'local'),
-                     c.X = excl.transitivity(women, type = 'local'))
-```
-
-```
-## Error: could not find function "opsahl.transitivity"
-```
-
-```r
+                    c.O = opsahl.transitivity(women, type = 'local'),
+                    c.N = incl.transitivity(women, type = 'local'),
+                    c.X = excl.transitivity(women, type = 'local'))
 rownames(local.c.df) <- V(onemode.projection(women))$name
-```
-
-```
-## Error: object 'local.c.df' not found
-```
-
-```r
 local.c.df
 ```
 
 ```
-## Error: object 'local.c.df' not found
+##             c    c.O    c.N  c.X
+## Miss A 0.8333 0.5000 0.6667 0.50
+## Miss B 1.0000 0.6667 0.6667 1.00
+## Miss C 1.0000 0.6667 1.0000 0.50
+## Miss D 0.8333 0.6000 0.8333 0.50
+## Miss E 0.8333 0.7143 0.8000 0.75
 ```
 
-As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census:
+As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census.
 
 
 ```r
@@ -218,17 +208,14 @@ global.c2 <- c(transitivity(onemode.projection(women)),
                opsahl.transitivity(women),
                incl.transitivity(women),
                excl.transitivity(women))
-```
-
-```
-## Error: could not find function "opsahl.transitivity"
-```
-
-```r
 data.frame(Census = global.c1, Separate = global.c2)
 ```
 
 ```
-## Error: object 'global.c2' not found
+##     Census Separate
+## C   0.8750   0.8750
+## C.O 0.6111   0.6111
+## C.N 0.7826   0.7826
+## C.X 0.6000   0.6000
 ```
 

@@ -298,8 +298,7 @@ C
 <pre><code>## [1] 0.6111
 </code></pre>
 
-<pre><code class="r">global.c1 &lt;- c(C = tc2C(tmtc), C.O = tc2CO(tmtc),
-               C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
+<pre><code class="r">global.c1 &lt;- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
 global.c1
 </code></pre>
 
@@ -323,41 +322,35 @@ local.c
 <p>Our two-mode-sensitive candidates, as implemented independently (rather than through the two-mode triad census) are specialized with a similar local option for type:</p>
 
 <pre><code class="r">local.c.df &lt;- cbind(c = local.c,
-                     c.O = opsahl.transitivity(women, type = &#39;local&#39;),
-                     c.N = incl.transitivity(women, type = &#39;local&#39;),
-                     c.X = excl.transitivity(women, type = &#39;local&#39;))
+                    c.O = opsahl.transitivity(women, type = &#39;local&#39;),
+                    c.N = incl.transitivity(women, type = &#39;local&#39;),
+                    c.X = excl.transitivity(women, type = &#39;local&#39;))
+rownames(local.c.df) &lt;- V(onemode.projection(women))$name
+local.c.df
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;opsahl.transitivity&quot;
+<pre><code>##             c    c.O    c.N  c.X
+## Miss A 0.8333 0.5000 0.6667 0.50
+## Miss B 1.0000 0.6667 0.6667 1.00
+## Miss C 1.0000 0.6667 1.0000 0.50
+## Miss D 0.8333 0.6000 0.8333 0.50
+## Miss E 0.8333 0.7143 0.8000 0.75
 </code></pre>
 
-<pre><code class="r">rownames(local.c.df) &lt;- V(onemode.projection(women))$name
-</code></pre>
-
-<pre><code>## Error: object &#39;local.c.df&#39; not found
-</code></pre>
-
-<pre><code class="r">local.c.df
-</code></pre>
-
-<pre><code>## Error: object &#39;local.c.df&#39; not found
-</code></pre>
-
-<p>As a reality check, we can test the &#39;global&#39; option for type of these implementations against the global values produced from the two-mode triad census:</p>
+<p>As a reality check, we can test the &#39;global&#39; option for type of these implementations against the global values produced from the two-mode triad census.</p>
 
 <pre><code class="r">global.c2 &lt;- c(transitivity(onemode.projection(women)),
                opsahl.transitivity(women),
                incl.transitivity(women),
                excl.transitivity(women))
+data.frame(Census = global.c1, Separate = global.c2)
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;opsahl.transitivity&quot;
-</code></pre>
-
-<pre><code class="r">data.frame(Census = global.c1, Separate = global.c2)
-</code></pre>
-
-<pre><code>## Error: object &#39;global.c2&#39; not found
+<pre><code>##     Census Separate
+## C   0.8750   0.8750
+## C.O 0.6111   0.6111
+## C.N 0.7826   0.7826
+## C.X 0.6000   0.6000
 </code></pre>
 
 </body>
