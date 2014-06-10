@@ -1,14 +1,12 @@
-mysrc <- function(src.file) source(paste(mydir, src.file, sep = ''))
-
 # igraph library
 library(igraph)
 
 # Indexing scheme
-mysrc('partition.bijections.R')
+myfn('partition.bijections.R')
 
 # Candidate clustering coefficients
-mysrc('twomode.transitivity.R')
+myfn('twomode.transitivity.R')
 
 # Triad census functions
-mysrc('twomode.triad.census.R')
-mysrc('tc2ccs.R')
+myfn('twomode.triad.census.R')
+myfn('tc2ccs.R')

@@ -12,9 +12,11 @@ We use the "igraph" package, which provides the class of graphs and the basic su
 ```
 
 ```
-## Error: <text>:1:5: unexpected symbol
-## 1: Not Found
-##         ^
+## Warning: unsupported URL scheme
+```
+
+```
+## Error: cannot open the connection
 ```
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
@@ -163,7 +165,7 @@ C
 ##     }
 ##     object
 ## }
-## <bytecode: 0x7f89c2362430>
+## <bytecode: 0x7fd4d4176b88>
 ## <environment: namespace:stats>
 ```
 
