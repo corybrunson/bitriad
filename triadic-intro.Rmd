@@ -21,7 +21,7 @@ source_https <- function(url, ...) {
          envir = .GlobalEnv)
   })
 }
-mysrc <- function(src.file) source_https(paste(mydir, src.file, sep = ''))
+myscript <- function(src.file) source_https(paste(mydir, src.file, sep = ''))
 myfn <- function(fn.file) {
   source_https(paste(mydir, 'functions/', fn.file, sep = ''))
 }

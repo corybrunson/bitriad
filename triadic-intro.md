@@ -6,29 +6,6 @@ The paper "Triadic analysis for two-mode networks" will make a case for adopting
 We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the github account corybrunson; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
 
 
-```r
-mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
-mycsv <- function(data.file, ...) {
-  require(RCurl)
-  read.csv(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
-}
-source_https <- function(url, ...) {
-  require(RCurl)
-  # parse and evaluate each .R script
-  sapply(c(url, ...), function(u) {
-    eval(parse(text = getURL(u, followlocation = TRUE,
-                             cainfo = system.file("CurlSSL", "cacert.pem",
-                                                  package = "RCurl"))),
-         envir = .GlobalEnv)
-  })
-}
-mysrc <- function(src.file) source_https(paste(mydir, src.file, sep = ''))
-myfn <- function(fn.file) {
-  source_https(paste(mydir, 'functions/', fn.file, sep = ''))
-}
-mysrc('scripts/triadic.R')
-```
-
 ```
 ## Loading required package: RCurl
 ## Loading required package: bitops
@@ -186,7 +163,7 @@ C
 ##     }
 ##     object
 ## }
-## <bytecode: 0x7fdb8583eb10>
+## <bytecode: 0x7f89c2362430>
 ## <environment: namespace:stats>
 ```
 
