@@ -6,21 +6,12 @@ The paper "Triadic analysis for two-mode networks" will make a case for adopting
 We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the github account corybrunson; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
 
 
-
-
 ```r
 mysrc('scripts/triadic.R')
 ```
 
 ```
-## Loading required package: RCurl
-## Loading required package: bitops
-```
-
-```
-## Error: <text>:1:5: unexpected symbol
-## 1: Not Found
-##         ^
+## Error: could not find function "mysrc"
 ```
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
@@ -68,7 +59,7 @@ plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
 ## Error: could not find function "V"
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
 The individuals and events are pretty evenly connected--three ties each, except for one individal (Miss B) and one event (visiting) having two ties each. The layout clearly distinguishes the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes using the Fruchterman-Reingold algorithm:
 
@@ -87,7 +78,7 @@ plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
 ## Error: could not find function "layout.fruchterman.reingold"
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
 This layout reveals a symmetry of the network between its actor and event nodes: Exchanging Miss A and Event 2, Miss B and Event 5, and so on yields a graph isomorphism. Thus any structural information we learn about the actors in this network can be flipped into equivalent information about the events.
 
@@ -176,7 +167,7 @@ C
 ##     }
 ##     object
 ## }
-## <bytecode: 0x7f85dc736db8>
+## <bytecode: 0x7fb03bd4f8d8>
 ## <environment: namespace:stats>
 ```
 
@@ -185,6 +176,9 @@ The value tells us what proportion of the time each pair of three women have co-
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
 
 
+```
+## Error: could not find function "myfn"
+```
 
 
 ```r
@@ -192,7 +186,7 @@ tc2C(tmtc)
 ```
 
 ```
-## Error: object 'tmtc' not found
+## Error: could not find function "tc2C"
 ```
 
 In the paper "Triadic analysis for two-mode networks", i discuss in detail three alternative clustering coefficients specifically designed for two-mode networks. The first of these is [Opsahl's]((http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/):
@@ -203,7 +197,7 @@ tc2CO(tmtc)
 ```
 
 ```
-## Error: object 'tmtc' not found
+## Error: could not find function "tc2CO"
 ```
 
 
@@ -212,7 +206,7 @@ global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.N = tc2Cin(tmtc), C.X = tc2C
 ```
 
 ```
-## Error: object 'tmtc' not found
+## Error: could not find function "tc2C"
 ```
 
 ```r

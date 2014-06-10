@@ -1,6 +1,3 @@
-# igraph library
-library(igraph)
-
 # Source directory
 mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
 mycsv <- function(data.file, ...) {
@@ -21,6 +18,9 @@ mysrc <- function(src.file) source_https(paste(mydir, src.file, sep = ''))
 myfn <- function(fn.file) {
   source_https(paste(mydir, 'functions/', fn.file, sep = ''))
 }
+
+# igraph library
+library(igraph)
 
 # Indexing scheme
 mysrc('partition.bijections.R')
