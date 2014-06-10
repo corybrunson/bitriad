@@ -1,3 +1,12 @@
+# FUNCTION: Triad census for undirected networks (only 4 isomorphism classes)
+simple.triad.census <- function(graph, rcnames = FALSE) {
+  tc <- triad.census(as.directed(graph))
+  if(is.nan(tc[1])) tc[1] <- choose(vcount(graph), 3) - sum(tc, na.rm = TRUE)
+  stc <- tc[c(1, 3, 11, 16)]
+  if(rcnames) names(stc) <- 0:3
+  return(stc)
+}
+
 # FUNCTION: Two-mode dyad census (equivalently, distribution of edge weights
 # in the one-mode projection when edges are weighted by shared event count)
 twomode.dyad.census <- function(bigraph, type = 0) {
@@ -242,6 +251,3 @@ twomode.triad.census2 <- function(bigraph, type = 0, rcnames = FALSE,
 # Trials on small networks indicate that version 2 is substantially faster;
 # version 1 is retained as a check
 twomode.triad.census <- twomode.triad.census2
-
-# (It would be nice to have progress bars, though i don't know how to use them
-# in apply processes rather than for loops)

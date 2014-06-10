@@ -39,5 +39,8 @@ Thumbs.db
 # Added by Cory
 ###############
 figure/*
+cache/*
 .Rhistory
+triadic-intro.html
+triadic-intro.md
 
