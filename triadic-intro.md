@@ -187,12 +187,12 @@ local.c.df
 ```
 
 ```
-##             c    c.O    c.N c.X
-## Miss A 0.8333 0.6111 0.7826 0.6
-## Miss B 1.0000 0.6111 0.7826 0.6
-## Miss C 1.0000 0.6111 0.7826 0.6
-## Miss D 0.8333 0.6111 0.7826 0.6
-## Miss E 0.8333 0.6111 0.7826 0.6
+##             c    c.O    c.N  c.X
+## Miss A 0.8333 0.5000 0.6667 0.50
+## Miss B 1.0000 0.6667 0.6667 1.00
+## Miss C 1.0000 0.6667 1.0000 0.50
+## Miss D 0.8333 0.6000 0.8333 0.50
+## Miss E 0.8333 0.7143 0.8000 0.75
 ```
 
 As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census.
@@ -344,14 +344,78 @@ Both distributions might be fruitfully generalized to the two-mode setting. The 
 
 ```r
 ddgg2.wedges <- opsahl.transitivity(ddgg2, type = '')
-plot(aggregate(ddgg2.wedges$T / ddgg2.wedges$V,
-               by = list(V = ddgg2.wedges$V), FUN = mean),
+ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
+plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
 ```
 
+![plot of chunk unnamed-chunk-22](figure/unnamed-chunk-221.png) 
+
+```r
+ddgg2.breaks <- lapply(sort(unique(ddgg2.wedges$V)), function(v) {
+    wid = 1 / v
+    seq(0 - wid / 2, 1 + wid / 2, wid)
+})
+hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
+              dlply(ddgg2.wedges, .(V)), ddgg2.breaks)
+ggplot(ddgg2.wedges, aes(x = C)) +
+    hls +
+    facet_grid(V ~ ., scales = "free_x") +
+    ggtitle("Local Opsahl clustering coefficients conditioned on wedges") +
+    xlab("Local Opsahl clustering coefficient") +
+    ylab("Count")
 ```
-## Error: $ operator is invalid for atomic vectors
+
 ```
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+## Warning: position_stack requires constant width: output may be incorrect
+```
+
+![plot of chunk unnamed-chunk-22](figure/unnamed-chunk-222.png) 
+
+Both plots are absent the consistent behavior we saw in the classical case. What, instead, if we try exclusive clustering?
+
+
+```r
+ddgg2.wedges <- excl.transitivity(ddgg2, type = '')
+ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
+plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
+     pch = 19, type = 'b',
+     main = 'Wedge-dependent local clustering',
+     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
+```
+
+![plot of chunk unnamed-chunk-23](figure/unnamed-chunk-231.png) 
+
+```r
+ddgg2.breaks <- lapply(sort(unique(ddgg2.wedges$V)), function(v) {
+    wid = 1 / v
+    seq(0 - wid / 2, 1 + wid / 2, wid)
+})
+hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
+              dlply(ddgg2.wedges, .(V)), ddgg2.breaks)
+ggplot(ddgg2.wedges, aes(x = C)) +
+    hls +
+    facet_grid(V ~ ., scales = "free_x") +
+    ggtitle("Local Exclusive clustering coefficients conditioned on wedges") +
+    xlab("Local Exclusive clustering coefficient") +
+    ylab("Count")
+```
+
+![plot of chunk unnamed-chunk-23](figure/unnamed-chunk-232.png) 
 
