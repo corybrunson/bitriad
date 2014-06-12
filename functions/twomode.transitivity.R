@@ -120,7 +120,7 @@ opsahl.transitivity <- function(
     vids = which(V(bigraph)$type == node.type)
     ) {
     twomode.transitivity(
-        bigraph = bigraph, node.type = node.type,
+        bigraph = bigraph, node.type = node.type, type = type,
         wedges.fn = opsahl.wedges, vids = vids)
 }
 
@@ -130,7 +130,7 @@ incl.transitivity <- function(
     vids = which(V(bigraph)$type == node.type)
     ) {
     twomode.transitivity(
-        bigraph = bigraph, node.type = node.type,
+        bigraph = bigraph, node.type = node.type, type = type,
         wedges.fn = incl.wedges, vids = vids)
 }
 
@@ -140,7 +140,7 @@ excl.transitivity <- function(
     vids = which(V(bigraph)$type == node.type)
     ) {
     twomode.transitivity(
-        bigraph = bigraph, node.type = node.type,
+        bigraph = bigraph, node.type = node.type, type = type,
         wedges.fn = excl.wedges, vids = vids)
 }
 
