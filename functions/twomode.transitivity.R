@@ -5,9 +5,6 @@ hall.criterion <- function(lst) all(sapply(0:(2 ^ length(lst) - 1),
     length(unique(unlist(lst[w]))) >= length(w)
 }))
 
-# CONSIDER CALCULATING NEIGHBORHOODS OF ALL PRIMARY NODES,
-# AND PASSING THIS LIST TO THE WEDGES FUNCTION
-
 # Wedges through a given node in a given two-mode network (classical)
 classical.wedges <- function(bigraph, Q) {
     
@@ -101,42 +98,61 @@ excl.wedges <- function(bigraph, Q) {
 # (Progress bars don't work in apply functions; try pbapply package)
 twomode.transitivity <- function(
     bigraph, node.type = 0, type = 'global', wedges.fn = opsahl.wedges,
-    vids = which(V(bigraph)$type == node.type), verbose = FALSE
+    vids = which(V(bigraph)$type == node.type)
     ) {
     # Check that nodes are of the desired type
     stopifnot(all(V(bigraph)$type[vids] == node.type))
     # If global or both, need to look at all vertices
     Qs <- if(type != 'local') which(V(bigraph)$type == node.type) else vids
-    # Progress bar runs over Qs
-    if(verbose) {
-        pb <- txtProgressBar(min = 0, max = length(Qs), style = 3)
-        step <- 0
-    }
     # Array of 4-paths centered at each Q in Qs
     wedges <- matrix(unlist(lapply(Qs, function(Q) {
-        # Update progress bar
-        if(verbose) {
-            step <- step + 1
-            setTxtProgressBar(pb, step)
-        }
         # Return wedge and closed wedge counts at Q
         return(wedges.fn(bigraph, Q))
     })), nr = 2)
-    # Close progress bar
-    if(verbose) close(pb)
     if(type == 'global') return(sum(wedges[2, ]) / sum(wedges[1, ]))
     if(type == 'local') return(wedges[2, ] / wedges[1, ])
-    return(wedges)
+    return(data.frame(V = wedges[1, ], T = wedges[2, ]))
 }
 
-opsahl.transitivity <- function(...) {
-    twomode.transitivity(wedges.fn = opsahl.wedges, ...)
+# Opsah'l clustering coefficient
+opsahl.transitivity <- function(
+    bigraph, node.type = 0, type = 'global',
+    vids = which(V(bigraph)$type == node.type)
+    ) {
+    twomode.transitivity(
+        bigraph = bigraph, node.type = node.type,
+        wedges.fn = opsahl.wedges, vids = vids)
 }
 
-incl.transitivity <- function(...) {
-    twomode.transitivity(wedges.fn = incl.wedges, ...)
+# Inclusive clustering coefficient
+incl.transitivity <- function(
+    bigraph, node.type = 0, type = 'global',
+    vids = which(V(bigraph)$type == node.type)
+    ) {
+    twomode.transitivity(
+        bigraph = bigraph, node.type = node.type,
+        wedges.fn = incl.wedges, vids = vids)
 }
 
-excl.transitivity <- function(...) {
-    twomode.transitivity(wedges.fn = excl.wedges, ...)
+# Exclusive clustering coefficient
+excl.transitivity <- function(
+    bigraph, node.type = 0, type = 'global',
+    vids = which(V(bigraph)$type == node.type)
+    ) {
+    twomode.transitivity(
+        bigraph = bigraph, node.type = node.type,
+        wedges.fn = excl.wedges, vids = vids)
+}
+
+# Wedge-dependent local clustering: distributions or functions thereof
+wedge.transitivity <- function(
+    bigraph, node.type = 0, FUN = identity, wedges.fn = opsahl.wedges, ...
+    ) {
+    wedges <- twomode.transitivity(
+        bigraph = bigraph, node.type = node.type, type = 'wedges',
+        wedges.fn = wedges.fn)
+    return(sapply(1:max(wedges[1, ]), function(k) {
+        wh.k <- which(wedges[1, ] == k]
+        unname(FUN(wedges[2, wh.k] / wedges[1, wh.k]))
+    }))
 }

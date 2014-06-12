@@ -11,6 +11,10 @@ mycsv <- function(data.file, ...) {
   require(RCurl)
   read.csv(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
 }
+mytable <- function(data.file, ...) {
+    require(RCurl)
+    read.table(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
+}
 source_https <- function(url, ...) {
   require(RCurl)
   # parse and evaluate each .R script
@@ -35,13 +39,13 @@ The author is neither a programmer nor a computer scientist by training; any sug
 In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is reproduced in the file "DGG\_Clique\_A.csv", which we load into R directly as a graph:
 
 ```{r, message = FALSE}
-women <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
+ddgg <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
 ```
 
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
 
 ```{r}
-get.incidence(women)
+get.incidence(ddgg)
 ```
 
 ### Visualization
@@ -49,22 +53,22 @@ get.incidence(women)
 First let's visualize the network, using the visual scheme from [Opsahl's paper](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/ "Opsahl"):
 
 ```{r}
-plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
+plot(ddgg, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
                               rep(c(1, -1), each = 5)), nc = 2),
-     vertex.color = ifelse(V(women)$type == 0, 'SkyBlue2', 'lightcoral'),
-     vertex.shape = ifelse(V(women)$type == 0, 'circle', 'square'),
+     vertex.color = ifelse(V(ddgg)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(ddgg)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'black')
 ```
 
-The individuals and events are pretty evenly connected--three ties each, except for one individal (Miss B) and one event (visiting) having two ties each. The layout clearly distinguishes the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes using the Fruchterman-Reingold algorithm:
+The individuals and events are pretty evenly connected --- three ties each, except for one individal (Miss B) and one event (visiting) having two ties each. The layout clearly distinguishes the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes using the Fruchterman-Reingold algorithm:
 
 ```{r}
 set.seed(10)
-plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
-     vertex.color = ifelse(V(women)$type == 0, 'SkyBlue2', 'lightcoral'),
-     vertex.shape = ifelse(V(women)$type == 0, 'circle', 'square'),
+plot(ddgg, layout = layout.fruchterman.reingold(ddgg, niter = 100),
+     vertex.color = ifelse(V(ddgg)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(ddgg)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'black')
@@ -77,18 +81,19 @@ This layout reveals a symmetry of the network between its actor and event nodes:
 This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them in detail. (Future networks will only be examined cursorily or through statistics.) We can view the (undirected) triad census of the one-mode projection, taking the actor-based one-mode projection:
 
 ```{r}
-stc <- simple.triad.census(bipartite.projection(women)[[1]], rcnames = TRUE)
+ddgg.proj <- onemode.projection(ddgg)
+stc <- simple.triad.census(ddgg.proj, rcnames = TRUE)
 stc
 ```
 
 We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the function 'twomode.triad.census':
 
 ```{r}
-tmtc <- twomode.triad.census(women, rcnames = TRUE)
+tmtc <- twomode.triad.census(ddgg, rcnames = TRUE)
 tmtc
 ```
 
-The arrangement is far less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all--even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
+The arrangement is far less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all --- even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
 
 The classical (global) clustering coefficient for a one-mode network may be defined either as the proportion of "wedges" that are "closed" or as the ratio of (three times) the number of "triangles" to the number of "wedges". Here wedges are 2-paths, distinguished by the relative positions of the nodes but not by their progression, and a wedge is considered closed if its end nodes are tied. (To avoid confusion i won't get into the other definition.) Since every triad of three edges counts thrice as a closed wedge, we can compute the clustering coefficient of the one-mode projection directly from the simple census:
 
@@ -97,7 +102,7 @@ C <- 3 * stc[4] / (stc[3] + 3 * stc[4])
 C
 ```
 
-The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity--the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
+The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity --- the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
 
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
 
@@ -122,12 +127,12 @@ global.c1
 
 ### Local clustering coefficients
 
-So far we have only tried to gauge transitivity tendencies in the network as a whole; that is, we have been looking at global network properties. But triadic analysis has always taken place at two levels--the micro and the macro. For example, the Davis/Holland/Leinhardt studies tested macro network properties through their micro predictions, Faust used the triad census to situate multitudes of networks in a common low-dimensional parameter space, and the global clustering coefficient of Barrat and Weigt was developed as a macro counterpart to the micro (local) clustering coefficient of Watts and Strogatz. Having viewed the southern women through this global lens, we now turn to the local.
+So far we have only tried to gauge transitivity tendencies in the network as a whole; that is, we have been looking at global network properties. But triadic analysis has always taken place at two levels --- the micro and the macro. For example, the Davis/Holland/Leinhardt studies tested macro network properties through their micro predictions, Faust used the triad census to situate multitudes of networks in a common low-dimensional parameter space, and the global clustering coefficient of Barrat and Weigt was developed as a macro counterpart to the micro (local) clustering coefficient of Watts and Strogatz. Having viewed the southern women through this global lens, we now turn to the local.
 
 The classical local clustering coeffiicent at a node Q is the proportion of pairs of neighbors of Q who are themselves neighobrs. From the images above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Miss B and Miss C among their neighobrs) and 1 (for Miss B and Miss C). To verify, we specify the type to 'local' in the base igraph function:
 
 ```{r}
-local.c <- transitivity(onemode.projection(women), type = 'local')
+local.c <- transitivity(ddgg.proj, type = 'local')
 local.c
 ```
 
@@ -135,22 +140,108 @@ Our two-mode-sensitive candidates, as implemented independently (rather than thr
 
 ```{r}
 local.c.df <- cbind(c = local.c,
-                    c.O = opsahl.transitivity(women, type = 'local'),
-                    c.N = incl.transitivity(women, type = 'local'),
-                    c.X = excl.transitivity(women, type = 'local'))
-rownames(local.c.df) <- V(onemode.projection(women))$name
+                    c.O = opsahl.transitivity(ddgg, type = 'local'),
+                    c.N = incl.transitivity(ddgg, type = 'local'),
+                    c.X = excl.transitivity(ddgg, type = 'local'))
+rownames(local.c.df) <- V(ddgg.proj)$name
 local.c.df
 ```
-
-### Comparison between implementations
 
 As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census.
 
 ```{r}
-global.c2 <- c(transitivity(onemode.projection(women)),
-               opsahl.transitivity(women),
-               incl.transitivity(women),
-               excl.transitivity(women))
+global.c2 <- c(transitivity(ddgg.proj),
+               opsahl.transitivity(ddgg),
+               incl.transitivity(ddgg),
+               excl.transitivity(ddgg))
 data.frame(Census = global.c1, Separate = global.c2)
+```
+
+### Wedge-dependent local clustering
+
+One of the most [thoroughly documented](http://arxiv.org/abs/cond-mat/0211528) properties of social networks is the inverse relationship, taken across nodes, between the degree and the (classical) local clustering coefficient. This relationship can be repackaged as one between the *potential* for clustering at a node Q, given by the number of 2-paths through Q (this number is k(k - 1)/2, or "k choose 2", when Q has degree k), and the *actual* clustering at Q, given either as the number of these 2-paths that are closed or as the local clustering coefficient (which is this number divided by the number of 2-paths).
+
+The typical analysis plots the mean "degree-dependent" local clustering coefficient, taken over all nodes of a fixed degree, against the degree. The framework also prompts a question i have not yet found answered in the literature: For a fixed degree k, what does the distribution of local clustering coefficients at nodes of degree k look like? The assumption underlying the typical analysis is that the mean of this distribution is a reasonable one-variable summary of it, but the possibility exists that these distributions are skewed, bimodal, or otherwise nonnormal.
+
+While Clique A is too small to draw general inferences from, it can at least provide a case study and a demonstration of these diagnostics. Since the "degree" and "transitivity" functions (the latter using the 'local' value of type) are evaluated at the nodes in order of their IDs, we can match them up in a simple data frame:
+
+```{r}
+ddc <- data.frame(k = degree(ddgg.proj),
+                  c = transitivity(ddgg.proj, type = 'local'))
+print(ddc)
+```
+
+As we observed above, there is zero variability among nodes of common degree, though we can still plot the relationship between the (trivial) degree-dependent mean local clustering coefficients and the degrees:
+
+```{r}
+plot(aggregate(ddc$c, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
+     main = 'Degree-dependent local clustering',
+     xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
+```
+
+Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. ???, Fig. ?). The data are available [here](), in a different format from the previous data (hence the different procedure to read it):
+
+```{r}
+data <- mytable('Davis_southern_club_women-two_mode.txt', colClasses = 'numeric')
+names <- mytable('Davis_southern_club_women-name.txt', colClasses = 'character')
+ddgg2 <- graph.data.frame(data.frame(woman = names[data[, 1], 1],
+                                      event = data[, 2]), directed = FALSE)
+V(ddgg2)$type <- !(substr(V(ddgg2)$name, 1, 1) %in% LETTERS)
+```
+
+Again let's begin with a plot:
+
+```{r}
+set.seed(1)
+plot(ddgg2, layout = layout.fruchterman.reingold(ddgg2, niter = 100),
+     vertex.color = ifelse(V(ddgg2)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(ddgg2)$type == 0, 'circle', 'square'),
+     edge.width = 2, edge.color = 'black',
+     vertex.label = substr(V(ddgg2)$name, 1, 2),
+     vertex.label.family = 'sans', vertex.label.color = 'black')
+```
+
+The visualization is quite a bit messier, but it looks like we have at least some range of degrees this time:
+
+```{r}
+ddgg2.proj <- onemode.projection(ddgg2)
+ddc2 <- data.frame(k = degree(ddgg2.proj),
+                   c = transitivity(ddgg2.proj, type = 'local'))
+print(ddc2)
+plot(aggregate(ddc2$c, by = list(k = ddc2$k), FUN = mean), pch = 19, type = 'b',
+     main = 'Degree-dependent local clustering',
+     xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
+```
+
+There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships. But how variable is this "forging" process among individuals with the same number of acquaintances? The bars of the local clustering coefficient histograms below are centered at the k(k-1)/2+1 possible values of each local clustering coefficient. (The code is adapted from [this helpful exchange](http://stackoverflow.com/questions/17271968/different-breaks-per-facet-in-ggplot2-histogram).)
+
+```{r, message = FALSE}
+library(ggplot2)
+library(plyr)
+ddc2.breaks <- lapply(sort(unique(ddc2$k)), function(k) {
+    wid = 1 / choose(k, 2)
+    seq(0 - wid / 2, 1 + wid / 2, wid)
+})
+hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
+              dlply(ddc2, .(k)), ddc2.breaks)
+ggplot(ddc2, aes(x = c)) +
+    hls +
+    facet_grid(k ~ ., scales = "free_x") +
+    ggtitle("Local clustering coefficients conditioned on degree") +
+    xlab("Local clustering coefficient") +
+    ylab("Count")
+```
+
+Everyone with the same degree has the same clustering coefficient; this is weak evidence indeed, but it does suggest some consistency in local clustering by degree, at least in purpose-gathered networks.
+
+Both distributions might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree --- that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
+
+```{r}
+ddgg2.wedges <- opsahl.transitivity(ddgg2, type = '')
+plot(aggregate(ddgg2.wedges$T / ddgg2.wedges$V,
+               by = list(V = ddgg2.wedges$V), FUN = mean),
+     pch = 19, type = 'b',
+     main = 'Wedge-dependent local clustering',
+     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
 ```
 

@@ -15,14 +15,14 @@ In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two
 
 
 ```r
-women <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
+ddgg <- graph.incidence(as.matrix(mycsv('DGG_Clique_A.csv', row.names = 1)))
 ```
 
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
 
 
 ```r
-get.incidence(women)
+get.incidence(ddgg)
 ```
 
 ```
@@ -40,10 +40,10 @@ First let's visualize the network, using the visual scheme from [Opsahl's paper]
 
 
 ```r
-plot(women, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
+plot(ddgg, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
                               rep(c(1, -1), each = 5)), nc = 2),
-     vertex.color = ifelse(V(women)$type == 0, 'SkyBlue2', 'lightcoral'),
-     vertex.shape = ifelse(V(women)$type == 0, 'circle', 'square'),
+     vertex.color = ifelse(V(ddgg)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(ddgg)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'black')
@@ -56,9 +56,9 @@ The individuals and events are pretty evenly connected--three ties each, except 
 
 ```r
 set.seed(10)
-plot(women, layout = layout.fruchterman.reingold(women, niter = 100),
-     vertex.color = ifelse(V(women)$type == 0, 'SkyBlue2', 'lightcoral'),
-     vertex.shape = ifelse(V(women)$type == 0, 'circle', 'square'),
+plot(ddgg, layout = layout.fruchterman.reingold(ddgg, niter = 100),
+     vertex.color = ifelse(V(ddgg)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(ddgg)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'black')
@@ -74,7 +74,8 @@ This social network is just large enough exhibit a diversity of triads and just 
 
 
 ```r
-stc <- simple.triad.census(bipartite.projection(women)[[1]], rcnames = TRUE)
+ddgg.proj <- onemode.projection(ddgg)
+stc <- simple.triad.census(ddgg.proj, rcnames = TRUE)
 stc
 ```
 
@@ -87,7 +88,7 @@ We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 
 
 
 ```r
-tmtc <- twomode.triad.census(women, rcnames = TRUE)
+tmtc <- twomode.triad.census(ddgg, rcnames = TRUE)
 tmtc
 ```
 
@@ -165,7 +166,7 @@ The classical local clustering coeffiicent at a node Q is the proportion of pair
 
 
 ```r
-local.c <- transitivity(onemode.projection(women), type = 'local')
+local.c <- transitivity(ddgg.proj, type = 'local')
 local.c
 ```
 
@@ -178,10 +179,10 @@ Our two-mode-sensitive candidates, as implemented independently (rather than thr
 
 ```r
 local.c.df <- cbind(c = local.c,
-                    c.O = opsahl.transitivity(women, type = 'local'),
-                    c.N = incl.transitivity(women, type = 'local'),
-                    c.X = excl.transitivity(women, type = 'local'))
-rownames(local.c.df) <- V(onemode.projection(women))$name
+                    c.O = opsahl.transitivity(ddgg, type = 'local'),
+                    c.N = incl.transitivity(ddgg, type = 'local'),
+                    c.X = excl.transitivity(ddgg, type = 'local'))
+rownames(local.c.df) <- V(ddgg.proj)$name
 local.c.df
 ```
 
@@ -194,16 +195,14 @@ local.c.df
 ## Miss E 0.8333 0.7143 0.8000 0.75
 ```
 
-### Comparison between implementations
-
 As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census.
 
 
 ```r
-global.c2 <- c(transitivity(onemode.projection(women)),
-               opsahl.transitivity(women),
-               incl.transitivity(women),
-               excl.transitivity(women))
+global.c2 <- c(transitivity(ddgg.proj),
+               opsahl.transitivity(ddgg),
+               incl.transitivity(ddgg),
+               excl.transitivity(ddgg))
 data.frame(Census = global.c1, Separate = global.c2)
 ```
 
@@ -215,3 +214,128 @@ data.frame(Census = global.c1, Separate = global.c2)
 ## C.X 0.6000   0.6000
 ```
 
+### Wedge-dependent local clustering
+
+One of the most [thoroughly documented](http://arxiv.org/abs/cond-mat/0211528) properties of social networks is the inverse relationship, taken across nodes, between the degree and the (classical) local clustering coefficient. This relationship can be repackaged as one between the *potential* for clustering at a node Q, given by the number of 2-paths through Q (this number is k(k - 1)/2, or "k choose 2", when Q has degree k), and the *actual* clustering at Q, given either as the number of these 2-paths that are closed or as the local clustering coefficient (which is this number divided by the number of 2-paths).
+
+The typical analysis plots the mean "degree-dependent" local clustering coefficient, taken over all nodes of a fixed degree, against the degree. The framework also prompts a question i have not yet found answered in the literature: For a fixed degree k, what does the distribution of local clustering coefficients at nodes of degree k look like? The assumption underlying the typical analysis is that the mean of this distribution is a reasonable one-variable summary of it, but the possibility exists that these distributions are skewed, bimodal, or otherwise nonnormal.
+
+While Clique A is too small to draw general inferences from, it can at least provide a case study and a demonstration of these diagnostics. Since the "degree" and "transitivity" functions (the latter using the 'local' value of type) are evaluated at the nodes in order of their IDs, we can match them up in a simple data frame:
+
+
+```r
+ddc <- data.frame(k = degree(ddgg.proj),
+                  c = transitivity(ddgg.proj, type = 'local'))
+print(ddc)
+```
+
+```
+##        k      c
+## Miss A 4 0.8333
+## Miss B 3 1.0000
+## Miss C 3 1.0000
+## Miss D 4 0.8333
+## Miss E 4 0.8333
+```
+
+As we observed above, there is zero variability among nodes of common degree, though we can still plot the relationship between the (trivial) degree-dependent mean local clustering coefficients and the degrees:
+
+
+```r
+plot(aggregate(ddc$c, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
+     main = 'Degree-dependent local clustering',
+     xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
+```
+
+![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17.png) 
+
+Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. ???, Fig. ?). The data are available [here](), in a different format from the previous data (hence the different procedure to read it):
+
+
+```r
+data <- mytable('Davis_southern_club_women-two_mode.txt', colClasses = 'numeric')
+names <- mytable('Davis_southern_club_women-name.txt', colClasses = 'character')
+ddgg2 <- graph.data.frame(data.frame(woman = names[data[, 1], 1],
+                                      event = data[, 2]), directed = FALSE)
+V(ddgg2)$type <- !(substr(V(ddgg2)$name, 1, 1) %in% LETTERS)
+```
+
+Again let's begin with a plot:
+
+
+```r
+set.seed(1)
+plot(ddgg2, layout = layout.fruchterman.reingold(ddgg2, niter = 100),
+     vertex.color = ifelse(V(ddgg2)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(ddgg2)$type == 0, 'circle', 'square'),
+     edge.width = 2, edge.color = 'black',
+     vertex.label = substr(V(ddgg2)$name, 1, 2),
+     vertex.label.family = 'sans', vertex.label.color = 'black')
+```
+
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19.png) 
+
+The visualization is quite a bit messier, but it looks like we have at least some range of degrees this time:
+
+
+```r
+ddgg2.proj <- onemode.projection(ddgg2)
+ddc2 <- data.frame(k = degree(ddgg2.proj),
+                   c = transitivity(ddgg2.proj, type = 'local'))
+print(ddc2)
+```
+
+```
+##            k      c
+## EVELYN    17 0.8971
+## LAURA     15 0.9619
+## THERESA   17 0.8971
+## BRENDA    15 0.9619
+## CHARLOTTE 11 1.0000
+## FRANCES   15 0.9619
+## ELEANOR   15 0.9619
+## PEARL     16 0.9333
+## RUTH      17 0.8971
+## VERNE     17 0.8971
+## MYRNA     16 0.9333
+## KATHERINE 16 0.9333
+## SYLVIA    17 0.8971
+## NORA      17 0.8971
+## HELEN     17 0.8971
+## DOROTHY   16 0.9333
+## OLIVIA    12 1.0000
+## FLORA     12 1.0000
+```
+
+```r
+plot(aggregate(ddc2$c, by = list(k = ddc2$k), FUN = mean), pch = 19, type = 'b',
+     main = 'Degree-dependent local clustering',
+     xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
+```
+
+![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20.png) 
+
+There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships. But how variable is this "forging" process among individuals with the same number of acquaintances? The bars of the local clustering coefficient histograms below are centered at the k(k-1)/2+1 possible values of each local clustering coefficient. (The code is adapted from [this helpful answer](http://stackoverflow.com/questions/17271968/different-breaks-per-facet-in-ggplot2-histogram).)
+
+
+```r
+library(ggplot2)
+library(plyr)
+ddc2.breaks <- lapply(sort(unique(ddc2$k)), function(k) {
+    wid = 1 / choose(k, 2)
+    seq(0 - wid / 2, 1 + wid / 2, wid)
+})
+hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
+              dlply(ddc2, .(k)), ddc2.breaks)
+ggplot(ddc2, aes(x = c)) +
+    hls +
+    facet_grid(k ~ ., scales = "free_x") +
+    xlab("Local clustering coefficient") +
+    ylab("Count")
+```
+
+![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21.png) 
+
+Everyone with the same degree has the same clustering coefficient; this is weak evidence indeed, but it does suggest some consistency in local clustering by degree, at least in purpose-gathered networks.
+
+Both distributions might be fruitfully generalized to the two-mode setting. The only task is to come up with a suitable analog of degree --- that is, 

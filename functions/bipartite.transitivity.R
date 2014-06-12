@@ -1,7 +1,4 @@
 # bipartite triadic closure (Opsahl 2012)
-# Proportion of L_4s that lie in C_6s; differs from mine in that
-# (a) multiple L_4s through the same three primary vertices are counted and
-# (b) chords (edges between nonconsecutive vertices in L_4) are permitted.
 bipartite.transitivity <- function(
   bigraph, type = 'global', vids = which(V(bigraph)$type == 0),
   status = FALSE
