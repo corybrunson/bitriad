@@ -152,7 +152,7 @@ wedge.transitivity <- function(
         bigraph = bigraph, node.type = node.type, type = 'wedges',
         wedges.fn = wedges.fn)
     return(sapply(1:max(wedges[1, ]), function(k) {
-        wh.k <- which(wedges[1, ] == k]
+        wh.k <- which(wedges[1, ] == k)
         unname(FUN(wedges[2, wh.k] / wedges[1, wh.k]))
     }))
 }

@@ -6,6 +6,12 @@ The paper "Triadic analysis for two-mode networks" will make a case for adopting
 We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the github account corybrunson; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
 
 
+```
+## Error: <text>:155:39: unexpected ']'
+## 154:     return(sapply(1:max(wedges[1, ]), function(k) {
+## 155:         wh.k <- which(wedges[1, ] == k]
+##                                            ^
+```
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
 
@@ -51,7 +57,7 @@ plot(ddgg, layout = matrix(c(rep(seq(-1, 1, length.out = 5), times = 2),
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
-The individuals and events are pretty evenly connected--three ties each, except for one individal (Miss B) and one event (visiting) having two ties each. The layout clearly distinguishes the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes using the Fruchterman-Reingold algorithm:
+The individuals and events are pretty evenly connected --- three ties each, except for one individal (Miss B) and one event (visiting) having two ties each. The layout clearly distinguishes the nodes but offers only indirect insight into the relative rates of attendance of the individuals or events. Alternatively, we can visualize the nodes using the Fruchterman-Reingold algorithm:
 
 
 ```r
@@ -75,13 +81,26 @@ This social network is just large enough exhibit a diversity of triads and just 
 
 ```r
 ddgg.proj <- onemode.projection(ddgg)
+```
+
+```
+## Error: could not find function "onemode.projection"
+```
+
+```r
 stc <- simple.triad.census(ddgg.proj, rcnames = TRUE)
+```
+
+```
+## Error: could not find function "simple.triad.census"
+```
+
+```r
 stc
 ```
 
 ```
-## 0 1 2 3 
-## 0 0 3 7
+## Error: object 'stc' not found
 ```
 
 We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the function 'twomode.triad.census':
@@ -89,39 +108,70 @@ We have no disconnected triples at all; only three 'wedges' or 'vees' and seven 
 
 ```r
 tmtc <- twomode.triad.census(ddgg, rcnames = TRUE)
+```
+
+```
+## Error: could not find function "twomode.triad.census"
+```
+
+```r
 tmtc
 ```
 
 ```
-##         0 1
-## (0,0,0) 0 0
-## (1,0,0) 0 1
-## (1,1,0) 0 3
-## (1,1,1) 1 0
-## (2,0,0) 0 0
-## (2,1,0) 3 0
-## (2,1,1) 2 0
-## (2,2,0) 0 0
-## (2,2,1) 0 0
-## (2,2,2) 0 0
+## Error: object 'tmtc' not found
 ```
 
-The arrangement is far less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all--even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
+The arrangement is far less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all --- even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
 
 The classical (global) clustering coefficient for a one-mode network may be defined either as the proportion of "wedges" that are "closed" or as the ratio of (three times) the number of "triangles" to the number of "wedges". Here wedges are 2-paths, distinguished by the relative positions of the nodes but not by their progression, and a wedge is considered closed if its end nodes are tied. (To avoid confusion i won't get into the other definition.) Since every triad of three edges counts thrice as a closed wedge, we can compute the clustering coefficient of the one-mode projection directly from the simple census:
 
 
 ```r
 C <- 3 * stc[4] / (stc[3] + 3 * stc[4])
+```
+
+```
+## Error: object 'stc' not found
+```
+
+```r
 C
 ```
 
 ```
-##     3 
-## 0.875
+## function (object, contr, how.many, ...) 
+## {
+##     if (!nlevels(object)) 
+##         stop("object not interpretable as a factor")
+##     if (!missing(contr) && is.name(Xcontr <- substitute(contr))) 
+##         contr <- switch(as.character(Xcontr), poly = "contr.poly", 
+##             helmert = "contr.helmert", sum = "contr.sum", treatment = "contr.treatment", 
+##             SAS = "contr.SAS", contr)
+##     if (missing(contr)) {
+##         oc <- getOption("contrasts")
+##         contr <- if (length(oc) < 2L) 
+##             if (is.ordered(object)) 
+##                 contr.poly
+##             else contr.treatment
+##         else oc[1 + is.ordered(object)]
+##     }
+##     if (missing(how.many) && missing(...)) 
+##         contrasts(object) <- contr
+##     else {
+##         if (is.character(contr)) 
+##             contr <- get(contr, mode = "function")
+##         if (is.function(contr)) 
+##             contr <- contr(nlevels(object), ...)
+##         contrasts(object, how.many) <- contr
+##     }
+##     object
+## }
+## <bytecode: 0x7fbf654abe30>
+## <environment: namespace:stats>
 ```
 
-The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity--the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
+The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity --- the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
 
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
 
@@ -133,7 +183,7 @@ tc2C(tmtc)
 ```
 
 ```
-## [1] 0.875
+## Error: object 'tmtc' not found
 ```
 
 In the paper "Triadic analysis for two-mode networks", i discuss in detail three alternative clustering coefficients specifically designed for two-mode networks. The first of these is [Opsahl's]((http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/):
@@ -144,34 +194,47 @@ tc2CO(tmtc)
 ```
 
 ```
-## [1] 0.6111
+## Error: object 'tmtc' not found
 ```
 
 
 ```r
 global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.N = tc2Cin(tmtc), C.X = tc2Cex(tmtc))
+```
+
+```
+## Error: object 'tmtc' not found
+```
+
+```r
 global.c1
 ```
 
 ```
-##      C    C.O    C.N    C.X 
-## 0.8750 0.6111 0.7826 0.6000
+## Error: object 'global.c1' not found
 ```
 
 ### Local clustering coefficients
 
-So far we have only tried to gauge transitivity tendencies in the network as a whole; that is, we have been looking at global network properties. But triadic analysis has always taken place at two levels--the micro and the macro. For example, the Davis/Holland/Leinhardt studies tested macro network properties through their micro predictions, Faust used the triad census to situate multitudes of networks in a common low-dimensional parameter space, and the global clustering coefficient of Barrat and Weigt was developed as a macro counterpart to the micro (local) clustering coefficient of Watts and Strogatz. Having viewed the southern women through this global lens, we now turn to the local.
+So far we have only tried to gauge transitivity tendencies in the network as a whole; that is, we have been looking at global network properties. But triadic analysis has always taken place at two levels --- the micro and the macro. For example, the Davis/Holland/Leinhardt studies tested macro network properties through their micro predictions, Faust used the triad census to situate multitudes of networks in a common low-dimensional parameter space, and the global clustering coefficient of Barrat and Weigt was developed as a macro counterpart to the micro (local) clustering coefficient of Watts and Strogatz. Having viewed the southern women through this global lens, we now turn to the local.
 
 The classical local clustering coeffiicent at a node Q is the proportion of pairs of neighbors of Q who are themselves neighobrs. From the images above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Miss B and Miss C among their neighobrs) and 1 (for Miss B and Miss C). To verify, we specify the type to 'local' in the base igraph function:
 
 
 ```r
 local.c <- transitivity(ddgg.proj, type = 'local')
+```
+
+```
+## Error: object 'ddgg.proj' not found
+```
+
+```r
 local.c
 ```
 
 ```
-## [1] 0.8333 1.0000 1.0000 0.8333 0.8333
+## Error: object 'local.c' not found
 ```
 
 Our two-mode-sensitive candidates, as implemented independently (rather than through the two-mode triad census) are specialized with a similar local option for type:
@@ -182,17 +245,26 @@ local.c.df <- cbind(c = local.c,
                     c.O = opsahl.transitivity(ddgg, type = 'local'),
                     c.N = incl.transitivity(ddgg, type = 'local'),
                     c.X = excl.transitivity(ddgg, type = 'local'))
+```
+
+```
+## Error: object 'local.c' not found
+```
+
+```r
 rownames(local.c.df) <- V(ddgg.proj)$name
+```
+
+```
+## Error: object 'ddgg.proj' not found
+```
+
+```r
 local.c.df
 ```
 
 ```
-##             c    c.O    c.N  c.X
-## Miss A 0.8333 0.5000 0.6667 0.50
-## Miss B 1.0000 0.6667 0.6667 1.00
-## Miss C 1.0000 0.6667 1.0000 0.50
-## Miss D 0.8333 0.6000 0.8333 0.50
-## Miss E 0.8333 0.7143 0.8000 0.75
+## Error: object 'local.c.df' not found
 ```
 
 As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census.
@@ -203,15 +275,18 @@ global.c2 <- c(transitivity(ddgg.proj),
                opsahl.transitivity(ddgg),
                incl.transitivity(ddgg),
                excl.transitivity(ddgg))
+```
+
+```
+## Error: object 'ddgg.proj' not found
+```
+
+```r
 data.frame(Census = global.c1, Separate = global.c2)
 ```
 
 ```
-##     Census Separate
-## C   0.8750   0.8750
-## C.O 0.6111   0.6111
-## C.N 0.7826   0.7826
-## C.X 0.6000   0.6000
+## Error: object 'global.c1' not found
 ```
 
 ### Wedge-dependent local clustering
@@ -226,16 +301,18 @@ While Clique A is too small to draw general inferences from, it can at least pro
 ```r
 ddc <- data.frame(k = degree(ddgg.proj),
                   c = transitivity(ddgg.proj, type = 'local'))
+```
+
+```
+## Error: object 'ddgg.proj' not found
+```
+
+```r
 print(ddc)
 ```
 
 ```
-##        k      c
-## Miss A 4 0.8333
-## Miss B 3 1.0000
-## Miss C 3 1.0000
-## Miss D 4 0.8333
-## Miss E 4 0.8333
+## Error: object 'ddc' not found
 ```
 
 As we observed above, there is zero variability among nodes of common degree, though we can still plot the relationship between the (trivial) degree-dependent mean local clustering coefficients and the degrees:
@@ -247,7 +324,9 @@ plot(aggregate(ddc$c, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 ```
 
-![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17.png) 
+```
+## Error: object 'ddc' not found
+```
 
 Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. ???, Fig. ?). The data are available [here](), in a different format from the previous data (hence the different procedure to read it):
 
@@ -280,31 +359,27 @@ The visualization is quite a bit messier, but it looks like we have at least som
 
 ```r
 ddgg2.proj <- onemode.projection(ddgg2)
+```
+
+```
+## Error: could not find function "onemode.projection"
+```
+
+```r
 ddc2 <- data.frame(k = degree(ddgg2.proj),
                    c = transitivity(ddgg2.proj, type = 'local'))
+```
+
+```
+## Error: object 'ddgg2.proj' not found
+```
+
+```r
 print(ddc2)
 ```
 
 ```
-##            k      c
-## EVELYN    17 0.8971
-## LAURA     15 0.9619
-## THERESA   17 0.8971
-## BRENDA    15 0.9619
-## CHARLOTTE 11 1.0000
-## FRANCES   15 0.9619
-## ELEANOR   15 0.9619
-## PEARL     16 0.9333
-## RUTH      17 0.8971
-## VERNE     17 0.8971
-## MYRNA     16 0.9333
-## KATHERINE 16 0.9333
-## SYLVIA    17 0.8971
-## NORA      17 0.8971
-## HELEN     17 0.8971
-## DOROTHY   16 0.9333
-## OLIVIA    12 1.0000
-## FLORA     12 1.0000
+## Error: object 'ddc2' not found
 ```
 
 ```r
@@ -313,9 +388,11 @@ plot(aggregate(ddc2$c, by = list(k = ddc2$k), FUN = mean), pch = 19, type = 'b',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 ```
 
-![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20.png) 
+```
+## Error: object 'ddc2' not found
+```
 
-There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships. But how variable is this "forging" process among individuals with the same number of acquaintances? The bars of the local clustering coefficient histograms below are centered at the k(k-1)/2+1 possible values of each local clustering coefficient. (The code is adapted from [this helpful answer](http://stackoverflow.com/questions/17271968/different-breaks-per-facet-in-ggplot2-histogram).)
+There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships. But how variable is this "forging" process among individuals with the same number of acquaintances? The bars of the local clustering coefficient histograms below are centered at the k(k-1)/2+1 possible values of each local clustering coefficient. (The code is adapted from [this helpful exchange](http://stackoverflow.com/questions/17271968/different-breaks-per-facet-in-ggplot2-histogram).)
 
 
 ```r
@@ -325,17 +402,56 @@ ddc2.breaks <- lapply(sort(unique(ddc2$k)), function(k) {
     wid = 1 / choose(k, 2)
     seq(0 - wid / 2, 1 + wid / 2, wid)
 })
+```
+
+```
+## Error: object 'ddc2' not found
+```
+
+```r
 hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
               dlply(ddc2, .(k)), ddc2.breaks)
+```
+
+```
+## Error: object 'ddc2' not found
+```
+
+```r
 ggplot(ddc2, aes(x = c)) +
     hls +
     facet_grid(k ~ ., scales = "free_x") +
+    ggtitle("Local clustering coefficients conditioned on degree") +
     xlab("Local clustering coefficient") +
     ylab("Count")
 ```
 
-![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21.png) 
+```
+## Error: object 'ddc2' not found
+```
 
 Everyone with the same degree has the same clustering coefficient; this is weak evidence indeed, but it does suggest some consistency in local clustering by degree, at least in purpose-gathered networks.
 
-Both distributions might be fruitfully generalized to the two-mode setting. The only task is to come up with a suitable analog of degree --- that is, 
+Both distributions might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree --- that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
+
+
+```r
+ddgg2.wedges <- opsahl.transitivity(ddgg2, type = '')
+```
+
+```
+## Error: could not find function "opsahl.transitivity"
+```
+
+```r
+plot(aggregate(ddgg2.wedges$T / ddgg2.wedges$V,
+               by = list(V = ddgg2.wedges$V), FUN = mean),
+     pch = 19, type = 'b',
+     main = 'Wedge-dependent local clustering',
+     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
+```
+
+```
+## Error: object 'ddgg2.wedges' not found
+```
+
