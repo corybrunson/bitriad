@@ -144,15 +144,24 @@ excl.transitivity <- function(
         wedges.fn = excl.wedges, vids = vids)
 }
 
-# Wedge-dependent local clustering: distributions or functions thereof
-wedge.transitivity <- function(
-    bigraph, node.type = 0, FUN = identity, wedges.fn = opsahl.wedges, ...
-    ) {
-    wedges <- twomode.transitivity(
-        bigraph = bigraph, node.type = node.type, type = 'wedges',
-        wedges.fn = wedges.fn)
-    return(sapply(1:max(wedges[1, ]), function(k) {
-        wh.k <- which(wedges[1, ] == k)
-        unname(FUN(wedges[2, wh.k] / wedges[1, wh.k]))
-    }))
+# Plot histograms of local clustering by wedge count
+# http://stackoverflow.com/questions/17271968/
+# different-breaks-per-facet-in-ggplot2-histogram
+wedge.dependency.hist <- function(wedges, max.no = 12, wedge.nos = NULL) {
+    require(ggplot2)
+    require(plyr)
+    if(is.null(wedge.nos)) {
+        V.ran <- sort(setdiff(unique(wedges[, 1]), 0))
+        V.max <- if(length(V.ran) <= max.no) max(V.ran) else V.ran[max.no]
+        wedge.nos <- 1:V.max
+        wh <- which(wedges[, 1] != 0 & wedges[, 1] <= V.max)
+    } else wh <- which(wedges[, 1] %in% wedge.nos)
+    vtc <- data.frame(V = wedges[wh, 1], C = wedges[wh, 2] / wedges[wh, 1])
+    w.breaks <- lapply(wedge.nos, function(v) {
+        wid = 1 / v
+        seq(0 - wid / 2, 1 + wid / 2, wid)
+    })
+    hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
+                  dlply(vtc, .(V)), w.breaks)
+    return(ggplot(vtc, aes(x = C)) + hls + facet_grid(V ~ ., scales = "free_x"))
 }

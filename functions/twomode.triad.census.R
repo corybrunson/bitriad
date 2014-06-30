@@ -1,10 +1,10 @@
 # FUNCTION: Triad census for undirected networks (only 4 isomorphism classes)
 simple.triad.census <- function(graph, rcnames = FALSE) {
-  tc <- triad.census(as.directed(graph))
-  if(is.nan(tc[1])) tc[1] <- choose(vcount(graph), 3) - sum(tc, na.rm = TRUE)
-  stc <- tc[c(1, 3, 11, 16)]
-  if(rcnames) names(stc) <- 0:3
-  return(stc)
+    tc <- triad.census(as.directed(graph))
+    if(is.nan(tc[1])) tc[1] <- choose(vcount(graph), 3) - sum(tc, na.rm = TRUE)
+    stc <- tc[c(1, 3, 11, 16)]
+    if(rcnames) names(stc) <- 0:3
+    return(stc)
 }
 
 # FUNCTION: Two-mode dyad census (equivalently, distribution of edge weights
@@ -54,7 +54,7 @@ connected.triples <- function(
     bigraph, type = 0,
     # Construct the one-mode projection if it's not already prepared
     graph = onemode.projection(bigraph, type = type, name = 'id')
-    ) {
+) {
     trips <- do.call(rbind, lapply(1:vcount(graph), function(i) {
         nbhd <- neighborhood(graph, 1, i)[[1]]
         # Skip nodes with not enough neighbors
@@ -167,6 +167,8 @@ three.tied.triads <- function(
 ) {
     # Triangles are 3-cliques in the one-mode projection
     t <- do.call(cbind, cliques(graph, min = 3, max = 3))
+    # If there are no triangles then return an empty list
+    if(is.null(t)) return(NULL)
     # Vector of triad weights
     w <- sapply(1:dim(t)[2], function(j) {
         share.weight(bigraph, V(graph)$name[c(t[1, j], t[2, j], t[3, j])])
@@ -201,34 +203,39 @@ twomode.triad.census2 <- function(bigraph, type = 0, rcnames = FALSE,
     ot <- one.tied.triads(graph)
     # Insert the totals at the proper entries of C
     # (Aggregated, so no repeats, so no information loss)
-    C[sapply(ot$x, function(x) partition.position(c(x, 0, 0))) + 1, 1] <- ot$n
+    if(length(ot) > 0) C[sapply(ot$x, function(x) {
+        partition.position(c(x, 0, 0))
+    }) + 1, 1] <- ot$n
     if(verbose) print('One-tied triads tallied')
     
     # Tally two-tied triads
     tt <- two.tied.triads(graph)
     # Insert the totals at the proper entries of C
     # (Aggregated, so no repeats, so no information loss)
-    C[sapply(1:dim(tt)[1], function(i) {
+    if(!is.null(tt)) C[sapply(1:dim(tt)[1], function(i) {
         partition.position(c(tt[i, 1], tt[i, 2], 0))
     }) + 1, 1] <- tt$n
     if(verbose) print('Two-tied triads tallied')
     
     # Tally triangles
     tht <- three.tied.triads(bigraph, type = type, graph = graph)
-    # Trim any unnecessary columns
-    max.w <- max(tht$w)
-    C <- C[, 1:(max.w + 1)]
-    # For each value of w:
-    for(w in 0:max.w) {
-        if(verbose) print(paste('Tallying weight-', w, ' three-tied triads',
-                                sep = ''))
-        # Which rows have weight w?
-        rs <- which(tht$w == w)
-        # Insert the totals at the proper rows in column w + 1 of C
-        # (No repeats, so no information loss)
-        C[sapply(rs, function(i) {
-            partition.position(as.numeric(tht[i, 1:3])) + 1
-        }), w + 1] <- tht$n[rs]
+    # If there are any...
+    if(!is.null(tht)) {
+        # Trim any unnecessary columns
+        max.w <- max(tht$w)
+        C <- C[, 1:(max.w + 1)]
+        # For each value of w:
+        for(w in 0:max.w) {
+            if(verbose) print(paste('Tallying weight-', w, ' three-tied triads',
+                                    sep = ''))
+            # Which rows have weight w?
+            rs <- which(tht$w == w)
+            # Insert the totals at the proper rows in column w + 1 of C
+            # (No repeats, so no information loss)
+            if(length(rs) > 0) C[sapply(rs, function(i) {
+                partition.position(as.numeric(tht[i, 1:3])) + 1
+            }), w + 1] <- tht$n[rs]
+        }
     }
     if(verbose) print('Three-tied triads tallied')
     
@@ -251,3 +258,110 @@ twomode.triad.census2 <- function(bigraph, type = 0, rcnames = FALSE,
 # Trials on small networks indicate that version 2 is substantially faster;
 # version 1 is retained as a check
 twomode.triad.census <- twomode.triad.census2
+
+# Derive clustering coefficients from two-mode triad census
+tc2cc <- function(tc, S.fn, F.fn, num.denom = FALSE) {
+    if(dim(tc)[1] * dim(tc)[2] == 0) return(NA)
+    S.c <- sum(sapply(1:dim(tc)[2], function(j) sapply(
+        1:dim(tc)[1], function(i) {
+            if(tc[i, j] == 0) 0 else
+                S.fn(position.partition(3, i - 1), j - 1) * tc[i, j]})))
+    F.c <- sum(sapply(1:dim(tc)[2], function(j) sapply(
+        1:dim(tc)[1], function(i) {
+            if(tc[i, j] == 0) 0 else
+                F.fn(position.partition(3, i - 1), j - 1) * tc[i, j]})))
+    return(if(num.denom) c(S.c, S.c + F.c) else S.c / (S.c + F.c))}
+
+# Classical clustering coefficient on the one-mode projection
+# tc must be a matrix with rows indexed as partition.position
+tc2C <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+    tc,
+    function(L, w) ifelse(by.triangle, 1, 3) * ((L[3] > 0) | (w > 0)),
+    function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0)), num.denom = num.denom)
+
+# Global Opsahl clustering coefficient
+# (agrees with bipartite.transitivity)
+# tc must be a matrix with rows indexed as partition.position
+tc2CO <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+    tc,
+    function(L, w) ifelse(
+        by.triangle,
+        L[1] * L[2] * L[3] +
+            (L[1] * L[2] + L[1] * L[3] + L[2] * L[3]) * w +
+            sum(L) * w * (w - 1) +
+            w * (w - 1) * (w - 2),
+        L[1] * L[2] * (L[3] + w > 0) + L[1] * L[3] + L[2] * L[3] +
+            L[1] * w * (L[2] > 0 | w > 1) + L[1] * w * (L[3] > 0 | w > 1) +
+            L[2] * w + L[2] * w * (L[3] > 0 | w > 1) +
+            2 * L[3] * w +
+            2 * choose(w, 2) * max(3 * (w > 2), length(which(L > 0)))),
+    function(L, w) L[1] * L[2] * (L[3] + w == 0) +
+        L[1] * (L[2] == 0 & w == 1) + L[1] * (L[3] == 0 & w == 1) +
+        L[2] * (L[3] == 0 & w == 1) +
+        2 * choose(w, 2) * min(3 * (w == 2), length(which(L == 0))),
+    num.denom = num.denom)
+
+# Global inclusive clustering coefficient
+# (existence of not necessarily induced 4-paths and 6-cycles)
+# tc must be a matrix with rows indexed as partition.position
+tc2Cin <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+    tc,
+    function(L, w) ifelse(by.triangle, 1, 3) * (length(which(L > 0)) + w > 2),
+    function(L, w) (L[2] > 0 & L[3] == 0 & w == 0) +
+        2 * (L[1] > 0 & L[2] == 0 & w == 1) +
+        3 * (L[1] == 0 & w == 2),
+    num.denom = num.denom)
+
+# Global exclusive clustering coefficient
+# (existence of induced 4-paths and 6-cycles)
+# (agrees with exclusive.transitivity)
+# tc must be a matrix with rows indexed as partition.position
+tc2Cex <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+    tc,
+    function(L, w) ifelse(by.triangle, 1, 3) * (L[3] > 0),
+    function(L, w) ((L[2] > 0) & (L[3] == 0)), num.denom)
+
+# Pairwise weight–resolved exclusive clustering
+# tc must be a matrix with rows indexed as partition.position
+tc2Cexij <- function(tc, i, j, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+    tc,
+    function(L, w) ifelse(by.triangle, 1, 3) * ((L[2] >= i) & (L[3] >= j)),
+    function(L, w) ((L[2] >= i) & (L[3] < j)), num.denom)
+
+# Triad weight–resolved exclusive clustering
+# tc must be a matrix with rows indexed as partition.position
+tc2Cexw <- function(tc, ww, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+    tc,
+    function(L, w) ifelse(by.triangle, 1, 3) * ((L[3] > 0) & (w == ww)),
+    function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == ww)), num.denom)
+
+# Make a list of matrices all the same dimensions by appending zeroes
+sync.mat <- function(lst) {
+    sync.dim <- apply(sapply(lst, dim), 1, max)
+    return(lapply(lst, function(mat) {
+        cbind(rbind(mat,
+                    matrix(0, nr = sync.dim[1] - dim(mat)[1],
+                           nc = dim(mat)[2])),
+              matrix(0, nr = sync.dim[1], nc = sync.dim[2] - dim(mat)[2]))
+    }))
+}
+
+# Recover the simple triad census from the two-mode triad census
+tmtc2stc <- function(tmtc) {
+    # Trivial cases
+    if(sum(tmtc) == 0) return(rep(0, 4))
+    # Number of edges (1, 2, or 3) induced by each lambda other than c(0,0,0)
+    edge.counts <- sapply(1:dim(tmtc)[1], function(i) {
+        length(which(position.partition(i, k = 3) > 0))
+    })
+    return(c(
+        # Empty triads all have lambda = c(0,0,0), w = 0
+        tmtc[1, 1],
+        # Dyads
+        sum(tmtc[edge.counts == 1, 1]),
+        # Intransitive wedges
+        sum(tmtc[edge.counts == 2, 1]),
+        # Triangles, including all columns w > 0
+        sum(tmtc[edge.counts == 3, 1]) +
+            ifelse(dim(tmtc)[2] == 1, 0, sum(tmtc[, 2:dim(tmtc)[2]]))))
+}

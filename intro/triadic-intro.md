@@ -68,7 +68,7 @@ plot(ddgg, layout = layout.fruchterman.reingold(ddgg, niter = 100),
 
 This layout reveals a symmetry of the network between its actor and event nodes: Exchanging Miss A and Event 2, Miss B and Event 5, and so on yields a graph isomorphism. Thus any structural information we learn about the actors in this network can be flipped into equivalent information about the events.
 
-### Global clustering coefficients
+### Triad census
 
 This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them in detail. (Future networks will only be examined cursorily or through statistics.) We can view the (undirected) triad census of the one-mode projection, taking the actor-based one-mode projection:
 
@@ -108,6 +108,8 @@ tmtc
 
 The arrangement is far less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all --- even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
 
+### Global clustering coefficients
+
 The classical (global) clustering coefficient for a one-mode network may be defined either as the proportion of "wedges" that are "closed" or as the ratio of (three times) the number of "triangles" to the number of "wedges". Here wedges are 2-paths, distinguished by the relative positions of the nodes but not by their progression, and a wedge is considered closed if its end nodes are tied. (To avoid confusion i won't get into the other definition.) Since every triad of three edges counts thrice as a closed wedge, we can compute the clustering coefficient of the one-mode projection directly from the simple census:
 
 
@@ -124,8 +126,6 @@ C
 The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity --- the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
 
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
-
-
 
 
 ```r
@@ -247,7 +247,7 @@ plot(aggregate(ddc$c, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 ```
 
-![plot of chunk unnamed-chunk-17](figure/unnamed-chunk-17.png) 
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16.png) 
 
 Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. ???, Fig. ?). The data are available [here](), in a different format from the previous data (hence the different procedure to read it):
 
@@ -273,7 +273,7 @@ plot(ddgg2, layout = layout.fruchterman.reingold(ddgg2, niter = 100),
      vertex.label.family = 'sans', vertex.label.color = 'black')
 ```
 
-![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19.png) 
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18.png) 
 
 The visualization is quite a bit messier, but it looks like we have at least some range of degrees this time:
 
@@ -313,7 +313,7 @@ plot(aggregate(ddc2$c, by = list(k = ddc2$k), FUN = mean), pch = 19, type = 'b',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 ```
 
-![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20.png) 
+![plot of chunk unnamed-chunk-19](figure/unnamed-chunk-19.png) 
 
 There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships. But how variable is this "forging" process among individuals with the same number of acquaintances? The bars of the local clustering coefficient histograms below are centered at the k(k-1)/2+1 possible values of each local clustering coefficient. (The code is adapted from [this helpful exchange](http://stackoverflow.com/questions/17271968/different-breaks-per-facet-in-ggplot2-histogram).)
 
@@ -335,7 +335,7 @@ ggplot(ddc2, aes(x = c)) +
     ylab("Count")
 ```
 
-![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-21.png) 
+![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20.png) 
 
 Everyone with the same degree has the same clustering coefficient; this is weak evidence indeed, but it does suggest some consistency in local clustering by degree, at least in purpose-gathered networks.
 
@@ -344,6 +344,37 @@ Both distributions might be fruitfully generalized to the two-mode setting. The 
 
 ```r
 ddgg2.wedges <- opsahl.transitivity(ddgg2, type = '')
+ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
+plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
+     pch = 19, type = 'b',
+     main = 'Wedge-dependent local clustering',
+     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
+```
+
+![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-211.png) 
+
+```r
+ddgg2.breaks <- lapply(sort(unique(ddgg2.wedges$V)), function(v) {
+    wid = 1 / v
+    seq(0 - wid / 2, 1 + wid / 2, wid)
+})
+hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
+              dlply(ddgg2.wedges, .(V)), ddgg2.breaks)
+ggplot(ddgg2.wedges, aes(x = C)) +
+    hls +
+    facet_grid(V ~ ., scales = "free_x") +
+    ggtitle("Local Opsahl clustering coefficients conditioned on wedges") +
+    xlab("Local Opsahl clustering coefficient") +
+    ylab("Count")
+```
+
+![plot of chunk unnamed-chunk-21](figure/unnamed-chunk-212.png) 
+
+Both plots are absent the consistent behavior we saw in the classical case. What, instead, if we try exclusive clustering?
+
+
+```r
+ddgg2.wedges <- excl.transitivity(ddgg2, type = '')
 ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
 plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
      pch = 19, type = 'b',
@@ -363,59 +394,13 @@ hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
 ggplot(ddgg2.wedges, aes(x = C)) +
     hls +
     facet_grid(V ~ ., scales = "free_x") +
-    ggtitle("Local Opsahl clustering coefficients conditioned on wedges") +
-    xlab("Local Opsahl clustering coefficient") +
+    ggtitle("Local exclusive clustering coefficients conditioned on wedges") +
+    xlab("Local exclusive clustering coefficient") +
     ylab("Count")
-```
-
-```
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
-## Warning: position_stack requires constant width: output may be incorrect
 ```
 
 ![plot of chunk unnamed-chunk-22](figure/unnamed-chunk-222.png) 
 
-Both plots are absent the consistent behavior we saw in the classical case. What, instead, if we try exclusive clustering?
+Not only do both plots retrieve the steady, if not monotonic, behavior of the classical case, but the histograms occupy a much broader range of values between 0 and 1 than in the classical case. In the classical case we expect local clustering coefficients to be quite large in tight-knit networks such as those produced for sociological analysis of cliques and communities; the exclusive clustering coefficient captures a more descriptive form of transitivity. Still, however, at most two nodes share a wedge count; we will need massive networks in order to get a sense for the distributions of the wedge-conditioned local clustering coefficients.
 
-
-```r
-ddgg2.wedges <- excl.transitivity(ddgg2, type = '')
-ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
-plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
-     pch = 19, type = 'b',
-     main = 'Wedge-dependent local clustering',
-     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
-```
-
-![plot of chunk unnamed-chunk-23](figure/unnamed-chunk-231.png) 
-
-```r
-ddgg2.breaks <- lapply(sort(unique(ddgg2.wedges$V)), function(v) {
-    wid = 1 / v
-    seq(0 - wid / 2, 1 + wid / 2, wid)
-})
-hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
-              dlply(ddgg2.wedges, .(V)), ddgg2.breaks)
-ggplot(ddgg2.wedges, aes(x = C)) +
-    hls +
-    facet_grid(V ~ ., scales = "free_x") +
-    ggtitle("Local Exclusive clustering coefficients conditioned on wedges") +
-    xlab("Local Exclusive clustering coefficient") +
-    ylab("Count")
-```
-
-![plot of chunk unnamed-chunk-23](figure/unnamed-chunk-232.png) 
-
+Notice also the difference in scale: The number of Opsahl wedges for a woman in Group I ranges from 31 to 1280, whereas exclusive wedges only number from 9 to 95. The intricacies of local structure are mitigated by restricting to induced 4-paths, and much of the apparent loss of global structure in the two-mode setting appears instead to have been an artifact of the influence of this intricacy.
