@@ -1,6 +1,7 @@
 # FUNCTION: Triad census for undirected networks (only 4 isomorphism classes)
 simple.triad.census <- function(graph, rcnames = FALSE) {
     tc <- triad.census(as.directed(graph))
+    stopifnot(sum(tc) == choose(vcount(graph), 3))
     if(is.nan(tc[1])) tc[1] <- choose(vcount(graph), 3) - sum(tc, na.rm = TRUE)
     stc <- tc[c(1, 3, 11, 16)]
     if(rcnames) names(stc) <- 0:3
@@ -193,6 +194,9 @@ twomode.triad.census2 <- function(bigraph, type = 0, rcnames = FALSE,
     if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
     # Create one-mode projection
     graph <- onemode.projection(bigraph, type = type, name = 'id')
+    # Trivial case
+    if(ecount(graph) == 0) return(matrix(choose(vcount(graph), 3),
+                                         nr = 1, nc = 1))
     
     # Find maximum values of x and of w
     max.x <- max(E(graph)$weight)
@@ -346,22 +350,57 @@ sync.mat <- function(lst) {
     }))
 }
 
+# Take the quotient of the two-mode triad census by structural equivalence
+# (4, 2) matrix with rows labeled by (0, 1) lambas and columns by (0, 1) ws
+tmtc2setc <- function(tmtc) {
+    # Trivial cases
+    if(sum(tmtc) == 0) return(matrix(0, nr = 4, nc = 2))
+    if(all(dim(tmtc) == 1)) return(matrix(c(tmtc[1, 1], rep(0, 7)),
+                                          nr = 4, nc = 2))
+    # No. edges (1, 2, or 3) induced by each nonempty lambda with w = 0
+    pw.counts <- sapply(1:(dim(tmtc)[1] - 1), function(i) {
+        length(which(position.partition(i, k = 3) > 0))
+    })
+    # Which rows connect 1, 2, and 3 pairs
+    wh <- lapply(1:3, function(i) which(pw.counts == i) + 1)
+    return(matrix(c(
+        # Empty triads
+        tmtc[1, 1],
+        # No triad event; 1, 2, and 3 pairs connected
+        sum(tmtc[wh[[1]], 1]),
+        sum(tmtc[wh[[2]], 1]),
+        sum(tmtc[wh[[3]], 1]),
+        # Committees with no pairwise events
+        sum(tmtc[1, 2:dim(tmtc)[2]]),
+        # Triad event; 1, 2, and 3 pairs connected
+        sum(tmtc[wh[[1]], 2:dim(tmtc)[2]]),
+        sum(tmtc[wh[[2]], 2:dim(tmtc)[2]]),
+        sum(tmtc[wh[[3]], 2:dim(tmtc)[2]])
+    ), nr = 4, nc = 2))
+}
+
+twomode.structural.triad.census <- function(bigraph, type = 0, rcnames = FALSE,
+                                            verbose = FALSE) {
+    tmtc2setc(twomode.triad.census(bigraph, type, rcnames, verbose))
+}
+
 # Recover the simple triad census from the two-mode triad census
 tmtc2stc <- function(tmtc) {
     # Trivial cases
     if(sum(tmtc) == 0) return(rep(0, 4))
-    # Number of edges (1, 2, or 3) induced by each lambda other than c(0,0,0)
-    edge.counts <- sapply(1:dim(tmtc)[1], function(i) {
+    if(all(dim(tmtc) == 1)) return(c(tmtc[1, 1], 0, 0, 0))
+    # Number of edges (1, 2, or 3) induced by each lambda other than c(0, 0, 0)
+    pw.counts <- sapply(1:(dim(tmtc)[1] - 1), function(i) {
         length(which(position.partition(i, k = 3) > 0))
     })
     return(c(
-        # Empty triads all have lambda = c(0,0,0), w = 0
+        # Empty triads all have lambda = c(0, 0, 0), w = 0
         tmtc[1, 1],
         # Dyads
-        sum(tmtc[edge.counts == 1, 1]),
+        sum(tmtc[which(pw.counts == 1) + 1, 1]),
         # Intransitive wedges
-        sum(tmtc[edge.counts == 2, 1]),
+        sum(tmtc[which(pw.counts == 2) + 1, 1]),
         # Triangles, including all columns w > 0
-        sum(tmtc[edge.counts == 3, 1]) +
+        sum(tmtc[which(pw.counts == 3) + 1, 1]) +
             ifelse(dim(tmtc)[2] == 1, 0, sum(tmtc[, 2:dim(tmtc)[2]]))))
 }
