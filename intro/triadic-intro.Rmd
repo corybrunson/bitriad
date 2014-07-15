@@ -200,7 +200,7 @@ plot(ddgg2, layout = layout.fruchterman.reingold(ddgg2, niter = 100),
      vertex.shape = ifelse(V(ddgg2)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
      vertex.label = substr(V(ddgg2)$name, 1, 2),
-     vertex.label.family = 'sans', vertex.label.color = 'black')
+     vertex.label.family = 'sans', vertex.label.color = 'white')
 ```
 
 The visualization is quite a bit messier, but it looks like we have at least some range of degrees this time:
