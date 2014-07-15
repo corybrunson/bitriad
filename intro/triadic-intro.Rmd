@@ -105,7 +105,7 @@ The value tells us what proportion of the time each pair of three women have co-
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
 
 ```{r}
-setc <- tc2C(tmtc)
+setc <- tmtc2setc(tmtc)
 setc
 ```
 
@@ -215,28 +215,9 @@ plot(aggregate(ddc2$c, by = list(k = ddc2$k), FUN = mean), pch = 19, type = 'b',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 ```
 
-There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships. But how variable is this "forging" process among individuals with the same number of acquaintances? The bars of the local clustering coefficient histograms below are centered at the k(k-1)/2+1 possible values of each local clustering coefficient. (The code is adapted from [this helpful exchange](http://stackoverflow.com/questions/17271968/different-breaks-per-facet-in-ggplot2-histogram).)
+There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships.
 
-```{r, message = FALSE}
-library(ggplot2)
-library(plyr)
-ddc2.breaks <- lapply(sort(unique(ddc2$k)), function(k) {
-    wid = 1 / choose(k, 2)
-    seq(0 - wid / 2, 1 + wid / 2, wid)
-})
-hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
-              dlply(ddc2, .(k)), ddc2.breaks)
-ggplot(ddc2, aes(x = c)) +
-    hls +
-    facet_grid(k ~ ., scales = "free_x") +
-    ggtitle("Local clustering coefficients conditioned on degree") +
-    xlab("Local clustering coefficient") +
-    ylab("Count")
-```
-
-Everyone with the same degree has the same clustering coefficient; this is weak evidence indeed, but it does suggest some consistency in local clustering by degree, at least in purpose-gathered networks.
-
-Both distributions might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree --- that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
+This distribution might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree --- that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
 
 ```{r, warning = FALSE}
 ddgg2.wedges <- opsahl.transitivity(ddgg2, type = '')
@@ -245,21 +226,9 @@ plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
-ddgg2.breaks <- lapply(sort(unique(ddgg2.wedges$V)), function(v) {
-    wid = 1 / v
-    seq(0 - wid / 2, 1 + wid / 2, wid)
-})
-hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
-              dlply(ddgg2.wedges, .(V)), ddgg2.breaks)
-ggplot(ddgg2.wedges, aes(x = C)) +
-    hls +
-    facet_grid(V ~ ., scales = "free_x") +
-    ggtitle("Local Opsahl clustering coefficients conditioned on wedges") +
-    xlab("Local Opsahl clustering coefficient") +
-    ylab("Count")
 ```
 
-Both plots are absent the consistent behavior we saw in the classical case. What, instead, if we try exclusive clustering?
+This plot defies the consistent behavior we saw in the classical case. What, instead, if we try exclusive clustering?
 
 ```{r}
 ddgg2.wedges <- excl.transitivity(ddgg2, type = '')
@@ -268,20 +237,6 @@ plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
-ddgg2.breaks <- lapply(sort(unique(ddgg2.wedges$V)), function(v) {
-    wid = 1 / v
-    seq(0 - wid / 2, 1 + wid / 2, wid)
-})
-hls <- mapply(function(x, b) geom_histogram(data = x, breaks = b),
-              dlply(ddgg2.wedges, .(V)), ddgg2.breaks)
-ggplot(ddgg2.wedges, aes(x = C)) +
-    hls +
-    facet_grid(V ~ ., scales = "free_x") +
-    ggtitle("Local exclusive clustering coefficients conditioned on wedges") +
-    xlab("Local exclusive clustering coefficient") +
-    ylab("Count")
 ```
 
-Not only do both plots retrieve the steady, if not monotonic, behavior of the classical case, but the histograms occupy a much broader range of values between 0 and 1 than in the classical case. In the classical case we expect local clustering coefficients to be quite large in tight-knit networks such as those produced for sociological analysis of cliques and communities; the exclusive clustering coefficient captures a more descriptive form of transitivity. Still, however, at most two nodes share a wedge count; we will need massive networks in order to get a sense for the distributions of the wedge-conditioned local clustering coefficients.
-
-Notice also the difference in scale: The number of Opsahl wedges for a woman in Group I ranges from 31 to 1280, whereas exclusive wedges only number from 9 to 95. The intricacies of local structure are mitigated by restricting to induced 4-paths, and much of the apparent loss of global structure in the two-mode setting appears instead to have been an artifact of the influence of this intricacy.
+This plot recovers the steady, if not strictly monotonic, behavior of the classical case. In the classical case we expect local clustering coefficients to be quite large in tight-knit networks such as those produced for sociological analysis of cliques and communities; the exclusive clustering coefficient captures a more descriptive form of transitivity. Still, however, at most two nodes share a wedge count; we will need massive networks in order to get a sense for the distributions of the wedge-conditioned local clustering coefficients.
