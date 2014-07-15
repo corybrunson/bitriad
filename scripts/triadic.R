@@ -9,4 +9,3 @@ myfn('twomode.transitivity.R')
 
 # Triad census functions
 myfn('twomode.triad.census.R')
-myfn('tc2ccs.R')
