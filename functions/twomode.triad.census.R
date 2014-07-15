@@ -230,8 +230,8 @@ twomode.triad.census2 <- function(bigraph, type = 0, rcnames = FALSE,
         C <- C[, 1:(max.w + 1)]
         # For each value of w:
         for(w in 0:max.w) {
-            if(verbose) print(paste('Tallying weight-', w, ' three-tied triads',
-                                    sep = ''))
+            if(verbose) print(paste('Tallying weight-', w,
+                                    ' three-tied triads', sep = ''))
             # Which rows have weight w?
             rs <- which(tht$w == w)
             # Insert the totals at the proper rows in column w + 1 of C
@@ -281,7 +281,8 @@ tc2cc <- function(tc, S.fn, F.fn, num.denom = FALSE) {
 tc2C <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
     tc,
     function(L, w) ifelse(by.triangle, 1, 3) * ((L[3] > 0) | (w > 0)),
-    function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0)), num.denom = num.denom)
+    function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0)),
+    num.denom = num.denom)
 
 # Global Opsahl clustering coefficient
 # (agrees with bipartite.transitivity)

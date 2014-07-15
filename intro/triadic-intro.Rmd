@@ -3,7 +3,7 @@ Triadic analyses of two-mode networks
 
 The paper "Triadic analysis for two-mode networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This R Markdown file will apply these tools to the study of several manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
 
-We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the author's github account; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/]("tonybreyal").
+We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the author's github account; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
 
 ```{r, echo = FALSE, results = 'hide', message = FALSE}
 mydir <- 'https://raw.githubusercontent.com/corybrunson/triadic/master/'
@@ -34,7 +34,7 @@ myscript('scripts/triadic.R')
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
 
-## Network 1: Southern women
+## Case study: Southern women
 
 In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is reproduced in the file "DGG\_Clique\_A.csv", which we load into R directly as a graph:
 
@@ -86,7 +86,8 @@ The arrangement is far less intuitive than that of the simple census. The rows a
 We can sacrifice information about event multiplicity within triads for a simpler and more intuitive layout. This alternative is dubbed the structural triad census because it is obtained by taking the quotient of the full triad census by structural equivalence of events:
 
 ```{r}
-tmtc2setc(tmtc)
+setc <- tmtc2setc(tmtc)
+setc
 ```
 
 The column indicates the existence of a triadwise event; the row indicates the number of pairs of actors connected by a pairwise event (0, 1, 2, or 3).
@@ -105,11 +106,10 @@ The value tells us what proportion of the time each pair of three women have co-
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
 
 ```{r}
-setc <- tmtc2setc(tmtc)
-setc
+tc2C(tmtc)
 ```
 
-The paper discusses in detail two alternative clustering coefficients specifically designed for two-mode networks. The first of these is the *[Opsahl]((http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*:
+The paper discusses in detail two alternative clustering coefficients specifically designed for two-mode networks. The first of these is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*:
 
 ```{r}
 tc2CO(tmtc)
