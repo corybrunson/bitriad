@@ -125,12 +125,8 @@ C</code></pre>
 ## 0.875</code></pre>
 <p>The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity — the tendency for near-connections to indicate direct connections, or for “friends of friends” to in fact be “friends”.</p>
 <p>Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:</p>
-<pre class="r"><code>tc2C</code></pre>
-<pre><code>## function (tc, num.denom = FALSE, by.triangle = FALSE) 
-## tc2cc(tc, function(L, w) ifelse(by.triangle, 1, 3) * ((L[3] &gt; 
-##     0) | (w &gt; 0)), function(L, w) ((L[2] &gt; 0) &amp; (L[3] == 0) &amp; 
-##     (w == 0)), num.denom = num.denom)</code></pre>
-<pre class="r"><code>#tc2C(tmtc)</code></pre>
+<pre class="r"><code>tc2C(tmtc)</code></pre>
+<pre><code>## [1] 0.875</code></pre>
 <p>The paper discusses in detail two alternative clustering coefficients specifically designed for two-mode networks. The first of these is the <em><a href="http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/">Opsahl</a> clustering coefficient</em>:</p>
 <pre class="r"><code>tc2CO(tmtc)</code></pre>
 <pre><code>## [1] 0.6111</code></pre>

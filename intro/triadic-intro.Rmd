@@ -106,26 +106,26 @@ The value tells us what proportion of the time each pair of three women have co-
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
 
 ```{r}
-tc2C(tmtc)
+tmtc2C(tmtc)
 ```
 
 The paper discusses in detail two alternative clustering coefficients specifically designed for two-mode networks. The first of these is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*:
 
 ```{r}
-tc2CO(tmtc)
+tmtc2CO(tmtc)
 ```
 
 The second is dubbed the *exclusive clustering coefficient* because it depends only on the existence, and not the number, of pairwise-exclusive events for each pair of actors. Because the number does not matter, the exclusive clustering coefficient can also be computed from the structural triad census analogously to C:
 
 ```{r}
-tc2Cex(tmtc)
+tmtc2Cex(tmtc)
 3 * sum(setc[4, ]) / (sum(setc[3, ]) + 3 * sum(setc[4, ]))
 ```
 
 Here's how the three diagnostics line up:
 
 ```{r}
-global.c1 <- c(C = tc2C(tmtc), C.O = tc2CO(tmtc), C.X = tc2Cex(tmtc))
+global.c1 <- c(C = tmtc2C(tmtc), C.O = tmtc2CO(tmtc), C.X = tmtc2Cex(tmtc))
 global.c1
 ```
 

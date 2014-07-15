@@ -264,7 +264,7 @@ twomode.triad.census2 <- function(bigraph, type = 0, rcnames = FALSE,
 twomode.triad.census <- twomode.triad.census2
 
 # Derive clustering coefficients from two-mode triad census
-tc2cc <- function(tc, S.fn, F.fn, num.denom = FALSE) {
+tmtc2cc <- function(tc, S.fn, F.fn, num.denom = FALSE) {
     if(dim(tc)[1] * dim(tc)[2] == 0) return(NA)
     S.c <- sum(sapply(1:dim(tc)[2], function(j) sapply(
         1:dim(tc)[1], function(i) {
@@ -278,19 +278,19 @@ tc2cc <- function(tc, S.fn, F.fn, num.denom = FALSE) {
 
 # Classical clustering coefficient on the one-mode projection
 # tc must be a matrix with rows indexed as partition.position
-tc2C <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+tmtc2C <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
-    function(L, w) ifelse(by.triangle, 1, 3) * ((L[3] > 0) | (w > 0)),
+    function(L, w) ifelse(by.tri, 1, 3) * ((L[3] > 0) | (w > 0)),
     function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0)),
     num.denom = num.denom)
 
 # Global Opsahl clustering coefficient
 # (agrees with bipartite.transitivity)
 # tc must be a matrix with rows indexed as partition.position
-tc2CO <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+tmtc2CO <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
     function(L, w) ifelse(
-        by.triangle,
+        by.tri,
         L[1] * L[2] * L[3] +
             (L[1] * L[2] + L[1] * L[3] + L[2] * L[3]) * w +
             sum(L) * w * (w - 1) +
@@ -309,9 +309,9 @@ tc2CO <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
 # Global inclusive clustering coefficient
 # (existence of not necessarily induced 4-paths and 6-cycles)
 # tc must be a matrix with rows indexed as partition.position
-tc2Cin <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+tmtc2Cin <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
-    function(L, w) ifelse(by.triangle, 1, 3) * (length(which(L > 0)) + w > 2),
+    function(L, w) ifelse(by.tri, 1, 3) * (length(which(L > 0)) + w > 2),
     function(L, w) (L[2] > 0 & L[3] == 0 & w == 0) +
         2 * (L[1] > 0 & L[2] == 0 & w == 1) +
         3 * (L[1] == 0 & w == 2),
@@ -321,23 +321,23 @@ tc2Cin <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
 # (existence of induced 4-paths and 6-cycles)
 # (agrees with exclusive.transitivity)
 # tc must be a matrix with rows indexed as partition.position
-tc2Cex <- function(tc, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+tmtc2Cex <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
-    function(L, w) ifelse(by.triangle, 1, 3) * (L[3] > 0),
+    function(L, w) ifelse(by.tri, 1, 3) * (L[3] > 0),
     function(L, w) ((L[2] > 0) & (L[3] == 0)), num.denom)
 
 # Pairwise weight–resolved exclusive clustering
 # tc must be a matrix with rows indexed as partition.position
-tc2Cexij <- function(tc, i, j, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+tmtc2Cexij <- function(tc, i, j, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
-    function(L, w) ifelse(by.triangle, 1, 3) * ((L[2] >= i) & (L[3] >= j)),
+    function(L, w) ifelse(by.tri, 1, 3) * ((L[2] >= i) & (L[3] >= j)),
     function(L, w) ((L[2] >= i) & (L[3] < j)), num.denom)
 
 # Triad weight–resolved exclusive clustering
 # tc must be a matrix with rows indexed as partition.position
-tc2Cexw <- function(tc, ww, num.denom = FALSE, by.triangle = FALSE) tc2cc(
+tmtc2Cexw <- function(tc, ww, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
-    function(L, w) ifelse(by.triangle, 1, 3) * ((L[3] > 0) & (w == ww)),
+    function(L, w) ifelse(by.tri, 1, 3) * ((L[3] > 0) & (w == ww)),
     function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == ww)), num.denom)
 
 # Make a list of matrices all the same dimensions by appending zeroes
