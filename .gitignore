@@ -39,5 +39,6 @@ Thumbs.db
 # Added by Cory
 ###############
 cache/*
+del-*
 .Rhistory
 
