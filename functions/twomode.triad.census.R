@@ -405,3 +405,21 @@ tmtc2stc <- function(tmtc) {
         sum(tmtc[which(pw.counts == 3) + 1, 1]) +
             ifelse(dim(tmtc)[2] == 1, 0, sum(tmtc[, 2:dim(tmtc)[2]]))))
 }
+
+# Subgraph at a given set of actors and all events attended by at least two
+schedule <- function(bigraph, v) {
+    stopifnot(all(V(bigraph)$type[v] == 0))
+    events <- unlist(neighborhood(bigraph, 1, v))
+    tab <- table(events)
+    coattended <- as.numeric(names(tab)[tab > 1])
+    return(induced.subgraph(bigraph, c(v, coattended)))
+}
+
+# Class of a triad
+triad.class <- function(bigraph, v) {
+    stopifnot(all(V(bigraph)$type[v] == 0) & length(v) == 3)
+    pairs <- neighborhood(bigraph, 1, v)
+    w <- length(which(table(unlist(pairs)) > 2))
+    lambda <- sort(sapply(pairs, length) - 1 - w, decreasing = TRUE)
+    return(list(lambda = lambda, w = w))
+}
