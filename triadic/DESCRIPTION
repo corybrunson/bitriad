@@ -1,0 +1,15 @@
+Package: triadic
+Type: Package
+Title: Triadic analysis of static affiliation networks.
+Version: 1.0
+Date: 2014-08-05
+Author: Jason Cory Brunson
+Maintainer: Jason Cory Brunson <brunson@uchc.edu>
+Description: The package contains two principal tools for the triadic analysis
+    of static affiliation networks: the triad census and the clustering
+    coefficient (transitivity). The former has several forms (full, structural,
+    simple) and the latter calls one of several definitions of wedge and of
+    closure. The next step is to extend the package to time-resolved networks.
+Depends:
+    igraph
+License: GPL-2
