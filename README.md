@@ -5,10 +5,10 @@ This repo contains data, tools, and exposition for the **triadic analysis of two
 
 ## data
 
-Sources of the network data are
-* Davis, Gardner, and Gardner's [*Deep South: A Social Anthropological Study of Caste and Class*](http://www.amazon.com/Deep-South-Anthropological-Southern-Classics/dp/1570038155) ("women" and "davis");
-* Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"](http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf) ("board");
-* [Noordin Top Terrorist Network Data](http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp) ("meets" and "organ"); and
+Sources of the network data include
+* Davis, Gardner, and Gardner's [*Deep South: A Social Anthropological Study of Caste and Class*](http://www.amazon.com/Deep-South-Anthropological-Southern-Classics/dp/1570038155) ("davis" and "davis2");
+* Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"](http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf) ("directors");
+* [Noordin Top Terrorist Network Data](http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp) ("meetings" and "organizations"); and
 * Fischer's [*Paul Revere's Ride*](http://books.google.com/books/about/Paul_Revere_s_Ride.html?id=ZAvQfZFbLp4C) ("whigs").
 
 The folder "data" contains both "raw" data files (pulled from the Internet where possible and otherwise constructed from primary sources) and GML files for the affiliation networks associated with them. All graphs are bipartite; the actors and events are given "type" attributes 0 and 1, respectively, corresponding to the values FALSE and TRUE in igraph.
@@ -23,3 +23,7 @@ The folder "functions" contains implementations of several triadic analysis tool
 ## expo
 
 The markdown file in the folder "intro" gives a brief overview of the tools.
+
+## package
+
+The folder "triadic" includes all functions, documentation for most, and eight example networks, which can be installed as an R package.

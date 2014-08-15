@@ -278,7 +278,7 @@ tmtc2cc <- function(tc, S.fn, F.fn, num.denom = FALSE) {
 
 # Classical clustering coefficient on the one-mode projection
 # tc must be a matrix with rows indexed as partition.position
-tmtc2C <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
+tmtc2wscc <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
     function(L, w) ifelse(by.tri, 1, 3) * ((L[3] > 0) | (w > 0)),
     function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0)),
@@ -287,7 +287,7 @@ tmtc2C <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
 # Global Opsahl clustering coefficient
 # (agrees with bipartite.transitivity)
 # tc must be a matrix with rows indexed as partition.position
-tmtc2CO <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
+tmtc2occ <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
     function(L, w) ifelse(
         by.tri,
@@ -306,10 +306,34 @@ tmtc2CO <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
         2 * choose(w, 2) * min(3 * (w == 2), length(which(L == 0))),
     num.denom = num.denom)
 
+# Count Liebig-Rao closed and unclosed 4-paths in each triad class
+# (look fishy; want to check in with Liebig & Rao)
+Lw2S0 <- function(L, w) if(w > 0) 0 else L[1] * L[2] + L[2] * L[3] + L[1] * L[3]
+Lw2S1 <- function(L, w) if(w == 0) 0 else
+    (L[1] * L[2] + L[2] * L[3] + L[1] * L[3]) * w
+Lw2S2 <- function(L, w) w * (w - 1) * (L[1] + L[2] + L[3])
+Lw2S3 <- function(L, w) w * (w - 1) * (w  - 2)
+Lw2F0 <- function(L, w) if(w > 0 | L[3] > 0) 0 else L[1] * L[2]
+Lw2F1 <- function(L, w) if(L[1] == 0 | L[3] > 0) 0 else
+    (L[1] + L[2]) * w + (L[2] == 0) * L[1] * w
+Lw2F2 <- function(L, w) if(L[3] > 0) 0 else
+    w * (w - 1) * (1 + (L[2] == 0) + (L[1] == 0))
+# Global Liebig-Rao clustering coefficients (adapted to static info)
+# (should agree with liebig.rao.transitivity)
+# tc must be a matrix with rows indexed as partition.position
+tmtc2lrcc <- function(k, tc, num.denom = FALSE) tmtc2cc(
+    tc,
+    if(k == 0) Lw2S0 else if(k == 1) Lw2S1 else
+        if(k == 2) Lw2S2 else if(k == 3) Lw2S3,
+    if(k == 0) Lw2F0 else if(k == 3) Lw2F2 else
+        if(k == 1) function(L, w) Lw2F0(L, w) + Lw2F1(L, w) else
+            if(k == 2) function(L, w) Lw2F1(L, w) + Lw2F2(L, w),
+    num.denom = num.denom)
+
 # Global inclusive clustering coefficient
 # (existence of not necessarily induced 4-paths and 6-cycles)
 # tc must be a matrix with rows indexed as partition.position
-tmtc2Cin <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
+tmtc2ncc <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
     function(L, w) ifelse(by.tri, 1, 3) * (length(which(L > 0)) + w > 2),
     function(L, w) (L[2] > 0 & L[3] == 0 & w == 0) +
@@ -321,21 +345,21 @@ tmtc2Cin <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
 # (existence of induced 4-paths and 6-cycles)
 # (agrees with exclusive.transitivity)
 # tc must be a matrix with rows indexed as partition.position
-tmtc2Cex <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
+tmtc2xcc <- function(tc, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
     function(L, w) ifelse(by.tri, 1, 3) * (L[3] > 0),
     function(L, w) ((L[2] > 0) & (L[3] == 0)), num.denom)
 
 # Pairwise weight–resolved exclusive clustering
 # tc must be a matrix with rows indexed as partition.position
-tmtc2Cexij <- function(tc, i, j, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
+tmtc2xij <- function(tc, i, j, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
     function(L, w) ifelse(by.tri, 1, 3) * ((L[2] >= i) & (L[3] >= j)),
     function(L, w) ((L[2] >= i) & (L[3] < j)), num.denom)
 
 # Triad weight–resolved exclusive clustering
 # tc must be a matrix with rows indexed as partition.position
-tmtc2Cexw <- function(tc, ww, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
+tmtc2xw <- function(tc, ww, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
     tc,
     function(L, w) ifelse(by.tri, 1, 3) * ((L[3] > 0) & (w == ww)),
     function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == ww)), num.denom)
@@ -380,7 +404,9 @@ tmtc2setc <- function(tmtc) {
     ), nr = 4, nc = 2))
 }
 
-twomode.structural.triad.census <- function(bigraph, type = 0, rcnames = FALSE,
+# Structural triad census
+# (NEED TO WRITE A CLOSED FUNCTION)
+structural.triad.census <- function(bigraph, type = 0, rcnames = FALSE,
                                             verbose = FALSE) {
     tmtc2setc(twomode.triad.census(bigraph, type, rcnames, verbose))
 }
@@ -404,6 +430,31 @@ tmtc2stc <- function(tmtc) {
         # Triangles, including all columns w > 0
         sum(tmtc[which(pw.counts == 3) + 1, 1]) +
             ifelse(dim(tmtc)[2] == 1, 0, sum(tmtc[, 2:dim(tmtc)[2]]))))
+}
+
+# Derive global clustering coefficients from structural triad census
+setc2cc <- function(setc, S.fn, F.fn, num.denom = FALSE) {
+    stopifnot(all(dim(setc) == c(4, 2)))
+    S.c <- sum(sapply(1:2, function(j) sapply(1:4, function(i) {
+            if(tc[i, j] == 0) 0 else S.fn(i - 1, j - 1) * tc[i, j]})))
+    F.c <- sum(sapply(1:2, function(j) sapply(1:4, function(i) {
+            if(tc[i, j] == 0) 0 else F.fn(i - 1, j - 1) * tc[i, j]})))
+    return(if(num.denom) c(S.c, S.c + F.c) else S.c / (S.c + F.c))}
+
+# Classical (Watts-Strogatz) global clustering coefficient
+setc2wscc <- function(setc, num.denom = FALSE, by.tri = FALSE) {
+    setc2cc(setc,
+            function(l, w) ifelse(by.tri, 1, 3) * (l == 3 | w == 1),
+            function(l, w) (l == 2 & w == 0),
+            num.denom = num.denom)
+}
+
+# Exclusive global clustering coefficient
+setc2excc <- function(setc, num.denom = FALSE, by.tri = FALSE) {
+    setc2cc(setc,
+            function(l, w) ifelse(by.tri, 1, 3) * (l == 3),
+            function(l, w) (l == 2),
+            num.denom = num.denom)
 }
 
 # Subgraph at a given set of actors and all events attended by at least two

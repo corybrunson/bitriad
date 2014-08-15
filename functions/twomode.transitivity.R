@@ -6,7 +6,7 @@ hall.criterion <- function(lst) all(sapply(0:(2 ^ length(lst) - 1),
 }))
 
 # Wedges through a given node in a given two-mode network (classical)
-classical.wedges <- function(bigraph, Q) {
+watts.strogatz.wedges <- function(bigraph, Q) {
     
 }
 
@@ -29,18 +29,83 @@ opsahl.wedges <- function(bigraph, Q) {
         # Across all choices of P from the non-Q primary neighbors of X
         do.call(cbind, lapply(n1n1[[p[1, j]]], function(P) {
             # The second node Y must have a nonempty nbhd besides Q and P
-            Rs <- setdiff(n1n1[[p[2, j]]], P)
-            if(length(Rs) == 0) return(c(0, 0))
+            Rw <- setdiff(n1n1[[p[2, j]]], P)
+            if(length(Rw) == 0) return(c(0, 0))
             # Which Rs produce 4-paths (P, X, Q, Y, R) that are closed?
-            Rw <- which(sapply(Rs, function(R) {
+            Rc <- Rw[which(sapply(Rw, function(R) {
                 length(setdiff(intersect(neighborhood(bigraph, 1, P)[[1]],
                                          neighborhood(bigraph, 1, R)[[1]]),
                                n1[p[, j]])) > 0
-            }))
-            return(c(length(Rs), length(Rw)))
+            }))]
+            return(c(length(Rw), length(Rc)))
         }))
     }))
     return(rowSums(wedgelist))
+}
+
+# Liebig-Rao wedges (adapted to static affiliation networks)
+liebig.rao.wedges <- function(k, bigraph, Q) {
+    stoifnot(all(k %in% 0:3))
+    # Identify events of Q
+    n1 <- setdiff(neighborhood(bigraph, 1, Q)[[1]], Q)
+    # If there aren't at least two, return zeroes
+    if(length(n1) < 2) return(c(0, 0))
+    # Identify coattendees of events of Q
+    n1n1 <- lapply(neighborhood(bigraph, 1, n1), setdiff, c(Q, n1))
+    # Array the 2-paths centered at Q (indices of n1n1, not vertex ids)
+    p <- combn(1:length(n1), 2)
+    # Across the path end pairs (X, Y) list the numbers of (closed) wedges
+    wedgelist <- do.call(cbind, lapply(1:dim(p)[2], function(j) {
+        # The first end X must have a nonempty neighborhood besides Q
+        if(length(n1n1[[p[1, j]]]) == 0) return(c(0, 0))
+        # Across all choices of P from the non-Q actor neighbors of X
+        do.call(cbind, lapply(n1n1[[p[1, j]]], function(P) {
+            # The other end Y must have a nonempty neighborhood besides Q & P
+            Rs <- setdiff(n1n1[[p[2, j]]], P)
+            if(length(Rs) == 0) return(c(0, 0))
+            # Is Y tied to P?
+            nP <- neighborhood(bigraph, 1, P)[[1]]
+            YP <- n1[p[2, j]] %in% nP
+            # Which Rs are tied to X?
+            RsX <- Rs %in% n1n1[[p[1, j]]]
+            # Split Rs into R0s, R1s, and R2s
+            wR0 <- which(!RsX & !YP)
+            wR1 <- which(xor(RsX, YP))
+            wR2 <- which(RsX & YP)
+            stopifnot(length(unique(c(wR0, wR1, wR2))) == length(Rs) &
+                          length(c(wR0, wR1, wR2)) == length(Rs))
+            # Which of each are closed?
+            PRn1 <- lapply(Rs, function(R) {
+                intersect(neighborhood(bigraph, 1, R)[[1]], nP)
+            })
+            if(0 %in% k) wR00 <- which(sapply(wR0, function(w) {
+                0 < length(setdiff(PRn1[[w]], n1))
+            }))
+            if(1 %in% k) wR01 <- which(sapply(wR0, function(w) {
+                0 < length(intersect(PRn1[[w]], n1))
+            }))
+            if(1 %in% k) wR11 <- which(sapply(wR1, function(w) {
+                0 < length(setdiff(PRn1[[w]], n1))
+            }))
+            if(2 %in% k) wR12 <- which(sapply(wR1, function(w) {
+                0 < length(intersect(PRn1[[w]], n1))
+            }))
+            if(2 %in% k) wR22 <- which(sapply(wR2, function(w) {
+                0 < length(setdiff(PRn1[[w]], n1))
+            }))
+            if(3 %in% k) wR23 <- which(sapply(wR2, function(w) {
+                0 < length(intersect(PRn1[[w]], n1))
+            }))
+            # Return wedges according to value of k
+            return(c(
+                if(0 %in% k) c(length(wR0), length(wR00)) else c(),
+                if(1 %in% k) c(length(wR0) + length(wR1),
+                               length(wR01) + length(wR11)) else c(),
+                if(1 %in% k) c(length(wR1) + length(wR2),
+                               length(wR12) + length(wR22)) else c(),
+                if(3 %in% k) c(length(wR2), length(wR23)) else c()))
+        }))
+    }))
 }
 
 # Wedges through a given node in a given two-mode network (inclusive)
@@ -98,7 +163,7 @@ excl.wedges <- function(bigraph, Q) {
 # (Progress bars don't work in apply functions; try pbapply package)
 twomode.transitivity <- function(
     bigraph, node.type = 0, type = 'global', wedges.fn = opsahl.wedges,
-    vids = which(V(bigraph)$type == node.type)
+    vids = which(V(bigraph)$type == node.type, ...)
     ) {
     # Check that nodes are of the desired type
     stopifnot(all(V(bigraph)$type[vids] == node.type))
@@ -107,7 +172,7 @@ twomode.transitivity <- function(
     # Array of 4-paths centered at each Q in Qs
     wedges <- matrix(unlist(lapply(Qs, function(Q) {
         # Return wedge and closed wedge counts at Q
-        return(wedges.fn(bigraph, Q))
+        return(wedges.fn(bigraph, Q, ...))
     })), nr = 2)
     if(type == 'global') return(sum(wedges[2, ]) / sum(wedges[1, ]))
     if(type == 'local') return(wedges[2, ] / wedges[1, ])
@@ -122,6 +187,16 @@ opsahl.transitivity <- function(
     twomode.transitivity(
         bigraph = bigraph, node.type = node.type, type = type,
         wedges.fn = opsahl.wedges, vids = vids)
+}
+
+# Liebig-Rao clustering coefficients
+liebig.rao.transitivity <- function(
+    k, bigraph, node.type = 0, type = 'global',
+    vids = which(V(bigraph)$type == node.type)
+) {
+    twomode.transitivity(
+        k = k, bigraph = bigraph, node.type = node.type, type = type,
+        wedges.fn = excl.wedges, vids = vids)
 }
 
 # Inclusive clustering coefficient
