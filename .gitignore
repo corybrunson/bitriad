@@ -40,5 +40,6 @@ Thumbs.db
 ###############
 cache/*
 del-*
+mv-*
 .Rhistory
 
