@@ -34,7 +34,7 @@ function(bigraph, type = 0, rcnames = FALSE,
         # Insert the totals at the proper entries of C
         # (Aggregated, so no repeats, so no information loss)
         if(length(ot) > 0) C[sapply(ot$x, function(x) {
-            partition.position(c(x, 0, 0))
+            partition.index(c(x, 0, 0))
         }) + 1, 1] <- ot$n
         if(verbose) print('One-tied triads tallied')
         
@@ -43,7 +43,7 @@ function(bigraph, type = 0, rcnames = FALSE,
         # Insert the totals at the proper entries of C
         # (Aggregated, so no repeats, so no information loss)
         if(!is.null(tt)) C[sapply(1:dim(tt)[1], function(i) {
-            partition.position(c(tt[i, 1], tt[i, 2], 0))
+            partition.index(c(tt[i, 1], tt[i, 2], 0))
         }) + 1, 1] <- tt$n
         if(verbose) print('Two-tied triads tallied')
         
@@ -63,7 +63,7 @@ function(bigraph, type = 0, rcnames = FALSE,
                 # Insert the totals at the proper rows in column w + 1 of C
                 # (No repeats, so no information loss)
                 if(length(rs) > 0) C[sapply(rs, function(i) {
-                    partition.position(as.numeric(tht[i, 1:3])) + 1
+                    partition.index(as.numeric(tht[i, 1:3])) + 1
                 }), w + 1] <- tht$n[rs]
             }
         }
@@ -79,7 +79,7 @@ function(bigraph, type = 0, rcnames = FALSE,
         if(rcnames) {
             colnames(C) <- 0:(ncol(C) - 1)
             rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
-                '(', paste(position.partition(i, k = 3), collapse = ','),
+                '(', paste(index.partition(i, k = 3), collapse = ','),
                 ')', sep = ''))
         }
         return(as.matrix(C))

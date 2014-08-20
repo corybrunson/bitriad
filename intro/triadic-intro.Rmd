@@ -91,7 +91,7 @@ stc
 We have no disconnected triples, only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the function 'twomode.triad.census':
 
 ```{r}
-tmtc <- triadic::twomode.triad.census(ddgg, rcnames = TRUE)
+tmtc <- triadic::twomode.triad.census(ddgg)
 tmtc
 ```
 
