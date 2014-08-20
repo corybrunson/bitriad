@@ -1,6 +1,14 @@
 Triadic analyses of two-mode networks
 =====================================
 
+```{r}
+library(knitr)
+opts_knit$set(progress = FALSE)
+opts_chunk$set(echo = TRUE, message = FALSE, tidy = TRUE, comment = NA,
+               fig.path = "figure/", fig.keep = "high", fig.width = 10,
+               fig.height = 6, fig.align = "center")
+```
+
 The paper "Triadic analysis for two-mode networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This RMarkdown file (view the html [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/corybrunson/triadic/master/intro/triadic-intro.html)) will apply these tools to the study of several manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
 
 We use the "igraph" package, which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the author's github account; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
@@ -15,21 +23,23 @@ mytable <- function(data.file, ...) {
     require(RCurl)
     read.table(text = getURL(paste(mydir, 'data/', data.file, sep = '')), ...)
 }
-source_https <- function(url, ...) {
-  require(RCurl)
-  # parse and evaluate each .R script
-  sapply(c(url, ...), function(u) {
-    eval(parse(text = getURL(u, followlocation = TRUE,
-                             cainfo = system.file("CurlSSL", "cacert.pem",
-                                                  package = "RCurl"))),
-         envir = .GlobalEnv)
-  })
-}
-myscript <- function(src.file) source_https(paste(mydir, src.file, sep = ''))
-myfn <- function(fn.file) {
-  source_https(paste(mydir, 'functions/', fn.file, sep = ''))
-}
-myscript('scripts/triadic.R')
+#source_https <- function(url, ...) {
+#  require(RCurl)
+#  # parse and evaluate each .R script
+#  sapply(c(url, ...), function(u) {
+#    eval(parse(text = getURL(u, followlocation = TRUE,
+#                             cainfo = system.file("CurlSSL", "cacert.pem",
+#                                                  package = "RCurl"))),
+#         envir = .GlobalEnv)
+#  })
+#}
+#myscript <- function(src.file) source_https(paste(mydir, src.file, sep = ''))
+#myfn <- function(fn.file) {
+#  source_https(paste(mydir, 'functions/', fn.file, sep = ''))
+#}
+#myscript('scripts/triadic.R')
+require(devtools)
+load_all(paste0(mydir, 'triadic/R'))
 ```
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
