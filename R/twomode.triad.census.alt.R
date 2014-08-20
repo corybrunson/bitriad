@@ -30,7 +30,7 @@ function(bigraph, type = 0, rcnames = FALSE,
     ot <- one.tied.triads(graph)
     # Insert the totals at the proper entries of C
     # (No repeats, so no information loss)
-    C[sapply(ot$x, function(x) partition.position(c(x, 0, 0))) + 1, 1] <- ot$n
+    C[sapply(ot$x, function(x) partition.index(c(x, 0, 0))) + 1, 1] <- ot$n
     if(verbose) print('One-tied triads tallied')
     
     # Tally connected triples (be sure to specify consistent type)
@@ -47,7 +47,7 @@ function(bigraph, type = 0, rcnames = FALSE,
         # Insert the totals at the proper rows in column w + 1 of C
         # (No repeats, so no information loss)
         C[sapply(rs, function(i) {
-            partition.position(as.numeric(ct[i, 1:3])) + 1
+            partition.index(as.numeric(ct[i, 1:3])) + 1
         }), w + 1] <- ct$n[rs]
     }
     if(verbose) print('Connected triples tallied')
@@ -60,7 +60,7 @@ function(bigraph, type = 0, rcnames = FALSE,
     if(rcnames) {
         colnames(C) <- 0:(ncol(C) - 1)
         rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
-            '(', paste(position.partition(i, k = 3), collapse = ','),
+            '(', paste(index.partition(i, k = 3), collapse = ','),
             ')', sep = ''))
     }
     return(as.matrix(C))
