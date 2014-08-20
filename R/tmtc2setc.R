@@ -21,7 +21,7 @@ function(tmtc) {
                                               nr = 4, nc = 2))
         # No. edges (1, 2, or 3) induced by each nonempty lambda with w = 0
         pw.counts <- sapply(1:(dim(tmtc)[1] - 1), function(i) {
-            length(which(position.index(i, k = 3) > 0))
+            length(which(index.partition(i, k = 3) > 0))
         })
         # Which rows connect 1, 2, and 3 pairs
         wh <- lapply(1:3, function(i) which(pw.counts == i) + 1)
