@@ -222,7 +222,7 @@ plot(ddgg2, layout = layout.fruchterman.reingold(ddgg2, niter = 100),
 The visualization is quite a bit messier, but it looks like we have at least some range of degrees this time:
 
 ```{r}
-ddgg2.proj <- onemode.projection(ddgg2)
+ddgg2.proj <- triadic::onemode.projection(ddgg2)
 ddc2 <- data.frame(k = degree(ddgg2.proj),
                    c = transitivity(ddgg2.proj, type = 'local'))
 print(ddc2)
@@ -236,7 +236,7 @@ There is clearly a trade-off between the number of a woman's acquaintances (thro
 This distribution might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree --- that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
 
 ```{r, warning = FALSE}
-ddgg2.wedges <- opsahl.transitivity(ddgg2, type = '')
+ddgg2.wedges <- triadic::opsahl.transitivity(ddgg2, type = '')
 ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
 plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
      pch = 19, type = 'b',
@@ -247,7 +247,7 @@ plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
 This plot defies the consistent behavior we saw in the classical case. What, instead, if we try exclusive clustering?
 
 ```{r}
-ddgg2.wedges <- excl.transitivity(ddgg2, type = '')
+ddgg2.wedges <- triadic::excl.transitivity(ddgg2, type = '')
 ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
 plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
      pch = 19, type = 'b',
