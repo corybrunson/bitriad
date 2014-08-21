@@ -1,5 +1,4 @@
-Triadic analyses of two-mode networks
-=====================================
+# Triadic analyses of two-mode networks
 
 ```{r}
 library(knitr)
