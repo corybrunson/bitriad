@@ -15,7 +15,7 @@ function(tmtc) {
             ed <- c(0, lambda[3:2]) < lambda[3:1]
             return(sum((2 ^ (2:0)) * ed) + 1)
         })
-        wh <- lapply(2:8, function(i) which(i2l == i))
+        wh <- lapply(1:8, function(i) which(i2l == i))
         return(matrix(c(
             # Empty triads
             tmtc[1, 1],
