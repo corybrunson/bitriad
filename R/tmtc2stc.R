@@ -18,9 +18,9 @@ function(tmtc) {
         # Trivial cases
         if(sum(tmtc) == 0) return(rep(0, 4))
         if(all(dim(tmtc) == 1)) return(c(tmtc[1, 1], 0, 0, 0))
-        # Number of edges (1, 2, or 3) induced by each lambda other than c(0, 0, 0)
+        # Number of edges (1, 2, or 3) induced by each lambda except c(0, 0, 0)
         pw.counts <- sapply(1:(dim(tmtc)[1] - 1), function(i) {
-            length(which(position.partition(i, k = 3) > 0))
+            length(which(index.partition(i) > 0))
         })
         return(c(
             # Empty triads all have lambda = c(0, 0, 0), w = 0

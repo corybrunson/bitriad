@@ -4,7 +4,7 @@
 library(knitr)
 opts_knit$set(progress = FALSE)
 opts_chunk$set(echo = TRUE, message = FALSE, tidy = TRUE, comment = NA,
-               fig.path = "figure/", fig.keep = "high", fig.width = 10,
+               fig.path = "figure/", fig.keep = "high", fig.width = 8,
                fig.height = 6, fig.align = "center")
 ```
 
@@ -257,3 +257,7 @@ plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
 This plot recovers the steady, though not strictly monotonic, behavior of the classical case. In the classical case we expect local clustering coefficients to be quite large in tight-knit networks such as those produced for sociological analysis of cliques and communities; the exclusive clustering coefficient captures a more descriptive form of transitivity.
 
 Still, however, at most two nodes share a wedge count; we will need [larger networks](http://link.springer.com/article/10.1007%2Fs11192-013-1209-z) in order to get a sense for the distributions of the wedge-conditioned local clustering coefficients. Stay tuned!
+
+```{r}
+dev_mode(on = FALSE)
+```

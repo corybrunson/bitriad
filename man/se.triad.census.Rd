@@ -6,7 +6,7 @@
 se.triad.census(bigraph, type = 0, verbose = FALSE)
 }
 \arguments{
-\item{bigraph}{The ambient affiliation network}
+\item{bigraph}{The affiliation network}
 
 \item{type}{The actor node type in bigraph}
 

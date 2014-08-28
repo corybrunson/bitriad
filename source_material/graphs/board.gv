@@ -1,0 +1,279 @@
+/* Created by igraph @VERSION@ */
+graph {
+  0 [
+    type=0
+    name=Barr
+  ];
+  1 [
+    type=0
+    name=Block
+  ];
+  2 [
+    type=0
+    name=Chewning
+  ];
+  3 [
+    type=0
+    name=Clark
+  ];
+  4 [
+    type=0
+    name=Cushman
+  ];
+  5 [
+    type=0
+    name=Eberhard
+  ];
+  6 [
+    type=0
+    name=Freeman
+  ];
+  7 [
+    type=0
+    name=Gale
+  ];
+  8 [
+    type=0
+    name=Goodrich
+  ];
+  9 [
+    type=0
+    name=Ingersoll
+  ];
+  10 [
+    type=0
+    name=Jarvis
+  ];
+  11 [
+    type=0
+    name=Kennedy
+  ];
+  12 [
+    type=0
+    name=Livingston
+  ];
+  13 [
+    type=0
+    name=McCormick
+  ];
+  14 [
+    type=0
+    name=McDowell
+  ];
+  15 [
+    type=0
+    name=Oates
+  ];
+  16 [
+    type=0
+    name=Prince
+  ];
+  17 [
+    type=0
+    name=Rockefeller
+  ];
+  18 [
+    type=0
+    name=Swearingen
+  ];
+  19 [
+    type=0
+    name=Ward
+  ];
+  20 [
+    type=1
+    name=Amour
+  ];
+  21 [
+    type=1
+    name="Borg.Warner"
+  ];
+  22 [
+    type=1
+    name="Caterpillar.Tractor"
+  ];
+  23 [
+    type=1
+    name="Chase.Manhattan.Bank"
+  ];
+  24 [
+    type=1
+    name="Commonwealth.Edison"
+  ];
+  25 [
+    type=1
+    name="Container.Corp..of.America"
+  ];
+  26 [
+    type=1
+    name="Continental.International.Bank.and.Trust"
+  ];
+  27 [
+    type=1
+    name="Equitable.Life.Assurance"
+  ];
+  28 [
+    type=1
+    name="First.National.Bank.of.Chicago"
+  ];
+  29 [
+    type=1
+    name="Inland.Steel"
+  ];
+  30 [
+    type=1
+    name="International.Harvester"
+  ];
+  31 [
+    type=1
+    name="John.Hancock.Mutual"
+  ];
+  32 [
+    type=1
+    name="Sears.and.Roebuck"
+  ];
+  33 [
+    type=1
+    name="Standard.Oil"
+  ];
+  34 [
+    type=1
+    name=Swift
+  ];
+  35 [
+    type=1
+    name="Art.Institute.of.Chicago"
+  ];
+  36 [
+    type=1
+    name="Museum.of.Science.and.Industry"
+  ];
+  37 [
+    type=1
+    name="Northwestern.Univ."
+  ];
+  38 [
+    type=1
+    name="Univ..of.Chicago"
+  ];
+  39 [
+    type=1
+    name=Century
+  ];
+  40 [
+    type=1
+    name=Chicago
+  ];
+  41 [
+    type=1
+    name=Commercial
+  ];
+  42 [
+    type=1
+    name="Indian.Hill"
+  ];
+  43 [
+    type=1
+    name=Links
+  ];
+
+  24 -- 0;
+  34 -- 0;
+  37 -- 0;
+  40 -- 0;
+  41 -- 0;
+  24 -- 1;
+  28 -- 1;
+  29 -- 1;
+  36 -- 1;
+  41 -- 1;
+  20 -- 2;
+  31 -- 2;
+  20 -- 3;
+  31 -- 3;
+  40 -- 3;
+  28 -- 4;
+  32 -- 4;
+  22 -- 5;
+  28 -- 5;
+  40 -- 5;
+  21 -- 6;
+  22 -- 6;
+  25 -- 6;
+  28 -- 6;
+  40 -- 6;
+  41 -- 6;
+  24 -- 7;
+  26 -- 7;
+  29 -- 7;
+  36 -- 7;
+  37 -- 7;
+  40 -- 7;
+  42 -- 7;
+  30 -- 8;
+  34 -- 8;
+  40 -- 8;
+  41 -- 8;
+  21 -- 9;
+  25 -- 9;
+  28 -- 9;
+  40 -- 9;
+  41 -- 9;
+  42 -- 9;
+  26 -- 10;
+  30 -- 10;
+  34 -- 10;
+  36 -- 10;
+  38 -- 10;
+  41 -- 10;
+  24 -- 11;
+  26 -- 11;
+  30 -- 11;
+  34 -- 11;
+  38 -- 11;
+  40 -- 11;
+  41 -- 11;
+  20 -- 12;
+  28 -- 12;
+  29 -- 12;
+  32 -- 12;
+  33 -- 12;
+  35 -- 12;
+  38 -- 12;
+  40 -- 12;
+  41 -- 12;
+  28 -- 13;
+  30 -- 13;
+  34 -- 13;
+  35 -- 13;
+  40 -- 13;
+  41 -- 13;
+  28 -- 14;
+  34 -- 14;
+  41 -- 14;
+  23 -- 15;
+  27 -- 15;
+  28 -- 15;
+  36 -- 15;
+  37 -- 15;
+  39 -- 15;
+  40 -- 15;
+  41 -- 15;
+  43 -- 15;
+  20 -- 16;
+  28 -- 16;
+  31 -- 16;
+  23 -- 17;
+  27 -- 17;
+  38 -- 17;
+  39 -- 17;
+  43 -- 17;
+  23 -- 18;
+  28 -- 18;
+  33 -- 18;
+  24 -- 19;
+  30 -- 19;
+  38 -- 19;
+  40 -- 19;
+  41 -- 19;
+}

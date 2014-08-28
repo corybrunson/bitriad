@@ -1,0 +1,58 @@
+/* Created by igraph @VERSION@ */
+graph {
+  0 [
+    type=0
+    name="Miss A"
+  ];
+  1 [
+    type=0
+    name="Miss B"
+  ];
+  2 [
+    type=0
+    name="Miss C"
+  ];
+  3 [
+    type=0
+    name="Miss D"
+  ];
+  4 [
+    type=0
+    name="Miss E"
+  ];
+  5 [
+    type=1
+    name=Bridge
+  ];
+  6 [
+    type=1
+    name=Dinner
+  ];
+  7 [
+    type=1
+    name=Movies
+  ];
+  8 [
+    type=1
+    name=Dance
+  ];
+  9 [
+    type=1
+    name=Visiting
+  ];
+
+  5 -- 0;
+  7 -- 0;
+  8 -- 0;
+  7 -- 1;
+  8 -- 1;
+  5 -- 2;
+  6 -- 2;
+  9 -- 2;
+  5 -- 3;
+  6 -- 3;
+  7 -- 3;
+  6 -- 4;
+  8 -- 4;
+  9 -- 4;
+}
