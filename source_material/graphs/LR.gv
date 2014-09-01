@@ -1,0 +1,428 @@
+/* Created by igraph @VERSION@ */
+graph {
+  0 [
+    type=0
+    name="APPLEY  LAWRENCE A"
+  ];
+  1 [
+    type=0
+    name="BALDWIN  E COLIN  "
+  ];
+  2 [
+    type=0
+    name="BARKER  ROBINSON F"
+  ];
+  3 [
+    type=0
+    name="BEEGHLY  CHARLES M"
+  ];
+  4 [
+    type=0
+    name="BLACKIE  WILLIAM  "
+  ];
+  5 [
+    type=0
+    name="BOYER  WILLIS B   "
+  ];
+  6 [
+    type=0
+    name="BROCKETT  ERNEST D"
+  ];
+  7 [
+    type=0
+    name="BURKE  ARLEIGH    "
+  ];
+  8 [
+    type=0
+    name="CONNOR  JOHN T    "
+  ];
+  9 [
+    type=0
+    name="COOK  CHAUNCEY W  "
+  ];
+  10 [
+    type=0
+    name="DAVIES  PAUL L SR "
+  ];
+  11 [
+    type=0
+    name="DENTON  FRANK R   "
+  ];
+  12 [
+    type=0
+    name="DORSEY  B R       "
+  ];
+  13 [
+    type=0
+    name="FRANKLIN  W H     "
+  ];
+  14 [
+    type=0
+    name="FUNSTON  G KEITH  "
+  ];
+  15 [
+    type=0
+    name="GLENNAN  T KEITH  "
+  ];
+  16 [
+    type=0
+    name="GWINN  WILLIAM P  "
+  ];
+  17 [
+    type=0
+    name="HARPER  JOHN D JR "
+  ];
+  18 [
+    type=0
+    name="HARRIS  HENRY UP J"
+  ];
+  19 [
+    type=0
+    name="HOUGHTON  AMORY JR"
+  ];
+  20 [
+    type=0
+    name="HUMPHREY  GILBERT "
+  ];
+  21 [
+    type=0
+    name="JAMIESON  J K     "
+  ];
+  22 [
+    type=0
+    name="JENKINS  GEORGE P "
+  ];
+  23 [
+    type=0
+    name="KAPPEL  FREDERICK "
+  ];
+  24 [
+    type=0
+    name="KIRK  GRAYSON L   "
+  ];
+  25 [
+    type=0
+    name="LAPHAM  LEWIS A   "
+  ];
+  26 [
+    type=0
+    name="LEARSON  T VINCE  "
+  ];
+  27 [
+    type=0
+    name="LONG  AUGUSTUS C  "
+  ];
+  28 [
+    type=0
+    name="LUCKS  ROY G      "
+  ];
+  29 [
+    type=0
+    name="MARTING  WALTER A "
+  ];
+  30 [
+    type=0
+    name="MAYER  JOHN A     "
+  ];
+  31 [
+    type=0
+    name="MCLAUGHLIN  W EARL"
+  ];
+  32 [
+    type=0
+    name="MELLON  RICHARD K "
+  ];
+  33 [
+    type=0
+    name="MOORE  WILLIAM H  "
+  ];
+  34 [
+    type=0
+    name="MORSE  ROBERT W   "
+  ];
+  35 [
+    type=0
+    name="MORTIMER  CHARLES "
+  ];
+  36 [
+    type=0
+    name="NEWMAN  J WILSO   "
+  ];
+  37 [
+    type=0
+    name="NICKERSON  ALBERT "
+  ];
+  38 [
+    type=0
+    name="PATTON  THOMAS F  "
+  ];
+  39 [
+    type=0
+    name="PEARSON  NATHAN W "
+  ];
+  40 [
+    type=0
+    name="PEET  E CHEST     "
+  ];
+  41 [
+    type=0
+    name="RAMBIN  J HO JR   "
+  ];
+  42 [
+    type=0
+    name="SHEPARD  HORACE A "
+  ];
+  43 [
+    type=0
+    name="SPAHR  CHARLES E  "
+  ];
+  44 [
+    type=0
+    name="TULLIS  RICHARD B "
+  ];
+  45 [
+    type=0
+    name="WILLIAMS  ALBERT L"
+  ];
+  46 [
+    type=0
+    name="WILLIAMS  LANGBOUR"
+  ];
+  47 [
+    type=0
+    name="WRIGHT  JOHN DAVID"
+  ];
+  48 [
+    type=0
+    name="WYCKOFF  GEORGE W "
+  ];
+  49 [
+    type=1
+    name=X
+  ];
+  50 [
+    type=1
+    name="GEN..MOTOR"
+  ];
+  51 [
+    type=1
+    name="STAND..OIL"
+  ];
+  52 [
+    type=1
+    name="INT..BUSIN"
+  ];
+  53 [
+    type=1
+    name=TEXACO
+  ];
+  54 [
+    type=1
+    name="GULF.OIL"
+  ];
+  55 [
+    type=1
+    name="STAND..OIL.1"
+  ];
+  56 [
+    type=1
+    name="SHELL.OIL"
+  ];
+  57 [
+    type=1
+    name=CATERPILLA
+  ];
+  58 [
+    type=1
+    name="GEN..FOODS"
+  ];
+  59 [
+    type=1
+    name="ALUMINUM.C"
+  ];
+  60 [
+    type=1
+    name="REPUBLIC.S"
+  ];
+  61 [
+    type=1
+    name="STAND..OIL.2"
+  ];
+  62 [
+    type=1
+    name="PKG.INDUST"
+  ];
+  63 [
+    type=1
+    name="NORTH.AM."
+  ];
+  64 [
+    type=1
+    name="HARRIS.INT"
+  ];
+  65 [
+    type=1
+    name=AMPEX
+  ];
+  66 [
+    type=1
+    name=CARBORUNDU
+  ];
+  67 [
+    type=1
+    name="HANNA.MINI"
+  ];
+  68 [
+    type=1
+    name="FREEPORT.S"
+  ];
+  69 [
+    type=1
+    name="FIRST.NAT."
+  ];
+  70 [
+    type=1
+    name="CHASE.MANH"
+  ];
+  71 [
+    type=1
+    name="CHEMICAL.N"
+  ];
+  72 [
+    type=1
+    name="MELLON.MB"
+  ];
+  73 [
+    type=1
+    name="NAT..CITY"
+  ];
+  74 [
+    type=1
+    name=METROPOLIT
+  ];
+
+  61 -- 0;
+  64 -- 0;
+  60 -- 1;
+  61 -- 1;
+  73 -- 1;
+  62 -- 2;
+  72 -- 2;
+  54 -- 3;
+  62 -- 3;
+  72 -- 3;
+  56 -- 4;
+  57 -- 4;
+  65 -- 4;
+  60 -- 5;
+  73 -- 5;
+  54 -- 6;
+  72 -- 6;
+  53 -- 7;
+  68 -- 7;
+  49 -- 8;
+  58 -- 8;
+  70 -- 8;
+  58 -- 9;
+  70 -- 9;
+  51 -- 10;
+  57 -- 10;
+  54 -- 11;
+  62 -- 11;
+  72 -- 11;
+  54 -- 12;
+  58 -- 12;
+  50 -- 13;
+  57 -- 13;
+  51 -- 14;
+  60 -- 14;
+  71 -- 14;
+  74 -- 14;
+  60 -- 15;
+  61 -- 15;
+  56 -- 16;
+  69 -- 16;
+  59 -- 17;
+  72 -- 17;
+  74 -- 17;
+  53 -- 18;
+  71 -- 18;
+  51 -- 19;
+  69 -- 19;
+  53 -- 20;
+  67 -- 20;
+  73 -- 20;
+  50 -- 21;
+  70 -- 21;
+  69 -- 22;
+  74 -- 22;
+  50 -- 23;
+  58 -- 23;
+  70 -- 23;
+  74 -- 23;
+  51 -- 24;
+  52 -- 24;
+  52 -- 25;
+  63 -- 25;
+  50 -- 26;
+  51 -- 26;
+  66 -- 26;
+  71 -- 26;
+  53 -- 27;
+  68 -- 27;
+  71 -- 27;
+  55 -- 28;
+  65 -- 28;
+  67 -- 29;
+  73 -- 29;
+  49 -- 30;
+  59 -- 30;
+  72 -- 30;
+  49 -- 31;
+  74 -- 31;
+  49 -- 32;
+  54 -- 32;
+  59 -- 32;
+  72 -- 32;
+  51 -- 33;
+  67 -- 33;
+  62 -- 34;
+  64 -- 34;
+  73 -- 34;
+  52 -- 35;
+  58 -- 35;
+  69 -- 35;
+  58 -- 36;
+  71 -- 36;
+  52 -- 37;
+  74 -- 37;
+  60 -- 38;
+  74 -- 38;
+  54 -- 39;
+  59 -- 39;
+  65 -- 39;
+  66 -- 39;
+  67 -- 39;
+  56 -- 40;
+  63 -- 40;
+  53 -- 41;
+  68 -- 41;
+  61 -- 42;
+  64 -- 42;
+  60 -- 43;
+  61 -- 43;
+  73 -- 43;
+  64 -- 44;
+  73 -- 44;
+  49 -- 45;
+  51 -- 45;
+  52 -- 45;
+  58 -- 45;
+  69 -- 45;
+  53 -- 46;
+  68 -- 46;
+  60 -- 47;
+  73 -- 47;
+  67 -- 48;
+  72 -- 48;
+}
