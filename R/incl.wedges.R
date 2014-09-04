@@ -10,7 +10,7 @@
 
 incl.wedges <-
 function(bigraph, Q) {
-        # Identify nodes of separation (exactly) 1 and 2 from v
+        # Identify nodes of separation (exactly) 1 and 2 from Q
         n1 <- setdiff(neighborhood(bigraph, 1, Q)[[1]], Q)
         n2 <- setdiff(neighborhood(bigraph, 2, Q)[[1]], c(n1, Q))
         # Require at least two nodes of separation 2 for a wedge
