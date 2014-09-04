@@ -1,9 +1,9 @@
-#' Two-mode triad census to incremental triad census
+#' Two-mode triad census to uniformity triad census
 #' 
 #' @param tmtc A full two-mode triad census (not necessarily labeled)
 #' @export
 
-tmtc2itc <-
+tmtc2utc <-
 function(tmtc) {
         # Trivial cases
         if(sum(tmtc) == 0) return(matrix(0, nr = 8, nc = 2))

@@ -1,6 +1,6 @@
-#' "Structural equivalence" triad census
+#' Cooperativity triad census
 #' 
-#' This function computes the structural triad census for an affiliation
+#' This function computes the cooperativity triad census for an affiliation
 #' network, a 4-by-2 array of frequency counts for each isomorphism class of
 #' triad, modulo an equivalence relation of event nodes by which actors they
 #' are tied to, which sum to choose(n, 3), where n is the number of actor nodes.
@@ -9,7 +9,7 @@
 #' @param verbose Logical; whether to display progress bars
 #' @export
 
-se.triad.census <-
+coop.triad.census <-
     function(bigraph, type = 0, verbose = FALSE) {
         # Initialize the matrix and define the number of actors
         C <- matrix(0, nr = 4, nc = 2)

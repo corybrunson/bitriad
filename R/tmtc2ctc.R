@@ -1,9 +1,9 @@
-#' Two-mode triad census to structural equivalence triad census
+#' Two-mode triad census to cooperativity triad census
 #' 
 #' @param tmtc A full two-mode triad census (not necessarily labeled)
 #' @export
 
-tmtc2setc <-
+tmtc2ctc <-
 function(tmtc) {
         # Trivial cases
         if(sum(tmtc) == 0) return(matrix(0, nr = 4, nc = 2))

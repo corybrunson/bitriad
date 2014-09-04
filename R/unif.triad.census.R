@@ -1,6 +1,6 @@
-#' Incremental triad census
+#' Uniformity triad census
 #' 
-#' This function computes the incremental triad census for an affiliation
+#' This function computes the uniformity triad census for an affiliation
 #' network, an 8-by-2 array of frequency counts for each isomorphism class of
 #' triad, modulo the equivalence relation that identifies triads based on the
 #' positivity of their triad weights w and of the differences between their
@@ -12,7 +12,7 @@
 #' @param type The actor node type in bigraph
 #' @export
 
-incr.triad.census <- function(bigraph, type = 0) {
+unif.triad.census <- function(bigraph, type = 0) {
     # Initialize the matrix and define the number of actors
     C <- matrix(0, nr = 8, nc = 2)
     n <- length(which(V(bigraph)$type == type))
