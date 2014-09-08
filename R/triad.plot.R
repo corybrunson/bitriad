@@ -4,13 +4,13 @@
 #' @param w The triadwise weight
 #' @export
 
-plot.triad <-
+triad.plot <-
 function(lambda, w, layout, scale = 0.3, angdir = -1,
          rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12, ...) {
     tr <- twomode.triad(lambda, w)
     q <- sum(c(lambda, w))
     # Default layout
-    if(missing(layout)) layout <- layout.triad(
+    if(missing(layout)) layout <- triad.layout(
         lambda = lambda, w = w, scale = scale, angdir = angdir,
         rot = rot, rot.lambda = rot.lambda, rot.w = rot.w)
     # Plot graph in a slightly widened frame
