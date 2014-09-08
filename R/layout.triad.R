@@ -1,5 +1,12 @@
-layout.triad <- function(lambda, w, scale = 0.3, angdir = -1, rot = -pi/2,
-                         rot.lambda = c(0, 0, 0), rot.w = pi/12) {
+#' Two-mode triads
+#' 
+#' @param lambda The vector of pairwise weights
+#' @param w The triadwise weight
+#' @export
+
+layout.triad <-
+function(lambda, w, scale = 0.3, angdir = -1, rot = -pi/2,
+         rot.lambda = c(0, 0, 0), rot.w = pi/12) {
     graph <- twomode.triad(lambda, w)
     # Angles of actors from origin
     theta <- angdir * (0:2 * 2*pi/3 + rot)

@@ -1,7 +1,13 @@
-# Plot an aesthetic triad in a suitable window
-plot.triad <- function(lambda, w, S = .001, layout,
-                       scale = 0.3, angdir = -1, rot = -pi/2,
-                       rot.lambda = c(0, 0, 0), rot.w = pi/12, ...) {
+#' Two-mode triads
+#' 
+#' @param lambda The vector of pairwise weights
+#' @param w The triadwise weight
+#' @export
+
+plot.triad <-
+function(lambda, w, S = .001, layout,
+         scale = 0.3, angdir = -1, rot = -pi/2,
+         rot.lambda = c(0, 0, 0), rot.w = pi/12, ...) {
     tr <- twomode.triad(lambda, w)
     q <- sum(c(lambda, w))
     # Default layout

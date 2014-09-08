@@ -1,6 +1,14 @@
-# Construct a triad (graph object) with the given indices
-twomode.triad <- function(lambda, w, actors = LETTERS[16:18],
-                          events = as.character(1:sum(c(lambda, w)))) {
+#' Two-mode triads
+#' 
+#' @param lambda The vector of pairwise weights
+#' @param w The triadwise weight
+#' @param actors Actor names (defaults to 'P', 'Q', and 'R')
+#' @param events Event names (defaults to positive integers)
+#' @export
+
+twomode.triad <-
+function(lambda, w, actors = LETTERS[16:18],
+         events = as.character(1:sum(c(lambda, w)))) {
     
     # Template triad
     tr <- graph.empty(n = 3, directed = FALSE)

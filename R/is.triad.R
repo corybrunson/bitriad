@@ -1,6 +1,10 @@
-# Chcek whether a graph is a triad: Must have 3 actor nodes (type = 0) and
-# all event nodes (type = 1) must be tied to at least two actor nodes
-is.triad <- function(graph) {
+#' Two-mode triads
+#' 
+#' @param graph A graph object
+#' @export
+
+is.triad <-
+function(graph) {
     # Must have node types (i.e. be "bipartite")
     if(is.null(V(graph)$type)) return(FALSE)
     # Must have exactly three actor nodes (type = 0)
