@@ -11,5 +11,5 @@ Description: The package contains two principal tools for the triadic analysis
     simple) and the latter calls one of several definitions of wedge and of
     closure. The next step is to extend the package to time-resolved networks.
 Depends:
-    igraph
+    igraph,MASS
 License: GPL-2
