@@ -74,6 +74,8 @@ function(bigraph, type = 0, rcnames = FALSE,
         C[1, 1] <- choose(vcount(graph), 3) - sum(C)
         # Reality check: The total triad tally should equal |V(graph)|-choose-3
         # (but only makes sense within range of 'numeric' accuracy)
+        # http://stackoverflow.com/questions/8804779/
+        # what-is-integer-overflow-in-r-and-how-can-it-happen
         stopifnot((log(sum(C), 2) >= 50) | (sum(C) == choose(vcount(graph), 3)))
         # Clear names
         colnames(C) <- NULL

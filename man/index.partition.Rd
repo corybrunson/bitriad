@@ -7,10 +7,6 @@ index.partition(i)
 }
 \arguments{
 \item{i}{An index under the total order. Starts at 0.}
-
-\item{vec}{A (decreasing) 3-subset of natural numbers (including 0).}
-
-\item{lambda}{A partition of at most 3 parts.}
 }
 \description{
 These functions biject among partitions of at most 3 parts, 3-subsets of
