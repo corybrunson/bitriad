@@ -3,8 +3,8 @@
 \alias{plot.triad}
 \title{Two-mode triads}
 \usage{
-\method{plot}{triad}(lambda, w, S = 0.001, layout, scale = 0.3,
-  angdir = -1, rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12, ...)
+\method{plot}{triad}(lambda, w, layout, scale = 0.3, angdir = -1,
+  rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12, ...)
 }
 \arguments{
 \item{lambda}{The vector of pairwise weights}
