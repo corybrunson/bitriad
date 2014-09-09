@@ -76,7 +76,7 @@ function(bigraph, type = 0, rcnames = FALSE,
         # (but only makes sense within range of 'numeric' accuracy)
         # http://stackoverflow.com/questions/8804779/
         # what-is-integer-overflow-in-r-and-how-can-it-happen
-        stopifnot((log(sum(C), 2) >= 50) | (sum(C) == choose(vcount(graph), 3)))
+        stopifnot((log(sum(C), 2) >= 9) | (sum(C) == choose(vcount(graph), 3)))
         # Clear names
         colnames(C) <- NULL
         if(rcnames) {
