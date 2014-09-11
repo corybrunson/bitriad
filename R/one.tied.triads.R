@@ -17,10 +17,10 @@ function(graph) {
         # Create a data frame of weights and number of nonadjacent nodes
         counts <- data.frame(
             x = E(graph)$weight,
-            n = vcount(graph) - sapply(1:ecount(graph), function(i) {
-                length(unique(unlist(neighborhood(graph, 1,
+            n = vcount(graph) - as.numeric(sapply(1:ecount(graph), function(i) {
+                length(unique(unlist(neighborhood(graph, order = 1,
                                                   get.edge(graph, i)))))
-            })
+            }))
         )
         # Return the aggregated data frame
         return(aggregate(n ~ x, data = counts, FUN = sum))
