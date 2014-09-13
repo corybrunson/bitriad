@@ -56,8 +56,6 @@ function(bigraph, type = 0, rcnames = FALSE,
             C <- C[, 1:(max.w + 1)]
             # For each value of w:
             for(w in 0:max.w) {
-                if(verbose) print(paste('Tallying weight-', w,
-                                        ' three-tied triads', sep = ''))
                 # Which rows have weight w?
                 rs <- which(tht$w == w)
                 # Insert the totals at the proper rows in column w + 1 of C
@@ -76,7 +74,7 @@ function(bigraph, type = 0, rcnames = FALSE,
         # (but only makes sense within range of 'numeric' accuracy)
         # http://stackoverflow.com/questions/8804779/
         # what-is-integer-overflow-in-r-and-how-can-it-happen
-        if(verbose) print(c(sum(C), choose(vcount(graph), 3)))
+        stopifnot(sum(C) == choose(vcount(graph), 3))
         # Clear names
         colnames(C) <- NULL
         if(rcnames) {
