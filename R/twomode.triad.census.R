@@ -53,7 +53,7 @@ function(bigraph, type = 0, rcnames = FALSE,
         if(!is.null(tht)) {
             # Trim any unnecessary columns
             max.w <- max(tht$w)
-            C <- C[, 1:(max.w + 1)]
+            C <- C[, 1:(max.w + 1), drop = FALSE]
             # For each value of w:
             for(w in 0:max.w) {
                 # Which rows have weight w?
