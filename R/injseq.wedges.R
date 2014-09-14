@@ -34,7 +34,7 @@ function(bigraph, Q) {
         pqr <- length(intersect(intersect(n1, n2n1[[p[1, j]]]),
                                 n2n1[[p[2, j]]]))
         # If revelant, whether P and R share an exclusive event
-        pr <- if(pq + qr + pqr == 0) 0 else
+        pr <- if(pq + qr + pqr < 2) 0 else
             length(setdiff(intersect(n2n1[[p[1, j]]], n2n1[[p[2, j]]]), n1))
         # Counts
         Ws <- c(pq * qr, pq * (pqr > 0), qr * (pqr > 0), pqr > 1)
