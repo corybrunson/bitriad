@@ -14,7 +14,7 @@ function(bigraph, Q) {
     n1 <- setdiff(neighborhood(bigraph, 1, Q)[[1]], Q)
     n2 <- setdiff(neighborhood(bigraph, 2, Q)[[1]], c(n1, Q))
     # Identify events attended by these actors
-    n2n1 <- lapply(neighborhood(bigraph, 1, n2), setdiff, n2)
+    n2n1 <- lapply(neighborhood(bigraph, 1, n2), setdiff, y = n2)
 
     # Require at least two nodes of separation 2 for a wedge
     if(length(n2) < 2) return(c(0, 0))
