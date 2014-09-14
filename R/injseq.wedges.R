@@ -35,10 +35,11 @@ function(bigraph, Q) {
                                 n2n1[[p[2, j]]]))
         # If revelant, whether P and R share an exclusive event
         pr <- if(pq + qr + pqr < 2) 0 else
-            length(setdiff(intersect(n2n1[[p[1, j]]], n2n1[[p[2, j]]]), n1))
+            (length(setdiff(intersect(n2n1[[p[1, j]]], n2n1[[p[2, j]]]), n1)) >
+                 0)
         # Counts
-        Ws <- c(pq * qr, pq * (pqr > 0), qr * (pqr > 0), pqr > 1)
-        Ts <- c(pr + pqr > 0, rep(pr | (pqr > 1), 2), pqr > 2)
+        Ws <- c(pq * qr, c(pq, qr) * (pqr > 0), pqr > 1)
+        Ts <- c(pr + pqr > 0, rep(pr | (pqr > 1), 2), pr | (pqr > 2))
         return(c(sum(Ws), sum(Ws * Ts)))
     })
     return(rowSums(wedgelist))
