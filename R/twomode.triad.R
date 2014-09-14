@@ -8,7 +8,7 @@
 
 twomode.triad <-
 function(lambda, w, actors = LETTERS[16:18],
-         events = if(sum(c(lambda, w)) == 0) 0 else
+         events = if(sum(c(lambda, w)) == 0) c() else
              as.character(1:sum(c(lambda, w)))) {
     
     # Template triad
