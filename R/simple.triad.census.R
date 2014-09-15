@@ -31,5 +31,5 @@ simple.triad.census <-
         # Store C as row sums, correct for repeats, fill in empty triad count
         C <- c('0' = 0, rowSums(edge.plus) / 1:3)
         C[1] <- choose(n, 3) - sum(C)
-        return(C)
+        return(unname(C))
     }

@@ -1,6 +1,6 @@
 # Triadic analyses of two-mode networks
 
-```{r}
+```{r, echo = FALSE}
 library(knitr)
 opts_knit$set(progress = FALSE)
 opts_chunk$set(echo = TRUE, message = FALSE, tidy = TRUE, comment = NA,
@@ -39,10 +39,12 @@ mytable <- function(data.file, ...) {
 #  source_https(paste(mydir, 'functions/', fn.file, sep = ''))
 #}
 #myscript('scripts/triadic.R')
-require(igraph)
 require(devtools)
 dev_mode(on = TRUE)
-install_github('triadic', username = 'corybrunson')
+if(!require('triadic', character.only = TRUE)) {
+    install_github('triadic', username = 'corybrunson')
+    require(triadic)
+}
 ```
 
 The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
@@ -65,7 +67,7 @@ get.incidence(ddgg)
 
 First let's visualize the network, arranging the nodes using the Fruchterman-Reingold algorithm:
 
-```{r}
+```{r, echo = FALSE}
 set.seed(10)
 plot(ddgg, layout = layout.fruchterman.reingold(ddgg, niter = 100),
      vertex.color = ifelse(V(ddgg)$type == 0, 'SkyBlue2', 'lightcoral'),
@@ -82,25 +84,25 @@ This layout reveals a symmetry of the network between its actor and event nodes:
 This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them in detail. (Future networks will only be examined cursorily or through statistics.) We can view the (undirected) triad census of the one-mode projection, taking the actor-based one-mode projection:
 
 ```{r}
-ddgg.proj <- triadic::onemode.projection(ddgg)
-stc <- triadic::simple.triad.census(ddgg.proj)
+ddgg.proj <- onemode.projection(ddgg)
+stc <- simple.triad.census(ddgg.proj)
 stc
 ```
 
 We have no disconnected triples, only three 'wedges' or 'vees' and seven 'triangles'. But these probably exhibit some diversity of their own that is lost in the projection. We can take a look at the two-mode triad census using the function 'twomode.triad.census':
 
 ```{r}
-tmtc <- triadic::twomode.triad.census(ddgg)
+tmtc <- twomode.triad.census(ddgg)
 tmtc
 ```
 
 The arrangement is far less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all---even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
 
-We can sacrifice information about event multiplicity within triads for a simpler and more intuitive layout. This alternative is dubbed the structural triad census because it is obtained by taking the quotient of the full triad census by structural equivalence of events:
+We can sacrifice information about event multiplicity within triads for a simpler and more intuitive layout. This alternative is dubbed the *cooperative triad census* because it collapses the events to only four types, based on which actors cooperated on them, or coattended them:
 
 ```{r}
-setc <- triadic::tmtc2setc(tmtc)
-setc
+ctc <- tmtc2ctc(tmtc)
+ctc
 ```
 
 The column indicates the existence of a triadwise event; the row indicates the number of pairs of actors connected by a pairwise event (0, 1, 2, or 3).
@@ -119,28 +121,28 @@ The value tells us what proportion of the time each pair of three women have co-
 Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:
 
 ```{r}
-triadic::tmtc2C(tmtc)
+tmtc2C(tmtc)
 ```
 
 The paper discusses in detail two alternative clustering coefficients specifically designed for two-mode networks. The first of these is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*:
 
 ```{r}
-triadic::tmtc2CO(tmtc)
+tmtc2CO(tmtc)
 ```
 
 The second is dubbed the *exclusive clustering coefficient* because it depends only on the existence, and not the number, of pairwise-exclusive events for each pair of actors. Because the number does not matter, the exclusive clustering coefficient can also be computed from the structural triad census analogously to C:
 
 ```{r}
-triadic::tmtc2Cex(tmtc)
-3 * sum(setc[4, ]) / (sum(setc[3, ]) + 3 * sum(setc[4, ]))
+tmtc2Cex(tmtc)
+3 * sum(ctc[4, ]) / (sum(ctc[3, ]) + 3 * sum(ctc[4, ]))
 ```
 
 Here's how the three diagnostics line up:
 
 ```{r}
-global.c1 <- c(C = triadic::tmtc2C(tmtc),
-               C.O = triadic::tmtc2CO(tmtc),
-               C.X = triadic::tmtc2Cex(tmtc))
+global.c1 <- c(C = tmtc2C(tmtc),
+               C.O = tmtc2CO(tmtc),
+               C.X = tmtc2Cex(tmtc))
 global.c1
 ```
 
@@ -159,8 +161,8 @@ Our two-mode-sensitive candidates, as implemented independently (rather than thr
 
 ```{r}
 local.c.df <- cbind(c = local.c,
-                    c.O = triadic::opsahl.transitivity(ddgg, type = 'local'),
-                    c.X = triadic::excl.transitivity(ddgg, type = 'local'))
+                    c.O = opsahl.transitivity(ddgg, type = 'local'),
+                    c.X = excl.transitivity(ddgg, type = 'local'))
 rownames(local.c.df) <- V(ddgg.proj)$name
 local.c.df
 ```
@@ -169,8 +171,8 @@ As a reality check, we can test the 'global' option for type of these implementa
 
 ```{r}
 global.c2 <- c(transitivity(ddgg.proj),
-               triadic::opsahl.transitivity(ddgg),
-               triadic::excl.transitivity(ddgg))
+               opsahl.transitivity(ddgg),
+               excl.transitivity(ddgg))
 data.frame(Census = global.c1, Separate = global.c2)
 ```
 
@@ -196,9 +198,12 @@ plot(aggregate(ddc$c, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 ```
 
-Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. ???, Fig. ?). The data are available [here](), in a different format from the previous data (hence the different procedure to read it):
+Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. 148). The data are available [here] [1] in R format but are sourced here in text format from [Tore Opsahl's site] [2].
 
-```{r}
+[1]: https://github.com/corybrunson/triadic/tree/master/data
+[2]: http://toreopsahl.com/datasets/#southernwomen
+
+```{r, echo = FALSE}
 data <- mytable('Davis_southern_club_women-two_mode.txt', colClasses = 'numeric')
 names <- mytable('Davis_southern_club_women-name.txt', colClasses = 'character')
 ddgg2 <- graph.data.frame(data.frame(woman = names[data[, 1], 1],
@@ -208,7 +213,7 @@ V(ddgg2)$type <- !(substr(V(ddgg2)$name, 1, 1) %in% LETTERS)
 
 Again let's begin with a plot:
 
-```{r}
+```{r, echo = FALSE}
 set.seed(1)
 plot(ddgg2, layout = layout.fruchterman.reingold(ddgg2, niter = 100),
      vertex.color = ifelse(V(ddgg2)$type == 0, 'SkyBlue2', 'lightcoral'),
@@ -221,7 +226,7 @@ plot(ddgg2, layout = layout.fruchterman.reingold(ddgg2, niter = 100),
 The visualization is quite a bit messier, but it looks like we have at least some range of degrees this time:
 
 ```{r}
-ddgg2.proj <- triadic::onemode.projection(ddgg2)
+ddgg2.proj <- onemode.projection(ddgg2)
 ddc2 <- data.frame(k = degree(ddgg2.proj),
                    c = transitivity(ddgg2.proj, type = 'local'))
 print(ddc2)
@@ -235,7 +240,7 @@ There is clearly a trade-off between the number of a woman's acquaintances (thro
 This distribution might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree---that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
 
 ```{r, warning = FALSE}
-ddgg2.wedges <- triadic::opsahl.transitivity(ddgg2, type = '')
+ddgg2.wedges <- opsahl.transitivity(ddgg2, type = '')
 ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
 plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
      pch = 19, type = 'b',
@@ -246,7 +251,7 @@ plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
 This plot defies the consistent behavior we saw in the classical case. What, instead, if we try exclusive clustering?
 
 ```{r}
-ddgg2.wedges <- triadic::excl.transitivity(ddgg2, type = '')
+ddgg2.wedges <- excl.transitivity(ddgg2, type = '')
 ddgg2.wedges <- cbind(ddgg2.wedges, C = ddgg2.wedges$T / ddgg2.wedges$V)
 plot(aggregate(ddgg2.wedges$C, by = list(V = ddgg2.wedges$V), FUN = mean),
      pch = 19, type = 'b',
@@ -258,6 +263,6 @@ This plot recovers the steady, though not strictly monotonic, behavior of the cl
 
 Still, however, at most two nodes share a wedge count; we will need [larger networks](http://link.springer.com/article/10.1007%2Fs11192-013-1209-z) in order to get a sense for the distributions of the wedge-conditioned local clustering coefficients. Stay tuned!
 
-```{r}
+```{r, echo = FALSE}
 dev_mode(on = FALSE)
 ```
