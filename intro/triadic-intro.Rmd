@@ -115,7 +115,7 @@ The paper discusses in detail two alternative clustering coefficients specifical
 ```{r}
 global.c1 <- c(C = tmtc2C(tmtc),
                C.O = tmtc2CO(tmtc),
-               C.X = tmtc2Cex(tmtc))
+               C.X = tmtc2CX(tmtc))
 global.c1
 ```
 

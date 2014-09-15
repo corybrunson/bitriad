@@ -10,7 +10,7 @@
 #' clustering coefficient as a length-2 vector.
 #' @export
 
-tmtc2Cexij <-
+tmtc2CXij <-
 function(tc, i, j, num.denom = FALSE, by.tri = FALSE) tmtc2cc(
         tc,
         function(L, w) ifelse(by.tri, 1, 3) * ((L[2] >= i) & (L[3] >= j)),
