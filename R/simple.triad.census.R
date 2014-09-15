@@ -16,7 +16,6 @@ simple.triad.census <-
         C <- triad.census(as.directed(graph))
         if(sum(C) == choose(vcount(graph), 3) & all(C >= 0) & !is.nan(C[1])) {
             C <- C[c(1, 3, 11, 16)]
-            names(C) <- 0:3
             return(C)
         }
         # Initialize census and graph size

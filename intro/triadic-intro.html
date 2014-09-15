@@ -112,9 +112,10 @@ ctc</code></pre>
 <div id="global-clustering-coefficients" class="section level3">
 <h3>Global clustering coefficients</h3>
 <p>The classical (global) clustering coefficient for a one-mode network may be defined either as the proportion of “wedges” that are “closed” or as the ratio of (three times) the number of “triangles” to the number of “wedges”. Here wedges are 2-paths, distinguished by the relative positions of the nodes but not by their progression, and a wedge is considered closed if its end nodes are tied. (To avoid confusion i won’t get into the other definition.) Since every triad of three edges counts thrice as a closed wedge, we can compute the clustering coefficient of the one-mode projection directly from the simple census:</p>
-<pre class="r"><code>C &lt;- unname(3 * stc[4]/(stc[3] + 3 * stc[4]))
+<pre class="r"><code>C &lt;- 3 * stc[4]/(stc[3] + 3 * stc[4])
 C</code></pre>
-<pre><code>[1] 0.875</code></pre>
+<pre><code>    3 
+0.875 </code></pre>
 <p>The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity—the tendency for near-connections to indicate direct connections, or for “friends of friends” to in fact be “friends”.</p>
 <p>Naturally, this diagnostic can also be recovered from the two-mode census; for this and other recoveries we call a suite of functions written for the purpose:</p>
 <pre class="r"><code>tmtc2C(tmtc)</code></pre>
