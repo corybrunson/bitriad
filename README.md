@@ -1,7 +1,7 @@
-triadic
+bitriad
 =======
 
-This repo contains data, tools, and exposition for the **triadic analysis of two-mode networks**.
+This repo contains data, tools, and exposition for the **triadic analysis of two-mode networks**. It is arranged as an R package and can be installed using the "install_github" function in the [devtools](http://cran.r-project.org/web/packages/devtools/index.html) package.
 
 ## data
 
@@ -32,14 +32,11 @@ The folder "source_material" contains "raw" data files (pulled from the Internet
 ## tools
 
 The folder "R" contains implementations of several triadic analysis tools. In particular these include
-* twomode.transitivity, a shell for bipartite clustering coefficients that can be specialized to the Opsahl, "inclusive", and "exclusive" clustering coefficients;
-* twomode.triad.census, which conducts a motif survey of two-mode triads, understood to be triples of actor nodes and any events attended by at least two; and
-* se.triad.census, an intermediate census between the cumbersome two-mode census and the 4-class simple triad census (which may be thought of as the classical triad census for directed graphs applied to an undirected simple graph by interpreting each edge as two-way).
+* twomode.triad.census, which conducts a motif survey of two-mode triads, understood to be triples of actor nodes and any events attended by at least two, and the results of which can be collapsed down to the incrementally more compact "uniformity", "cooperativity", and "simple" censuses; and
+* twomode.transitivity, a shell for bipartite clustering coefficients that can be specialized to the Opsahl, "exclusive", "injseq", and "inclusive" clustering coefficients.
 
 ## expo
 
-The markdown file in the folder "intro" gives a brief overview of the tools.
+[This markdown file] [1] (in the "intro" folder" gives a brief overview of the tools.
 
-## package
-
-The repo can now be installed (or, as in the introduction, loaded without installation) as an R package.
+[1] https://github.com/corybrunson/bitriad/blob/master/intro/bitriad-intro.md

@@ -1,14 +1,14 @@
-# Triadic analyses of two-mode networks
+# Triadic analyses of affiliation networks
 
 ```{r, echo = FALSE}
 library(knitr)
 opts_knit$set(progress = FALSE)
-opts_chunk$set(echo = TRUE, message = FALSE, tidy = TRUE, comment = NA,
+opts_chunk$set(echo = TRUE, message = FALSE, tidy = TRUE, warning = FALSE,
                fig.path = "figure/", fig.keep = "high", fig.width = 8,
                fig.height = 6, fig.align = "center")
 ```
 
-The paper "Triadic analysis for two-mode networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This R Markdown file applies a few of tools to the study of some manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
+The paper "Triadic analysis for affiliation networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This R Markdown file applies a few of tools to the study of some manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
 
 We use the [igraph package](http://igraph.org/r/), which provides the class of graphs and the basic suite of tools we build upon. The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
 
@@ -16,7 +16,7 @@ We use the [igraph package](http://igraph.org/r/), which provides the class of g
 require(igraph)
 require(devtools)
 dev_mode(on = TRUE)
-require(triadic)
+require(bitriad)
 ```
 
 ## Case study: Southern women
@@ -24,7 +24,7 @@ require(triadic)
 In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is the basis for the graph object "women" included in the package:
 
 ```{r, message = FALSE}
-data(women, package = 'triadic')
+data(women, package = 'bitriad')
 DDGG2 <- women
 ```
 
@@ -158,11 +158,11 @@ plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
 
 Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. 148). The data are available [here] [1] in R format and were constructed (with one minor correction) from data at [Tore Opsahl's site] [2].
 
-[1]: https://github.com/corybrunson/triadic/tree/master/data
+[1]: https://github.com/corybrunson/bitriad/tree/master/data
 [2]: http://toreopsahl.com/datasets/#southernwomen
 
 ```{r, echo = FALSE}
-data(davis, package = 'triadic')
+data(davis, package = 'bitriad')
 DDGG1 <- davis
 ```
 
