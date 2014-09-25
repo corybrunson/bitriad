@@ -37,6 +37,6 @@ The folder "R" contains implementations of several triadic analysis tools. In pa
 
 ## expo
 
-[This markdown file] [1] (in the "intro" folder" gives a brief overview of the tools.
+[This markdown file] [11] (in the "intro" folder" gives a brief overview of the tools.
 
-[1] https://github.com/corybrunson/bitriad/blob/master/intro/bitriad-intro.md
+[11]: https://github.com/corybrunson/bitriad/blob/master/intro/bitriad-intro.md
