@@ -2,22 +2,23 @@
 
 
 
-The paper *Triadic analysis for two-mode networks* will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This R Markdown file applies a few of tools to the study of some manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
+The paper "Triadic analysis for two-mode networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This R Markdown file applies a few of tools to the study of some manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
 
-We use the [igraph package](http://igraph.org/r/), which provides the class of graphs and the basic suite of tools we build upon. We'll also read data and functions from the author's github account; the custom functions below make use of the function 'source_https' is taken from [tonybreyal](http://tonybreyal.wordpress.com/2011/11/24/source_https-sourcing-an-r-script-from-github/ "tonybreyal").
+We use the [igraph package](http://igraph.org/r/), which provides the class of graphs and the basic suite of tools we build upon. The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
 
 
-
-The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
+```
+Warning: package 'devtools' was built under R version 3.1.1
+```
 
 ## Case study: Southern women
 
-In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is reproduced in the file ["DGG\_Clique\_A.csv"](https://github.com/corybrunson/triadic/blob/master/source_material/DGG-CliqueA.csv):
+In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is the basis for the graph object "women" included in the package:
 
 
 ```r
-data(example, package = "triadic")
-DDGG2 <- example$DDGG2
+data(women, package = "triadic")
+DDGG2 <- women
 ```
 
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
@@ -58,8 +59,7 @@ stc
 ```
 
 ```
-0 1 2 3 
-0 0 3 7 
+[1] 0 0 3 7
 ```
 
 There are no disconnected triples among the women, only three 'wedges' or 'vees' and seven 'triangles'. These probably exhibit some diversity of their own that is lost in the projection. To find  out, we can take a look at the **(full) two-mode triad census**. Given an affiliation network, this census tallies all triples of actors by how they coattend events---the number of events they all three attended and the distribution among them of events only attended by two. (Events only attended by one member of a triad do not serve to link them so are omitted from consideration.)
@@ -124,8 +124,7 @@ C
 ```
 
 ```
-    3 
-0.875 
+[1] 0.875
 ```
 
 The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity---the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
@@ -134,7 +133,7 @@ The paper discusses in detail two alternative clustering coefficients specifical
 
 
 ```r
-global.c1 <- c(C = tmtc2C(tmtc), C.O = tmtc2CO(tmtc), C.X = tmtc2Cex(tmtc))
+global.c1 <- c(C = tmtc2C(tmtc), C.O = tmtc2CO(tmtc), C.X = tmtc2CX(tmtc))
 global.c1
 ```
 
@@ -226,7 +225,7 @@ plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = "b", main 
 
 <img src="figure/unnamed-chunk-16.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
 
-Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. 148). The data are available [here] [1] in R format but are sourced here in text format from [Tore Opsahl's site] [2].
+Though the curve at least proceeds in the expected direction, there is little insight to be gleaned here. A more heterogeneous network is required. Fortunately for us, another, somewhat larger (but still manageable) table of women and events is available to us, labeled Group I (p. 148). The data are available [here] [1] in R format and were constructed (with one minor correction) from data at [Tore Opsahl's site] [2].
 
 [1]: https://github.com/corybrunson/triadic/tree/master/data
 [2]: http://toreopsahl.com/datasets/#southernwomen
