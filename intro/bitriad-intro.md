@@ -10,19 +10,18 @@ We use the [igraph package](http://igraph.org/r/), which provides the class of g
 
 ## Case study: Southern women
 
-In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is the basis for the graph object "women" included in the package:
+In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is the basis for the graph object "ddgg.clique" included in the package:
 
 
 ```r
-data(women, package = "bitriad")
-DDGG2 <- women
+data(ddgg.clique, package = "bitriad")
 ```
 
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
 
 
 ```r
-get.incidence(DDGG2)
+get.incidence(ddgg.clique)
 ```
 
 ```
@@ -50,8 +49,8 @@ Classically, the *triad census* refers to the distribution of triads of 16 isomo
 
 
 ```r
-DDGG2.proj <- onemode.projection(DDGG2)
-stc <- simple.triad.census(DDGG2.proj)
+ddgg.clique.proj <- onemode.projection(ddgg.clique)
+stc <- simple.triad.census(ddgg.clique.proj)
 stc
 ```
 
@@ -63,7 +62,7 @@ There are no disconnected triples among the women, only three 'wedges' or 'vees'
 
 
 ```r
-tmtc <- twomode.triad.census(DDGG2)
+tmtc <- twomode.triad.census(ddgg.clique)
 tmtc
 ```
 
@@ -147,7 +146,7 @@ The classical local clustering coeffiicent at a node Q is the proportion of pair
 
 
 ```r
-local.c <- transitivity(DDGG2.proj, type = "local")
+local.c <- transitivity(ddgg.clique.proj, type = "local")
 local.c
 ```
 
@@ -159,9 +158,9 @@ Our two-mode-sensitive candidates are implemented using a 'twomode.transitivity'
 
 
 ```r
-local.c.df <- cbind(C = local.c, C.O = opsahl.transitivity(DDGG2, type = "local"), 
-    C.X = excl.transitivity(DDGG2, type = "local"))
-rownames(local.c.df) <- V(DDGG2.proj)$name
+local.c.df <- cbind(C = local.c, C.O = opsahl.transitivity(ddgg.clique, type = "local"), 
+    C.X = excl.transitivity(ddgg.clique, type = "local"))
+rownames(local.c.df) <- V(ddgg.clique.proj)$name
 local.c.df
 ```
 
@@ -178,7 +177,8 @@ As a reality check, we can test the 'global' option for type of these implementa
 
 
 ```r
-global.c2 <- c(transitivity(DDGG2.proj), opsahl.transitivity(DDGG2), excl.transitivity(DDGG2))
+global.c2 <- c(transitivity(ddgg.clique.proj), opsahl.transitivity(ddgg.clique), 
+    excl.transitivity(ddgg.clique))
 data.frame(From.census = global.c1, From.wedges = global.c2)
 ```
 
@@ -199,7 +199,8 @@ While Clique A is too small to draw general inferences from, it can at least pro
 
 
 ```r
-ddc <- data.frame(k = degree(DDGG2.proj), C = transitivity(DDGG2.proj, type = "local"))
+ddc <- data.frame(k = degree(ddgg.clique.proj), C = transitivity(ddgg.clique.proj, 
+    type = "local"))
 print(ddc)
 ```
 
@@ -237,8 +238,9 @@ The visualization is quite a bit messier, but it looks like we have at least som
 
 
 ```r
-DDGG1.proj <- onemode.projection(DDGG1)
-ddc2 <- data.frame(k = degree(DDGG1.proj), C = transitivity(DDGG1.proj, type = "local"))
+ddgg.group.proj <- onemode.projection(ddgg.group)
+ddc2 <- data.frame(k = degree(ddgg.group.proj), C = transitivity(ddgg.group.proj, 
+    type = "local"))
 print(ddc2)
 ```
 
@@ -277,11 +279,11 @@ This distribution might be fruitfully generalized to the two-mode setting. The o
 
 
 ```r
-DDGG1.wedges <- opsahl.transitivity(DDGG1, type = "")
-DDGG1.wedges <- cbind(DDGG1.wedges, C = DDGG1.wedges$T/DDGG1.wedges$V)
-plot(aggregate(DDGG1.wedges$C, by = list(V = DDGG1.wedges$V), FUN = mean), pch = 19, 
-    type = "b", main = "Wedge-dependent local clustering (Opsahl)", xlab = "Wedges", 
-    ylab = "Mean conditional local clustering coefficient")
+ddgg.group.wedges <- opsahl.transitivity(ddgg.group, type = "")
+ddgg.group.wedges <- cbind(ddgg.group.wedges, C = ddgg.group.wedges$T/ddgg.group.wedges$V)
+plot(aggregate(ddgg.group.wedges$C, by = list(V = ddgg.group.wedges$V), FUN = mean), 
+    pch = 19, type = "b", main = "Wedge-dependent local clustering (Opsahl)", 
+    xlab = "Wedges", ylab = "Mean conditional local clustering coefficient")
 ```
 
 <img src="figure/unnamed-chunk-20.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" />
@@ -290,11 +292,11 @@ This plot defies the consistent behavior we saw in the classical case. What, ins
 
 
 ```r
-DDGG1.wedges <- excl.transitivity(DDGG1, type = "")
-DDGG1.wedges <- cbind(DDGG1.wedges, C = DDGG1.wedges$T/DDGG1.wedges$V)
-plot(aggregate(DDGG1.wedges$C, by = list(V = DDGG1.wedges$V), FUN = mean), pch = 19, 
-    type = "b", main = "Wedge-dependent local clustering (exclusive)", xlab = "Wedges", 
-    ylab = "Mean conditional local clustering coefficient")
+ddgg.group.wedges <- excl.transitivity(ddgg.group, type = "")
+ddgg.group.wedges <- cbind(ddgg.group.wedges, C = ddgg.group.wedges$T/ddgg.group.wedges$V)
+plot(aggregate(ddgg.group.wedges$C, by = list(V = ddgg.group.wedges$V), FUN = mean), 
+    pch = 19, type = "b", main = "Wedge-dependent local clustering (exclusive)", 
+    xlab = "Wedges", ylab = "Mean conditional local clustering coefficient")
 ```
 
 <img src="figure/unnamed-chunk-21.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" style="display: block; margin: auto;" />

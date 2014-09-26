@@ -21,17 +21,16 @@ require(bitriad)
 
 ## Case study: Southern women
 
-In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is the basis for the graph object "women" included in the package:
+In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is the basis for the graph object "ddgg.clique" included in the package:
 
 ```{r, message = FALSE}
-data(women, package = 'bitriad')
-DDGG2 <- women
+data(ddgg.clique, package = 'bitriad')
 ```
 
 Since the graph is bipartite, we can get all the incidence information we need from one corner of the full adjacency matrix. Due to the structure of the file and the import method, the actor nodes are listed first and the event nodes second:
 
 ```{r}
-get.incidence(DDGG2)
+get.incidence(ddgg.clique)
 ```
 
 ### Visualization
@@ -40,9 +39,10 @@ First let's visualize the network, arranging the nodes using the Fruchterman-Rei
 
 ```{r, echo = FALSE}
 set.seed(10)
-plot(DDGG2, layout = layout.fruchterman.reingold(DDGG2, niter = 100),
-     vertex.color = ifelse(V(DDGG2)$type == 0, 'SkyBlue2', 'lightcoral'),
-     vertex.shape = ifelse(V(DDGG2)$type == 0, 'circle', 'square'),
+plot(ddgg.clique,
+     layout = layout.fruchterman.reingold(ddgg.clique, niter = 100),
+     vertex.color = ifelse(V(ddgg.clique)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(ddgg.clique)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
      vertex.label = c(LETTERS[1:5], 1:5),
      vertex.label.family = 'sans', vertex.label.color = 'white')
@@ -57,15 +57,15 @@ This social network is just large enough exhibit a diversity of triads and just 
 Classically, the *triad census* refers to the distribution of triads of 16 isomorphism classes throughout a simple, directed network. The women's clique is neither simple nor directed, but we can view a simplified (undirected) version of the triad census on its *one-mode projection*---the network of women with acquaintanceship ties inferred from their coattendence at events. There are only four isomorphism classes of undirected triads, distinguished by the number of edges (0 through 3) among the three nodes:
 
 ```{r}
-DDGG2.proj <- onemode.projection(DDGG2)
-stc <- simple.triad.census(DDGG2.proj)
+ddgg.clique.proj <- onemode.projection(ddgg.clique)
+stc <- simple.triad.census(ddgg.clique.proj)
 stc
 ```
 
 There are no disconnected triples among the women, only three 'wedges' or 'vees' and seven 'triangles'. These probably exhibit some diversity of their own that is lost in the projection. To find  out, we can take a look at the **(full) two-mode triad census**. Given an affiliation network, this census tallies all triples of actors by how they coattend events---the number of events they all three attended and the distribution among them of events only attended by two. (Events only attended by one member of a triad do not serve to link them so are omitted from consideration.)
 
 ```{r}
-tmtc <- twomode.triad.census(DDGG2)
+tmtc <- twomode.triad.census(ddgg.clique)
 tmtc
 ```
 
@@ -111,7 +111,7 @@ So far we have only tried to gauge transitivity tendencies in the network as a w
 The classical local clustering coeffiicent at a node Q is the proportion of pairs of neighbors of Q who are themselves neighobrs. From the images above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Miss B and Miss C among their neighobrs) and 1 (for Miss B and Miss C). To verify, we specify the type to 'local' in the base igraph function:
 
 ```{r}
-local.c <- transitivity(DDGG2.proj, type = 'local')
+local.c <- transitivity(ddgg.clique.proj, type = 'local')
 local.c
 ```
 
@@ -119,18 +119,18 @@ Our two-mode-sensitive candidates are implemented using a 'twomode.transitivity'
 
 ```{r}
 local.c.df <- cbind(C = local.c,
-                    C.O = opsahl.transitivity(DDGG2, type = 'local'),
-                    C.X = excl.transitivity(DDGG2, type = 'local'))
-rownames(local.c.df) <- V(DDGG2.proj)$name
+                    C.O = opsahl.transitivity(ddgg.clique, type = 'local'),
+                    C.X = excl.transitivity(ddgg.clique, type = 'local'))
+rownames(local.c.df) <- V(ddgg.clique.proj)$name
 local.c.df
 ```
 
 As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census.
 
 ```{r}
-global.c2 <- c(transitivity(DDGG2.proj),
-               opsahl.transitivity(DDGG2),
-               excl.transitivity(DDGG2))
+global.c2 <- c(transitivity(ddgg.clique.proj),
+               opsahl.transitivity(ddgg.clique),
+               excl.transitivity(ddgg.clique))
 data.frame(From.census = global.c1, From.wedges = global.c2)
 ```
 
@@ -143,8 +143,8 @@ The typical analysis plots the mean "degree-dependent" local clustering coeffici
 While Clique A is too small to draw general inferences from, it can at least provide a case study and a demonstration of these diagnostics. Since the "degree" and "transitivity" functions (the latter using the 'local' value of type) are evaluated at the nodes in order of their IDs, we can match them up in a simple data frame:
 
 ```{r}
-ddc <- data.frame(k = degree(DDGG2.proj),
-                  C = transitivity(DDGG2.proj, type = 'local'))
+ddc <- data.frame(k = degree(ddgg.clique.proj),
+                  C = transitivity(ddgg.clique.proj, type = 'local'))
 print(ddc)
 ```
 
@@ -162,30 +162,30 @@ Though the curve at least proceeds in the expected direction, there is little in
 [2]: http://toreopsahl.com/datasets/#southernwomen
 
 ```{r, echo = FALSE}
-data(davis, package = 'bitriad')
-DDGG1 <- davis
+data(ddgg.group, package = 'bitriad')
 ```
 
 Again let's begin with a plot:
 
 ```{r, echo = FALSE}
 set.seed(1)
-plot(DDGG1, layout = layout.fruchterman.reingold(DDGG1, niter = 100),
-     vertex.color = ifelse(V(DDGG1)$type == 0, 'SkyBlue2', 'lightcoral'),
-     vertex.shape = ifelse(V(DDGG1)$type == 0, 'circle', 'square'),
+plot(ddgg.group, layout = layout.fruchterman.reingold(ddgg.group, niter = 100),
+     vertex.color = ifelse(V(ddgg.group)$type == 0, 'SkyBlue2', 'lightcoral'),
+     vertex.shape = ifelse(V(ddgg.group)$type == 0, 'circle', 'square'),
      edge.width = 2, edge.color = 'black',
-     vertex.label = substr(V(DDGG1)$name, 1, 2),
+     vertex.label = substr(V(ddgg.group)$name, 1, 2),
      vertex.label.family = 'sans', vertex.label.color = 'white')
 ```
 
 The visualization is quite a bit messier, but it looks like we have at least some range of degrees this time:
 
 ```{r}
-DDGG1.proj <- onemode.projection(DDGG1)
-ddc2 <- data.frame(k = degree(DDGG1.proj),
-                   C = transitivity(DDGG1.proj, type = 'local'))
+ddgg.group.proj <- onemode.projection(ddgg.group)
+ddc2 <- data.frame(k = degree(ddgg.group.proj),
+                   C = transitivity(ddgg.group.proj, type = 'local'))
 print(ddc2)
-plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean), pch = 19, type = 'b',
+plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
+     pch = 19, type = 'b',
      main = 'Degree-dependent local clustering',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 ```
@@ -195,9 +195,11 @@ There is clearly a trade-off between the number of a woman's acquaintances (thro
 This distribution might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree---that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
 
 ```{r, warning = FALSE}
-DDGG1.wedges <- opsahl.transitivity(DDGG1, type = '')
-DDGG1.wedges <- cbind(DDGG1.wedges, C = DDGG1.wedges$T / DDGG1.wedges$V)
-plot(aggregate(DDGG1.wedges$C, by = list(V = DDGG1.wedges$V), FUN = mean),
+ddgg.group.wedges <- opsahl.transitivity(ddgg.group, type = '')
+ddgg.group.wedges <- cbind(ddgg.group.wedges,
+                           C = ddgg.group.wedges$T / ddgg.group.wedges$V)
+plot(aggregate(ddgg.group.wedges$C,
+               by = list(V = ddgg.group.wedges$V), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering (Opsahl)',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
@@ -206,9 +208,11 @@ plot(aggregate(DDGG1.wedges$C, by = list(V = DDGG1.wedges$V), FUN = mean),
 This plot defies the consistent behavior we saw in the classical case. What, instead, if we try exclusive clustering?
 
 ```{r}
-DDGG1.wedges <- excl.transitivity(DDGG1, type = '')
-DDGG1.wedges <- cbind(DDGG1.wedges, C = DDGG1.wedges$T / DDGG1.wedges$V)
-plot(aggregate(DDGG1.wedges$C, by = list(V = DDGG1.wedges$V), FUN = mean),
+ddgg.group.wedges <- excl.transitivity(ddgg.group, type = '')
+ddgg.group.wedges <- cbind(ddgg.group.wedges,
+                           C = ddgg.group.wedges$T / ddgg.group.wedges$V)
+plot(aggregate(ddgg.group.wedges$C,
+               by = list(V = ddgg.group.wedges$V), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering (exclusive)',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
