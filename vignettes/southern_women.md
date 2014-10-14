@@ -2,9 +2,9 @@
 
 
 
-The paper "Triadic analysis for affiliation networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. This R Markdown file applies a few of tools to the study of some manageably-sized real-world affiliation networks, in hopes of giving the reader a feel for what they mean, how they can be used, and what can be learned from them.
+The paper "Triadic analysis for affiliation networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. Most of these tools are included in the `bitriad` package. This vignette applies a few of them to the study of two social groups inferred from event coattendence. The aim is to convey what the tools mean, how they can be used, and what can be learned from them.
 
-We use the [igraph package](http://igraph.org/r/), which provides the class of graphs and the basic suite of tools we build upon. The author is neither a programmer nor a computer scientist by training; any suggestions on how to make this document or the suite of functions it overviews would be most welcome.
+We use the [igraph package](http://igraph.org/r/), which provides the class of graphs and the basic suite of graph-theoretic tools, as a foundation. Any suggestions or pull requests on this document or the package would be most welcome.
 
 
 
@@ -45,7 +45,7 @@ This layout reveals a symmetry of the network between its actor and event nodes:
 
 This social network is just large enough exhibit a diversity of triads and just small enough to allow us to examine them in detail. (Future networks will only be examined cursorily or through statistics.)
 
-Classically, the *triad census* refers to the distribution of triads of 16 isomorphism classes throughout a simple, directed network. The women's clique is neither simple nor directed, but we can view a simplified (undirected) version of the triad census on its *one-mode projection*---the network of women with acquaintanceship ties inferred from their coattendence at events. There are only four isomorphism classes of undirected triads, distinguished by the number of edges (0 through 3) among the three nodes:
+Classically, the *triad census* refers to the distribution of triads of 16 isomorphism classes throughout a simple, directed network. The women's clique is neither simple nor directed, but we can view a simplified (undirected) version of the triad census on its *one-mode projection*--the network of women with acquaintanceship ties inferred from their coattendence at events. There are only four isomorphism classes of undirected triads, distinguished by the number of edges (0 through 3) among the three nodes:
 
 
 ```r
@@ -58,7 +58,7 @@ stc
 ## [1] 0 0 3 7
 ```
 
-There are no disconnected triples among the women, only three 'wedges' or 'vees' and seven 'triangles'. These probably exhibit some diversity of their own that is lost in the projection. To find  out, we can take a look at the **(full) two-mode triad census**. Given an affiliation network, this census tallies all triples of actors by how they coattend events---the number of events they all three attended and the distribution among them of events only attended by two. (Events only attended by one member of a triad do not serve to link them so are omitted from consideration.)
+There are no disconnected triples among the women, only three 'wedges' or 'vees' and seven 'triangles'. These probably exhibit some diversity of their own that is lost in the projection. To find  out, we can take a look at the **(full) two-mode triad census**. Given an affiliation network, this census tallies all triples of actors by how they coattend events--the number of events they all three attended and the distribution among them of events only attended by two. (Events only attended by one member of a triad do not serve to link them so are omitted from consideration.)
 
 
 ```r
@@ -80,7 +80,7 @@ tmtc
 ## [10,]    0    0
 ```
 
-The arrangement is less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all---even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
+The arrangement is less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all--even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
 
 We can sacrifice information about event multiplicity within triads for a simpler and more intuitive layout. This alternative is dubbed the **cooperative triad census** because it collapses the events to only four types, based on which actors cooperated on them, or coattended them:
 
@@ -123,7 +123,7 @@ C
 ## [1] 0.875
 ```
 
-The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity---the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
+The value tells us what proportion of the time each pair of three women have co-attended at least one event, given that two pairs have. (Note that this is a different value from the proportion of the time that two women have co-attended an event, given that they have at least one common co-attendee between them.) The clustering coefficient has proven a valuable, though heavily biased, single-value indicator of transitivity--the tendency for near-connections to indicate direct connections, or for "friends of friends" to in fact be "friends".
 
 The paper discusses in detail two alternative clustering coefficients specifically designed for two-mode networks. The first of these is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*, the first proposal for a truly two-mode measure of transitive linking. The second is dubbed the **exclusive clustering coefficient** because it depends only on the existence, and not the number, of pairwise-exclusive events for each pair of actors. Analogously to the above relationship, each of these diagnostics is recoverable from the two-mode triad census, which is how they are calculated below. (Because the number of events of each type does not matter to it, the exclusive clustering coefficient can be computed from the cooperativity triad census as well as directly from the full census.)
 
@@ -140,7 +140,7 @@ global.c1
 
 ### Local clustering coefficients
 
-So far we have only tried to gauge transitivity tendencies in the network as a whole; that is, we have been looking at global network properties. But triadic analysis has always taken place at two levels---the micro and the macro: The Davis/Holland/Leinhardt studies tested macro network properties through their micro predictions, and the global clustering coefficient was a macro counterpart to the original (local) clustering coefficient of Watts and Strogatz. Having viewed the southern women through this global lens, we now turn to the local.
+So far we have only tried to gauge transitivity tendencies in the network as a whole; that is, we have been looking at global network properties. But triadic analysis has always taken place at two levels--the micro and the macro: The Davis/Holland/Leinhardt studies tested macro network properties through their micro predictions, and the global clustering coefficient was a macro counterpart to the original (local) clustering coefficient of Watts and Strogatz. Having viewed the southern women through this global lens, we now turn to the local.
 
 The classical local clustering coeffiicent at a node Q is the proportion of pairs of neighbors of Q who are themselves neighobrs. From the images above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Miss B and Miss C among their neighobrs) and 1 (for Miss B and Miss C). To verify, we specify the type to 'local' in the base igraph function:
 
@@ -275,7 +275,7 @@ plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean), pch = 19, type = "b",
 
 There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships.
 
-This distribution might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree---that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
+This distribution might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree--that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the twomode.transitivity function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
 
 
 ```r

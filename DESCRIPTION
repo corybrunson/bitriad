@@ -16,4 +16,6 @@ Depends:
     igraph
 Imports:
     igraph
+Suggests:
+    knitr
 License: GPL-2
