@@ -49,4 +49,4 @@ The folder "source_material" contains "raw" data files (pulled from the Internet
 
 [This vignette] [11] outlines an analysis of DDGG1 and DDGG2 using the census, some clustering coefficients, and other tools.
 
-[11]: https://github.com/corybrunson/bitriad/blob/master/intro/bitriad-intro.md
+[11]: https://github.com/corybrunson/bitriad/blob/master/vignettes/southern_women.md
