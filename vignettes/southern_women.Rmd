@@ -1,4 +1,3 @@
-# Triadic analyses of affiliation networks
 
 ```{r, echo = FALSE}
 library(knitr)
@@ -7,10 +6,6 @@ opts_chunk$set(echo = TRUE, message = FALSE, tidy = TRUE, warning = FALSE,
                fig.path = "figure/", fig.keep = "high", fig.width = 8,
                fig.height = 6, fig.align = "center")
 ```
-
-The paper "Triadic analysis for affiliation networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. Most of these tools are included in the `bitriad` package. This vignette applies a few of them to the study of two social groups inferred from event coattendence. The aim is to convey what the tools mean, how they can be used, and what can be learned from them.
-
-We use the [igraph package](http://igraph.org/r/), which provides the class of graphs and the basic suite of graph-theoretic tools, as a foundation. Any suggestions or pull requests on this document or the package would be most welcome.
 
 ```{r, echo = FALSE, results = 'hide', message = FALSE}
 require(igraph)
@@ -21,7 +16,9 @@ require(bitriad)
 
 ## Case study: Southern women
 
-In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is the basis for the graph object "ddgg.clique" included in the package:
+This vignette applies a few tools from the `bitriad` package to the study of two social groups inferred from event coattendence. The aim is to convey what the tools mean, how they can be used, and what can be learned from them.
+
+In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), two couples of social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural southern town. Among their records were several tables of coattendance at distinct events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five events, which we refer to as bridge, dinner, movies, dance, and visiting, each of which was attended by a subset of the women. The attendance table is the basis for the graph object `ddgg.clique` included in the package:
 
 ```{r, message = FALSE}
 data(ddgg.clique, package = 'bitriad')
@@ -62,7 +59,7 @@ stc <- simple.triad.census(ddgg.clique.proj)
 stc
 ```
 
-There are no disconnected triples among the women, only three 'wedges' or 'vees' and seven 'triangles'. These probably exhibit some diversity of their own that is lost in the projection. To find  out, we can take a look at the **(full) two-mode triad census**. Given an affiliation network, this census tallies all triples of actors by how they coattend events--the number of events they all three attended and the distribution among them of events only attended by two. (Events only attended by one member of a triad do not serve to link them so are omitted from consideration.)
+There are no disconnected triples among the women, only three "wedges" or "vees" and seven "triangles". These probably exhibit some diversity of their own that is lost in the projection. To find  out, we can take a look at the **(full) two-mode triad census**. Given an affiliation network, this census tallies all triples of actors by how they coattend events--the number of events they all three attended and the distribution among them of events only attended by two. (Events only attended by one member of a triad do not serve to link them so are omitted from consideration.)
 
 ```{r}
 tmtc <- twomode.triad.census(ddgg.clique)
@@ -71,14 +68,14 @@ tmtc
 
 The arrangement is less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all--even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
 
-We can sacrifice information about event multiplicity within triads for a simpler and more intuitive layout. This alternative is dubbed the **cooperative triad census** because it collapses the events to only four types, based on which actors cooperated on them, or coattended them:
+We can sacrifice information about event multiplicity within triads for a simpler and more intuitive layout. This alternative is dubbed the **cooperativity triad census** because it collapses the events to only four types, based on which actors cooperated on them, or coattended them:
 
 ```{r}
 ctc <- tmtc2ctc(tmtc)
 ctc
 ```
 
-The column indicates the existence of a triadwise event; the row indicates the number of pairs of actors connected by a pairwise event (0, 1, 2, or 3). The simple triad census can also be recovered from either the full or the cooperative two-mode census:
+The column indicates the existence of a triadwise event; the row indicates the number of pairs of actors connected by a pairwise event (0, 1, 2, or 3). The simple triad census can also be recovered from either the full or the cooperativity census:
 
 ```{r}
 ctc2stc(ctc)
@@ -108,14 +105,14 @@ global.c1
 
 So far we have only tried to gauge transitivity tendencies in the network as a whole; that is, we have been looking at global network properties. But triadic analysis has always taken place at two levels--the micro and the macro: The Davis/Holland/Leinhardt studies tested macro network properties through their micro predictions, and the global clustering coefficient was a macro counterpart to the original (local) clustering coefficient of Watts and Strogatz. Having viewed the southern women through this global lens, we now turn to the local.
 
-The classical local clustering coeffiicent at a node Q is the proportion of pairs of neighbors of Q who are themselves neighobrs. From the images above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Miss B and Miss C among their neighobrs) and 1 (for Miss B and Miss C). To verify, we specify the type to 'local' in the base igraph function:
+The classical local clustering coeffiicent at a node Q is the proportion of pairs of neighbors of Q who are themselves neighobrs. From the images above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Miss B and Miss C among their neighobrs) and 1 (for Miss B and Miss C). To verify, we specify the type to `local` in the base igraph function:
 
 ```{r}
 local.c <- transitivity(ddgg.clique.proj, type = 'local')
 local.c
 ```
 
-Our two-mode-sensitive candidates are implemented using a 'twomode.transitivity' shell with a required function that counts the open and closed wedges at each node. This "wedge function" determines the species of two-mode transitivity that will be calculated. The shell uses the wedges to compute the corresponding local or global clustering coefficient, or (if neither is specified) returns the wedge list itself.
+Our two-mode-sensitive candidates are implemented using a `twomode.transitivity` shell with a required function that counts the open and closed wedges at each node. This "wedge function" determines the species of two-mode transitivity that will be calculated. The shell uses the wedges to compute the corresponding local or global clustering coefficient, or (if neither is specified) returns the wedge list itself.
 
 ```{r}
 local.c.df <- cbind(C = local.c,
@@ -125,7 +122,7 @@ rownames(local.c.df) <- V(ddgg.clique.proj)$name
 local.c.df
 ```
 
-As a reality check, we can test the 'global' option for type of these implementations against the global values produced from the two-mode triad census.
+As a reality check, we can test the `global` option for type of these implementations against the global values produced from the two-mode triad census.
 
 ```{r}
 global.c2 <- c(transitivity(ddgg.clique.proj),
@@ -140,7 +137,7 @@ One [thoroughly documented](http://arxiv.org/abs/cond-mat/0211528) property of s
 
 The typical analysis plots the mean "degree-dependent" local clustering coefficient, taken over all nodes of a fixed degree, against the degree. The framework also prompts a question i have not yet found answered in the literature: For a fixed degree k, what does the distribution of local clustering coefficients at nodes of degree k look like? The assumption underlying the typical analysis is that the mean of this distribution is a reasonable one-variable summary of it, but the possibility exists that these distributions are skewed or otherwise asymmetric.
 
-While Clique A is too small to draw general inferences from, it can at least provide a case study and a demonstration of these diagnostics. Since the "degree" and "transitivity" functions (the latter using the 'local' value of type) are evaluated at the nodes in order of their IDs, we can match them up in a simple data frame:
+While Clique A is too small to draw general inferences from, it can at least provide a case study and a demonstration of these diagnostics. Since the `degree` and `transitivity` functions (the latter using the `local` value of type) are evaluated at the nodes in order of their IDs, we can match them up in a simple data frame:
 
 ```{r}
 ddc <- data.frame(k = degree(ddgg.clique.proj),

@@ -3,6 +3,10 @@ bitriad
 
 This repo contains data, tools, and exposition for the **triadic analysis of two-mode networks**.
 
+## Description
+
+The paper "Triadic analysis for affiliation networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. Most of these tools are included in the `bitriad` package. The [igraph package](http://igraph.org/r/) provides the class of graphs and the basic suite of graph-theoretic tools, which serve as a foundation. Any suggestions or pull requests on this document or the package would be most welcome.
+
 ## Install
 
 The repo is arranged as an R package and can be installed using the [devtools](http://cran.r-project.org/web/packages/devtools/index.html) package:
