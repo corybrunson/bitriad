@@ -96,8 +96,8 @@ The paper discusses in detail two alternative clustering coefficients specifical
 
 ```{r}
 global.c1 <- c(C = ftc2allact(ftc),
-               C.O = ftc2injequ(ftc),
-               C.X = ftc2indstr(ftc))
+               C.opsahl = ftc2injequ(ftc),
+               C.excl = ftc2indstr(ftc))
 global.c1
 ```
 
@@ -116,8 +116,8 @@ Our two-mode-sensitive candidates are implemented using the `an.transitivity` sh
 
 ```{r}
 local.c.df <- cbind(C = local.c,
-                    C.O = opsahl.transitivity(ddgg.clique, type = 'local'),
-                    C.X = excl.transitivity(ddgg.clique, type = 'local'))
+                    C.opsahl = opsahl.transitivity(ddgg.clique, type = 'local'),
+                    C.excl = excl.transitivity(ddgg.clique, type = 'local'))
 rownames(local.c.df) <- V(ddgg.clique.proj)$name
 local.c.df
 ```
