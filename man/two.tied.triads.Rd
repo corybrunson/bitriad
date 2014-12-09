@@ -13,7 +13,7 @@ two.tied.triads(graph)
 \item{type}{The actor node type in bigraph}
 }
 \description{
-These functions are called by the two-mode triad census to handle triads of
+These functions are called by the full triad census to handle triads of
 different types using the projection onto actor nodes. The name of each
 function indicates the number of edges that appear among the three actors of
 the triad in the projection. (Zero-edge triads do not need to be tallied;

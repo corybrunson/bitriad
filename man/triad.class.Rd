@@ -12,7 +12,7 @@ triad.class(bigraph, v)
 }
 \description{
 Given three actor nodes in an affiliation network, determine the isomorphism
-class of the two-mode triad they form by its index (a partition of three
-parts and a nonnegative integer).
+class of the triad they form by its index (a partition of three parts and a
+nonnegative integer).
 }
 

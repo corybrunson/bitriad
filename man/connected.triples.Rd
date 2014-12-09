@@ -3,8 +3,8 @@
 \alias{connected.triples}
 \title{Triad tallies}
 \usage{
-connected.triples(bigraph, type = 0, graph = onemode.projection(bigraph,
-  type = type, name = "id"))
+connected.triples(bigraph, type = 0, graph = actor.projection(bigraph, type
+  = type, name = "id"))
 }
 \arguments{
 \item{graph}{A one-mode network}

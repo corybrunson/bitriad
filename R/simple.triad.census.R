@@ -7,7 +7,6 @@
 #' recovered through strategic coordinate sums, returns nonsense frequencies for
 #' many large graphs.
 #' @param graph A one-mode network
-#' @param rcnames Logical; whether to label the vector coordinates (0 thru 3)
 #' @export
 
 simple.triad.census <-
@@ -30,5 +29,5 @@ simple.triad.census <-
         # Store C as row sums, correct for repeats, fill in empty triad count
         C <- c('0' = 0, rowSums(edge.plus) / 1:3)
         C[1] <- choose(n, 3) - sum(C)
-        return(unname(C))
+        unname(C)
     }

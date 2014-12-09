@@ -10,13 +10,12 @@
 #' @param graph A one-mode network
 #' @param bigraph The ambient affiliation network from which graph is projected
 #' @param type The actor node type in bigraph
-#' @export
 
 connected.triples <-
 function(
         bigraph, type = 0,
         # Construct the one-mode projection if it's not already prepared
-        graph = onemode.projection(bigraph, type = type, name = 'id')
+        graph = actor.projection(bigraph, type = type, name = 'id')
     ) {
         trips <- do.call(rbind, lapply(1:vcount(graph), function(i) {
             nbhd <- neighborhood(graph, 1, i)[[1]]

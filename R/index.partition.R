@@ -1,4 +1,4 @@
-#' Combinatorial bijections for affiliation triad labeling
+#' Combinatorial bijections for affiliation network triad labeling
 #' 
 #' These functions biject among partitions of at most 3 parts, 3-subsets of
 #' natural numbers, and indices for the lexicographic total orders on both.
@@ -8,6 +8,6 @@
 #' index.partition(2)
 
 index.partition <-
-function(i) {
-  subset.partition(index.subset(i))
-}
+    function(i) {
+        subset.partition(index.subset(i))
+    }

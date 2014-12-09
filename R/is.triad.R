@@ -1,4 +1,4 @@
-#' Two-mode triads
+#' Affiliation network triads
 #' 
 #' @param graph A graph object
 #' @export
@@ -15,5 +15,5 @@ function(graph) {
     # Must have no trivial events
     if(!all(degree(graph)[which(V(graph)$type == 1)] > 1)) return(FALSE)
     # That's it
-    return(TRUE)
+    TRUE
 }

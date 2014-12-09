@@ -8,11 +8,7 @@ share.weight(bigraph, vids, name = "name")
 \arguments{
 \item{bigraph}{The ambient affiliation network}
 
-\item{graph}{A one-mode network (used as the one-mode projection of bigraph)}
-
 \item{vids}{Vertex ids, the event count among which is being considered}
-
-\item{vp}{Ids of vertex pair, the edge between which is being considered}
 
 \item{v}{A subset of actor node ids.}
 }

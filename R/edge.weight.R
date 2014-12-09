@@ -8,7 +8,6 @@
 #' @param vids Vertex ids, the event count among which is being considered
 #' @param vp Ids of vertex pair, the edge between which is being considered
 #' @param v A subset of actor node ids.
-#' @export
 
 edge.weight <-
 function(graph, vp) {

@@ -7,8 +7,6 @@ simple.triad.census(graph)
 }
 \arguments{
 \item{graph}{A one-mode network}
-
-\item{rcnames}{Logical; whether to label the vector coordinates (0 thru 3)}
 }
 \description{
 This function inputs a simple graph and returns a vector of frequency counts

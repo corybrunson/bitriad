@@ -1,11 +1,11 @@
 bitriad
 =======
 
-This repo contains data, tools, and exposition for the **triadic analysis of two-mode networks**.
+This repo contains data, tools, and exposition for the **triadic analysis of affiliation networks**.
 
 ## Description
 
-The paper "Triadic analysis for affiliation networks" will make a case for adopting a coherent batch of triad-centric tools for the study of two-mode, usually affiliation, networks. Most of these tools are included in the `bitriad` package. The [igraph package](http://igraph.org/r/) provides the class of graphs and the basic suite of graph-theoretic tools, which serve as a foundation. Any suggestions or pull requests on this document or the package would be most welcome.
+The paper *Triadic analysis for affiliation networks* will make a case for adopting a batch of triad-centric tools for the study of two-mode, bipartite networks; the examples invoked are affiliation networks. Most of the tools are included in the `bitriad` package. The [igraph package](http://igraph.org/r/) provides the class of graphs and the basic suite of graph-theoretic tools, which serve as a foundation. No new classes have been defined, and all functions are written in R rather than called from, say, C. Any suggestions or pull requests on this document or the package would be most welcome.
 
 ## Install
 
@@ -16,7 +16,7 @@ if(!require(devtools)) {
     install.packages('devtools')
     require(devtools)
 }
-devtools::install_github('corybrunson/bitriad')
+install_github('corybrunson/bitriad')
 ```
 
 ## Tools
@@ -47,10 +47,10 @@ Sources of the network data include
 [7]: http://www.socsci.uci.edu/~kfaust/faust/research/articles/faust_centrality_sn_1997.pdf
 [8]: http://www.sciencedirect.com/science/book/9780123525505
 
-The folder "source_material" contains "raw" data files (pulled from the Internet where possible and otherwise constructed from primary sources) and the folder "data" contains .rda (R data) files for the affiliation networks associated with them. All graphs are bipartite; the actors and events are given "type" attributes 0 and 1, respectively, corresponding to the values FALSE and TRUE in igraph.
+The folder "data" contains .rda (R data) files for the affiliation networks associated with them. All graphs are bipartite; the actors and events are given "type" attributes 0 and 1, respectively, corresponding to the values FALSE and TRUE in igraph.
 
 ## Vignette
 
-[This vignette] [11] outlines an analysis of DDGG1 and DDGG2 using the census, some clustering coefficients, and other tools.
+[This vignette] [11] outlines an analysis of DDGG1 and DDGG2 using the censuses, some clustering coefficients, and other tools.
 
 [11]: https://github.com/corybrunson/bitriad/blob/master/vignettes/southern_women.md

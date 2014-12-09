@@ -3,8 +3,8 @@
 \alias{three.tied.triads}
 \title{Triad tallies}
 \usage{
-three.tied.triads(bigraph, type = 0, graph = onemode.projection(bigraph,
-  type = type, name = "id"))
+three.tied.triads(bigraph, type = 0, graph = actor.projection(bigraph, type
+  = type, name = "id"))
 }
 \arguments{
 \item{graph}{A one-mode network}
@@ -14,8 +14,8 @@ three.tied.triads(bigraph, type = 0, graph = onemode.projection(bigraph,
 \item{type}{The actor node type in bigraph}
 }
 \description{
-These functions are called by the two-mode triad census to handle triads of
-different types using the projection onto actor nodes. The name of each
+These functions are called by the affiliation network triad census to handle
+triads of different types using the projection onto actors. The name of each
 function indicates the number of edges that appear among the three actors of
 the triad in the projection. (Zero-edge triads do not need to be tallied;
 the total number of triads is easily calculated, and the difference between

@@ -1,7 +1,7 @@
 #' Triad tallies
 #' 
-#' These functions are called by the two-mode triad census to handle triads of
-#' different types using the projection onto actor nodes. The name of each
+#' These functions are called by the affiliation network triad census to handle
+#' triads of different types using the projection onto actors. The name of each
 #' function indicates the number of edges that appear among the three actors of
 #' the triad in the projection. (Zero-edge triads do not need to be tallied;
 #' the total number of triads is easily calculated, and the difference between
@@ -10,13 +10,12 @@
 #' @param graph A one-mode network
 #' @param bigraph The ambient affiliation network from which graph is projected
 #' @param type The actor node type in bigraph
-#' @export
 
 three.tied.triads <-
 function(
         bigraph, type = 0,
         # Construct the one-mode projection if it's not already prepared
-        graph = onemode.projection(bigraph, type = type, name = 'id')
+        graph = actor.projection(bigraph, type = type, name = 'id')
     ) {
         # Triangles are 3-cliques in the one-mode projection
         t <- do.call(cbind, cliques(graph, min = 3, max = 3))

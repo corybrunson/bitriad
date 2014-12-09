@@ -1,6 +1,6 @@
 #' Triad tallies
 #' 
-#' These functions are called by the two-mode triad census to handle triads of
+#' These functions are called by the full triad census to handle triads of
 #' different types using the projection onto actor nodes. The name of each
 #' function indicates the number of edges that appear among the three actors of
 #' the triad in the projection. (Zero-edge triads do not need to be tallied;
@@ -10,10 +10,9 @@
 #' @param graph A one-mode network
 #' @param bigraph The ambient affiliation network from which graph is projected
 #' @param type The actor node type in bigraph
-#' @export
 
 two.tied.triads <-
-function(graph) {
+    function(graph) {
         # List of open wedges (shortest paths of length 2) up to reversal
         p2 <- do.call(cbind, lapply(
             V(graph)[1:(vcount(graph) - 1)], function(v) {
