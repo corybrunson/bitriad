@@ -13,7 +13,7 @@
 #' clustering coefficient.
 #' @export
 
-indstr.transitivity <-
+excl.transitivity <-
     function(
         bigraph, node.type = 0, type = 'global',
         vids = which(V(bigraph)$type == node.type)
