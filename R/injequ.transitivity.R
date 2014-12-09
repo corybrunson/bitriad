@@ -14,7 +14,7 @@
 #' @export
 
 injequ.transitivity <- opsahl.transitivity <-
-function(
+    function(
         bigraph, node.type = 0, type = 'global',
         vids = which(V(bigraph)$type == node.type)
     ) {
