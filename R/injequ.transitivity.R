@@ -13,7 +13,7 @@
 #' clustering coefficient.
 #' @export
 
-injequ.transitivity <-
+injequ.transitivity <- opsahl.transitivity <-
 function(
         bigraph, node.type = 0, type = 'global',
         vids = which(V(bigraph)$type == node.type)
@@ -22,4 +22,3 @@ function(
             bigraph = bigraph, node.type = node.type, type = type,
             wedges.fn = injequ.wedges, vids = vids)
     }
-opsahl.transitivity <- injequ.transitivity

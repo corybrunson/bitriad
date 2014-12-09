@@ -54,31 +54,31 @@ This social network is just large enough to exhibit a diversity of triads and ju
 Classically, the *triad census* refers to the distribution of triads of 16 isomorphism classes throughout a simple, directed network. The women's clique is neither simple nor directed, but we can view a simplified (undirected) version of the triad census on its *one-mode projection*--the network of women with acquaintanceship ties inferred from their coattendence at events. There are only four isomorphism classes of undirected triads, distinguished by the number of edges (0 through 3) among the three nodes:
 
 ```{r}
-ddgg.clique.proj <- onemode.projection(ddgg.clique)
-stc <- simple.triad.census(ddgg.clique.proj)
-stc
+ddgg.clique.proj <- actor.projection(ddgg.clique)
+tc <- simple.triad.census(ddgg.clique.proj)
+tc
 ```
 
 There are no disconnected triples among the women, only three "wedges" or "vees" and seven "triangles". These probably exhibit some diversity of their own that is lost in the projection. To find  out, we can take a look at the **(full) two-mode triad census**. Given an affiliation network, this census tallies all triples of actors by how they coattend events--the number of events they all three attended and the distribution among them of events only attended by two. (Events only attended by one member of a triad do not serve to link them so are omitted from consideration.)
 
 ```{r}
-tmtc <- twomode.triad.census(ddgg.clique)
-tmtc
+ftc <- an.triad.census(ddgg.clique)
+ftc
 ```
 
 The arrangement is less intuitive than that of the simple census. The rows are labeled according to the partition ( x ≥ y ≥ z ) formed from the number of events coattended by each pair of women in a triad but not the other; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. Thus the triad (A, B, C) is tallied in the sixth row of the census, labeled by the partition (2 ≥ 1 ≥ 0). We already observed that Miss B and Miss C attended no events together at all--even without Miss A. Therefore not only is the third part of the partition zero, but so is the value of w, the "triad weight" that indexes the columns of the census. The triad is identified by this pair of objects (pairwise partition and triad weight): ( ( 2 ≥ 1 ≥ 0 ), 0 ).
 
-We can sacrifice information about event multiplicity within triads for a simpler and more intuitive layout. This alternative is dubbed the **cooperativity triad census** because it collapses the events to only four types, based on which actors cooperated on them, or coattended them:
+We can sacrifice information about event multiplicity within triads for a simpler and more intuitive layout. This alternative is dubbed the **structural triad census** because it collapses the events to only four types, based on which actors cooperated on them, or coattended them:
 
 ```{r}
-ctc <- tmtc2ctc(tmtc)
-ctc
+stc <- ftc2stc(ftc)
+stc
 ```
 
 The column indicates the existence of a triadwise event; the row indicates the number of pairs of actors connected by a pairwise event (0, 1, 2, or 3). The simple triad census can also be recovered from either the full or the cooperativity census:
 
 ```{r}
-ctc2stc(ctc)
+stc2tc(stc)
 ```
 
 ### Global clustering coefficients
@@ -86,7 +86,7 @@ ctc2stc(ctc)
 The classical (global) clustering coefficient for a one-mode network may be defined as the proportion of "wedges" that are "closed". Here wedges are 2-paths, distinguished by the relative positions of the nodes but not by their progression, and a wedge is considered closed if its end nodes are tied. Since every triad of three edges counts thrice as a closed wedge, we can compute the clustering coefficient of the one-mode projection directly from the simple census:
 
 ```{r}
-C <- 3 * stc[4] / (stc[3] + 3 * stc[4])
+C <- 3 * tc[4] / (tc[3] + 3 * tc[4])
 C
 ```
 
@@ -95,9 +95,9 @@ The value tells us what proportion of the time each pair of three women have co-
 The paper discusses in detail two alternative clustering coefficients specifically designed for two-mode networks. The first of these is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*, the first proposal for a truly two-mode measure of transitive linking. The second is dubbed the **exclusive clustering coefficient** because it depends only on the existence, and not the number, of pairwise-exclusive events for each pair of actors. Analogously to the above relationship, each of these diagnostics is recoverable from the two-mode triad census, which is how they are calculated below. (Because the number of events of each type does not matter to it, the exclusive clustering coefficient can be computed from the cooperativity triad census as well as directly from the full census.)
 
 ```{r}
-global.c1 <- c(C = tmtc2C(tmtc),
-               C.O = tmtc2CO(tmtc),
-               C.X = tmtc2CX(tmtc))
+global.c1 <- c(C = ftc2allact(ftc),
+               C.O = ftc2injequ(ftc),
+               C.X = ftc2indstr(ftc))
 global.c1
 ```
 
@@ -112,7 +112,7 @@ local.c <- transitivity(ddgg.clique.proj, type = 'local')
 local.c
 ```
 
-Our two-mode-sensitive candidates are implemented using a `twomode.transitivity` shell with a required function that counts the open and closed wedges at each node. This "wedge function" determines the species of two-mode transitivity that will be calculated. The shell uses the wedges to compute the corresponding local or global clustering coefficient, or (if neither is specified) returns the wedge list itself.
+Our two-mode-sensitive candidates are implemented using the `an.transitivity` shell with a required function that counts the open and closed wedges at each node. This "wedge function" determines the species of two-mode transitivity that will be calculated. The shell uses the wedges to compute the corresponding local or global clustering coefficient, or (if neither is specified) returns the wedge list itself.
 
 ```{r}
 local.c.df <- cbind(C = local.c,
@@ -177,7 +177,7 @@ plot(ddgg.group, layout = layout.fruchterman.reingold(ddgg.group, niter = 100),
 The visualization is quite a bit messier, but it looks like we have at least some range of degrees this time:
 
 ```{r}
-ddgg.group.proj <- onemode.projection(ddgg.group)
+ddgg.group.proj <- actor.projection(ddgg.group)
 ddc2 <- data.frame(k = degree(ddgg.group.proj),
                    C = transitivity(ddgg.group.proj, type = 'local'))
 print(ddc2)
@@ -189,7 +189,7 @@ plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
 
 There is clearly a trade-off between the number of a woman's acquaintances (through events) and the proportion of those acquaintances that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships.
 
-This distribution might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree--that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the `twomode.transitivity` function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
+This distribution might be fruitfully generalized to the two-mode setting. The only chore is to come up with a suitable analog of degree--that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the `an.transitivity` function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using Opsahl's clustering coefficient:
 
 ```{r, warning = FALSE}
 ddgg.group.wedges <- opsahl.transitivity(ddgg.group, type = '')
