@@ -1,7 +1,7 @@
 Package: bitriad
 Type: Package
 Title: Triadic analysis of static affiliation networks.
-Version: 1.0
+Version: 0.1
 Date: 2014-08-05
 Authors@R: person('Jason Cory', 'Brunson', email = 'jabrunso@vt.edu',
     role = c('aut', 'cre'))
