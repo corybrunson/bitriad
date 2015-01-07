@@ -16,7 +16,7 @@ an.transitivity(bigraph, node.type = 0, type = "global",
 \item{wedges.fn}{The wedge function (see the entry on "Wedges")}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
-clustering coefficient.}
+clustering coefficient}
 }
 \description{
 Each clustering coefficient can be defined as the proportion of "wedges" that

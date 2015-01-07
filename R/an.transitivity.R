@@ -10,7 +10,7 @@
 #' @param type The type of clustering coefficient (defaults to 'global')
 #' @param wedges.fn The wedge function (see the entry on "Wedges")
 #' @param vids A subset of actor node ids at which to evaluate the local
-#' clustering coefficient.
+#' clustering coefficient
 #' @export
 
 an.transitivity <-
