@@ -5,7 +5,7 @@
 \title{Affiliation network clustering coefficients}
 \usage{
 injstr.transitivity(bigraph, node.type = 0, type = "global",
-  vids = which(V(bigraph)$type == node.type))
+  mode = "coeff", vids = which(V(bigraph)$type == node.type))
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
@@ -13,6 +13,9 @@ injstr.transitivity(bigraph, node.type = 0, type = "global",
 \item{node.type}{The actor node type in the bigraph object (defaults to 0)}
 
 \item{type}{The type of clustering coefficient (defaults to 'global')}
+
+\item{mode}{Whether to compute a `clustering coefficient` or a `transitivity
+ratio`; defaults to `coeff`}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient.}
