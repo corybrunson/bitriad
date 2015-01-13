@@ -33,12 +33,10 @@ an.transitivity <-
         })), nr = 2)
         if(type == 'global') {
             C <- sum(wedges[2, ]) / sum(wedges[1, ])
-            if(substr(stat, 1, 5) %in% c('clust', 'coeff')) {
-                return(C)
-            } else if(substr(stat, 1, 5) %in% c('trans', 'ratio')) {
+            if(substr(stat, 1, 5) %in% c('clust', 'coeff')) return(C)
+            if(substr(stat, 1, 5) %in% c('trans', 'ratio'))
                 return(C / (3 - 2 * C))
-            }
         }
-        if(type == 'local') wedges[2, ] / wedges[1, ]
+        if(type == 'local') return(wedges[2, ] / wedges[1, ])
         data.frame(V = wedges[1, ], T = wedges[2, ])
     }
