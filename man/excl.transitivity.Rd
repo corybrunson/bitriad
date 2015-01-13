@@ -4,7 +4,7 @@
 \alias{excl.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-excl.transitivity(bigraph, node.type = 0, type = "global", mode = "coeff",
+excl.transitivity(bigraph, node.type = 0, type = "global", stat = "coeff",
   vids = which(V(bigraph)$type == node.type))
 }
 \arguments{
@@ -14,7 +14,7 @@ excl.transitivity(bigraph, node.type = 0, type = "global", mode = "coeff",
 
 \item{type}{The type of clustering coefficient (defaults to 'global')}
 
-\item{mode}{Whether to compute a `clustering coefficient` or a `transitivity
+\item{stat}{Whether to compute a `clustering coefficient` or a `transitivity
 ratio`; defaults to 'coeff'}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local

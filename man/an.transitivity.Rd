@@ -4,7 +4,7 @@
 \alias{an.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-an.transitivity(bigraph, node.type = 0, type = "global", mode = "coeff",
+an.transitivity(bigraph, node.type = 0, type = "global", stat = "coeff",
   wedges.fn = injequ.wedges, vids = which(V(bigraph)$type == node.type))
 }
 \arguments{
@@ -14,7 +14,7 @@ an.transitivity(bigraph, node.type = 0, type = "global", mode = "coeff",
 
 \item{type}{The type of clustering coefficient (defaults to 'global')}
 
-\item{mode}{Whether to compute a `clustering coefficient` or a `transitivity
+\item{stat}{Whether to compute a `clustering coefficient` or a `transitivity
 ratio`; defaults to 'coeff'}
 
 \item{wedges.fn}{The wedge function (see the entry on `wedges`)}

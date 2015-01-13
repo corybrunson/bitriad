@@ -8,7 +8,7 @@
 #' @param bigraph An affiliation network.
 #' @param node.type The actor node type in the bigraph object (defaults to 0)
 #' @param type The type of clustering coefficient (defaults to 'global')
-#' @param mode Whether to compute a `clustering coefficient` or a `transitivity
+#' @param stat Whether to compute a `clustering coefficient` or a `transitivity
 #' ratio`; defaults to 'coeff'
 #' @param wedges.fn The wedge function (see the entry on `wedges`)
 #' @param vids A subset of actor node ids at which to evaluate the local
@@ -18,7 +18,7 @@
 an.transitivity <-
     function(
         bigraph, node.type = 0,
-        type = 'global', mode = 'coeff',
+        type = 'global', stat = 'coeff',
         wedges.fn = injequ.wedges,
         vids = which(V(bigraph)$type == node.type)
     ) {
@@ -33,10 +33,10 @@ an.transitivity <-
         })), nr = 2)
         if(type == 'global') {
             C <- sum(wedges[2, ]) / sum(wedges[1, ])
-            if(substr(mode, 1, 5) %in% c('clust', 'coeff')) {
-                C
-            } else if(substr(mode, 1, 5) %in% c('trans', 'ratio')) {
-                C / (3 - 2 * C)
+            if(substr(stat, 1, 5) %in% c('clust', 'coeff')) {
+                return(C)
+            } else if(substr(stat, 1, 5) %in% c('trans', 'ratio')) {
+                return(C / (3 - 2 * C))
             }
         }
         if(type == 'local') wedges[2, ] / wedges[1, ]
