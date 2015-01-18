@@ -10,8 +10,12 @@
 #' clustering coefficient as a length-2 vector.
 #' @export
 
-ftc2indstr <-
+ftc2indequ <-
     function(ftc, num.denom = FALSE, by.tri = FALSE) ftc2cc(
         ftc,
-        function(L, w) ifelse(by.tri, 1, 3) * (L[3] > 0),
-        function(L, w) ((L[2] > 0) & (L[3] == 0)), num.denom)
+        function(L, w) ifelse(
+            by.tri,
+            if(L[3] == 0) 0 else L[1] * L[2],
+            if(L[3] == 0) 0 else L[1] * L[2] + L[2] * L[3] + L[1] * L[3]),
+        function(L, w) L[1] * L[2] * (L[3] == 0),
+        num.denom = num.denom)

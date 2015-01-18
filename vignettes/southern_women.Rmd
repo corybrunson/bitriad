@@ -116,14 +116,16 @@ The problem of getting at dynamic triadic closure in affiliation networks is mor
 
 ```{r, echo = FALSE}
 data(ddggs.group, package = 'bitriad')
-set.seed(1)
+V(ddggs.group)$label.cex <- 1 - .33 * V(ddggs.group)$type
+set.seed(2)
 plot(
     ddggs.group,
     layout = layout.fruchterman.reingold(ddggs.group, niter = 100),
     vertex.color = ifelse(V(ddggs.group)$type == 0, 'SkyBlue2', 'lightcoral'),
     vertex.shape = ifelse(V(ddggs.group)$type == 0, 'circle', 'square'),
     edge.width = 2, edge.color = 'black',
-    vertex.label = substr(V(ddggs.group)$name, 1, 2),
+    vertex.label = substr(V(ddggs.group)$name, 1,
+                          ifelse(V(ddggs.group)$type, 5, 2)),
     vertex.label.family = 'sans', vertex.label.color = 'white'
 )
 ```
@@ -131,7 +133,7 @@ plot(
 Moreover, the activities all occurred in a nine-month interval, with their calendar dates included in the table, so this affiliation network is genuinely dynamic. It therefore has an explicit (global) dynamic triadic closure:
 
 ```{r}
-D.ddggs.group <- dyn.transitivity(ddggs.group)
+D.ddggs.group <- dyn.triadic.closure(ddggs.group)
 print(D.ddggs.group)
 ```
 

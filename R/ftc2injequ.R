@@ -29,4 +29,3 @@ ftc2injequ <-
             L[2] * (L[3] == 0 & w == 1) +
             2 * choose(w, 2) * min(3 * (w == 2), length(which(L == 0))),
         num.denom = num.denom)
-ftc2opsahl <- ftc2injequ

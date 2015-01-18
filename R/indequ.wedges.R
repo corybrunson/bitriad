@@ -8,7 +8,7 @@
 #' @param Q An actor node in the network.
 #' @export
 
-injequ.wedges <-
+indequ.wedges <-
     function(bigraph, Q) {
         # Identify secondary neighbors of Q
         n1 <- setdiff(neighborhood(bigraph, 1, Q)[[1]], Q)
@@ -22,17 +22,23 @@ injequ.wedges <-
         # Across the pairs (X, Y) list the numbers of wedges and closed wedges
         wedgelist <- do.call(cbind, lapply(1:ncol(p), function(j) {
             # The first node X must have a nonempty neighborhood besides Q
-            if(length(n1n1[[p[1, j]]]) == 0) return(c(0, 0))
+            # and at least one neighbor not tied to Y (= n1[p[2, j]])
+            Ps <- setdiff(n1n1[[p[1, j]]], n1n1[[p[2, j]]])
+            if(length(Ps) == 0) return(c(0, 0))
             # Across all choices of P from the non-Q primary neighbors of X
-            do.call(cbind, lapply(n1n1[[p[1, j]]], function(P) {
-                # The second node Y must have a nonempty nbhd besides Q and P
-                Rs <- setdiff(n1n1[[p[2, j]]], P)
+            # that are not tied to Y
+            do.call(cbind, lapply(Ps, function(P) {
+                # Y must have a nonempty nbhd besides Q and P,
+                # from which R, which cannot be tied to X, is to be drawn
+                Rs <- setdiff(n1n1[[p[2, j]]], c(P, n1n1[[p[1, j]]]))
                 if(length(Rs) == 0) return(c(0, 0))
-                # Which Rs produce 4-paths (P, X, Q, Y, R) that are closed?
+                # Which Rs produce 4-paths (P, X, Q, Y, R) that are closed
+                # by events Z that are not tied to Q?
                 Rw <- which(sapply(Rs, function(R) {
-                    length(setdiff(intersect(neighborhood(bigraph, 1, P)[[1]],
-                                             neighborhood(bigraph, 1, R)[[1]]),
-                                   n1[p[, j]])) > 0
+                    length(setdiff(
+                        intersect(neighborhood(bigraph, 1, P)[[1]],
+                                  neighborhood(bigraph, 1, R)[[1]]),
+                        n1)) > 0
                 }))
                 return(c(length(Rs), length(Rw)))
             }))
