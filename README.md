@@ -5,7 +5,7 @@ This repo contains data, tools, and exposition for the **triadic analysis of aff
 
 ## Description
 
-The paper *Triadic analysis for affiliation networks* will make a case for adopting a batch of triad-centric tools for the study of two-mode, bipartite networks; the examples invoked are affiliation networks. Most of the tools are included in the `bitriad` package. The [igraph package](http://igraph.org/r/) provides the class of graphs and the basic suite of graph-theoretic tools, which serve as a foundation. No new classes have been defined, and all functions are written in R rather than called from, say, C. Any suggestions or pull requests on this document or the package would be most welcome.
+The paper *Triadic analysis for affiliation networks* will make a case for adopting a batch of triad-centric tools for the study of (bipartite) affiliation networks; the examples invoked are affiliation networks. Most of the tools are included in the `bitriad` package. The [igraph package](http://igraph.org/r/) provides the class of graphs and the basic suite of graph-theoretic tools, which serve as a foundation. No new classes have been defined, and all functions are written in R rather than called from, say, C. Any suggestions or pull requests on this document or the package would be most welcome.
 
 ## Install
 
@@ -14,7 +14,7 @@ The repo is arranged as an R package and can be installed using the [devtools](h
 ```r
 if(!require(devtools)) {
     install.packages('devtools')
-    require(devtools)
+    stopifnot(require(devtools))
 }
 install_github('corybrunson/bitriad')
 ```
@@ -22,8 +22,8 @@ install_github('corybrunson/bitriad')
 ## Tools
 
 The folder "R" contains implementations of several triadic analysis tools. In particular these include
-* twomode.triad.census, which conducts a motif survey of two-mode triads, understood to be triples of actor nodes and any events attended by at least two, and the results of which can be collapsed down to the incrementally more compact "uniformity", "cooperativity", and "simple" censuses; and
-* twomode.transitivity, a shell for bipartite clustering coefficients that can be specialized to the ["opsahl"] [9], "exclusive", "injseq", and "inclusive" clustering coefficients. (The Watts-Strogatz clustering coefficient is already implemented in igraph as "transitivity".)
+* an.triad.census, which conducts a motif survey of affiliation network triads, understood to be triples of actor nodes and any events attended by at least two, and the results of which can be collapsed down to the incrementally more compact uniformity, structural, and simple censuses; and
+* an.transitivity, a shell for bipartite clustering coefficients that can be specialized to the [Opsahl] [9], exclusive, and several other clustering coefficients, including a shortcut to the Watts-Strogatz clustering coefficient of the projection onto actors.
 
 [9]: http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/
 [10]: http://www.nature.com/nature/journal/v393/n6684/abs/393440a0.html
@@ -33,9 +33,10 @@ The folder "R" contains implementations of several triadic analysis tools. In pa
 Sources of the network data include
 * Hobson's [*The Evolution of Modern Capitalism*] [1], p. 271 (“hobson.inner.circle”);
 * Davis(, Davis), Gardner, and Gardner's [*Deep South: A Social Anthropological Study of Caste and Class*] [2], p. 148 ("ddgg.group") and p. 209 ("ddgg.clique");
+* Levine and Roy's "A Study of Interlocking Directorates", from [*Perspectives on Social Network Research*] [8], p. 372 (“levine.roy.directorates”); and
+* Scott and Hughes' [*The Anatomy of Scottish Capital*] [12], p. ??? ("scott.hughes.companies");
 * Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"] [3] (“barnes.burkett.corporate”);
 * Galaskiewicz's "Social organization of an urban grants economy", as reproduced in Faust's ["Centrality in affiliation networks"] [7] (“galaskiewicz.urban.grants”);
-* Levine and Roy's "A Study of Interlocking Directorates", from [*Perspectives on Social Network Research*] [8], p. 372 (“levine.roy.directorates”); and
 * [Noordin Top Terrorist Network Data] [4], using meetings (“nordin.top.meetings”) and organizations (“nordin.top.organizations”) as events;
 * Fischer's [*Paul Revere's Ride*] [5], Appendix D (“fischer.whigs”).
 
@@ -46,6 +47,7 @@ Sources of the network data include
 [5]: http://books.google.com/books/about/Paul_Revere_s_Ride.html?id=ZAvQfZFbLp4C
 [7]: http://www.socsci.uci.edu/~kfaust/faust/research/articles/faust_centrality_sn_1997.pdf
 [8]: http://www.sciencedirect.com/science/book/9780123525505
+[12]: http://books.google.com/books?id=59mvAwAAQBAJ
 
 The folder "data" contains .rda (R data) files for the affiliation networks associated with them. All graphs are bipartite; the actors and events are given "type" attributes 0 and 1, respectively, corresponding to the values FALSE and TRUE in igraph.
 
