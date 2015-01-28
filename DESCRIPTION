@@ -1,21 +1,22 @@
 Package: bitriad
 Type: Package
-Title: Triadic analysis of static affiliation networks.
+Title: Triadic analysis of affiliation networks.
 Version: 0.1
 Date: 2014-08-05
 Authors@R: person('Jason Cory', 'Brunson', email = 'jabrunso@vt.edu',
     role = c('aut', 'cre'))
 Maintainer: Jason Cory Brunson <brunson@uchc.edu>
 Description: The package contains two principal tools for the triadic analysis
-    of static affiliation networks: the triad census and the clustering
-    coefficient (transitivity). The former has several forms (full, structural,
-    simple) and the latter calls one of several definitions of wedge and of
-    closure. The next step is to extend the package to time-resolved networks.
+    of affiliation networks: the triad census and the clustering coefficient.
+    The former has several forms (full, uniformity, structural, simple) and the
+    latter calls one of several definitions of wedge (watts.strogatz, opsahl,
+    exclusive, and miscellaneous others) and attendant definitions of closure.
 Depends:
     R (>= 3.0.1),
     igraph
 Imports:
     igraph
 Suggests:
+    MASS
     knitr
 License: GPL-2

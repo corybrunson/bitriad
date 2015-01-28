@@ -21,15 +21,18 @@ watts.strogatz.transitivity <-
         bigraph, node.type = 0, type = 'global', stat = 'coeff',
         vids = which(V(bigraph)$type == node.type)
     ) {
+        stopifnot(all(V(bigraph)$type[vids] == node.type))
         graph <- actor.projection(bigraph, type = node.type)
+        proj.vids <- which(which(V(bigraph)$type == node.type) %in% vids)
+        stopifnot(length(proj.vids) == length(vids))
         if(type == 'global') {
             C <- transitivity(graph, type = 'global')
             if(substr(stat, 1, 5) %in% c('clust', 'coeff')) return(C)
             if(substr(stat, 1, 5) %in% c('trans', 'ratio'))
                 return(C / (3 - 2 * C))
         }
-        C <- transitivity(graph, type = 'local')
+        C <- transitivity(graph, type = 'local', vids = proj.vids)
         if(type == 'local') return(C)
-        W <- choose(degree(graph), 2)
+        W <- choose(degree(graph)[proj.vids], 2)
         data.frame(V = W, T = W * C)
     }

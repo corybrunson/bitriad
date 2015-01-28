@@ -25,7 +25,7 @@ an.transitivity <-
         # Check that nodes are of the desired type
         stopifnot(all(V(bigraph)$type[vids] == node.type))
         # If global or both, need to look at all vertices
-        Qs <- if(type != 'local') which(V(bigraph)$type == node.type) else vids
+        Qs <- if(type == 'global') which(V(bigraph)$type == node.type) else vids
         # Array of 4-paths centered at each Q in Qs
         wedges <- matrix(unlist(lapply(Qs, function(Q) {
             # Return wedge and closed wedge counts at Q

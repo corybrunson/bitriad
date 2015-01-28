@@ -7,7 +7,7 @@
 triad.layout <-
     function(lambda, w, scale = 0.3, angdir = -1, rot = -pi/2,
              rot.lambda = c(0, 0, 0), rot.w = pi/12) {
-        graph <- twomode.triad(lambda, w)
+        graph <- an.triad(lambda, w)
         # Angles of actors from origin
         theta <- angdir * (0:2 * 2*pi/3 + rot)
         # Matrix of coordinates
