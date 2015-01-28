@@ -17,6 +17,6 @@ Depends:
 Imports:
     igraph
 Suggests:
-    MASS
+    MASS,
     knitr
 License: GPL-2
