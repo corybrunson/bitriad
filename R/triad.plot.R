@@ -14,9 +14,12 @@
 
 triad.plot <-
     function(
-        lambda, w, layout, scale = 0.3, angdir = -1,
-        rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12, ...) {
-        tr <- an.triad(lambda, w)
+        lambda, w, layout, scale = 0.3, cex = 1, angdir = -1,
+        rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12,
+        actors = letters[16:18],
+        events = if(sum(c(lambda, w)) == 0) c() else
+            as.character(1:sum(c(lambda, w))), ...) {
+        tr <- an.triad(lambda, w, actors = actors, events = events)
         q <- sum(c(lambda, w))
         # Default layout
         if(missing(layout)) layout <- triad.layout(
@@ -26,7 +29,7 @@ triad.plot <-
         plot(tr, layout = layout, xlim = c(-1.3, 1.3), ylim = c(-1.3, 1.3),
              vertex.label = V(tr)$name,
              vertex.shape = c(rep(c('circle', 'square'), c(3, q))),
-             vertex.size = c(rep(c(34, 28), c(3, q))),
+             vertex.size = c(rep(c(34, 28), c(3, q))) * cex,
              vertex.color = c(rep(c('SkyBlue2', 'lightcoral'), c(3, q))),
              vertex.label.family = 'sans', vertex.label.font = 2,
              vertex.label.color = 'white',

@@ -11,12 +11,13 @@ Description: The package contains two principal tools for the triadic analysis
     The former has several forms (full, uniformity, structural, simple) and the
     latter calls one of several definitions of wedge (watts.strogatz, opsahl,
     exclusive, and miscellaneous others) and attendant definitions of closure.
-Depends:
+Depends: 
     R (>= 3.0.1),
     igraph
-Imports:
+Imports: 
     igraph
-Suggests:
+Suggests: 
     MASS,
     knitr
 License: GPL-2
+VignetteBuilder: knitr
