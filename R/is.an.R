@@ -8,7 +8,7 @@ function(graph) {
     # Must be a graph object
     if(!is.igraph(graph)) return(FALSE)
     # Must have node types (i.e. be "bipartite")
-    if(!('type' %in% list.vertex.attributes(graph))) return(FALSE)
+    if(!('type' %in% igraph::list.vertex.attributes(graph))) return(FALSE)
     # Vertices must be in order of type
     if(!all(V(graph)$type == sort(V(graph)$type))) return(FALSE)
     # There must be no edges between nodes of the same type

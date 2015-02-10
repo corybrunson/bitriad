@@ -18,15 +18,19 @@ triad.plot <-
         rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12,
         actors = letters[16:18],
         events = if(sum(c(lambda, w)) == 0) c() else
-            as.character(1:sum(c(lambda, w))), ...) {
+            as.character(1:sum(c(lambda, w))),
+        xlim, ylim, ...) {
         tr <- an.triad(lambda, w, actors = actors, events = events)
         q <- sum(c(lambda, w))
         # Default layout
         if(missing(layout)) layout <- triad.layout(
             lambda = lambda, w = w, scale = scale, angdir = angdir,
             rot = rot, rot.lambda = rot.lambda, rot.w = rot.w)
+        if(missing(xlim)) xlim <- c(-1.4, 1.4)
+        if(missing(ylim)) ylim <- c(-1.4, 1.4)
         # Plot graph in a slightly widened frame
-        plot(tr, layout = layout, xlim = c(-1.3, 1.3), ylim = c(-1.3, 1.3),
+        plot(tr, layout = layout,
+             xlim = xlim, ylim = ylim,
              vertex.label = V(tr)$name,
              vertex.shape = c(rep(c('circle', 'square'), c(3, q))),
              vertex.size = c(rep(c(34, 28), c(3, q))) * cex,

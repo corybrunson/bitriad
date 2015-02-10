@@ -8,7 +8,7 @@ function(graph) {
     # Must be a graph object
     if(!is.igraph(graph)) stop('Not an igraph object')
     # Must have node types (i.e. be "bipartite")
-    if(!('type' %in% list.vertex.attributes(graph)))
+    if(!('type' %in% igraph::list.vertex.attributes(graph)))
         stop('Needs type attribute')
     # There must be no edges between nodes of the same type
     el <- get.edgelist(graph, names = FALSE)

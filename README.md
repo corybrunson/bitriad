@@ -19,6 +19,10 @@ if(!require(devtools)) {
 install_github('corybrunson/bitriad')
 ```
 
+If you experience any problems with the installation process (that aren't resolved by `?` and searching, e.g., [StackExchange] [3], please let me know.
+
+[3]: http://stackexchange.com/
+
 ## Tools
 
 The folder "R" contains implementations of several triadic analysis tools. In particular these include

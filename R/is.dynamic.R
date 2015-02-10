@@ -11,8 +11,8 @@ is.dynamic <-
             stop("Not a graph object")
         }
         if(is.bipartite(graph)) {
-            "time" %in% list.vertex.attributes(graph)
+            "time" %in% igraph::list.vertex.attributes(graph)
         } else {
-            "time" %in% list.edge.attributes(graph)
+            "time" %in% igraph::list.edge.attributes(graph)
         }
     }
