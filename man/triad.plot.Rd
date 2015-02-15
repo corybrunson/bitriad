@@ -7,7 +7,7 @@
 triad.plot(lambda, w, layout, scale = 0.3, cex = 1, angdir = -1,
   rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12,
   actors = letters[16:18], events = if (sum(c(lambda, w)) == 0) c() else
-  as.character(1:sum(c(lambda, w))), ...)
+  as.character(1:sum(c(lambda, w))), xlim, ylim, ...)
 }
 \arguments{
 \item{lambda}{The vector of pairwise weights}
