@@ -15,5 +15,5 @@ function(graph) {
     if(!all(V(graph)$type[el[, 1]] + V(graph)$type[el[, 2]]))
         stop('Type attribute does not form a bipartition')
     # Vertices must be in order of type
-    permute.vertices(graph, order(V(graph)$type))
+    permute.vertices(graph, order(order(V(graph)$type)))
 }

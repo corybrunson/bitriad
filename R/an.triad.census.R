@@ -1,12 +1,8 @@
 #' Affiliation network (full) triad census
 #' 
-#' These functions compute triad censuses for affiliation networks. (Currently
-#' only the full triad census is implemented and the structural and simple
-#' censuses are computed from it.) The full and structural censuses return
-#' matrices, the former of whatever dimension is needed to contain the census
-#' and the latter 4-by-2. The simple census returns a vector of length 4.
-#' @param bigraph The ambient affiliation network
-#' @param type The actor node type in bigraph
+#' This function computes the full triad census for an affiliation network.
+#' @param bigraph An affiliation network.
+#' @param type Logical; the node type in `bigraph` from which triads are taken.
 #' @param rcnames Logical; whether to label the matrix rows and columns
 #' @param verbose Logical; whether to display progress bars
 #' @export
@@ -14,13 +10,23 @@
 an.triad.census <-
     function(bigraph, type = 0, rcnames = FALSE,
              verbose = FALSE) {
+        
+        # Check that bigraph is an affiliation network
+        if(!is.an(bigraph)) stop('Not an affiliation network')
+        
         # Drop trivial cases
         if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
-        # Create one-mode projection
+        # Create projection
         graph <- actor.projection(bigraph, type = type, name = 'id')
         # Trivial case
-        if(ecount(graph) == 0) return(matrix(choose(vcount(graph), 3),
-                                             nr = 1, nc = 1))
+        if(ecount(graph) == 0) {
+            C <- matrix(choose(vcount(graph), 3), nr = 1, nc = 1)
+            if(rcnames) {
+                row.names(C) <- '(0,0,0)'
+                col.names(C) <- '0'
+            }
+            return(C)
+        }
         
         # Find maximum values of x and of w
         max.x <- max(E(graph)$weight)

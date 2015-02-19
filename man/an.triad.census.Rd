@@ -7,19 +7,15 @@
 an.triad.census(bigraph, type = 0, rcnames = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{bigraph}{The ambient affiliation network}
+\item{bigraph}{An affiliation network.}
 
-\item{type}{The actor node type in bigraph}
+\item{type}{Logical; the node type in `bigraph` from which triads are taken.}
 
 \item{rcnames}{Logical; whether to label the matrix rows and columns}
 
 \item{verbose}{Logical; whether to display progress bars}
 }
 \description{
-These functions compute triad censuses for affiliation networks. (Currently
-only the full triad census is implemented and the structural and simple
-censuses are computed from it.) The full and structural censuses return
-matrices, the former of whatever dimension is needed to contain the census
-and the latter 4-by-2. The simple census returns a vector of length 4.
+This function computes the full triad census for an affiliation network.
 }
 
