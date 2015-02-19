@@ -7,6 +7,8 @@ as.an <-
 function(graph) {
     # Must be a graph object
     if(!is.igraph(graph)) stop('Not an igraph object')
+    # Trivial graphs are OK
+    if(vcount(graph) == 0) return(graph)
     # Must have node types (i.e. be "bipartite")
     if(!('type' %in% igraph::list.vertex.attributes(graph)))
         stop('Needs type attribute')

@@ -7,7 +7,7 @@
 one.tied.triads(graph)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An igraph object.}
 }
 \description{
 These functions are called by the affiliation network triad census to handle

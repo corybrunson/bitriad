@@ -7,7 +7,7 @@
 #' the total number of triads is easily calculated, and the difference between
 #' this number and the total number of triads with edges gives the number of
 #' triads without.)
-#' @param graph An igraph object
+#' @param graph An igraph object.
 
 one.tied.triads <-
     function(graph) {
