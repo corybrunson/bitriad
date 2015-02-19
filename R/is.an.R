@@ -7,6 +7,7 @@ is.an <-
 function(graph) {
     # Must be a graph object
     if(!is.igraph(graph)) return(FALSE)
+    if(vcount(graph) == 0) return(TRUE)
     # Must have node types (i.e. be "bipartite")
     if(!('type' %in% igraph::list.vertex.attributes(graph))) return(FALSE)
     # Vertices must be in order of type
