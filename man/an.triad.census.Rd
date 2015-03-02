@@ -16,4 +16,10 @@ an.triad.census(bigraph, rcnames = FALSE, verbose = FALSE)
 \description{
 This function computes the full triad census for an affiliation network.
 }
+\examples{
+data(ddggs.clique)
+tc <- an.triad.census(ddggs.clique, rcnames = TRUE)
+tc
+sum(tc) == choose(vcount(actor.projection(ddggs.clique)), 3)
+}
 

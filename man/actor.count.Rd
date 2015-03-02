@@ -13,4 +13,8 @@ actor.count(bigraph)
 This function returns the number of actors (nodes of type FALSE) in an
 affiliation network.
 }
+\examples{
+data(hobson.inner.circle)
+actor.count(hobson.inner.circle)
+}
 

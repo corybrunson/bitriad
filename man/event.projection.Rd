@@ -16,4 +16,10 @@ in the projection (defaults to 'name')}
 This function uses the igraph function bipartite.projection to compute the
 projection of an affiliation network onto the event nodes.
 }
+\examples{
+data(hobson.inner.circle)
+tab <- table(V(hobson.inner.circle)$type)
+proj <- event.projection(hobson.inner.circle)
+vcount(proj) == tab[2]
+}
 

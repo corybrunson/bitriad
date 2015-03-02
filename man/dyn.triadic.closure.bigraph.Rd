@@ -10,6 +10,12 @@ dyn.triadic.closure.bigraph(graph, memory = Inf, type = "global",
 \arguments{
 \item{memory}{Numeric; a duration of time after which events are forgotten}
 
+\item{type}{Character; whether to compute the global or local statistic, or
+to return a 2-column matrix of wedge counts (defaults to `global`)}
+
+\item{count.closures}{Logical; whether to count each closure of a wedge once
+(FALSE) or as many times as the wedge is closed (TRUE)}
+
 \item{bigraph}{An affiliation network with time-stamped events}
 }
 \description{

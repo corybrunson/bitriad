@@ -5,7 +5,8 @@
 \title{Affiliation network clustering coefficients}
 \usage{
 an.transitivity(bigraph, type = "global", stat = "coeff",
-  wedges.fn = injequ.wedges, vids = which(!V(bigraph)$type))
+  wedges.fn = injequ.wedges, vids = which(!V(bigraph)$type),
+  rcnames = FALSE)
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
@@ -19,6 +20,8 @@ ratio`; defaults to 'coeff'}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient}
+
+\item{rcnames}{Logical; whether to label the matrix rows and columns}
 }
 \description{
 Each clustering coefficient can be defined as the proportion of "wedges" that
@@ -26,5 +29,12 @@ are "closed", for suitable definitions of both terms. The main function,
 an.transitivity, calls one of the wedge functions and computes the
 global or local clustering coefficient of the given affiliation network,
 and if the local, then at the given nodes.
+}
+\examples{
+data(ddggs.clique)
+transitivity.table <- sapply(
+  c(injequ.wedges, injstr.wedges, indstr.wedges),
+  an.transitivity, bigraph = ddggs.clique, type = 'local', stat = 'coeff'
+)
 }
 
