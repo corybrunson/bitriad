@@ -4,12 +4,10 @@
 \alias{actor.projection}
 \title{Projection onto actors of an affiliation network}
 \usage{
-actor.projection(bigraph, type = 0, name = "name")
+actor.projection(bigraph, name = "name")
 }
 \arguments{
 \item{bigraph}{The ambient affiliation network}
-
-\item{type}{The node type (0 or 1) of the actors of bigraph}
 
 \item{name}{What attribute of the actor nodes in bigraph to name the nodes
 in the projection (defaults to 'name')}

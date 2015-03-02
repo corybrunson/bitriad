@@ -1,5 +1,5 @@
 #' Uniformity triad census
-#' 
+#'
 #' This function computes the uniformity triad census for an affiliation
 #' network, an 8-by-2 array of frequency counts for each isomorphism class of
 #' triad, modulo the equivalence relation that identifies triads based on the
@@ -9,13 +9,12 @@
 #' The census must sum to choose(n, 3), where n is
 #' the number of actor nodes.
 #' @param bigraph The affiliation network
-#' @param type The actor node type in bigraph
 #' @export
 
-unif.triad.census <- function(bigraph, type = 0) {
+unif.triad.census <- function(bigraph) {
     # Initialize the matrix and define the number of actors
     C <- matrix(0, nr = 8, nc = 2)
-    n <- length(which(V(bigraph)$type == type))
+    n <- length(which(!V(bigraph)$type))
     # Trivial casess (not enough actors)
     if(n < 3) return(C)
     # Trivial case (no events)
@@ -23,13 +22,13 @@ unif.triad.census <- function(bigraph, type = 0) {
         C[1, 1] <- C[1, 1] + choose(n, 3)
         return(C)
     }
-    
+
     # Create one-mode projection
-    graph <- actor.projection(bigraph, type = type, name = 'id')
+    graph <- actor.projection(bigraph, name = 'id')
     # Leverage one-mode triad census for zero- or one-edged triads
     C[1:2, 1] <- simple.triad.census(graph)[1:2]
     if(sum(C) == choose(n, 3)) return(C)
-    
+
     # Tally two-tied triads
     tt <- two.tied.triads(graph)
     if(!is.null(tt)) {
@@ -39,7 +38,7 @@ unif.triad.census <- function(bigraph, type = 0) {
         if(nrow(ed) == 1) C[4 - ed$Group.1[1], 1] <- ed$x[1] else
             C[3:4, 1] <- ed$x[2 - ed$Group.1]
     }
-    
+
     # Find all triangles in the projection
     t <- do.call(cbind, cliques(graph, 3, 3))
     # Vector of triad weights
@@ -60,7 +59,7 @@ unif.triad.census <- function(bigraph, type = 0) {
     # Store tallies in C
     C[5:8, 1] <- tabulate(l[w == 0] + 1, nbins = 8)[5:8]
     C[, 2] <- tabulate(l[w > 0] + 1, nbins = 8)
-    
+
     # Return the matrix
     stopifnot(sum(C) == choose(n, 3))
     C

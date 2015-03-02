@@ -4,12 +4,10 @@
 \alias{an.triad.census}
 \title{Affiliation network (full) triad census}
 \usage{
-an.triad.census(bigraph, type = 0, rcnames = FALSE, verbose = FALSE)
+an.triad.census(bigraph, rcnames = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
-
-\item{type}{Logical; the node type in `bigraph` from which triads are taken.}
 
 \item{rcnames}{Logical; whether to label the matrix rows and columns}
 

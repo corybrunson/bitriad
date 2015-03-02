@@ -4,13 +4,11 @@
 \alias{opsahl.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-opsahl.transitivity(bigraph, node.type = 0, type = "global",
-  stat = "coeff", vids = which(V(bigraph)$type == node.type))
+opsahl.transitivity(bigraph, type = "global", stat = "coeff",
+  vids = which(!V(bigraph)$type))
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
-
-\item{node.type}{The actor node type in the bigraph object (defaults to 0)}
 
 \item{type}{The type of clustering coefficient (defaults to 'global')}
 

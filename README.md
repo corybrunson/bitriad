@@ -38,7 +38,6 @@ Sources of the network data include
 * Hobson's [*The Evolution of Modern Capitalism*] [1], p. 271 (“hobson.inner.circle”);
 * Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*] [2], p. 148 ("ddgg.group") and p. 209 ("ddgg.clique");
 * Levine and Roy's "A Study of Interlocking Directorates", from [*Perspectives on Social Network Research*] [8], p. 372 (“levine.roy.directorates”); and
-* Scott and Hughes' [*The Anatomy of Scottish Capital*] [12], p. ??? ("scott.hughes.companies");
 * Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"] [3] (“barnes.burkett.corporate”);
 * Galaskiewicz's "Social organization of an urban grants economy", as reproduced in Faust's ["Centrality in affiliation networks"] [7] (“galaskiewicz.urban.grants”);
 * [Noordin Top Terrorist Network Data] [4], using meetings (“nordin.top.meetings”) and organizations (“nordin.top.organizations”) as events;

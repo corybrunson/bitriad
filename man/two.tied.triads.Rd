@@ -10,8 +10,6 @@ two.tied.triads(graph)
 \item{graph}{A one-mode network}
 
 \item{bigraph}{The ambient affiliation network from which graph is projected}
-
-\item{type}{The actor node type in bigraph}
 }
 \description{
 These functions are called by the full triad census to handle triads of

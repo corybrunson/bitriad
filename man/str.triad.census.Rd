@@ -4,12 +4,10 @@
 \alias{str.triad.census}
 \title{Structural triad census}
 \usage{
-\method{str}{triad.census}(bigraph, type = 0, verbose = FALSE)
+\method{str}{triad.census}(bigraph, verbose = FALSE)
 }
 \arguments{
 \item{bigraph}{The affiliation network}
-
-\item{type}{The actor node type in bigraph}
 
 \item{verbose}{Logical; whether to display progress bars}
 }

@@ -1,5 +1,5 @@
 #' Triad tallies
-#' 
+#'
 #' These functions are called by the full triad census to handle triads of
 #' different types using the projection onto actor nodes. The name of each
 #' function indicates the number of edges that appear among the three actors of
@@ -9,7 +9,6 @@
 #' triads without.)
 #' @param graph A one-mode network
 #' @param bigraph The ambient affiliation network from which graph is projected
-#' @param type The actor node type in bigraph
 
 two.tied.triads <-
     function(graph) {

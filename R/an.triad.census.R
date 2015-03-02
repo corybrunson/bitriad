@@ -1,23 +1,26 @@
 #' Affiliation network (full) triad census
-#' 
+#'
 #' This function computes the full triad census for an affiliation network.
 #' @param bigraph An affiliation network.
-#' @param type Logical; the node type in `bigraph` from which triads are taken.
 #' @param rcnames Logical; whether to label the matrix rows and columns
 #' @param verbose Logical; whether to display progress bars
 #' @export
+#' @examples
+#' data(ddggs.clique)
+#' tc <- an.triad.census(ddggs.clique, rcnames = TRUE)
+#' tc
+#' sum(tc) == choose(vcount(actor.projection(ddggs.clique)), 3)
 
 an.triad.census <-
-    function(bigraph, type = 0, rcnames = FALSE,
-             verbose = FALSE) {
-        
+    function(bigraph, rcnames = FALSE, verbose = FALSE) {
+
         # Check that bigraph is an affiliation network
         if(!is.an(bigraph)) stop('Not an affiliation network')
-        
+
         # Drop trivial cases
         if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
         # Create projection
-        graph <- actor.projection(bigraph, type = type, name = 'id')
+        graph <- actor.projection(bigraph, name = 'id')
         # Trivial case
         if(ecount(graph) == 0) {
             C <- matrix(choose(vcount(graph), 3), nr = 1, nc = 1)
@@ -27,12 +30,12 @@ an.triad.census <-
             }
             return(C)
         }
-        
+
         # Find maximum values of x and of w
         max.x <- max(E(graph)$weight)
         # Initialize matrix (overestimating the number of columns)
         C <- as.data.frame(matrix(0, nr = choose(max.x + 3, 3), nc = max.x + 1))
-        
+
         # Tally one-tied triads
         ot <- one.tied.triads(graph)
         # Insert the totals at the proper entries of C
@@ -41,7 +44,7 @@ an.triad.census <-
             partition.index(c(x, 0, 0))
         }) + 1, 1] <- ot$n
         if(verbose) print('One-tied triads tallied')
-        
+
         # Tally two-tied triads
         tt <- two.tied.triads(graph)
         # Insert the totals at the proper entries of C
@@ -50,9 +53,9 @@ an.triad.census <-
             partition.index(c(tt[i, 1], tt[i, 2], 0))
         }) + 1, 1] <- tt$n
         if(verbose) print('Two-tied triads tallied')
-        
+
         # Tally triangles
-        tht <- three.tied.triads(bigraph, type = type, graph = graph)
+        tht <- three.tied.triads(bigraph, graph = graph)
         # If there are any...
         if(!is.null(tht)) {
             # Trim any unnecessary columns
@@ -70,7 +73,7 @@ an.triad.census <-
             }
         }
         if(verbose) print('Three-tied triads tallied')
-        
+
         # The remaining triads share no secondary nodes; count them as empty
         # (No triads should have yet been counted as empty)
         C[1, 1] <- choose(vcount(graph), 3) - sum(C)
@@ -84,7 +87,7 @@ an.triad.census <-
         if(rcnames) {
             colnames(C) <- 0:(ncol(C) - 1)
             rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
-                '(', paste(index.partition(i, k = 3), collapse = ','),
+                '(', paste(index.partition(i), collapse = ','),
                 ')', sep = ''))
         }
         as.matrix(C)

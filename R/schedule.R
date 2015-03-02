@@ -1,5 +1,5 @@
 #' Schedule
-#' 
+#'
 #' The schedule of a subset of actor nodes in an affiliation network is the
 #' induced subgraph on the actor nodes together with all event nodes incident
 #' to at least two of the actor nodes.
@@ -9,7 +9,7 @@
 
 schedule <-
     function(bigraph, v) {
-        stopifnot(all(V(bigraph)$type[v] == 0))
+        stopifnot(all(!V(bigraph)$type[v]))
         events <- unlist(neighborhood(bigraph, 1, v))
         tab <- table(events)
         coattended <- as.numeric(names(tab)[tab > 1])

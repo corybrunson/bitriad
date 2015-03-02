@@ -1,16 +1,17 @@
 ---
-title: "Case study: Southern women"
+title: "Triadic analysis of the southern women datasets"
 author: "Jason Cory Brunson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Southern women}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
-```{r, echo = FALSE}
-library(knitr)
+```{r, echo = FALSE, results = 'hide', message = FALSE}
+pkgs <- c('knitr', 'bitriad')
+for(pkg in pkgs) library(pkg, character.only = TRUE)
 opts_knit$set(progress = FALSE)
 opts_chunk$set(
     echo = TRUE, message = FALSE, tidy = TRUE, warning = FALSE,
@@ -19,18 +20,11 @@ opts_chunk$set(
 )
 ```
 
-```{r, echo = FALSE, results = 'hide', message = FALSE}
-require(igraph)
-require(devtools)
-dev_mode(on = TRUE)
-require(bitriad)
-```
-
 This vignette applies several tools from the `bitriad` package to the study of two social groups inferred from event coattendence. The aim is to convey the meanings of the tools, and to suggest other possible applications, by illustrating their use on small and familiar data.
 
 In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), five social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural town in Mississippi. Among the data they collected were several tables of attendance at various events by groups of acquainted women. One of these, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five activities, described as bridge, dinner, movies, dance, and visiting, some subset of the women participated in each of which. The attendance table is the basis for the graph object `ddggs.clique`:
 
-```{r, message = FALSE}
+```{r}
 data(ddggs.clique, package = 'bitriad')
 ```
 
@@ -125,7 +119,8 @@ V(ddggs.group)$label.cex <- 1 - .33 * V(ddggs.group)$type
 set.seed(2)
 plot(
     ddggs.group,
-    layout = layout.fruchterman.reingold(ddggs.group, niter = 100),
+    #layout = layout.fruchterman.reingold(ddggs.group, niter = 100),
+    layout = layout.bipartite(ddggs.group),
     vertex.color = ifelse(V(ddggs.group)$type == 0, 'SkyBlue2', 'lightcoral'),
     vertex.shape = ifelse(V(ddggs.group)$type == 0, 'circle', 'square'),
     edge.width = 2, edge.color = 'black',
@@ -259,7 +254,3 @@ plot(aggregate(ddggs.group.wedges$C,
 This plot recovers the steady, though not strictly monotonic, behavior of the classical case. In the classical case we expect local clustering coefficients to be quite large in tight-knit networks such as those produced for sociological analysis of cliques and communities; the exclusive clustering coefficient captures a more descriptive form of transitivity.
 
 Still, however, at most two nodes share a wedge count; we will need [larger networks](http://link.springer.com/article/10.1007%2Fs11192-013-1209-z) in order to get a sense for the distributions of the wedge-conditioned local clustering coefficients. Stay tuned!
-
-```{r, echo = FALSE}
-dev_mode(on = FALSE)
-```

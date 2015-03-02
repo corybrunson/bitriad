@@ -4,12 +4,10 @@
 \alias{unif.triad.census}
 \title{Uniformity triad census}
 \usage{
-unif.triad.census(bigraph, type = 0)
+unif.triad.census(bigraph)
 }
 \arguments{
 \item{bigraph}{The affiliation network}
-
-\item{type}{The actor node type in bigraph}
 }
 \description{
 This function computes the uniformity triad census for an affiliation

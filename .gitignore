@@ -34,8 +34,7 @@ ehthumbs.db
 Thumbs.db
 # Added by Cory
 ###############
+bitriad-*
 cache/*
-del-*
-mv-*
 .Rhistory
 inst/doc

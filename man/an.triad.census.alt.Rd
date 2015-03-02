@@ -4,12 +4,10 @@
 \alias{an.triad.census.alt}
 \title{Affiliation network (full) triad census}
 \usage{
-an.triad.census.alt(bigraph, type = 0, rcnames = FALSE, verbose = FALSE)
+an.triad.census.alt(bigraph, rcnames = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{bigraph}{The ambient affiliation network}
-
-\item{type}{The actor node type in bigraph}
 
 \item{rcnames}{Logical; whether to label the matrix rows and columns}
 

@@ -4,13 +4,10 @@
 \alias{three.tied.triads}
 \title{Triad tallies}
 \usage{
-three.tied.triads(bigraph, type = 0, graph = actor.projection(bigraph, type
-  = type, name = "id"))
+three.tied.triads(bigraph, graph = actor.projection(bigraph, name = "id"))
 }
 \arguments{
 \item{bigraph}{The ambient affiliation network from which graph is projected}
-
-\item{type}{The actor node type in bigraph}
 
 \item{graph}{A one-mode network}
 }
