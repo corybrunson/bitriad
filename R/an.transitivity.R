@@ -28,6 +28,7 @@ an.transitivity <-
         wedges.fn = injequ.wedges,
         vids = which(!V(bigraph)$type), rcnames = FALSE
     ) {
+        if(vcount(bigraph) == 0) return(matrix(NA, nr = 0, nc = 2))
         # Check that nodes are of the desired type
         stopifnot(all(!V(bigraph)$type[vids]))
         # If global or both, need to look at all vertices
