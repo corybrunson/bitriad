@@ -20,7 +20,13 @@ watts.strogatz.transitivity <-
         bigraph, type = 'global', stat = 'coeff',
         vids = which(!V(bigraph)$type)
     ) {
-        if(vcount(bigraph) == 0) return(matrix(NA, nr = 0, nc = 2))
+        if(vcount(bigraph) == 0) {
+            if(type == 'global') {
+                return(NaN)
+            } else if(type == 'local') {
+                return(NULL)
+            } else return(matrix(NA, nr = 0, nc = 2))
+        }
         stopifnot(all(!V(bigraph)$type[vids]))
         graph <- actor.projection(bigraph)
         proj.vids <- which(which(!V(bigraph)$type) %in% vids)
