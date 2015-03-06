@@ -34,5 +34,6 @@ watts.strogatz.transitivity <-
         if(type == 'local') return(C)
         C[is.na(C)] <- 0
         W <- choose(degree(graph)[proj.vids], 2)
-        data.frame(Wedges = W, Closed = W * C)
+        unname(cbind(W, W * C))
+        #data.frame(Wedges = W, Closed = W * C)
     }
