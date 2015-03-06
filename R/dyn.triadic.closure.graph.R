@@ -8,5 +8,5 @@
 
 dyn.triadic.closure.graph <-
     function(graph, memory) {
-        
+        stop('Not yet implemented for traditional networks')
     }

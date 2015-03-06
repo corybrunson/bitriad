@@ -32,6 +32,7 @@ watts.strogatz.transitivity <-
         }
         C <- transitivity(graph, type = 'local', vids = proj.vids)
         if(type == 'local') return(C)
+        C[is.na(C)] <- 0
         W <- choose(degree(graph)[proj.vids], 2)
-        data.frame(V = W, T = W * C)
+        data.frame(Wedges = W, Closed = W * C)
     }
