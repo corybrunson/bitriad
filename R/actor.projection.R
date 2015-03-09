@@ -14,6 +14,7 @@
 
 actor.projection <-
 function(bigraph, name = 'name') {
+    if(vcount(bigraph) == 0) return(graph.empty())
     if(name == 'id') V(bigraph)$name <- V(bigraph)
     bipartite.projection(bigraph, multiplicity = TRUE)[[1]]
 }

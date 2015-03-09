@@ -10,6 +10,7 @@
 
 event.count <-
 function(bigraph) {
+    if(vcount(bigraph) == 0) return(0)
     if(!is.an(bigraph)) stop('Not an affiliation network')
     length(which(V(bigraph)$type))
 }
