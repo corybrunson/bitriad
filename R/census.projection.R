@@ -25,9 +25,9 @@ census.projection <-
             }
         }
         if(is.null(scheme)) {
-            scheme <- if(all(cdim = c(8, 2))) "uniformity" else
-                if(all(cdim = c(4, 2))) "structural" else
-                    if(all(cdim = c(4, 1))) "simple" else
+            scheme <- if(all(cdim == c(8, 2))) "uniformity" else
+                if(all(cdim == c(4, 2))) "structural" else
+                    if(all(cdim == c(4, 1))) "simple" else
                         "full"
         }
         # Initiate census list
