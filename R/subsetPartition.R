@@ -5,7 +5,7 @@
 #' @param vec A (decreasing) 3-subset of natural numbers (including 0).
 #' @export
 #' @examples
-#' subset.partition(c(3, 2, 0))
+#' subsetPartition(c(3, 2, 0))
 
-subset.partition <-
+subsetPartition <-
     function(vec) vec - (length(vec) - 1):0

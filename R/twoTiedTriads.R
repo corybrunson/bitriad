@@ -10,7 +10,7 @@
 #' @param graph A one-mode network
 #' @param bigraph The ambient affiliation network from which graph is projected
 
-two.tied.triads <-
+twoTiedTriads <-
     function(graph) {
         # List of open wedges (shortest paths of length 2) up to reversal
         p2 <- do.call(cbind, lapply(
@@ -25,8 +25,8 @@ two.tied.triads <-
         # Horizontal array of sorted edge weight pairs
         if(is.null(p2)) return(NULL) else  wedges <- sapply(
             1:dim(p2)[2],
-            function(j) sort(c(edge.weight(graph, c(p2[1, j], p2[2, j])),
-                               edge.weight(graph, c(p2[2, j], p2[3, j]))),
+            function(j) sort(c(edgeWeight(graph, c(p2[1, j], p2[2, j])),
+                               edgeWeight(graph, c(p2[2, j], p2[3, j]))),
                              decreasing = TRUE))
         # Make wedges into a data frame
         wedges <- data.frame(x = wedges[1, ], y = wedges[2, ], n = 1)

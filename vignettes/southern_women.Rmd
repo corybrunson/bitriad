@@ -151,6 +151,7 @@ The classical local clustering coeffiicent at a node Q is the proportion of pair
 
 ```{r}
 local.c <- transitivity(ddggs.clique.proj, type = 'local')
+names(local.c) <- V(ddggs.clique.proj)$name
 local.c
 ```
 
@@ -227,10 +228,10 @@ This distribution might be fruitfully generalized to the two-mode setting. The o
 ddggs.group.wedges <- opsahl.transitivity(ddggs.group, type = '')
 ddggs.group.wedges <- cbind(
     ddggs.group.wedges,
-    C = ddggs.group.wedges$T / ddggs.group.wedges$V
+    ddggs.group.wedges[, 2] / ddggs.group.wedges[, 1]
 )
-plot(aggregate(ddggs.group.wedges$C,
-               by = list(V = ddggs.group.wedges$V), FUN = mean),
+plot(aggregate(ddggs.group.wedges[, 3],
+               by = list(ddggs.group.wedges[, 1]), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering (Opsahl)',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
@@ -242,10 +243,10 @@ This plot defies the consistent behavior we saw in the classical case. What, ins
 ddggs.group.wedges <- excl.transitivity(ddggs.group, type = '')
 ddggs.group.wedges <- cbind(
     ddggs.group.wedges,
-    C = ddggs.group.wedges$T / ddggs.group.wedges$V
+    C = ddggs.group.wedges[, 2] / ddggs.group.wedges[, 1]
 )
-plot(aggregate(ddggs.group.wedges$C,
-               by = list(V = ddggs.group.wedges$V), FUN = mean),
+plot(aggregate(ddggs.group.wedges[, 3],
+               by = list(ddggs.group.wedges[, 1]), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering (exclusive)',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')

@@ -5,9 +5,17 @@ This repo contains data, tools, and exposition for the **triadic analysis of aff
 
 ## Description
 
-The paper [*Triadic analysis of affiliation networks*] [6] makes a case for adopting a batch of triad-centric tools for the study of (bipartite) affiliation networks; the examples invoked are affiliation networks. Most of the tools are included in the `bitriad` package. The [igraph package](http://igraph.org/r/) provides the class of graphs and the basic suite of graph-theoretic tools, which serve as a foundation. No new classes have been defined, and all functions are written in R rather than called from, say, C. Any suggestions would be welcome.
+The paper [*Triadic analysis of affiliation networks*] [6] makes a case for adopting a batch of triad-centric tools for the study of (bipartite) affiliation networks; the examples invoked are affiliation networks. Most of the tools are included in the `bitriad` package. The [igraph package](http://igraph.org/r/) provides the class of graphs and the basic suite of graph-theoretic tools, which serve as a foundation. No new classes have been defined, and (unfortunately) all functions are written in R rather than called from, say, C. Any suggestions would be welcome.
 
 [6]: http://arxiv.org/abs/1502.07016
+
+### To do
+
+- Convert all function names from period.separated to lowerCamelCase, per [Bååth's usage survey] [14], in order to avoid method confusions.
+- Decide on a convenient suffix for functions that only take affiliation networks as inputs (maybe `.an` in anticipation of an `an` class?).
+- Continue with [`check()`](http://r-pkgs.had.co.nz/check.html)
+
+[14]: http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Baaaath.pdf
 
 ## Install
 

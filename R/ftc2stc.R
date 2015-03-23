@@ -1,7 +1,6 @@
 #' Full triad census to structural triad census
 #' 
 #' @param tc A full triad census (not necessarily labeled)
-#' @export
 
 ftc2stc <-
     function(tc) {
@@ -11,7 +10,7 @@ ftc2stc <-
                                             nr = 4, nc = 2))
         # No. edges (1, 2, or 3) induced by each nonempty lambda with w = 0
         pw.counts <- sapply(1:(dim(tc)[1] - 1), function(i) {
-            length(which(index.partition(i) > 0))
+            length(which(indexPartition(i) > 0))
         })
         # Which rows connect 1, 2, and 3 pairs
         wh <- lapply(1:3, function(i) which(pw.counts == i) + 1)

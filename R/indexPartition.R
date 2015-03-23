@@ -2,12 +2,12 @@
 #' 
 #' These functions biject among partitions of at most 3 parts, 3-subsets of
 #' natural numbers, and indices for the lexicographic total orders on both.
-#' @param lambda A partition of at most 3 parts.
+#' @param i An index under the total order. Starts at 0.
 #' @export
 #' @examples
-#' partition.index(c(1, 1, 0))
+#' indexPartition(2)
 
-partition.index <-
-    function(lambda) {
-        subset.index(partition.subset(lambda))
+indexPartition <-
+    function(i) {
+        subsetPartition(indexSubset(i))
     }

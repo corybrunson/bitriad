@@ -10,7 +10,7 @@
 #' @param graph A one-mode network
 #' @param bigraph The ambient affiliation network from which graph is projected
 
-connected.triples <-
+connectedTriples <-
 function(
         bigraph,
         # Construct the one-mode projection if it's not already prepared
@@ -24,13 +24,13 @@ function(
             v <- combn(setdiff(nbhd, i), 2)
             # vector of triad weights
             w <- sapply(1:dim(v)[2], function(j) {
-                share.weight(bigraph, V(graph)$name[c(i, v[, j])])
+                shareWeight(bigraph, V(graph)$name[c(i, v[, j])])
             })
             # horizontal array of sorted triples of edge weights
             ew <- sapply(1:dim(v)[2], function(j) {
-                sort(c(edge.weight(graph, c(i, v[1, j])),
-                       edge.weight(graph, c(i, v[2, j])),
-                       edge.weight(graph, c(v[1, j], v[2, j]))),
+                sort(c(edgeWeight(graph, c(i, v[1, j])),
+                       edgeWeight(graph, c(i, v[2, j])),
+                       edgeWeight(graph, c(v[1, j], v[2, j]))),
                      decreasing = TRUE)
             })
             # vertical array of pair and triad weights

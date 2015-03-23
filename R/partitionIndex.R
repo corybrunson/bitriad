@@ -5,7 +5,9 @@
 #' @param lambda A partition of at most 3 parts.
 #' @export
 #' @examples
-#' partition.subset(c(1, 1, 0))
+#' partitionIndex(c(1, 1, 0))
 
-partition.subset <-
-    function(lambda) lambda + (length(lambda) - 1):0
+partitionIndex <-
+    function(lambda) {
+        subsetIndex(partitionSubset(lambda))
+    }

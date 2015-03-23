@@ -5,7 +5,7 @@
 #' them.
 #' @param lst A list of matrices
 
-sync.mat <-
+syncMat <-
     function(lst) {
         sync.dim <- apply(sapply(lst, dim), 1, max)
         return(lapply(lst, function(mat) {

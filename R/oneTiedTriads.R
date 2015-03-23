@@ -9,7 +9,7 @@
 #' triads without.)
 #' @param graph An igraph object.
 
-one.tied.triads <-
+oneTiedTriads <-
     function(graph) {
         # Create a data frame of weights and number of nonadjacent nodes
         counts <- data.frame(

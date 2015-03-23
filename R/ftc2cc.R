@@ -16,9 +16,9 @@ ftc2cc <-
         S.c <- sum(sapply(1:dim(ftc)[2], function(j) sapply(
             1:dim(ftc)[1], function(i) {
                 if(ftc[i, j] == 0) 0 else
-                    S.fn(index.partition(i - 1), j - 1) * ftc[i, j]})))
+                    S.fn(indexPartition(i - 1), j - 1) * ftc[i, j]})))
         F.c <- sum(sapply(1:dim(ftc)[2], function(j) sapply(
             1:dim(ftc)[1], function(i) {
                 if(ftc[i, j] == 0) 0 else
-                    F.fn(index.partition(i - 1), j - 1) * ftc[i, j]})))
+                    F.fn(indexPartition(i - 1), j - 1) * ftc[i, j]})))
         return(if(num.denom) c(S.c, S.c + F.c) else S.c / (S.c + F.c))}

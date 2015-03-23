@@ -26,7 +26,7 @@ function(bigraph, Q) {
             # If only one secondary links either to Q then no wedges exist
             if(length(intersect(n1, unique(unlist(pn1)))) == 1) c(0, 0) else
                 # Otherwise one wedge, closed iff Hall criterion is met
-                c(1, as.numeric(hall.criterion(list(intersect(n1, pn1[[1]]),
+                c(1, as.numeric(hallCriterion(list(intersect(n1, pn1[[1]]),
                                                     intersect(n1, pn1[[2]]),
                                                     tn1))))
         })

@@ -2,12 +2,13 @@
 #' 
 #' These functions biject among partitions of at most 3 parts, 3-subsets of
 #' natural numbers, and indices for the lexicographic total orders on both.
-#' @param i An index under the total order. Starts at 0.
+#' @param vec A (decreasing) 3-subset of natural numbers (including 0).
 #' @export
 #' @examples
-#' index.partition(2)
+#' subsetIndex(c(3, 2, 0))
 
-index.partition <-
-    function(i) {
-        subset.partition(index.subset(i))
+subsetIndex <-
+    function(vec) {
+        stopifnot(!is.unsorted(rev(vec), strictly = TRUE))
+        sum(choose(rev(vec), 1:length(vec)))
     }

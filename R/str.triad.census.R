@@ -31,7 +31,7 @@ str.triad.census <-
         t <- do.call(cbind, cliques(graph, 3, 3))
         # Vector of triad weights
         w <- sapply(1:ncol(t), function(j) {
-            share.weight(bigraph, V(graph)$name[c(t[1, j], t[2, j], t[3, j])])
+            shareWeight(bigraph, V(graph)$name[c(t[1, j], t[2, j], t[3, j])])
         })
         w0 <- which(w == 0)
         C[4, 1] <- length(w0)
@@ -41,9 +41,9 @@ str.triad.census <-
         w <- w[-w0]
         # Compute the number of actor pairs with exclusive events in each
         l <- sapply(1:ncol(t), function(j) sum(c(
-            edge.weight(graph, c(t[1, j], t[2, j])),
-            edge.weight(graph, c(t[2, j], t[3, j])),
-            edge.weight(graph, c(t[1, j], t[3, j]))) > w[j]))
+            edgeWeight(graph, c(t[1, j], t[2, j])),
+            edgeWeight(graph, c(t[2, j], t[3, j])),
+            edgeWeight(graph, c(t[1, j], t[3, j]))) > w[j]))
         C[, 2] <- tabulate(l + 1, nbins = 4)
 
         # Return the matrix

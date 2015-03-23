@@ -5,9 +5,9 @@
 #' @param i An index under the total order. Starts at 0.
 #' @export
 #' @examples
-#' index.subset(2)
+#' indexSubset(2)
 
-index.subset <-
+indexSubset <-
     function(i) {
         vec <- c()
         N <- i

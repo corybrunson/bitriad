@@ -1,7 +1,6 @@
 #' Uniformity triad census to structural triad census
 #' 
 #' @param tc A uniformity triad census (not necessarily labeled)
-#' @export
 
 utc2stc <-
     function(tc) {

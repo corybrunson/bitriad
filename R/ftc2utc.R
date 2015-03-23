@@ -1,7 +1,6 @@
 #' Full triad census to uniformity triad census
 #' 
 #' @param tc A full two-mode triad census (not necessarily labeled)
-#' @export
 
 ftc2utc <-
     function(tc) {
@@ -11,7 +10,7 @@ ftc2utc <-
                                             nr = 8, nc = 2))
         # Which increments in pw excl event counts (nondecreasing) are positive
         i2l <- sapply(0:(nrow(tc) - 1), function(i) {
-            lambda <- index.partition(i)
+            lambda <- indexPartition(i)
             ed <- c(0, lambda[3:2]) < lambda[3:1]
             return(sum((2 ^ (2:0)) * ed) + 1)
         })

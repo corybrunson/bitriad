@@ -30,7 +30,7 @@ unif.triad.census <- function(bigraph) {
     if(sum(C) == choose(n, 3)) return(C)
 
     # Tally two-tied triads
-    tt <- two.tied.triads(graph)
+    tt <- twoTiedTriads(graph)
     if(!is.null(tt)) {
         # Classify as 0,1,0 (equal edge wts) or 0,1,1 (distinct edge wts)
         ed <- aggregate(tt$n, by = list(tt$x == tt$y), FUN = sum)
@@ -43,14 +43,14 @@ unif.triad.census <- function(bigraph) {
     t <- do.call(cbind, cliques(graph, 3, 3))
     # Vector of triad weights
     w <- sapply(1:ncol(t), function(j) {
-        share.weight(bigraph, V(graph)$name[c(t[1, j], t[2, j], t[3, j])])
+        shareWeight(bigraph, V(graph)$name[c(t[1, j], t[2, j], t[3, j])])
     })
     # Classify and tally
     l <- sapply(1:ncol(t), function(j) {
         # Pairwise exclusive counts
-        pw <- sort(c(edge.weight(graph, c(t[1, j], t[2, j])),
-                     edge.weight(graph, c(t[2, j], t[3, j])),
-                     edge.weight(graph, c(t[1, j], t[3, j])))) - w[j]
+        pw <- sort(c(edgeWeight(graph, c(t[1, j], t[2, j])),
+                     edgeWeight(graph, c(t[2, j], t[3, j])),
+                     edgeWeight(graph, c(t[1, j], t[3, j])))) - w[j]
         # Equal or distinct pairwise exclusive event counts
         ed <- c(0, pw[1:2]) < pw
         # Row index in C

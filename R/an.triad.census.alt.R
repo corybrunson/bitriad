@@ -22,14 +22,14 @@ an.triad.census.alt <-
         C <- as.data.frame(matrix(0, nr = choose(max.x + 3, 3), nc = max.x + 1))
 
         # Tally one-tied triads
-        ot <- one.tied.triads(graph)
+        ot <- oneTiedTriads(graph)
         # Insert the totals at the proper entries of C
         # (No repeats, so no information loss)
-        C[sapply(ot$x, function(x) partition.index(c(x, 0, 0))) + 1, 1] <- ot$n
+        C[sapply(ot$x, function(x) partitionIndex(c(x, 0, 0))) + 1, 1] <- ot$n
         if(verbose) print('One-tied triads tallied')
 
         # Tally connected triples
-        ct <- connected.triples(bigraph, graph = graph)
+        ct <- connectedTriples(bigraph, graph = graph)
         # Trim any unnecessary columns
         max.w <- max(ct$w)
         C <- C[, 1:(max.w + 1)]
@@ -42,7 +42,7 @@ an.triad.census.alt <-
             # Insert the totals at the proper rows in column w + 1 of C
             # (No repeats, so no information loss)
             C[sapply(rs, function(i) {
-                partition.index(as.numeric(ct[i, 1:3])) + 1
+                partitionIndex(as.numeric(ct[i, 1:3])) + 1
             }), w + 1] <- ct$n[rs]
         }
         if(verbose) print('Connected triples tallied')
@@ -55,7 +55,7 @@ an.triad.census.alt <-
         if(rcnames) {
             colnames(C) <- 0:(ncol(C) - 1)
             rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
-                '(', paste(index.partition(i, k = 3), collapse = ','),
+                '(', paste(indexPartition(i, k = 3), collapse = ','),
                 ')', sep = ''))
         }
         as.matrix(C)

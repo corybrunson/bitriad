@@ -37,25 +37,25 @@ an.triad.census <-
         C <- as.data.frame(matrix(0, nr = choose(max.x + 3, 3), nc = max.x + 1))
 
         # Tally one-tied triads
-        ot <- one.tied.triads(graph)
+        ot <- oneTiedTriads(graph)
         # Insert the totals at the proper entries of C
         # (Aggregated, so no repeats, so no information loss)
         if(length(ot) > 0) C[sapply(ot$x, function(x) {
-            partition.index(c(x, 0, 0))
+            partitionIndex(c(x, 0, 0))
         }) + 1, 1] <- ot$n
         if(verbose) print('One-tied triads tallied')
 
         # Tally two-tied triads
-        tt <- two.tied.triads(graph)
+        tt <- twoTiedTriads(graph)
         # Insert the totals at the proper entries of C
         # (Aggregated, so no repeats, so no information loss)
         if(!is.null(tt)) C[sapply(1:dim(tt)[1], function(i) {
-            partition.index(c(tt[i, 1], tt[i, 2], 0))
+            partitionIndex(c(tt[i, 1], tt[i, 2], 0))
         }) + 1, 1] <- tt$n
         if(verbose) print('Two-tied triads tallied')
 
         # Tally triangles
-        tht <- three.tied.triads(bigraph, graph = graph)
+        tht <- threeTiedTriads(bigraph, graph = graph)
         # If there are any...
         if(!is.null(tht)) {
             # Trim any unnecessary columns
@@ -68,7 +68,7 @@ an.triad.census <-
                 # Insert the totals at the proper rows in column w + 1 of C
                 # (No repeats, so no information loss)
                 if(length(rs) > 0) C[sapply(rs, function(i) {
-                    partition.index(as.numeric(tht[i, 1:3])) + 1
+                    partitionIndex(as.numeric(tht[i, 1:3])) + 1
                 }), w + 1] <- tht$n[rs]
             }
         }
@@ -87,7 +87,7 @@ an.triad.census <-
         if(rcnames) {
             colnames(C) <- 0:(ncol(C) - 1)
             rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
-                '(', paste(index.partition(i), collapse = ','),
+                '(', paste(indexPartition(i), collapse = ','),
                 ')', sep = ''))
         }
         as.matrix(C)

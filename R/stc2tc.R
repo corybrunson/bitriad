@@ -1,7 +1,6 @@
 #' Structural triad census to simple triad census
 #' 
 #' @param tc A structural triad census (not necessarily labeled); 4 by 2 matrix
-#' @export
 
 stc2tc <-
     function(tc) {
