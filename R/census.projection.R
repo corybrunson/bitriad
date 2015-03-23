@@ -36,23 +36,23 @@ census.projection <-
         if(scheme == "full") {
             census <- ftc2utc(census)
             scheme <- "uniformity"
-            censuses <- c(uniformity = census, censuses)
+            censuses <- c(list(uniformity = census), censuses)
         }
         # If "uniformity", project to "structural"
         if(scheme == "uniformity") {
             census <- utc2stc(census)
             scheme <- "structural"
-            censuses <- c(structural = census, censuses)
+            censuses <- c(list(structural = census), censuses)
         }
         # If "structural", project to "simple"
         if(scheme == "structural") {
             census <- stc2tc(census)
             scheme <- "simple"
-            censuses <- c(simple = census, censuses)
+            censuses <- c(list(simple = census), censuses)
         }
         # If "simple", project to "total"
         if(scheme == "simple") {
-            censuses <- c(total = sum(census), censuses)
+            censuses <- c(list(total = sum(census)), censuses)
         }
         # Return list
         censuses
