@@ -15,12 +15,14 @@ census.projection <-
         census <- as.matrix(census)
         # Decide what kind of census it is
         cdim <- dim(census)
-        if((scheme == "uniformity" & !all(cdim == c(8, 2))) |
-               (scheme == "structural" & !all(cdim == c(4, 2))) |
-               (scheme == "simple" & !all(cdim == c(4, 1))) |
-               !(scheme %in% c("full", "uniformity", "structural", "simple"))) {
-            scheme <- NULL
-            warning('Incongruent input; coercing to scheme "full".')
+        if(!is.null(scheme)) {
+            if(!(scheme %in% c("full", "uniformity", "structural", "simple")) |
+                   (scheme == "uniformity" & !all(cdim == c(8, 2))) |
+                   (scheme == "structural" & !all(cdim == c(4, 2))) |
+                   (scheme == "simple" & !all(cdim == c(4, 1)))) {
+                scheme <- NULL
+                warning('Incongruent input; coercing to scheme "full".')
+            }
         }
         if(is.null(scheme)) {
             scheme <- if(all(cdim = c(8, 2))) "uniformity" else
