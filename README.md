@@ -9,14 +9,6 @@ The paper [*Triadic analysis of affiliation networks*] [6] makes a case for adop
 
 [6]: http://arxiv.org/abs/1502.07016
 
-### To do
-
-- Convert all function names from period.separated to lowerCamelCase, per [Bååth's usage survey] [14], in order to avoid method confusions.
-- Decide on a convenient suffix for functions that only take affiliation networks as inputs (maybe `.an` in anticipation of an `an` class?).
-- Continue with [`check()`](http://r-pkgs.had.co.nz/check.html)
-
-[14]: http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Baaaath.pdf
-
 ## Install
 
 The repo is arranged as an R package and can be installed using the [devtools](http://cran.r-project.org/web/packages/devtools/index.html) package:

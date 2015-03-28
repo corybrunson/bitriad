@@ -18,12 +18,12 @@ an.triad.census <-
         if(!is.an(bigraph)) stop('Not an affiliation network')
 
         # Drop trivial cases
-        if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
+        if(vcount(bigraph) == 0) return(matrix(0, nrow = 0, ncol = 0))
         # Create projection
         graph <- actor.projection(bigraph, name = 'id')
         # Trivial case
         if(ecount(graph) == 0) {
-            C <- matrix(choose(vcount(graph), 3), nr = 1, nc = 1)
+            C <- matrix(choose(vcount(graph), 3), nrow = 1, ncol = 1)
             if(rcnames) {
                 row.names(C) <- '(0,0,0)'
                 col.names(C) <- '0'
@@ -34,7 +34,9 @@ an.triad.census <-
         # Find maximum values of x and of w
         max.x <- max(E(graph)$weight)
         # Initialize matrix (overestimating the number of columns)
-        C <- as.data.frame(matrix(0, nr = choose(max.x + 3, 3), nc = max.x + 1))
+        C <- as.data.frame(matrix(0,
+                                  nrow = choose(max.x + 3, 3),
+                                  ncol = max.x + 1))
 
         # Tally one-tied triads
         ot <- oneTiedTriads(graph)

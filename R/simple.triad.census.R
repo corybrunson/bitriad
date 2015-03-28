@@ -10,7 +10,7 @@
 #' @export
 
 simple.triad.census <-
-    function(graph) {
+    function(graph, rcnames = FALSE) {
         # Use implemented triad census if it makes sense
         C <- triad.census(as.directed(graph))
         if(sum(C) == choose(vcount(graph), 3) & all(C >= 0) & !is.nan(C[1])) {
