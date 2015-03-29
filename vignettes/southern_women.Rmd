@@ -36,7 +36,7 @@ To be recognized as bipartite, the object's vertices must have a logical `type` 
 
 ### Visualization
 
-The function `plot.an` uses shape and color to distinguish between actor and event nodes, following what i get the impression is the reigning convention. The function defaults to the Fruchterman-Reingold algorithm. (Note: My naming convention for several functions mimics that for a hypothetical class `an` (for "affiliation network"), which may be appropriate for this package but is not currently defined.)
+The function `plot.an`, previewed here, will use shape and color to distinguish between actor and event nodes, following what i get the impression is the reigning convention. The function will default to the Fruchterman-Reingold algorithm. (Note: My naming convention for several functions mimics that for a hypothetical class `an` (for "affiliation network"), which may be appropriate for this package but is not currently defined.)
 
 ```{r, echo = FALSE, fig.height = 5}
 set.seed(10)
