@@ -23,7 +23,7 @@
 #' of a ratio statistic (if `TRUE`, overrides `stat`; defaults to `FALSE`).
 #' @export
 
-census.transitivity <-
+transitivity.census <-
     function(
         census, flavor, scheme = NULL, openFun, closedFun,
         stat = "clust", counts = FALSE
@@ -107,8 +107,8 @@ census.transitivity <-
         if(counts) {
             wedgeCt
         } else if(stat == "clustering") {
-            wedgeCt$closed / (wedgeCt$open + wedgeCt$closed)
+            unname(wedgeCt[2] / (wedgeCt[1] + wedgeCt[2]))
         } else {
-            wedgeCt$closed / (3 * wedgeCt$open + wedgeCt$closed)
+            unname(wedgeCt[2] / (3 * wedgeCt[1] + wedgeCt[2]))
         }
     }

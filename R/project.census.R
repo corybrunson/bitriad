@@ -48,7 +48,7 @@ project.census <-
             census <- ftc2utc(census)
             if(add.names) {
                 rownames(census) <- 0:7 # FIX THIS
-                colnames(census) <- 0:2
+                colnames(census) <- 0:1
             }
             scheme <- "uniformity"
             censuses <- c(list(uniformity = census), censuses)

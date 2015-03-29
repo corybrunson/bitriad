@@ -92,26 +92,30 @@ cbind(tc,
 The classical (global) clustering coefficient may be defined for a traditional network as the proportion of "vees" that are "closed"--that is, whose end nodes are tied. Since every triad of three edges counts thrice as a closed vee, while every two-edged triad constitutes a single open vee, we can compute the clustering coefficient of the projection from the simple census:
 
 ```{r}
-C <- 3 * tc[4] / (tc[3] + 3 * tc[4])
+C <- unname(3 * tc[4] / (tc[3] + 3 * tc[4]))
 C
 ```
 
 The value tells us what proportion of the time two coattendees with the same third woman have themselves been to an activity together. The clustering coefficient has proven a valuable indicator of triadic closure--the tendency for shared connections to lead to direct connections, i.e. for "friends of friends" to in fact be (or become) "friends".
 
-The paper discusses in detail two alternative clustering coefficients specifically designed for affiliation networks. The first is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*, the first proposed measure of triadic closure specific to affiliation networks. (This distinction ignores previous bipartite clustering coefficients that were not based on triples of actors.) The second is dubbed the **exclusive clustering coefficient** because it depends only on the exclusive events any triad. Analogously to above, both of these diagnostics is recoverable from the triad census:
+The paper discusses in detail two alternative clustering coefficients specifically designed for affiliation networks. The first is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*, the first proposed measure of triadic closure specific to affiliation networks. (This distinction ignores previous bipartite clustering coefficients that were not based on triples of actors.) The second is dubbed the **exclusive clustering coefficient** because it depends only on the exclusive events any triad. Analogously to above, both of these diagnostics is recoverable from the triad census [^2]:
+
+[^2]: The calculations are wrapped into `transitivity.census()`, which can also handle uniformity, structural, and simple census input, provided the desired flavor of transitivity can be recovered therefrom.
 
 ```{r}
-C.vec <- c(C = ftc2allact(antc),
-               OpsahlC = ftc2injequ(antc),
-               exclC = ftc2indstr(antc))
+C.vec <- c(
+    C = transitivity.census(antc, scheme = "full", flavor = "classical"),
+    OpsahlC = transitivity.census(antc, scheme = "full", flavor = "opsahl"),
+    exclC = transitivity.census(antc, scheme = "full", flavor = "exclusive")
+)
 C.vec
 ```
 
 In fact, the exclusive clustering coefficient can be calculated from the structural census, since its definition does not depend on the presence of duplicate events:
 
 ```{r}
-stc <- census.proj$structural
-3 * sum(stc[3, ]) / (sum(stc[2, ]) + 3 * sum(stc[3, ]))
+stc <- antc.proj$structural
+3 * sum(stc[4, ]) / (sum(stc[3, ]) + 3 * sum(stc[4, ]))
 ```
 
 ### Local clustering coefficients
@@ -129,7 +133,7 @@ C.local
 Our higher-order candidates (Opsahl and exclusive) are implemented using `transitivity.an()`, a shell for the required "wedge" function that counts the open and closed wedges at a node. It is this function that determines the species of triadic closure to be calculated. Once the wedges are tallied in a 2-column matrix, `transitivity.an` computes from them whatever summary statistic is desired. For example, here are the "exclusive" wedges among the five women:
 
 ```{r}
-exclWedges <- transitivity.an(ddggs.clique, type = "")
+exclWedges <- excl.transitivity(ddggs.clique, type = "")
 exclWedges
 ```
 
@@ -171,7 +175,7 @@ plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 ```
 
-There is little insight to be gleaned here; a more heterogeneous network is required. Though the curve at least proceeds in the expected direction. The same research team recorded another table of women and events, helpfully labeled Group I (p. 148) [^1}.
+There is little insight to be gleaned here; a more heterogeneous network is required. Though the curve at least proceeds in the expected direction. The same research team recorded another table of women and events, helpfully labeled Group I (p. 148) [^1].
 
 [^1]: These data are available from several sources, though one error (the substitution of `MYRNA` for `MYRA`) crept into an early digitization and has been widely copied since; moreover, to my knowledge, no other digitizations include the date information from the original table.
 
