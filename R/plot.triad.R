@@ -12,7 +12,7 @@
 #' @param rot.w An orientation parameter specifically for inclusive events
 #' @export
 
-triad.plot <-
+plot.triad <-
     function(
         lambda, w, layout, scale = 0.3, cex = 1, angdir = -1,
         rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12,
@@ -23,7 +23,7 @@ triad.plot <-
         tr <- triad.an(lambda, w, actors = actors, events = events)
         q <- sum(c(lambda, w))
         # Default layout
-        if(missing(layout)) layout <- triad.layout(
+        if(missing(layout)) layout <- layout.triad(
             lambda = lambda, w = w, scale = scale, angdir = angdir,
             rot = rot, rot.lambda = rot.lambda, rot.w = rot.w)
         if(missing(xlim)) xlim <- c(-1.4, 1.4)

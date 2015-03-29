@@ -4,7 +4,7 @@
 #' @param w The triadwise weight
 #' @export
 
-triad.layout <-
+layout.triad <-
     function(lambda, w, scale = 0.3, angdir = -1, rot = -pi/2,
              rot.lambda = c(0, 0, 0), rot.w = pi/12) {
         graph <- triad.an(lambda, w)
