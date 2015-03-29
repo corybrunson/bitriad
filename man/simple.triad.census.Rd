@@ -4,7 +4,7 @@
 \alias{simple.triad.census}
 \title{Simple triad census}
 \usage{
-simple.triad.census(graph)
+simple.triad.census(graph, add.names = FALSE)
 }
 \arguments{
 \item{graph}{A one-mode network}

@@ -1,29 +1,22 @@
 #' Global clustering coefficients from the triad census
 #' 
-#' Each global clustering coefficient can be recovered from the full triad
-#' census. the first function provides a framework for this calculation, and the
-#' following call that framework for specific clustering coefficients.
-#' @param ftc A full triad census (a matrix)
-#' @param S.fn The "success" function, the closed wedge count for a triad
-#' @param F.fn The "failure" function, the unclosed wedge count for a triad
-#' @param num.denom Whether to return the numerator and denominator of the
-#' clustering coefficient as a length-2 vector.
-#' @export
+#' @param census Numeric matrix; a full triad census
 
 ftc2injstr <-
-    function(ftc, num.denom = FALSE, by.tri = FALSE) ftc2cc(
-        ftc,
-        function(L, w) ifelse(
-            by.tri,
-            stop('injseq transitivity ratio not yet implemented'),
+    function(census) wedgecount.census(
+        census,
+        function(L, w) {
             (w == 0) * (3 * (L[3] > 0)) +
                 (w == 1) * (3 * (L[2] > 0) + 6 * (L[3] > 0)) +
                 (w == 2) * (3 * (L[1] > 0) + 4 * (L[2] > 0) + 5 * (L[3] > 0)) +
                 (w >= 3) * (3 + 2 * (L[1] > 0) + 3 * (L[2] > 0) +
-                                4 * (L[3] > 0))),
-        function(L, w) (L[3] == 0) * ((L[2] > 0) * (w == 0) +
-                                          (sum(L[1:2] > 0) * (w == 1)) +
-                                          (w == 2)) +
-            (L[2] == 0) * ((L[1] > 0) * (w == 1) + (w == 2)) +
-            (L[1] == 0) * (w == 2),
-        num.denom = num.denom)
+                                4 * (L[3] > 0))
+        },
+        function(L, w) {
+            (L[3] == 0) * ((L[2] > 0) * (w == 0) +
+                               (sum(L[1:2] > 0) * (w == 1)) +
+                               (w == 2)) +
+                (L[2] == 0) * ((L[1] > 0) * (w == 1) + (w == 2)) +
+                (L[1] == 0) * (w == 2)
+        }
+    )

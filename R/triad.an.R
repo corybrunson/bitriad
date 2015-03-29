@@ -6,7 +6,7 @@
 #' @param events Event names (defaults to positive integers)
 #' @export
 
-an.triad <-
+triad.an <-
     function(lambda, w,
              actors = letters[16:18],
              events = if(sum(c(lambda, w)) == 0) c() else

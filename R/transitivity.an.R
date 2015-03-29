@@ -2,31 +2,32 @@
 #'
 #' Each clustering coefficient can be defined as the proportion of "wedges" that
 #' are "closed", for suitable definitions of both terms. The main function,
-#' an.transitivity, calls one of the wedge functions and computes the
+#' transitivity.an, calls one of the wedge functions and computes the
 #' global or local clustering coefficient of the given affiliation network,
 #' and if the local, then at the given nodes.
 #' @param bigraph An affiliation network.
-#' @param type The type of clustering coefficient (defaults to 'global')
-#' @param stat Whether to compute a `clustering coefficient` or a `transitivity
-#' ratio`; defaults to 'coeff'
+#' @param type Character; the type of clustering coefficient (defaults to
+#' "global").
+#' @param stat Character; the form of the statistic (matched to "clustering" or
+#' "transitivity"; defaults to "clust").
 #' @param wedges.fn The wedge function (see the entry on `wedges`)
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient
-#' @param rcnames Logical; whether to label the matrix rows and columns
+#' @param add.names Logical; whether to label the matrix rows and columns
 #' @export
 #' @examples
 #' data(ddggs.clique)
 #' transitivity.table <- sapply(
 #'   c(injequ.wedges, injstr.wedges, indstr.wedges),
-#'   an.transitivity, bigraph = ddggs.clique, type = 'local', stat = 'coeff'
+#'   transitivity.an, bigraph = ddggs.clique, type = 'local', stat = 'coeff'
 #' )
 
-an.transitivity <-
+transitivity.an <-
     function(
         bigraph,
-        type = 'global', stat = 'coeff',
+        type = "global", stat = "clust",
         wedges.fn = injequ.wedges,
-        vids = which(!V(bigraph)$type), rcnames = FALSE
+        vids = which(!V(bigraph)$type), add.names = FALSE
     ) {
         if(vcount(bigraph) == 0) {
             if(type == 'global') {
@@ -46,13 +47,16 @@ an.transitivity <-
         })), nr = 2)
         if(type == 'global') {
             C <- sum(wedges[2, ]) / sum(wedges[1, ])
-            if(substr(stat, 1, 5) %in% c('clust', 'coeff')) return(C)
-            if(substr(stat, 1, 5) %in% c('trans', 'ratio'))
+            stat <- match.arg(stat, c("clustering", "transitivity"))
+            if(stat == "clustering") {
+                return(C)
+            } else {
                 return(C / (3 - 2 * C))
+            }
         }
         if(type == 'local') return(wedges[2, ] / wedges[1, ])
         wedges <- t(wedges)
-        if(rcnames) {
+        if(add.names) {
             rownames(wedges) <- V(bigraph)$name[vids]
             colnames(wedges) <- c('Wedges', 'Closed')
         }

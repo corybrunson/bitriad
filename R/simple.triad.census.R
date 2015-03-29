@@ -10,11 +10,12 @@
 #' @export
 
 simple.triad.census <-
-    function(graph, rcnames = FALSE) {
+    function(graph, add.names = FALSE) {
         # Use implemented triad census if it makes sense
         C <- triad.census(as.directed(graph))
         if(sum(C) == choose(vcount(graph), 3) & all(C >= 0) & !is.nan(C[1])) {
             C <- C[c(1, 3, 11, 16)]
+            if(add.names) names(C) <- 0:3
             return(C)
         }
         # Initialize census and graph size
@@ -27,7 +28,8 @@ simple.triad.census <-
             c('1' = n - cons - 2, '2' = cons - tris, '3' = tris)
         })
         # Store C as row sums, correct for repeats, fill in empty triad count
-        C <- c('0' = 0, rowSums(edge.plus) / 1:3)
+        C <- c("0" = 0, rowSums(edge.plus) / 1:3)
         C[1] <- choose(n, 3) - sum(C)
-        unname(C)
+        if(!add.names) C <- unname(C)
+        C
     }

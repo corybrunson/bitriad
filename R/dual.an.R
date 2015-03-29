@@ -8,10 +8,10 @@
 #' @examples
 #' data(hobson.inner.circle)
 #' tab <- table(V(hobson.inner.circle)$type)
-#' proj <- actor.projection(an.dual(hobson.inner.circle))
+#' proj <- actor.projection(dual.an(hobson.inner.circle))
 #' vcount(proj) == tab[2]
 
-an.dual <-
+dual.an <-
 function(bigraph) {
     if(!is.an(bigraph)) stop('Not an affiliation network')
     V(bigraph)$type <- !V(bigraph)$type

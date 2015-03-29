@@ -6,11 +6,11 @@
 #' matrices, the former of whatever dimension is needed to contain the census
 #' and the latter 4-by-2. The simple census returns a vector of length 4.
 #' @param bigraph The ambient affiliation network
-#' @param rcnames Logical; whether to label the matrix rows and columns
+#' @param add.names Logical; whether to label the matrix rows and columns
 #' @param verbose Logical; whether to display progress bars
 
-an.triad.census.alt <-
-    function(bigraph, rcnames = FALSE, verbose = FALSE) {
+triad.census.an.alt <-
+    function(bigraph, add.names = FALSE, verbose = FALSE) {
         # Drop trivial cases
         if(vcount(bigraph) == 0) return(matrix(0, nr = 0, nc = 0))
         # Create one-mode projection
@@ -52,7 +52,7 @@ an.triad.census.alt <-
         C[1, 1] <- choose(vcount(graph), 3) - sum(C)
         # Clear names
         colnames(C) <- NULL
-        if(rcnames) {
+        if(add.names) {
             colnames(C) <- 0:(ncol(C) - 1)
             rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
                 '(', paste(indexPartition(i, k = 3), collapse = ','),

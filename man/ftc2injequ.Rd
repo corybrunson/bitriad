@@ -4,21 +4,12 @@
 \alias{ftc2injequ}
 \title{Global clustering coefficients from the triad census}
 \usage{
-ftc2injequ(ftc, num.denom = FALSE, by.tri = FALSE)
+ftc2injequ(census)
 }
 \arguments{
-\item{ftc}{A full triad census (a matrix)}
-
-\item{num.denom}{Whether to return the numerator and denominator of the
-clustering coefficient as a length-2 vector.}
-
-\item{S.fn}{The "success" function, the closed wedge count for a triad}
-
-\item{F.fn}{The "failure" function, the unclosed wedge count for a triad}
+\item{census}{Numeric matrix; a full triad census}
 }
 \description{
-Each global clustering coefficient can be recovered from the full triad
-census. the first function provides a framework for this calculation, and the
-following call that framework for specific clustering coefficients.
+Global clustering coefficients from the triad census
 }
 

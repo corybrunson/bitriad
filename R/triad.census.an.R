@@ -2,17 +2,17 @@
 #'
 #' This function computes the full triad census for an affiliation network.
 #' @param bigraph An affiliation network.
-#' @param rcnames Logical; whether to label the matrix rows and columns
+#' @param add.names Logical; whether to label the matrix rows and columns
 #' @param verbose Logical; whether to display progress bars
 #' @export
 #' @examples
 #' data(ddggs.clique)
-#' tc <- an.triad.census(ddggs.clique, rcnames = TRUE)
+#' tc <- triad.census.an(ddggs.clique, add.names = TRUE)
 #' tc
 #' sum(tc) == choose(vcount(actor.projection(ddggs.clique)), 3)
 
-an.triad.census <-
-    function(bigraph, rcnames = FALSE, verbose = FALSE) {
+triad.census.an <-
+    function(bigraph, add.names = FALSE, verbose = FALSE) {
 
         # Check that bigraph is an affiliation network
         if(!is.an(bigraph)) stop('Not an affiliation network')
@@ -24,7 +24,7 @@ an.triad.census <-
         # Trivial case
         if(ecount(graph) == 0) {
             C <- matrix(choose(vcount(graph), 3), nrow = 1, ncol = 1)
-            if(rcnames) {
+            if(add.names) {
                 row.names(C) <- '(0,0,0)'
                 col.names(C) <- '0'
             }
@@ -86,7 +86,7 @@ an.triad.census <-
         stopifnot(sum(C) == choose(vcount(graph), 3))
         # Clear names
         colnames(C) <- NULL
-        if(rcnames) {
+        if(add.names) {
             colnames(C) <- 0:(ncol(C) - 1)
             rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
                 '(', paste(indexPartition(i), collapse = ','),

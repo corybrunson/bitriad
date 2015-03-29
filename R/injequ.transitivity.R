@@ -2,7 +2,7 @@
 #'
 #' Each clustering coefficient can be defined as the proportion of "wedges" that
 #' are "closed", for suitable definitions of both terms. The main function,
-#' an.transitivity, calls one of the wedge functions and computes the
+#' transitivity.an, calls one of the wedge functions and computes the
 #' global or local clustering coefficient of the given affiliation network,
 #' and if the local, then at the given nodes.
 #' @param bigraph An affiliation network.
@@ -18,7 +18,7 @@ injequ.transitivity <-
         bigraph, type = 'global', stat = 'coeff',
         vids = which(!V(bigraph)$type)
     ) {
-        an.transitivity(
+        transitivity.an(
             bigraph = bigraph, type = type, stat = stat,
             wedges.fn = injequ.wedges, vids = vids)
     }

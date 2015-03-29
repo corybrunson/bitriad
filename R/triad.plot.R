@@ -20,7 +20,7 @@ triad.plot <-
         events = if(sum(c(lambda, w)) == 0) c() else
             as.character(1:sum(c(lambda, w))),
         xlim, ylim, ...) {
-        tr <- an.triad(lambda, w, actors = actors, events = events)
+        tr <- triad.an(lambda, w, actors = actors, events = events)
         q <- sum(c(lambda, w))
         # Default layout
         if(missing(layout)) layout <- triad.layout(
