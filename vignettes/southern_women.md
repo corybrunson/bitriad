@@ -1,10 +1,10 @@
 ---
-title: "A triadic analysis of the southern women datasets"
+title: "Triadic analysis of the southern women datasets"
 author: "Jason Cory Brunson"
 date: "2015-03-29"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Southern women}
+  %\VignetteIndexEntry{Triadic analysis of the southern women datasets}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
