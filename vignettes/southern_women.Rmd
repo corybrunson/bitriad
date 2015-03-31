@@ -36,20 +36,15 @@ To be recognized as bipartite, the object's vertices must have a logical `type` 
 
 ### Visualization
 
-The function `plot.an`, loosely previewed here, will use shape and color to distinguish between actor and event nodes, following what i get the impression is the reigning convention. The function will default to the Fruchterman-Reingold algorithm. (Note: My naming convention for several functions mimics that for a hypothetical class `an` (for "affiliation network"), which may be appropriate for this package but is not currently defined.)
+The function `anPlotSpecs` imbues an affiliation network with attributes designed to help visually distinguish between actors and events. In particular, it scales vertex sizes with the reciprocal of the vertex count (up to 100), and it adopts shape and color conventions from the literature.
 
 ```{r, echo = FALSE, fig.height = 5}
+ddggs.clique <- anPlotSpecs(ddggs.clique)
+V(ddggs.clique)$label <- c(LETTERS[1:5], 1:5)
+V(ddggs.clique)$label.color <- "white"
 set.seed(10)
-#plot.an(ddggs.clique, layoutFun = layout.fruchterman.reingold, niter = 100)
-plot(
-    ddggs.clique,
-    layout = layout.fruchterman.reingold(ddggs.clique, niter = 100),
-    vertex.color = ifelse(V(ddggs.clique)$type == 0, 'SkyBlue2', 'lightcoral'),
-    vertex.shape = ifelse(V(ddggs.clique)$type == 0, 'circle', 'square'),
-    edge.width = 2, edge.color = 'black',
-    vertex.label = c(LETTERS[1:5], 1:5),
-    vertex.label.family = 'sans', vertex.label.color = 'white'
-)
+plot(ddggs.clique,
+     layout = layout.fruchterman.reingold(ddggs.clique, niter = 100))
 ```
 
 The layout reveals a symmetry between the actors and the events: Exchanging Miss A and Event 2, Miss B and Event 5, and so on yields a graph isomorphism. Thus any structural information we learn about the actors in this network can be flipped into equivalent information about the events. Such symmetry is unusual, but the *duality* between actors and events, which would allow us to use actor-centric tools in the study of events (and vice-versa, though this will not be done here), is [of central importance](http://www.rci.rutgers.edu/~pmclean/mcleanp_01_920_313_breiger_duality.pdf) to the study of affiliation networks.
@@ -64,7 +59,9 @@ tc <- simple.triad.census(ddggs.clique.proj, add.names = TRUE)
 tc
 ```
 
-There are no null (no edges) or disconnected (one edge) triples among the women, only three "vees" (two edges) and seven "triangles" (three edges). But these categories, especially the last, ignore higher-order structure in the original affiliation network. This structure--three actors at a time and any events from which connections among them are inferred--is the basis for the **(full) affiliation network triad census**. Given an affiliation network, this census tallies all triples of actors by the number of "inclusive" events they all three attended and the distribution among them of "exclusive" events only attended by two.
+There are no null (no edges) or disconnected (one edge) triples among the women, only three "vees" (two edges) and seven "triangles" (three edges). But these categories, especially the last, ignore higher-order structure in the original affiliation network. This structure--three actors at a time and any events from which connections among them are inferred--is the basis for the **(full) affiliation network triad census**. Given an affiliation network, this census tallies all triples of actors by the number of "inclusive" events they all three attended and the distribution among them of "exclusive" events only attended by two.[^3]
+
+[^3] My naming convention for several functions mimics that for a hypothetical class `an` (for "affiliation network"), which may be appropriate for this package but is not currently defined.)
 
 ```{r}
 antc <- triad.census.an(ddggs.clique, add.names = TRUE)
@@ -183,20 +180,13 @@ There is little insight to be gleaned here; a more heterogeneous network is requ
 For this network, we'll use the bipartite layout, though some interesting structure is discernible from the Fruchterman-Reingold layout:
 
 ```{r, fig.height = 5}
-# TURN THIS INTO plot.an
-data(ddggs.group, package = 'bitriad')
-V(ddggs.group)$label.cex <- 1 - .33 * V(ddggs.group)$type
+data(ddggs.group)
+ddggs.group <- anPlotSpecs(ddggs.group)
+V(ddggs.group)$label <- substr(V(ddggs.group)$name, 1,
+                          ifelse(V(ddggs.group)$type, 5, 2))
+V(ddggs.group)$label.color <- "white"
 set.seed(2)
-plot(
-    ddggs.group,
-    layout = layout.bipartite(ddggs.group),
-    vertex.color = ifelse(V(ddggs.group)$type == 0, 'SkyBlue2', 'lightcoral'),
-    vertex.shape = ifelse(V(ddggs.group)$type == 0, 'circle', 'square'),
-    edge.width = 2, edge.color = 'black',
-    vertex.label = substr(V(ddggs.group)$name, 1,
-                          ifelse(V(ddggs.group)$type, 5, 2)),
-    vertex.label.family = 'sans', vertex.label.color = 'white'
-)
+plot(ddggs.group, layout = layout.bipartite(ddggs.group))
 ```
 
 As hoped, the women of Group I exhibit a range of connectivity and clusterability (in the classical sense):
