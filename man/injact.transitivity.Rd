@@ -4,7 +4,7 @@
 \alias{injact.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-injact.transitivity(bigraph, type = "global", stat = "coeff",
+injact.transitivity(bigraph, type = "global", stat = "clust",
   vids = which(!V(bigraph)$type))
 }
 \arguments{

@@ -4,7 +4,7 @@
 \alias{excl.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-excl.transitivity(bigraph, type = "global", stat = "coeff",
+excl.transitivity(bigraph, type = "global", stat = "clust",
   vids = which(!V(bigraph)$type))
 }
 \arguments{

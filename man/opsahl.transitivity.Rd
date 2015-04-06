@@ -4,7 +4,7 @@
 \alias{opsahl.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-opsahl.transitivity(bigraph, type = "global", stat = "coeff",
+opsahl.transitivity(bigraph, type = "global", stat = "clust",
   vids = which(!V(bigraph)$type))
 }
 \arguments{

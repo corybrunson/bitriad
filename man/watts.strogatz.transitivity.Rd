@@ -4,7 +4,7 @@
 \alias{watts.strogatz.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-watts.strogatz.transitivity(bigraph, type = "global", stat = "coeff",
+watts.strogatz.transitivity(bigraph, type = "global", stat = "clust",
   vids = which(!V(bigraph)$type))
 }
 \arguments{

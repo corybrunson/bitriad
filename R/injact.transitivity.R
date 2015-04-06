@@ -15,7 +15,7 @@
 
 injact.transitivity <-
 function(
-        bigraph, type = 'global', stat = 'coeff',
+        bigraph, type = 'global', stat = "clust",
         vids = which(!V(bigraph)$type)
     ) {
         transitivity.an(

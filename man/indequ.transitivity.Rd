@@ -4,7 +4,7 @@
 \alias{indequ.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-indequ.transitivity(bigraph, type = "global", stat = "coeff",
+indequ.transitivity(bigraph, type = "global", stat = "clust",
   vids = which(!V(bigraph)$type))
 }
 \arguments{
