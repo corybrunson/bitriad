@@ -8,7 +8,7 @@
 #' `TRUE`.
 #' @source Hobson, John A. (1919) *The Evolution of Modern Capitalism*
 #' \url{https://archive.org/details/evolutionofmoder00hobsuoft}
-#' @name hobson.inner.circle
+#' @name inner.circle
 NULL
 
 #' Group of women connected by event coattendance in Old City.
@@ -23,7 +23,7 @@ NULL
 #' @source Davis, Gardner, and Gardner (1941) *Deep South: A Social
 #' Anthropological Study of Caste and Class*
 #' \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
-#' @name ddggs.group
+#' @name davis.group
 NULL
 
 #' Group of women connected by event coattendance in Old City.
@@ -36,7 +36,7 @@ NULL
 #' @source Davis, Gardner, and Gardner (1941) *Deep South: A Social
 #' Anthropological Study of Caste and Class*
 #' \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
-#' @name ddggs.clique
+#' @name davis.clique
 NULL
 
 #' Interlocks among corporate philanthropists.
@@ -49,7 +49,7 @@ NULL
 #' `TRUE`.
 #' @source Wasserman & Faust (1994) *Social Network Analysis*
 #' \url{http://books.google.com/books?id=CAm2DpIqRUIC}
-#' @name galaskiewicz.ceos
+#' @name minneapolis1970s
 NULL
 
 #' Corporate and social club interlocks among directors.
@@ -62,7 +62,7 @@ NULL
 #' @source Barnes & Burkett (2010) "Structural Redundancy and Multiplicity in
 #' Corporate Networks", *Connections* **30**(2), p. 4-20.
 #' \url{http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf}
-#' @name barnes.burkett.corporate
+#' @name chicago1960s
 NULL
 
 #' Noordin Top meeting attendance network.
@@ -75,7 +75,20 @@ NULL
 #' `TRUE`.
 #' @source The Association of Religious Data Archives
 #' \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
-#' @name noordin.top.meetings
+#' @name nmt.meetings
+NULL
+
+#' Noordin Top organization membership network.
+#'
+#' An affiliation network of 67 members of 32 organizations associated with
+#' Noordin Mohammad Top.
+#'
+#' @format An undirected igraph object with nodes of logical attribute `type`;
+#' members correspond to nodes of type `FALSE`, organizations to nodes of type
+#' `TRUE`.
+#' @source The Association of Religious Data Archives
+#' \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
+#' @name nmt.organizations
 NULL
 
 #' Membership network of American Whigs.
@@ -87,6 +100,6 @@ NULL
 #' `TRUE`.
 #' @source Fischer (1994) *Paul Revere's Ride*
 #' \url{https://github.com/kjhealy/revere}
-#' @name fischer.han.whigs
+#' @name whigs
 NULL
 

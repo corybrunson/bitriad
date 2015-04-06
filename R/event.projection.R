@@ -7,9 +7,9 @@
 #' in the projection (defaults to 'name')
 #' @export
 #' @examples
-#' data(hobson.inner.circle)
-#' tab <- table(V(hobson.inner.circle)$type)
-#' proj <- event.projection(hobson.inner.circle)
+#' data(inner.circle)
+#' tab <- table(V(inner.circle)$type)
+#' proj <- event.projection(inner.circle)
 #' vcount(proj) == tab[2]
 
 event.projection <-

@@ -9,13 +9,13 @@
 #' forgotten. Defaults to Inf
 #' @export
 #' @examples
-#' data(ddggs.group)
-#' dyn.transitivity(ddggs.group)
+#' data(davis.group)
+#' dyn.transitivity(davis.group)
 #' cbind(
-#'     transitivity(actor.projection(ddggs.group), type = 'local'),
-#'     opsahl.transitivity(ddggs.group, type = 'local'),
-#'     excl.transitivity(ddggs.group, type = 'local'),
-#'     dyn.transitivity(ddggs.group, type = 'local')
+#'     transitivity(actor.projection(davis.group), type = 'local'),
+#'     opsahl.transitivity(davis.group, type = 'local'),
+#'     excl.transitivity(davis.group, type = 'local'),
+#'     dyn.transitivity(davis.group, type = 'local')
 #' )
 
 dyn.transitivity <-

@@ -7,9 +7,9 @@
 #' in the projection (defaults to 'name')
 #' @export
 #' @examples
-#' data(hobson.inner.circle)
-#' tab <- table(V(hobson.inner.circle)$type)
-#' proj <- actor.projection(hobson.inner.circle)
+#' data(inner.circle)
+#' tab <- table(V(inner.circle)$type)
+#' proj <- actor.projection(inner.circle)
 #' vcount(proj) == tab[1]
 
 actor.projection <-

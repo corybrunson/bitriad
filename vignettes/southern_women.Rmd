@@ -24,12 +24,12 @@ This vignette uses several tools from the `bitriad` package (which depends on [`
 
 ### Source
 
-In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), five social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural town in Mississippi. Among the data they collected were several tables of attendance at various events by groups of acquainces. Three of these are presented in the book. One, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five activities, described as bridge, dinner, movies, dance, and visiting, some subset of the women participated in each of which. The attendance records serve as the adjacency matrix for the `igraph` object `ddggs.clique`:
+In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), five social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural town in Mississippi. Among the data they collected were several tables of attendance at various events by groups of acquainces. Three of these are presented in the book. One, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five activities, described as bridge, dinner, movies, dance, and visiting, some subset of the women participated in each of which. The attendance records serve as the adjacency matrix for the `igraph` object `davis.clique`:
 
 ```{r}
 library(bitriad)
-data(ddggs.clique)
-get.incidence(ddggs.clique)
+data(davis.clique)
+get.incidence(davis.clique)
 ```
 
 To be recognized as bipartite, the object's vertices must have a logical `type` attribute. The tools of `bitriad` interpret the nodes of type `FALSE` as actors and those of type `TRUE` as events, in keeping with the convention in `igraph` of adjacency matrix rows corresponding to type-`FALSE` vertices.
@@ -39,12 +39,12 @@ To be recognized as bipartite, the object's vertices must have a logical `type` 
 The function `anPlotSpecs` imbues an affiliation network with attributes designed to help visually distinguish between actors and events. In particular, it scales vertex sizes with the reciprocal of the vertex count (up to 100), and it adopts shape and color conventions from the literature.
 
 ```{r, echo = FALSE, fig.height = 6}
-ddggs.clique <- anPlotSpecs(ddggs.clique)
-V(ddggs.clique)$label <- c(LETTERS[1:5], 1:5)
-V(ddggs.clique)$label.color <- "white"
+davis.clique <- anPlotSpecs(davis.clique)
+V(davis.clique)$label <- c(LETTERS[1:5], 1:5)
+V(davis.clique)$label.color <- "white"
 set.seed(10)
-plot(ddggs.clique,
-     layout = layout.fruchterman.reingold(ddggs.clique, niter = 100))
+plot(davis.clique,
+     layout = layout.fruchterman.reingold(davis.clique, niter = 100))
 ```
 
 The layout reveals a symmetry between the actors and the events: Exchanging Miss A and Event 2, Miss B and Event 5, and so on yields a graph isomorphism. Thus any structural information we learn about the actors in this network can be flipped into equivalent information about the events. Such symmetry is unusual, but the *duality* between actors and events, which would allow us to use actor-centric tools in the study of events (and vice-versa, though this will not be done here), is [of central importance](http://www.rci.rutgers.edu/~pmclean/mcleanp_01_920_313_breiger_duality.pdf) to the study of affiliation networks.
@@ -54,8 +54,8 @@ The layout reveals a symmetry between the actors and the events: Exchanging Miss
 This social network is just large enough to house a diversity of triads and just small enough for us to examine them all in detail. Classically, the *triad census* refers to the distribution of triads of 16 isomorphism classes throughout a *directed, unipartite* network. The women's clique is neither, but we can view a simplified (undirected) version of the triad census on its *projection*--the network of five women with acquaintanceship ties inferred from their shared activities. There are only four isomorphism classes of undirected triads, distinguished by the number of edges (0 through 3) among the three nodes:
 
 ```{r}
-ddggs.clique.proj <- actor.projection(ddggs.clique)
-tc <- simple.triad.census(ddggs.clique.proj, add.names = TRUE)
+davis.clique.proj <- actor.projection(davis.clique)
+tc <- simple.triad.census(davis.clique.proj, add.names = TRUE)
 tc
 ```
 
@@ -64,7 +64,7 @@ There are no null (no edges) or disconnected (one edge) triples among the women,
 [^3] My naming convention for several functions mimics that for a hypothetical class `an` (for "affiliation network"), which may be appropriate for this package but is not currently defined.)
 
 ```{r}
-antc <- triad.census.an(ddggs.clique, add.names = TRUE)
+antc <- triad.census.an(davis.clique, add.names = TRUE)
 antc
 ```
 
@@ -123,15 +123,15 @@ So far we have only measured triadic closure network-wide; that is, we have been
 The classical local clustering coeffiicent is the proportion of pairs of an actor's neighbors who are themselves neighbors. From the image above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Mss. B and C among their neighobrs, i.e. everyone except Mss. B and C) and 1 (for Mss. B and C):
 
 ```{r}
-C.local <- transitivity(ddggs.clique.proj, type = 'local')
-names(C.local) <- V(ddggs.clique.proj)$name
+C.local <- transitivity(davis.clique.proj, type = 'local')
+names(C.local) <- V(davis.clique.proj)$name
 C.local
 ```
 
 Our higher-order candidates (Opsahl and exclusive) are implemented using `transitivity.an()`, a shell for the required "wedge" function that counts the open and closed wedges at a node. It is this function that determines the species of triadic closure to be calculated. Once the wedges are tallied in a 2-column matrix, `transitivity.an` computes from them whatever summary statistic is desired. For example, here are the "exclusive" wedges among the five women:
 
 ```{r}
-exclWedges <- excl.transitivity(ddggs.clique, type = "")
+exclWedges <- excl.transitivity(davis.clique, type = "")
 exclWedges
 ```
 
@@ -147,10 +147,10 @@ exclWedges[, 2] / exclWedges[, 1]            # local
 ```{r}
 C.local.dat <- cbind(
     C = C.local,
-    OpsahlC = opsahl.transitivity(ddggs.clique, type = 'local'),
-    exclC = excl.transitivity(ddggs.clique, type = 'local')
+    OpsahlC = opsahl.transitivity(davis.clique, type = 'local'),
+    exclC = excl.transitivity(davis.clique, type = 'local')
 )
-rownames(C.local.dat) <- V(ddggs.clique.proj)$name
+rownames(C.local.dat) <- V(davis.clique.proj)$name
 C.local.dat
 ```
 
@@ -165,8 +165,8 @@ One [thoroughly documented](http://arxiv.org/abs/cond-mat/0211528) property of s
 Here's the relationship between connectivity and clusterability in Clique A:
 
 ```{r, fig.height = 5}
-ddc <- data.frame(k = degree(ddggs.clique.proj),
-                  C = transitivity(ddggs.clique.proj, type = 'local'))
+ddc <- data.frame(k = degree(davis.clique.proj),
+                  C = transitivity(davis.clique.proj, type = 'local'))
 print(ddc)
 plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
      main = 'Degree-dependent local clustering',
@@ -180,22 +180,22 @@ There is little insight to be gleaned here; a more heterogeneous network is requ
 For this network, we'll use the bipartite layout, though some interesting structure is discernible from the Fruchterman-Reingold layout:
 
 ```{r, fig.height = 6}
-data(ddggs.group)
-ddggs.group <- anPlotSpecs(ddggs.group)
-V(ddggs.group)$label <- substr(V(ddggs.group)$name, 1,
-                          ifelse(V(ddggs.group)$type, 5, 2))
-V(ddggs.group)$label.color <- "white"
+data(davis.group)
+davis.group <- anPlotSpecs(davis.group)
+V(davis.group)$label <- substr(V(davis.group)$name, 1,
+                          ifelse(V(davis.group)$type, 5, 2))
+V(davis.group)$label.color <- "white"
 set.seed(2)
-plot(ddggs.group, layout = layout.bipartite(ddggs.group))
+plot(davis.group, layout = layout.bipartite(davis.group))
 ```
 
 As hoped, the women of Group I exhibit a range of connectivity and clusterability (in the classical sense):
 
 ```{r, fig.height = 5}
-ddggs.group.proj <- actor.projection(ddggs.group)
+davis.group.proj <- actor.projection(davis.group)
 ddc2 <- data.frame(
-    k = degree(ddggs.group.proj),
-    C = transitivity(ddggs.group.proj, type = 'local')
+    k = degree(davis.group.proj),
+    C = transitivity(davis.group.proj, type = 'local')
 )
 print(ddc2)
 plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
@@ -209,13 +209,13 @@ There is also clearly a trade-off between the number of a woman's acquaintances 
 This distribution can be fruitfully generalized to the two-mode setting. What's needed a suitable analog of degree--that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the `transitivity.an` function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using the Opsahl clustering coefficient:
 
 ```{r, fig.height = 5}
-ddggs.group.wedges <- opsahl.transitivity(ddggs.group, type = '')
-ddggs.group.wedges <- cbind(
-    ddggs.group.wedges,
-    ddggs.group.wedges[, 2] / ddggs.group.wedges[, 1]
+davis.group.wedges <- opsahl.transitivity(davis.group, type = '')
+davis.group.wedges <- cbind(
+    davis.group.wedges,
+    davis.group.wedges[, 2] / davis.group.wedges[, 1]
 )
-plot(aggregate(ddggs.group.wedges[, 3],
-               by = list(ddggs.group.wedges[, 1]), FUN = mean),
+plot(aggregate(davis.group.wedges[, 3],
+               by = list(davis.group.wedges[, 1]), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering (Opsahl)',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
@@ -224,13 +224,13 @@ plot(aggregate(ddggs.group.wedges[, 3],
 This plot defies the behavior we saw in the classical case; clusterability neither grows nor declines with connectivity. Here is the equivalent relationship for exclusive clustering:
 
 ```{r, fig.height = 5}
-ddggs.group.wedges <- excl.transitivity(ddggs.group, type = '')
-ddggs.group.wedges <- cbind(
-    ddggs.group.wedges,
-    C = ddggs.group.wedges[, 2] / ddggs.group.wedges[, 1]
+davis.group.wedges <- excl.transitivity(davis.group, type = '')
+davis.group.wedges <- cbind(
+    davis.group.wedges,
+    C = davis.group.wedges[, 2] / davis.group.wedges[, 1]
 )
-plot(aggregate(ddggs.group.wedges[, 3],
-               by = list(ddggs.group.wedges[, 1]), FUN = mean),
+plot(aggregate(davis.group.wedges[, 3],
+               by = list(davis.group.wedges[, 1]), FUN = mean),
      pch = 19, type = 'b',
      main = 'Wedge-dependent local clustering (exclusive)',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')

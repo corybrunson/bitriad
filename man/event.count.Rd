@@ -14,7 +14,7 @@ This function returns the number of events (nodes of type TRUE) in an
 affiliation network.
 }
 \examples{
-data(hobson.inner.circle)
-event.count(hobson.inner.circle)
+data(inner.circle)
+event.count(inner.circle)
 }
 

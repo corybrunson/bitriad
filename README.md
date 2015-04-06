@@ -39,13 +39,13 @@ The folder `R` contains implementations of several triadic analysis tools. In pa
 ## Data
 
 Sources of the network data include
-* Hobson's [*The Evolution of Modern Capitalism*] [1], p. 271 (`hobson.inner.circle`);
-* Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*] [2], p. 148 (`ddggs.group`) and p. 209 (`ddggs.clique`);
-* Scott and Hughes' [*The Anatomy of Scottish Capital*] [12], specifically Table 2, covering 1920-21 (`scott.hughes.capital`);
-* Galaskiewicz's [*Social Organization of an Urban Grants Economy*] [8], specifically a subset reproduced in Faust's ["Centrality in affiliation networks"] [7] (`galaskiewicz.urban.grants`);
-* Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"] [3] (`barnes.burkett.corporate`);
-* [Noordin Top Terrorist Network Data] [4], using meetings (“nordin.top.meetings”) and organizations (`nordin.top.organizations`) as events;
-* Fischer's [*Paul Revere's Ride*] [5], Appendix D, as used in Han's ["The Other Ride of Paul Revere"] [13] (`fischer.han.whigs`).
+* Hobson's [*The Evolution of Modern Capitalism*] [1], p. 271 (`inner.circle`);
+* Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*] [2], p. 148 (`davis.group`) and p. 209 (`davis.clique`);
+* Scott and Hughes' [*The Anatomy of Scottish Capital*] [12], specifically Table 2, covering 1920-21 (`scotland1920s`);
+* Galaskiewicz's [*Social Organization of an Urban Grants Economy*] [8], specifically a subset reproduced in Faust's ["Centrality in affiliation networks"] [7] (`minneapolis1970s`);
+* Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"] [3] (`chicago1960s`);
+* [Noordin Top Terrorist Network Data] [4], using meetings (“nmt.meetings”) and organizations (`nmt.organizations`) as events;
+* Fischer's [*Paul Revere's Ride*] [5], Appendix D, as used in Han's ["The Other Ride of Paul Revere"] [13] (`whigs`).
 
 [1]: https://archive.org/details/evolutionofmoder00hobsuoft
 [2]: http://www.amazon.com/Deep-South-Anthropological-Southern-Classics/dp/1570038155
@@ -61,6 +61,6 @@ The folder `data` contains .rda (R data) files for the affiliation networks asso
 
 ## Vignette
 
-[This vignette] [11] outlines an analysis of `ddggs.clique` and `ddggs.group` using the censuses, some clustering coefficients, and other tools.
+[This vignette] [11] outlines an analysis of `davis.clique` and `davis.group` using the censuses, some clustering coefficients, and other tools.
 
 [11]: https://github.com/corybrunson/bitriad/blob/master/vignettes/southern_women.md

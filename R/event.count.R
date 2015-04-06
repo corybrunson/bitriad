@@ -5,8 +5,8 @@
 #' @param bigraph The ambient affiliation network
 #' @export
 #' @examples
-#' data(hobson.inner.circle)
-#' event.count(hobson.inner.circle)
+#' data(inner.circle)
+#' event.count(inner.circle)
 
 event.count <-
 function(bigraph) {

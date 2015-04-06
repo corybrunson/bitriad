@@ -5,8 +5,8 @@
 #' @param bigraph The ambient affiliation network
 #' @export
 #' @examples
-#' data(hobson.inner.circle)
-#' actor.count(hobson.inner.circle)
+#' data(inner.circle)
+#' actor.count(inner.circle)
 
 actor.count <-
 function(bigraph) {

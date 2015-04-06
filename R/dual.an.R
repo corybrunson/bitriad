@@ -6,9 +6,9 @@
 #' @param bigraph The ambient affiliation network
 #' @export
 #' @examples
-#' data(hobson.inner.circle)
-#' tab <- table(V(hobson.inner.circle)$type)
-#' proj <- actor.projection(dual.an(hobson.inner.circle))
+#' data(inner.circle)
+#' tab <- table(V(inner.circle)$type)
+#' proj <- actor.projection(dual.an(inner.circle))
 #' vcount(proj) == tab[2]
 
 dual.an <-

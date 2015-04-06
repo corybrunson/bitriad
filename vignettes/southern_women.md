@@ -1,7 +1,7 @@
 ---
 title: "Triadic analysis of the southern women datasets"
 author: "Jason Cory Brunson"
-date: "2015-03-31"
+date: "2015-04-06"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Triadic analysis of the southern women datasets}
@@ -15,22 +15,17 @@ This vignette uses several tools from the `bitriad` package (which depends on [`
 
 ### Source
 
-In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), five social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural town in Mississippi. Among the data they collected were several tables of attendance at various events by groups of acquainces. Three of these are presented in the book. One, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five activities, described as bridge, dinner, movies, dance, and visiting, some subset of the women participated in each of which. The attendance records serve as the adjacency matrix for the `igraph` object `ddggs.clique`:
+In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), five social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural town in Mississippi. Among the data they collected were several tables of attendance at various events by groups of acquainces. Three of these are presented in the book. One, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five activities, described as bridge, dinner, movies, dance, and visiting, some subset of the women participated in each of which. The attendance records serve as the adjacency matrix for the `igraph` object `davis.clique`:
 
 
 ```r
 library(bitriad)
-data(ddggs.clique)
-get.incidence(ddggs.clique)
+data(davis.clique)
+get.incidence(davis.clique)
 ```
 
 ```
-##        Bridge Dinner Movies Dance Visiting
-## Miss A      1      0      1     1        0
-## Miss B      0      0      1     1        0
-## Miss C      1      1      0     0        1
-## Miss D      1      1      1     0        0
-## Miss E      0      1      0     1        1
+## Error in match(x, table, nomatch = 0L): object 'davis.clique' not found
 ```
 
 To be recognized as bipartite, the object's vertices must have a logical `type` attribute. The tools of `bitriad` interpret the nodes of type `FALSE` as actors and those of type `TRUE` as events, in keeping with the convention in `igraph` of adjacency matrix rows corresponding to type-`FALSE` vertices.
@@ -39,7 +34,22 @@ To be recognized as bipartite, the object's vertices must have a logical `type` 
 
 The function `anPlotSpecs` imbues an affiliation network with attributes designed to help visually distinguish between actors and events. In particular, it scales vertex sizes with the reciprocal of the vertex count (up to 100), and it adopts shape and color conventions from the literature.
 
-<img src="figure/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique' not found
+```
+
+```
+## Error in V(davis.clique)$label <- c(LETTERS[1:5], 1:5): object 'davis.clique' not found
+```
+
+```
+## Error in V(davis.clique)$label.color <- "white": object 'davis.clique' not found
+```
+
+```
+## Error in plot(davis.clique, layout = layout.fruchterman.reingold(davis.clique, : object 'davis.clique' not found
+```
 
 The layout reveals a symmetry between the actors and the events: Exchanging Miss A and Event 2, Miss B and Event 5, and so on yields a graph isomorphism. Thus any structural information we learn about the actors in this network can be flipped into equivalent information about the events. Such symmetry is unusual, but the *duality* between actors and events, which would allow us to use actor-centric tools in the study of events (and vice-versa, though this will not be done here), is [of central importance](http://www.rci.rutgers.edu/~pmclean/mcleanp_01_920_313_breiger_duality.pdf) to the study of affiliation networks.
 
@@ -49,14 +59,27 @@ This social network is just large enough to house a diversity of triads and just
 
 
 ```r
-ddggs.clique.proj <- actor.projection(ddggs.clique)
-tc <- simple.triad.census(ddggs.clique.proj, add.names = TRUE)
+davis.clique.proj <- actor.projection(davis.clique)
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique' not found
+```
+
+```r
+tc <- simple.triad.census(davis.clique.proj, add.names = TRUE)
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique.proj' not found
+```
+
+```r
 tc
 ```
 
 ```
-## 0 1 2 3 
-## 0 0 3 7
+## Error in eval(expr, envir, enclos): object 'tc' not found
 ```
 
 There are no null (no edges) or disconnected (one edge) triples among the women, only three "vees" (two edges) and seven "triangles" (three edges). But these categories, especially the last, ignore higher-order structure in the original affiliation network. This structure--three actors at a time and any events from which connections among them are inferred--is the basis for the **(full) affiliation network triad census**. Given an affiliation network, this census tallies all triples of actors by the number of "inclusive" events they all three attended and the distribution among them of "exclusive" events only attended by two.[^3]
@@ -65,22 +88,19 @@ There are no null (no edges) or disconnected (one edge) triples among the women,
 
 
 ```r
-antc <- triad.census.an(ddggs.clique, add.names = TRUE)
+antc <- triad.census.an(davis.clique, add.names = TRUE)
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique' not found
+```
+
+```r
 antc
 ```
 
 ```
-##         0 1
-## (0,0,0) 0 0
-## (1,0,0) 0 1
-## (1,1,0) 0 3
-## (1,1,1) 1 0
-## (2,0,0) 0 0
-## (2,1,0) 3 0
-## (2,1,1) 2 0
-## (2,2,0) 0 0
-## (2,2,1) 0 0
-## (2,2,2) 0 0
+## Error in eval(expr, envir, enclos): object 'antc' not found
 ```
 
 The arrangement is not so intuitive. The rows reflect the distribution of exclusive events, and the columns indicate the number of inclusive events; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. The exclusive events thus form the (ordered) sequence (2,1,0), so the triad (A, B, C) is counted in the sixth row and first column (zero inclusive events) of the matrix. (The appropriate row is the index of (2 ≥ 1 ≥ 0) in the enumeration scheme provided by the *revolving door algorithm*.
@@ -90,15 +110,18 @@ As networks grow, this scheme quickly becomes ridiculous. There are, however, in
 
 ```r
 antc.proj <- project.census(antc, add.names = TRUE)
+```
+
+```
+## Error in as.matrix(census): object 'antc' not found
+```
+
+```r
 antc.proj$structural
 ```
 
 ```
-##   0 1
-## 0 0 0
-## 1 0 1
-## 2 3 3
-## 3 3 0
+## Error in eval(expr, envir, enclos): object 'antc.proj' not found
 ```
 
 The column indicates the existence of an inclusive event; the row indicates the number of non-duplicate exclusive events (0, 1, 2, or 3). The simple triad census can be recovered from either of these higher-order censuses:
@@ -109,11 +132,7 @@ cbind(tc, antc.proj$simple, project.census(antc.proj$structural)$simple)
 ```
 
 ```
-##   tc    
-## 0  0 0 0
-## 1  0 0 0
-## 2  3 3 3
-## 3  7 7 7
+## Error in cbind(tc, antc.proj$simple, project.census(antc.proj$structural)$simple): object 'tc' not found
 ```
 
 ### Global clustering coefficients
@@ -123,11 +142,46 @@ The classical (global) clustering coefficient may be defined for a traditional n
 
 ```r
 C <- unname(3 * tc[4]/(tc[3] + 3 * tc[4]))
+```
+
+```
+## Error in unname(3 * tc[4]/(tc[3] + 3 * tc[4])): object 'tc' not found
+```
+
+```r
 C
 ```
 
 ```
-## [1] 0.875
+## function (object, contr, how.many, ...) 
+## {
+##     if (!nlevels(object)) 
+##         stop("object not interpretable as a factor")
+##     if (!missing(contr) && is.name(Xcontr <- substitute(contr))) 
+##         contr <- switch(as.character(Xcontr), poly = "contr.poly", 
+##             helmert = "contr.helmert", sum = "contr.sum", treatment = "contr.treatment", 
+##             SAS = "contr.SAS", contr)
+##     if (missing(contr)) {
+##         oc <- getOption("contrasts")
+##         contr <- if (length(oc) < 2L) 
+##             if (is.ordered(object)) 
+##                 contr.poly
+##             else contr.treatment
+##         else oc[1 + is.ordered(object)]
+##     }
+##     if (missing(how.many) && missing(...)) 
+##         contrasts(object) <- contr
+##     else {
+##         if (is.character(contr)) 
+##             contr <- get(contr, mode = "function")
+##         if (is.function(contr)) 
+##             contr <- contr(nlevels(object), ...)
+##         contrasts(object, how.many) <- contr
+##     }
+##     object
+## }
+## <bytecode: 0x7ff6ec37f918>
+## <environment: namespace:stats>
 ```
 
 The value tells us what proportion of the time two coattendees with the same third woman have themselves been to an activity together. The clustering coefficient has proven a valuable indicator of triadic closure--the tendency for shared connections to lead to direct connections, i.e. for "friends of friends" to in fact be (or become) "friends".
@@ -141,12 +195,18 @@ The paper discusses in detail two alternative clustering coefficients specifical
 C.vec <- c(C = transitivity.census(antc, scheme = "full", flavor = "classical"), 
     OpsahlC = transitivity.census(antc, scheme = "full", flavor = "opsahl"), 
     exclC = transitivity.census(antc, scheme = "full", flavor = "exclusive"))
+```
+
+```
+## Error in as.matrix(census): object 'antc' not found
+```
+
+```r
 C.vec
 ```
 
 ```
-##         C   OpsahlC     exclC 
-## 0.8750000 0.6111111 0.6000000
+## Error in eval(expr, envir, enclos): object 'C.vec' not found
 ```
 
 In fact, the exclusive clustering coefficient can be calculated from the structural census, since its definition does not depend on the presence of duplicate events:
@@ -154,11 +214,18 @@ In fact, the exclusive clustering coefficient can be calculated from the structu
 
 ```r
 stc <- antc.proj$structural
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'antc.proj' not found
+```
+
+```r
 3 * sum(stc[4, ])/(sum(stc[3, ]) + 3 * sum(stc[4, ]))
 ```
 
 ```
-## [1] 0.6
+## Error in eval(expr, envir, enclos): object 'stc' not found
 ```
 
 ### Local clustering coefficients
@@ -169,31 +236,46 @@ The classical local clustering coeffiicent is the proportion of pairs of an acto
 
 
 ```r
-C.local <- transitivity(ddggs.clique.proj, type = "local")
-names(C.local) <- V(ddggs.clique.proj)$name
+C.local <- transitivity(davis.clique.proj, type = "local")
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique.proj' not found
+```
+
+```r
+names(C.local) <- V(davis.clique.proj)$name
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique.proj' not found
+```
+
+```r
 C.local
 ```
 
 ```
-##    Miss A    Miss B    Miss C    Miss D    Miss E 
-## 0.8333333 1.0000000 1.0000000 0.8333333 0.8333333
+## Error in eval(expr, envir, enclos): object 'C.local' not found
 ```
 
 Our higher-order candidates (Opsahl and exclusive) are implemented using `transitivity.an()`, a shell for the required "wedge" function that counts the open and closed wedges at a node. It is this function that determines the species of triadic closure to be calculated. Once the wedges are tallied in a 2-column matrix, `transitivity.an` computes from them whatever summary statistic is desired. For example, here are the "exclusive" wedges among the five women:
 
 
 ```r
-exclWedges <- excl.transitivity(ddggs.clique, type = "")
+exclWedges <- excl.transitivity(davis.clique, type = "")
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique' not found
+```
+
+```r
 exclWedges
 ```
 
 ```
-##      [,1] [,2]
-## [1,]    4    2
-## [2,]    1    1
-## [3,]    2    1
-## [4,]    4    2
-## [5,]    4    3
+## Error in eval(expr, envir, enclos): object 'exclWedges' not found
 ```
 
 From these, the global and local exclusive clustering coefficiencs may be recovered:
@@ -204,7 +286,7 @@ sum(exclWedges[, 2])/sum(exclWedges[, 1])  # global
 ```
 
 ```
-## [1] 0.6
+## Error in eval(expr, envir, enclos): object 'exclWedges' not found
 ```
 
 ```r
@@ -212,26 +294,35 @@ exclWedges[, 2]/exclWedges[, 1]  # local
 ```
 
 ```
-## [1] 0.50 1.00 0.50 0.50 0.75
+## Error in eval(expr, envir, enclos): object 'exclWedges' not found
 ```
 
 (Note the absence of multiplication by 3 in the global calculation; each triangle contributes 3 closed wedges to `exclWedges`.) The three local clustering coefficients provide an illustrative comparison:
 
 
 ```r
-C.local.dat <- cbind(C = C.local, OpsahlC = opsahl.transitivity(ddggs.clique, 
-    type = "local"), exclC = excl.transitivity(ddggs.clique, type = "local"))
-rownames(C.local.dat) <- V(ddggs.clique.proj)$name
+C.local.dat <- cbind(C = C.local, OpsahlC = opsahl.transitivity(davis.clique, 
+    type = "local"), exclC = excl.transitivity(davis.clique, type = "local"))
+```
+
+```
+## Error in cbind(C = C.local, OpsahlC = opsahl.transitivity(davis.clique, : object 'C.local' not found
+```
+
+```r
+rownames(C.local.dat) <- V(davis.clique.proj)$name
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique.proj' not found
+```
+
+```r
 C.local.dat
 ```
 
 ```
-##                C   OpsahlC exclC
-## Miss A 0.8333333 0.5000000  0.50
-## Miss B 1.0000000 0.6666667  1.00
-## Miss C 1.0000000 0.6666667  0.50
-## Miss D 0.8333333 0.6000000  0.50
-## Miss E 0.8333333 0.7142857  0.75
+## Error in eval(expr, envir, enclos): object 'C.local.dat' not found
 ```
 
 (Paraphrase the example in the paper.)
@@ -246,18 +337,20 @@ Here's the relationship between connectivity and clusterability in Clique A:
 
 
 ```r
-ddc <- data.frame(k = degree(ddggs.clique.proj), C = transitivity(ddggs.clique.proj, 
+ddc <- data.frame(k = degree(davis.clique.proj), C = transitivity(davis.clique.proj, 
     type = "local"))
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.clique.proj' not found
+```
+
+```r
 print(ddc)
 ```
 
 ```
-##        k         C
-## Miss A 4 0.8333333
-## Miss B 3 1.0000000
-## Miss C 3 1.0000000
-## Miss D 4 0.8333333
-## Miss E 4 0.8333333
+## Error in print(ddc): object 'ddc' not found
 ```
 
 ```r
@@ -265,7 +358,9 @@ plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = "b", main 
     xlab = "Degree", ylab = "Mean conditional local clustering coefficient")
 ```
 
-<img src="figure/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
+```
+## Error in aggregate(ddc$C, by = list(ddc$k), FUN = mean): object 'ddc' not found
+```
 
 There is little insight to be gleaned here; a more heterogeneous network is required. Though the curve at least proceeds in the expected direction. The same research team recorded another table of women and events, helpfully labeled Group I (p. 148) [^1].
 
@@ -275,47 +370,66 @@ For this network, we'll use the bipartite layout, though some interesting struct
 
 
 ```r
-data(ddggs.group)
-ddggs.group <- anPlotSpecs(ddggs.group)
-V(ddggs.group)$label <- substr(V(ddggs.group)$name, 1, ifelse(V(ddggs.group)$type, 
-    5, 2))
-V(ddggs.group)$label.color <- "white"
-set.seed(2)
-plot(ddggs.group, layout = layout.bipartite(ddggs.group))
+data(davis.group)
+davis.group <- anPlotSpecs(davis.group)
 ```
 
-<img src="figure/unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.group' not found
+```
+
+```r
+V(davis.group)$label <- substr(V(davis.group)$name, 1, ifelse(V(davis.group)$type, 
+    5, 2))
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.group' not found
+```
+
+```r
+V(davis.group)$label.color <- "white"
+```
+
+```
+## Error in V(davis.group)$label.color <- "white": object 'davis.group' not found
+```
+
+```r
+set.seed(2)
+plot(davis.group, layout = layout.bipartite(davis.group))
+```
+
+```
+## Error in plot(davis.group, layout = layout.bipartite(davis.group)): object 'davis.group' not found
+```
 
 As hoped, the women of Group I exhibit a range of connectivity and clusterability (in the classical sense):
 
 
 ```r
-ddggs.group.proj <- actor.projection(ddggs.group)
-ddc2 <- data.frame(k = degree(ddggs.group.proj), C = transitivity(ddggs.group.proj, 
+davis.group.proj <- actor.projection(davis.group)
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.group' not found
+```
+
+```r
+ddc2 <- data.frame(k = degree(davis.group.proj), C = transitivity(davis.group.proj, 
     type = "local"))
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.group.proj' not found
+```
+
+```r
 print(ddc2)
 ```
 
 ```
-##            k         C
-## Evelyn    17 0.8970588
-## Laura     15 0.9619048
-## Theresa   17 0.8970588
-## Brenda    15 0.9619048
-## Charlotte 11 1.0000000
-## Frances   15 0.9619048
-## Eleanor   15 0.9619048
-## Pearl     16 0.9333333
-## Ruth      17 0.8970588
-## Verne     17 0.8970588
-## Myra      16 0.9333333
-## Katherine 16 0.9333333
-## Sylvia    17 0.8970588
-## Nora      17 0.8970588
-## Helen     17 0.8970588
-## Dorothy   16 0.9333333
-## Olivia    12 1.0000000
-## Flora     12 1.0000000
+## Error in print(ddc2): object 'ddc2' not found
 ```
 
 ```r
@@ -323,7 +437,9 @@ plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean), pch = 19, type = "b",
     main = "Degree-dependent local clustering", xlab = "Degree", ylab = "Mean conditional local clustering coefficient")
 ```
 
-<img src="figure/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
+```
+## Error in aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean): object 'ddc2' not found
+```
 
 There is also clearly a trade-off between the number of a woman's acquaintances and the proportion that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships.
 
@@ -331,28 +447,60 @@ This distribution can be fruitfully generalized to the two-mode setting. What's 
 
 
 ```r
-ddggs.group.wedges <- opsahl.transitivity(ddggs.group, type = "")
-ddggs.group.wedges <- cbind(ddggs.group.wedges, ddggs.group.wedges[, 2]/ddggs.group.wedges[, 
+davis.group.wedges <- opsahl.transitivity(davis.group, type = "")
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.group' not found
+```
+
+```r
+davis.group.wedges <- cbind(davis.group.wedges, davis.group.wedges[, 2]/davis.group.wedges[, 
     1])
-plot(aggregate(ddggs.group.wedges[, 3], by = list(ddggs.group.wedges[, 1]), 
+```
+
+```
+## Error in cbind(davis.group.wedges, davis.group.wedges[, 2]/davis.group.wedges[, : object 'davis.group.wedges' not found
+```
+
+```r
+plot(aggregate(davis.group.wedges[, 3], by = list(davis.group.wedges[, 1]), 
     FUN = mean), pch = 19, type = "b", main = "Wedge-dependent local clustering (Opsahl)", 
     xlab = "Wedges", ylab = "Mean conditional local clustering coefficient")
 ```
 
-<img src="figure/unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
+```
+## Error in aggregate(davis.group.wedges[, 3], by = list(davis.group.wedges[, : object 'davis.group.wedges' not found
+```
 
 This plot defies the behavior we saw in the classical case; clusterability neither grows nor declines with connectivity. Here is the equivalent relationship for exclusive clustering:
 
 
 ```r
-ddggs.group.wedges <- excl.transitivity(ddggs.group, type = "")
-ddggs.group.wedges <- cbind(ddggs.group.wedges, C = ddggs.group.wedges[, 2]/ddggs.group.wedges[, 
+davis.group.wedges <- excl.transitivity(davis.group, type = "")
+```
+
+```
+## Error in match(x, table, nomatch = 0L): object 'davis.group' not found
+```
+
+```r
+davis.group.wedges <- cbind(davis.group.wedges, C = davis.group.wedges[, 2]/davis.group.wedges[, 
     1])
-plot(aggregate(ddggs.group.wedges[, 3], by = list(ddggs.group.wedges[, 1]), 
+```
+
+```
+## Error in cbind(davis.group.wedges, C = davis.group.wedges[, 2]/davis.group.wedges[, : object 'davis.group.wedges' not found
+```
+
+```r
+plot(aggregate(davis.group.wedges[, 3], by = list(davis.group.wedges[, 1]), 
     FUN = mean), pch = 19, type = "b", main = "Wedge-dependent local clustering (exclusive)", 
     xlab = "Wedges", ylab = "Mean conditional local clustering coefficient")
 ```
 
-<img src="figure/unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
+```
+## Error in aggregate(davis.group.wedges[, 3], by = list(davis.group.wedges[, : object 'davis.group.wedges' not found
+```
 
 This plot mimics the classical behavior. In the classical case we expect local clustering coefficients to be quite large in tight-knit networks such as those produced for sociological analysis of cliques and communities; the exclusive clustering coefficient, in contrast, takes nearly the full range of possible values, providing a more descriptive metric for dense affiliation networks like Group I.

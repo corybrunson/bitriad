@@ -15,9 +15,9 @@ which in `bitriad` has the effect of taking the dual of the affiliation
 network (swapping the roles of actors and events).
 }
 \examples{
-data(hobson.inner.circle)
-tab <- table(V(hobson.inner.circle)$type)
-proj <- actor.projection(dual.an(hobson.inner.circle))
+data(inner.circle)
+tab <- table(V(inner.circle)$type)
+proj <- actor.projection(dual.an(inner.circle))
 vcount(proj) == tab[2]
 }
 
