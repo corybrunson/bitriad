@@ -6,10 +6,10 @@
 #' @param verbose Logical; whether to display progress bars
 #' @export
 #' @examples
-#' data(ddggs.clique)
-#' tc <- triad.census.an(ddggs.clique, add.names = TRUE)
+#' data(davis.clique)
+#' tc <- triad.census.an(davis.clique, add.names = TRUE)
 #' tc
-#' sum(tc) == choose(vcount(actor.projection(ddggs.clique)), 3)
+#' sum(tc) == choose(vcount(actor.projection(davis.clique)), 3)
 
 triad.census.an <-
     function(bigraph, add.names = FALSE, verbose = FALSE) {

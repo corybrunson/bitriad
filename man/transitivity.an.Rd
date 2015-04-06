@@ -32,10 +32,10 @@ global or local clustering coefficient of the given affiliation network,
 and if the local, then at the given nodes.
 }
 \examples{
-data(ddggs.clique)
+data(davis.clique)
 transitivity.table <- sapply(
   c(injequ.wedges, injstr.wedges, indstr.wedges),
-  transitivity.an, bigraph = ddggs.clique, type = "local"
+  transitivity.an, bigraph = davis.clique, type = "local"
 )
 }
 

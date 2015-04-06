@@ -16,10 +16,10 @@
 #' @param add.names Logical; whether to label the matrix rows and columns
 #' @export
 #' @examples
-#' data(ddggs.clique)
+#' data(davis.clique)
 #' transitivity.table <- sapply(
 #'   c(injequ.wedges, injstr.wedges, indstr.wedges),
-#'   transitivity.an, bigraph = ddggs.clique, type = "local"
+#'   transitivity.an, bigraph = davis.clique, type = "local"
 #' )
 
 transitivity.an <-

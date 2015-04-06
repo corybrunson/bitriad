@@ -77,3 +77,56 @@ C.local.dat <- cbind(
 rownames(C.local.dat) <- V(davis.clique.proj)$name
 C.local.dat
 
+## ----, fig.height = 5----------------------------------------------------
+ddc <- data.frame(k = degree(davis.clique.proj),
+                  C = transitivity(davis.clique.proj, type = 'local'))
+print(ddc)
+plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
+     main = 'Degree-dependent local clustering',
+     xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
+
+## ----, fig.height = 6----------------------------------------------------
+data(davis.group)
+davis.group <- anPlotSpecs(davis.group)
+V(davis.group)$label <- substr(V(davis.group)$name, 1,
+                          ifelse(V(davis.group)$type, 5, 2))
+V(davis.group)$label.color <- "white"
+set.seed(2)
+plot(davis.group, layout = layout.bipartite(davis.group))
+
+## ----, fig.height = 5----------------------------------------------------
+davis.group.proj <- actor.projection(davis.group)
+ddc2 <- data.frame(
+    k = degree(davis.group.proj),
+    C = transitivity(davis.group.proj, type = 'local')
+)
+print(ddc2)
+plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
+     pch = 19, type = 'b',
+     main = 'Degree-dependent local clustering',
+     xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
+
+## ----, fig.height = 5----------------------------------------------------
+davis.group.wedges <- opsahl.transitivity(davis.group, type = '')
+davis.group.wedges <- cbind(
+    davis.group.wedges,
+    davis.group.wedges[, 2] / davis.group.wedges[, 1]
+)
+plot(aggregate(davis.group.wedges[, 3],
+               by = list(davis.group.wedges[, 1]), FUN = mean),
+     pch = 19, type = 'b',
+     main = 'Wedge-dependent local clustering (Opsahl)',
+     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
+
+## ----, fig.height = 5----------------------------------------------------
+davis.group.wedges <- excl.transitivity(davis.group, type = '')
+davis.group.wedges <- cbind(
+    davis.group.wedges,
+    C = davis.group.wedges[, 2] / davis.group.wedges[, 1]
+)
+plot(aggregate(davis.group.wedges[, 3],
+               by = list(davis.group.wedges[, 1]), FUN = mean),
+     pch = 19, type = 'b',
+     main = 'Wedge-dependent local clustering (exclusive)',
+     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
+
