@@ -19,7 +19,7 @@
 #' data(ddggs.clique)
 #' transitivity.table <- sapply(
 #'   c(injequ.wedges, injstr.wedges, indstr.wedges),
-#'   transitivity.an, bigraph = ddggs.clique, type = 'local', stat = 'coeff'
+#'   transitivity.an, bigraph = ddggs.clique, type = "local"
 #' )
 
 transitivity.an <-
