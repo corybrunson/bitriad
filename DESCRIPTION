@@ -5,7 +5,7 @@ Version: 0.1
 Date: 2015-03-02
 Authors@R: person('Jason Cory', 'Brunson', email = 'jabrunso@vt.edu',
     role = c('aut', 'cre'))
-Maintainer: Jason Cory Brunson <brunson@uchc.edu>
+Maintainer: Jason Cory Brunson <jabrunso@vt.edu>
 Description: The package contains two principal tools for the triadic analysis
     of affiliation networks: the triad census and the clustering coefficient.
     The former includes several variations; the latter involves a shell that

@@ -5,7 +5,7 @@
 #' @param graph An igraph object
 #' @export
 
-is.dynamic <-
+is.dyn <-
     function(graph) {
         if (!is.igraph(graph)) {
             stop("Not a graph object")

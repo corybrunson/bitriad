@@ -10,29 +10,29 @@
 #' @export
 #' @examples
 #' data(ddggs.group)
-#' dyn.triadic.closure(ddggs.group)
+#' dyn.transitivity(ddggs.group)
 #' cbind(
 #'     transitivity(actor.projection(ddggs.group), type = 'local'),
 #'     opsahl.transitivity(ddggs.group, type = 'local'),
 #'     excl.transitivity(ddggs.group, type = 'local'),
-#'     dyn.triadic.closure(ddggs.group, type = 'local')
+#'     dyn.transitivity(ddggs.group, type = 'local')
 #' )
 
-dyn.triadic.closure <-
+dyn.transitivity <-
     function(graph, memory = Inf, type = 'global', count.closures = FALSE) {
         if(!is.igraph(graph)) {
             stop('Not a graph object')
         }
-        if(!is.dynamic(graph)) {
+        if(!is.dyn(graph)) {
             stop('Not a dynamic graph')
         }
         if(is.bipartite(graph)) {
-            dyn.triadic.closure.bigraph(graph,
+            dyn.transitivity.bigraph(graph,
                                         memory = memory,
                                         type = type,
                                         count.closures = count.closures)
         } else {
-            dyn.triadic.closure.graph(graph,
+            dyn.transitivity.graph(graph,
                                       memory = memory,
                                       type = type,
                                       count.closures = count.closures)

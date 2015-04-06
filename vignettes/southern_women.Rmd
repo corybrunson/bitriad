@@ -38,7 +38,7 @@ To be recognized as bipartite, the object's vertices must have a logical `type` 
 
 The function `anPlotSpecs` imbues an affiliation network with attributes designed to help visually distinguish between actors and events. In particular, it scales vertex sizes with the reciprocal of the vertex count (up to 100), and it adopts shape and color conventions from the literature.
 
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 6}
 ddggs.clique <- anPlotSpecs(ddggs.clique)
 V(ddggs.clique)$label <- c(LETTERS[1:5], 1:5)
 V(ddggs.clique)$label.color <- "white"
@@ -164,7 +164,7 @@ One [thoroughly documented](http://arxiv.org/abs/cond-mat/0211528) property of s
 
 Here's the relationship between connectivity and clusterability in Clique A:
 
-```{r, fig.height = 4}
+```{r, fig.height = 5}
 ddc <- data.frame(k = degree(ddggs.clique.proj),
                   C = transitivity(ddggs.clique.proj, type = 'local'))
 print(ddc)
@@ -179,7 +179,7 @@ There is little insight to be gleaned here; a more heterogeneous network is requ
 
 For this network, we'll use the bipartite layout, though some interesting structure is discernible from the Fruchterman-Reingold layout:
 
-```{r, fig.height = 5}
+```{r, fig.height = 6}
 data(ddggs.group)
 ddggs.group <- anPlotSpecs(ddggs.group)
 V(ddggs.group)$label <- substr(V(ddggs.group)$name, 1,
@@ -191,7 +191,7 @@ plot(ddggs.group, layout = layout.bipartite(ddggs.group))
 
 As hoped, the women of Group I exhibit a range of connectivity and clusterability (in the classical sense):
 
-```{r, fig.height = 4}
+```{r, fig.height = 5}
 ddggs.group.proj <- actor.projection(ddggs.group)
 ddc2 <- data.frame(
     k = degree(ddggs.group.proj),
@@ -208,7 +208,7 @@ There is also clearly a trade-off between the number of a woman's acquaintances 
 
 This distribution can be fruitfully generalized to the two-mode setting. What's needed a suitable analog of degree--that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the `transitivity.an` function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using the Opsahl clustering coefficient:
 
-```{r, fig.height = 4}
+```{r, fig.height = 5}
 ddggs.group.wedges <- opsahl.transitivity(ddggs.group, type = '')
 ddggs.group.wedges <- cbind(
     ddggs.group.wedges,
@@ -223,7 +223,7 @@ plot(aggregate(ddggs.group.wedges[, 3],
 
 This plot defies the behavior we saw in the classical case; clusterability neither grows nor declines with connectivity. Here is the equivalent relationship for exclusive clustering:
 
-```{r, fig.height = 4}
+```{r, fig.height = 5}
 ddggs.group.wedges <- excl.transitivity(ddggs.group, type = '')
 ddggs.group.wedges <- cbind(
     ddggs.group.wedges,

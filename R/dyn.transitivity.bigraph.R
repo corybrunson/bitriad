@@ -10,7 +10,7 @@
 #' @param count.closures Logical; whether to count each closure of a wedge once
 #' (FALSE) or as many times as the wedge is closed (TRUE)
 
-dyn.triadic.closure.bigraph <-
+dyn.transitivity.bigraph <-
     function(graph, memory = Inf, type = 'global', count.closures = FALSE) {
 
         if(vcount(graph) == 0) {

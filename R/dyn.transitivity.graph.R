@@ -6,7 +6,7 @@
 #' @param graph A simple network with time-stamped edges
 #' @param memory Numeric; a duration of time after which edges are forgotten
 
-dyn.triadic.closure.graph <-
+dyn.transitivity.graph <-
     function(graph, memory) {
         stop('Not yet implemented for traditional networks')
     }
