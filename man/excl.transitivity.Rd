@@ -25,4 +25,13 @@ transitivity.an, calls one of the wedge functions and computes the
 global or local clustering coefficient of the given affiliation network,
 and if the local, then at the given nodes.
 }
+\examples{
+data(davis.group)
+excl.transitivity(davis.group)
+cbind(
+    transitivity(actor.projection(davis.group), type = 'local'),
+    opsahl.transitivity(davis.group, type = 'local'),
+    excl.transitivity(davis.group, type = 'local')
+)
+}
 

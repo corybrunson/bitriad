@@ -4,6 +4,12 @@
 #' for visualization using `plot.igraph`.
 #' @param bigraph An affiliation network.
 #' @export
+#' @examples
+#' data(davis.clique)
+#' data(whigs)
+#' for(g in list(davis.clique, whigs)) {
+#'     plot(anPlotSpecs(g))
+#' }
 
 anPlotSpecs <-
     function(bigraph) {
@@ -23,7 +29,7 @@ anPlotSpecs <-
         V(bigraph)$label.color <- "black"
         V(bigraph)$label.cex <- 2 * vertex.scale
         # Edge specs
-        E(bigraph)$width <- 2
+        E(bigraph)$width <- .5 + 2.5 * vertex.scale
         # Return graph
         bigraph
     }

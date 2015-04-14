@@ -12,6 +12,14 @@
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient.
 #' @export
+#' @examples
+#' data(davis.group)
+#' excl.transitivity(davis.group)
+#' cbind(
+#'     transitivity(actor.projection(davis.group), type = 'local'),
+#'     opsahl.transitivity(davis.group, type = 'local'),
+#'     excl.transitivity(davis.group, type = 'local')
+#' )
 
 excl.transitivity <-
     function(
@@ -20,5 +28,5 @@ excl.transitivity <-
     ) {
         transitivity.an(
             bigraph = bigraph, type = type, stat = stat,
-            wedges.fn = indstr.wedges, vids = vids)
+            wedge.fun = indstr.wedges, vids = vids)
     }

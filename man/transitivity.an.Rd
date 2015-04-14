@@ -5,7 +5,7 @@
 \title{Affiliation network clustering coefficients}
 \usage{
 transitivity.an(bigraph, type = "global", stat = "clust",
-  wedges.fn = injequ.wedges, vids = which(!V(bigraph)$type),
+  wedge.fun = injequ.wedges, vids = which(!V(bigraph)$type),
   add.names = FALSE)
 }
 \arguments{
@@ -17,7 +17,7 @@ transitivity.an(bigraph, type = "global", stat = "clust",
 \item{stat}{Character; the form of the statistic (matched to "clustering" or
 "transitivity"; defaults to "clust").}
 
-\item{wedges.fn}{The wedge function (see the entry on `wedges`)}
+\item{wedge.fun}{The wedge function (see the entry on `wedges`)}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient}
@@ -25,17 +25,19 @@ clustering coefficient}
 \item{add.names}{Logical; whether to label the matrix rows and columns}
 }
 \description{
-Each clustering coefficient can be defined as the proportion of "wedges" that
-are "closed", for suitable definitions of both terms. The main function,
-transitivity.an, calls one of the wedge functions and computes the
-global or local clustering coefficient of the given affiliation network,
-and if the local, then at the given nodes.
+This function takes an affiliation network and a "flavor" of transitivity
+(triadic closure) to compute thereon. The calculations are performed locally
+and can be returned in either of three formats: global (a single statistic),
+local (a vector of values labeled by actor names), and raw. Each flavor is
+defined as a proportion of "wedges" that are "closed", for suitable
+definitions of both terms. The raw format returns a 2-column matrix, each row
+of which gives the number of wedges and the number of closed wedges centered
+at an actor. The function `transitivity.an` is a shell that proceeds across
+actors and computes wedges using the provided `wedge.fun`.
 }
 \examples{
 data(davis.clique)
-transitivity.table <- sapply(
-  c(injequ.wedges, injstr.wedges, indstr.wedges),
-  transitivity.an, bigraph = davis.clique, type = "local"
-)
+sapply(c(injequ.wedges, injstr.wedges, indstr.wedges),
+         transitivity.an, bigraph = davis.clique, type = "local")
 }
 

@@ -20,5 +20,5 @@ indequ.transitivity <-
     ) {
         transitivity.an(
             bigraph = bigraph, type = type, stat = stat,
-            wedges.fn = indequ.wedges, vids = vids)
+            wedge.fun = indequ.wedges, vids = vids)
     }

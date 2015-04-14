@@ -13,4 +13,11 @@ anPlotSpecs(bigraph)
 This function assigns several parameters to a bipartite graph to prepare it
 for visualization using `plot.igraph`.
 }
+\examples{
+data(davis.clique)
+data(whigs)
+for(g in list(davis.clique, whigs)) {
+    plot(anPlotSpecs(g))
+}
+}
 

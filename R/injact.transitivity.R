@@ -20,5 +20,5 @@ function(
     ) {
         transitivity.an(
             bigraph = bigraph, type = type, stat = stat,
-            wedges.fn = injact.wedges, vids = vids)
+            wedge.fun = injact.wedges, vids = vids)
     }

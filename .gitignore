@@ -35,5 +35,6 @@ Thumbs.db
 # Added by Cory
 ###############
 bitriad-*
+.Rd2pdf*
 cache/*
 .Rhistory

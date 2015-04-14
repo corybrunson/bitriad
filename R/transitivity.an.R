@@ -1,32 +1,34 @@
 #' Affiliation network clustering coefficients
-#'
-#' Each clustering coefficient can be defined as the proportion of "wedges" that
-#' are "closed", for suitable definitions of both terms. The main function,
-#' transitivity.an, calls one of the wedge functions and computes the
-#' global or local clustering coefficient of the given affiliation network,
-#' and if the local, then at the given nodes.
+#' 
+#' This function takes an affiliation network and a "flavor" of transitivity
+#' (triadic closure) to compute thereon. The calculations are performed locally
+#' and can be returned in either of three formats: global (a single statistic),
+#' local (a vector of values labeled by actor names), and raw. Each flavor is
+#' defined as a proportion of "wedges" that are "closed", for suitable
+#' definitions of both terms. The raw format returns a 2-column matrix, each row
+#' of which gives the number of wedges and the number of closed wedges centered
+#' at an actor. The function `transitivity.an` is a shell that proceeds across
+#' actors and computes wedges using the provided `wedge.fun`.
 #' @param bigraph An affiliation network.
 #' @param type Character; the type of clustering coefficient (defaults to
 #' "global").
 #' @param stat Character; the form of the statistic (matched to "clustering" or
 #' "transitivity"; defaults to "clust").
-#' @param wedges.fn The wedge function (see the entry on `wedges`)
+#' @param wedge.fun The wedge function (see the entry on `wedges`)
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient
 #' @param add.names Logical; whether to label the matrix rows and columns
 #' @export
 #' @examples
 #' data(davis.clique)
-#' transitivity.table <- sapply(
-#'   c(injequ.wedges, injstr.wedges, indstr.wedges),
-#'   transitivity.an, bigraph = davis.clique, type = "local"
-#' )
+#' sapply(c(injequ.wedges, injstr.wedges, indstr.wedges),
+#'          transitivity.an, bigraph = davis.clique, type = "local")
 
 transitivity.an <-
     function(
         bigraph,
         type = "global", stat = "clust",
-        wedges.fn = injequ.wedges,
+        wedge.fun = injequ.wedges,
         vids = which(!V(bigraph)$type), add.names = FALSE
     ) {
         if(vcount(bigraph) == 0) {
@@ -36,14 +38,14 @@ transitivity.an <-
                 return(NULL)
             } else return(matrix(NA, nr = 0, nc = 2))
         }
-        # Check that nodes are of the desired type
+        # Check that nodes are actors
         stopifnot(all(!V(bigraph)$type[vids]))
         # If global or both, need to look at all vertices
         Qs <- if(type == 'global') which(!V(bigraph)$type) else vids
         # Array of 4-paths centered at each Q in Qs
         wedges <- matrix(unlist(lapply(Qs, function(Q) {
             # Return wedge and closed wedge counts at Q
-            return(wedges.fn(bigraph, Q))
+            wedge.fun(bigraph, Q)
         })), nr = 2)
         if(type == 'global') {
             C <- sum(wedges[2, ]) / sum(wedges[1, ])
@@ -61,5 +63,4 @@ transitivity.an <-
             colnames(wedges) <- c('Wedges', 'Closed')
         }
         wedges
-        #data.frame(V = wedges[1, ], T = wedges[2, ])
     }
