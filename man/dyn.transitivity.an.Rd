@@ -7,12 +7,12 @@
 dyn.transitivity.an(graph, memory = Inf, type = "global")
 }
 \arguments{
-\item{memory}{Numeric; a duration of time after which events are forgotten}
+\item{memory}{Numeric; a duration of time after which events are forgotten.}
 
 \item{type}{Character; whether to compute the global or local statistic, or
-to return a 2-column matrix of wedge counts (defaults to `global`)}
+to return a 2-column matrix of wedge counts (defaults to "global").}
 
-\item{bigraph}{An affiliation network with time-stamped events}
+\item{bigraph}{An affiliation network with time-stamped events.}
 }
 \description{
 Given an affiliation network with time-stamped events, compute the proportion

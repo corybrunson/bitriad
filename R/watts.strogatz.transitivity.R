@@ -8,16 +8,16 @@
 #' cheats by using the native `transitivity` but produces output consistent
 #' with the other variants of `transitivity.an`.)
 #' @param bigraph An affiliation network.
-#' @param type The type of clustering coefficient (defaults to 'global')
-#' @param stat Whether to compute a `clustering coefficient` or a `transitivity
-#' ratio`; defaults to 'coeff'
+#' @param type The type of clustering coefficient (defaults to "global")
+#' @param stat Whether to compute a clustering coefficient or a transitivity
+#' ratio; defaults to "coeff"
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient.
 #' @export
 
 watts.strogatz.transitivity <-
     function(
-        bigraph, type = 'global', stat = "clust",
+        bigraph, type = "global", stat = "clust",
         vids = which(!V(bigraph)$type)
     ) {
         if(vcount(bigraph) == 0) {

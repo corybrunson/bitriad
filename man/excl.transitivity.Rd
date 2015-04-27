@@ -29,8 +29,7 @@ and if the local, then at the given nodes.
 data(women.group)
 excl.transitivity(women.group)
 cbind(
-    watts.strogatz.transitivity(actor.projection(women.group),
-                                type = "local"),
+    watts.strogatz.transitivity(women.group, type = "local"),
     opsahl.transitivity(women.group, type = "local"),
     excl.transitivity(women.group, type = "local")
 )

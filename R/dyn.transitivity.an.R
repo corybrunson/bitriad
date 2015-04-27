@@ -3,10 +3,11 @@
 #' Given an affiliation network with time-stamped events, compute the proportion
 #' of centered triples at which an open wedge exists at some time that is
 #' closed at a later time.
-#' @param bigraph An affiliation network with time-stamped events
-#' @param memory Numeric; a duration of time after which events are forgotten
+#' @param bigraph An affiliation network with time-stamped events.
+#' @param memory Numeric; a duration of time after which events are forgotten.
 #' @param type Character; whether to compute the global or local statistic, or
-#' to return a 2-column matrix of wedge counts (defaults to `global`)
+#' to return a 2-column matrix of wedge counts (defaults to "global").
+#' @export
 #' @examples
 #' data(women.group)
 #' dyn.transitivity.an(women.group)

@@ -8,6 +8,5 @@
 
 shareWeight <-
     function(bigraph, vids) {
-        if(name == 'id') vids <- as.numeric(vids)
         length(Reduce(intersect, neighborhood(bigraph, 1, as.numeric(vids))))
     }
