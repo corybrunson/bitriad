@@ -3,15 +3,13 @@
 \name{nmt.organizations}
 \alias{nmt.organizations}
 \title{Noordin Top organization membership network.}
-\format{An undirected igraph object with nodes of logical attribute `type`;
-members correspond to nodes of type `FALSE`, organizations to nodes of type
-`TRUE`.}
+\format{An affiliation network; see `is.an`.}
 \source{
 The Association of Religious Data Archives
 \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
 }
 \description{
-An affiliation network of 67 members of 32 organizations associated with
-Noordin Mohammad Top.
+These data record the attendance of 67 members of 32 organizations
+associated with Noordin Mohammad Top.
 }
 

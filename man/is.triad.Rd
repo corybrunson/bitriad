@@ -7,7 +7,7 @@
 is.triad(graph)
 }
 \arguments{
-\item{graph}{A graph object}
+\item{graph}{An affiliation network; see `is.an`.}
 }
 \description{
 Affiliation network triads

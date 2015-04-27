@@ -7,7 +7,7 @@
 simple.triad.census(graph, add.names = FALSE)
 }
 \arguments{
-\item{graph}{A one-mode network}
+\item{graph}{An igraph object.}
 }
 \description{
 This function inputs a simple graph and returns a vector of frequency counts

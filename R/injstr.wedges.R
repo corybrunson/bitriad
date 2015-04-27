@@ -1,4 +1,4 @@
-#' Wedges (injective morphisms modulo structural equivalence)
+#' Affiliation network wedges (injective morphisms modulo structural equivalence)
 #' 
 #' Each clustering coefficient can be defined as the proportion of "wedges" that
 #' are "closed", for suitable definitions of both terms. These functions count

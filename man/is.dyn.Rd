@@ -7,10 +7,10 @@
 is.dyn(graph)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An igraph object.}
 }
 \description{
 A simple graph is dynamic if its edges have time stamps. A bipartite graph is
-dynamic if its nodes (most importantly, its event nodes) have time stamps.
+dynamic if its event nodes have time stamps.
 }
 

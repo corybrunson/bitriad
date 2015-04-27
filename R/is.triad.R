@@ -1,6 +1,6 @@
 #' Affiliation network triads
 #'
-#' @param graph A graph object
+#' @param graph An affiliation network; see `is.an`.
 #' @export
 
 is.triad <-

@@ -2,7 +2,7 @@
 % Please edit documentation in R/subsetPartition.R
 \name{subsetPartition}
 \alias{subsetPartition}
-\title{Combinatorial bijections for affiliation network triad labeling}
+\title{Combinatorial bijections for affiliation network triad indexing}
 \usage{
 subsetPartition(vec)
 }
@@ -11,7 +11,7 @@ subsetPartition(vec)
 }
 \description{
 These functions biject among partitions of at most 3 parts, 3-subsets of
-natural numbers, and indices for the lexicographic total orders on both.
+natural numbers, and indices for the lexicographic total orders on them.
 }
 \examples{
 subsetPartition(c(3, 2, 0))

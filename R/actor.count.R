@@ -1,12 +1,12 @@
-#' Number of actors in an affiliation network
+#' Count the actors in an affiliation network
 #'
 #' This function returns the number of actors (nodes of type FALSE) in an
 #' affiliation network.
-#' @param bigraph The ambient affiliation network
+#' @param bigraph An affiliation network; see `is.an`.
 #' @export
 #' @examples
-#' data(inner.circle)
-#' actor.count(inner.circle)
+#' data(southafrica1905)
+#' actor.count(southafrica1905)
 
 actor.count <-
 function(bigraph) {

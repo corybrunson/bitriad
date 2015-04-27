@@ -1,4 +1,4 @@
-#' Triad tallies
+#' Tally and classify triads in an affiliation network
 #'
 #' These functions are called by the two-mode triad census to handle triads of
 #' different types using the projection onto actor nodes. The name of each

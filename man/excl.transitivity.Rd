@@ -26,12 +26,13 @@ global or local clustering coefficient of the given affiliation network,
 and if the local, then at the given nodes.
 }
 \examples{
-data(davis.group)
-excl.transitivity(davis.group)
+data(women.group)
+excl.transitivity(women.group)
 cbind(
-    transitivity(actor.projection(davis.group), type = 'local'),
-    opsahl.transitivity(davis.group, type = 'local'),
-    excl.transitivity(davis.group, type = 'local')
+    watts.strogatz.transitivity(actor.projection(women.group),
+                                type = "local"),
+    opsahl.transitivity(women.group, type = "local"),
+    excl.transitivity(women.group, type = "local")
 )
 }
 

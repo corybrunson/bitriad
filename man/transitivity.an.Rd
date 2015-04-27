@@ -5,11 +5,11 @@
 \title{Affiliation network clustering coefficients}
 \usage{
 transitivity.an(bigraph, type = "global", stat = "clust",
-  wedge.fun = injequ.wedges, vids = which(!V(bigraph)$type),
+  wedgeFun = injequ.wedges, vids = which(!V(bigraph)$type),
   add.names = FALSE)
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{bigraph}{An affiliation network; see `is.an`.}
 
 \item{type}{Character; the type of clustering coefficient (defaults to
 "global").}
@@ -17,7 +17,7 @@ transitivity.an(bigraph, type = "global", stat = "clust",
 \item{stat}{Character; the form of the statistic (matched to "clustering" or
 "transitivity"; defaults to "clust").}
 
-\item{wedge.fun}{The wedge function (see the entry on `wedges`)}
+\item{wedgeFun}{The wedge function (see `wedges`)}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient}
@@ -25,19 +25,20 @@ clustering coefficient}
 \item{add.names}{Logical; whether to label the matrix rows and columns}
 }
 \description{
-This function takes an affiliation network and a "flavor" of transitivity
-(triadic closure) to compute thereon. The calculations are performed locally
-and can be returned in either of three formats: global (a single statistic),
-local (a vector of values labeled by actor names), and raw. Each flavor is
-defined as a proportion of "wedges" that are "closed", for suitable
-definitions of both terms. The raw format returns a 2-column matrix, each row
-of which gives the number of wedges and the number of closed wedges centered
-at an actor. The function `transitivity.an` is a shell that proceeds across
-actors and computes wedges using the provided `wedge.fun`.
+This function computes a given flavor of transitivity (triadic closure) on a
+given affiliation network. The calculations are performed locally and can be
+returned in either of three formats: global (a single statistic), local (a
+vector of values labeled by actor names), and raw. Each flavor is defined as
+a proportion of "wedges" that are "closed", for suitable definitions of both
+terms. The raw format is a 2-column matrix, each row of which gives the
+number of wedges and the number of closed wedges centered at an actor. The
+function `transitivity.an` is a shell that proceeds across actors and
+computes wedges using the provided `wedgeFun` (which characterizes the
+flavor).
 }
 \examples{
-data(davis.clique)
+data(women.clique)
 sapply(c(injequ.wedges, injstr.wedges, indstr.wedges),
-         transitivity.an, bigraph = davis.clique, type = "local")
+         transitivity.an, bigraph = women.clique, type = "local")
 }
 

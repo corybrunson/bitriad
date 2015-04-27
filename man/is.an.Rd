@@ -2,14 +2,16 @@
 % Please edit documentation in R/is.an.R
 \name{is.an}
 \alias{is.an}
-\title{Affiliation network}
+\title{Test and coerce affiliation network conditions}
 \usage{
 is.an(graph)
 }
 \arguments{
-\item{graph}{A graph object}
+\item{graph}{An igraph object}
 }
 \description{
-Affiliation network
+These functions test for or, when possible, impose the properties used in
+bitriad to distinguish affiliation networks from the very general igraph
+class.
 }
 

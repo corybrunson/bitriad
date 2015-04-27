@@ -2,24 +2,24 @@
 % Please edit documentation in R/actor.projection.R
 \name{actor.projection}
 \alias{actor.projection}
-\title{Projection onto actors of an affiliation network}
+\title{Project an affiliation network onto its actors}
 \usage{
 actor.projection(bigraph, name = "name")
 }
 \arguments{
-\item{bigraph}{The ambient affiliation network}
+\item{bigraph}{An affiliation network; see `is.an`.}
 
 \item{name}{What attribute of the actor nodes in bigraph to name the nodes
-in the projection (defaults to 'name')}
+in the projection (defaults to "name")}
 }
 \description{
-This function uses the igraph function bipartite.projection to compute the
+This function uses the igraph function `bipartite.projection` to compute the
 projection of an affiliation network onto the actor nodes.
 }
 \examples{
-data(inner.circle)
-tab <- table(V(inner.circle)$type)
-proj <- actor.projection(inner.circle)
+data(southafrica1905)
+tab <- table(V(southafrica1905)$type)
+proj <- actor.projection(southafrica1905)
 vcount(proj) == tab[1]
 }
 

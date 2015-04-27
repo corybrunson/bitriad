@@ -1,12 +1,12 @@
-#' Number of events in an affiliation network
+#' Count the events in an affiliation network
 #'
 #' This function returns the number of events (nodes of type TRUE) in an
 #' affiliation network.
-#' @param bigraph The ambient affiliation network
+#' @param bigraph An affiliation network; see `is.an`.
 #' @export
 #' @examples
-#' data(inner.circle)
-#' event.count(inner.circle)
+#' data(southafrica1905)
+#' event.count(southafrica1905)
 
 event.count <-
 function(bigraph) {

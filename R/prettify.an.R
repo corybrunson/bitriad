@@ -1,17 +1,17 @@
-#' Parameter specs for plotting affiliation networks
+#' Set plotting parameters for an affiliation network
 #' 
-#' This function assigns several parameters to a bipartite graph to prepare it
-#' for visualization using `plot.igraph`.
-#' @param bigraph An affiliation network.
+#' This function assigns several plotting parameters to the vertices and edges
+#' of a bipartite graph to prepare it for visualization using `plot.igraph`.
+#' @param bigraph An affiliation network; see `is.an`.
 #' @export
 #' @examples
-#' data(davis.clique)
+#' data(women.clique)
 #' data(whigs)
-#' for(g in list(davis.clique, whigs)) {
-#'     plot(anPlotSpecs(g))
+#' for(g in list(women.clique, whigs)) {
+#'     plot(prettify.an(g))
 #' }
 
-anPlotSpecs <-
+prettify.an <-
     function(bigraph) {
         stopifnot(is.an(bigraph))
         # Use number of vertices to scale down vertex size

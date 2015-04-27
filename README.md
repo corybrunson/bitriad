@@ -1,17 +1,17 @@
 bitriad
 =======
 
-This repo contains data, tools, and exposition for the **triadic analysis of affiliation networks**.
+This repo constitutes an R package, and contains data and tools for the triadic analysis of affiliation networks.
 
 ## Description
 
-The paper [*Triadic analysis of affiliation networks*] [6] makes a case for adopting a batch of triad-centric tools for the study of (bipartite) affiliation networks; the examples invoked are affiliation networks. Most of the tools are included in the `bitriad` package. The [igraph package](http://igraph.org/r/) provides the class of graphs and the basic suite of graph-theoretic tools, which serve as a foundation. No new classes have been defined, and (unfortunately) all functions are written in R rather than called from, say, C. Any suggestions would be welcome.
+The paper [*Triadic analysis of affiliation networks*] [6] makes a case for adopting a batch of triad-based tools for the study of (bipartite) affiliation networks. Most of the tools used therein are included in this package, which is built mostly on the [`igraph` package](http://igraph.org/r/). No new classes have been defined yet, and all functions are written in R (rather than the more natural C/C++ used by `igraph`). Any suggestions would be welcome.
 
 [6]: http://arxiv.org/abs/1502.07016
 
 ## Install
 
-The repo is arranged as an R package and can be installed using the [devtools](http://cran.r-project.org/web/packages/devtools/index.html) package:
+The package is not on CRAN; it can be installed using the [devtools](http://cran.r-project.org/web/packages/devtools/index.html) package:
 
 ```r
 if(!require(devtools)) {
@@ -23,15 +23,15 @@ if(!require(devtools)) {
 }
 ```
 
-If you experience any problems with the installation process (that aren't resolved by `?` and searching, e.g., [StackExchange] [3], please let me know.
+If you experience any problems with the installation process (that aren't resolved by `?` or searching [StackExchange] [3], please let me know. I may well have left some silly error in a recent commit.
 
 [3]: http://stackexchange.com/
 
 ## Tools
 
-The folder `R` contains implementations of several triadic analysis tools. In particular these include
-* an.triad.census, which conducts a motif survey of affiliation network triads, understood to be triples of actor nodes and any events attended by at least two, and the results of which can be collapsed down to the incrementally more compact uniformity, structural, and simple censuses; and
-* an.transitivity, a shell for bipartite clustering coefficients that can be specialized to the [Opsahl] [9], exclusive, and several other clustering coefficients, including a shortcut to the Watts-Strogatz clustering coefficient of the projection onto actors.
+The package implements several tools from the paper, most importantly
+* `triad.census.an`, which conducts a motif survey of affiliation network triads, understood to be triples of actor nodes and any events attended by at least two, and the results of which can be collapsed down to the incrementally more compact uniformity, structural, and simple censuses; and
+* `transitivity.an`, a shell for bipartite clustering coefficients that can be specialized to the [Opsahl] [9], exclusive, and several other clustering coefficients, including a shortcut to the Watts-Strogatz clustering coefficient of the projection onto actors (to be eventually replaced with a proof-of-concept implementation in the same vein as the others).
 
 [9]: http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/
 [10]: http://www.nature.com/nature/journal/v393/n6684/abs/393440a0.html
@@ -39,12 +39,12 @@ The folder `R` contains implementations of several triadic analysis tools. In pa
 ## Data
 
 Sources of the network data include
-* Hobson's [*The Evolution of Modern Capitalism*] [1], p. 271 (`inner.circle`);
-* Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*] [2], p. 148 (`davis.group`) and p. 209 (`davis.clique`);
+* Hobson's [*The Evolution of Modern Capitalism*] [1], p. 271 (`southafrica1905`);
+* Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*] [2], p. 148 (`women.group`) and p. 209 (`women.clique`);
 * Scott and Hughes' [*The Anatomy of Scottish Capital*] [12], specifically Table 2, covering 1920-21 (`scotland1920s`);
 * Galaskiewicz's [*Social Organization of an Urban Grants Economy*] [8], specifically a subset reproduced in Faust's ["Centrality in affiliation networks"] [7] (`minneapolis1970s`);
 * Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"] [3] (`chicago1960s`);
-* [Noordin Top Terrorist Network Data] [4], using meetings (“nmt.meetings”) and organizations (`nmt.organizations`) as events;
+* [Noordin Top Terrorist Network Data] [4], using meetings (`nmt.meetings`) and organizations (`nmt.organizations`) as events;
 * Fischer's [*Paul Revere's Ride*] [5], Appendix D, as used in Han's ["The Other Ride of Paul Revere"] [13] (`whigs`).
 
 [1]: https://archive.org/details/evolutionofmoder00hobsuoft
@@ -61,6 +61,6 @@ The folder `data` contains .rda (R data) files for the affiliation networks asso
 
 ## Vignette
 
-[This vignette] [11] outlines an analysis of `davis.clique` and `davis.group` using the censuses, some clustering coefficients, and other tools.
+The vignette [`southern_women`] [11] outlines an analysis of `women.clique` and `women.group` using the censuses, some clustering coefficients, and other tools.
 
 [11]: https://github.com/corybrunson/bitriad/blob/master/vignettes/southern_women.md

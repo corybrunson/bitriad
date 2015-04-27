@@ -2,7 +2,7 @@
 % Please edit documentation in R/indequ.wedges.R
 \name{indequ.wedges}
 \alias{indequ.wedges}
-\title{Wedges}
+\title{Affiliation network wedges}
 \usage{
 indequ.wedges(bigraph, Q)
 }

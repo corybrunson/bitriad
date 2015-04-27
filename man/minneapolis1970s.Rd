@@ -2,16 +2,15 @@
 % Please edit documentation in R/data.R
 \name{minneapolis1970s}
 \alias{minneapolis1970s}
-\title{Interlocks among corporate philanthropists.}
-\format{An undirected igraph object with nodes of logical attribute `type`;
-directors correspond to nodes of type `FALSE`, companies to nodes of type
-`TRUE`.}
+\title{Interlocks among corporate philanthropists in Minneapolis-St. Paul.}
+\format{An affiliation network; see `is.an`.}
 \source{
 Wasserman & Faust (1994) *Social Network Analysis*
 \url{http://books.google.com/books?id=CAm2DpIqRUIC}
 }
 \description{
-An affiliation network of 26 directors of 15 companies, taken as a subset
-from a larger dataset.
+These data record the memberships of 26 directors on the boards of 15
+companies. They are a subset of a larger dataset that is not publicly
+available.
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/partitionSubset.R
 \name{partitionSubset}
 \alias{partitionSubset}
-\title{Combinatorial bijections for affiliation network triad labeling}
+\title{Combinatorial bijections for affiliation network triad indexing}
 \usage{
 partitionSubset(lambda)
 }
@@ -11,7 +11,7 @@ partitionSubset(lambda)
 }
 \description{
 These functions biject among partitions of at most 3 parts, 3-subsets of
-natural numbers, and indices for the lexicographic total orders on both.
+natural numbers, and indices for the lexicographic total orders on them.
 }
 \examples{
 partitionSubset(c(1, 1, 0))

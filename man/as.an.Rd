@@ -7,9 +7,19 @@
 as.an(graph)
 }
 \arguments{
-\item{graph}{A graph object}
+\item{graph}{An igraph object}
 }
 \description{
-Affiliation network
+An affiliation network is, essentially, a bipartite graph. The igraph
+function `is.bipartite` tests an igraph object for the logical vertex
+attribute `type` (if it has any vertices at all), which is intended to
+provide a bipartition of the vertices. It does not, however, test whether
+edges exist within either part of the partition. The function `is.an` tests
+this condition. To simplify some functions, affiliation networks, as defined
+here, must also have their vertices indexed in order of part; all actor
+vertices must precede all event vertices. The function `is.an` tests also for
+this condition. The coersive function `as.an` imposes, by a minimal
+permutation of vertex labels, provided the `igraph` object is bipartite to
+begin with.
 }
 

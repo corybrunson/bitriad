@@ -1,4 +1,4 @@
-#' Dynamic triadic closure
+#' Dynamic triadic closure of an affiliation network
 #'
 #' Given an affiliation network with time-stamped events, compute the proportion
 #' of centered triples at which an open wedge exists at some time that is
@@ -7,11 +7,18 @@
 #' @param memory Numeric; a duration of time after which events are forgotten
 #' @param type Character; whether to compute the global or local statistic, or
 #' to return a 2-column matrix of wedge counts (defaults to `global`)
-#' @param count.closures Logical; whether to count each closure of a wedge once
-#' (FALSE) or as many times as the wedge is closed (TRUE)
+#' @examples
+#' data(women.group)
+#' dyn.transitivity.an(women.group)
+#' cbind(
+#'     transitivity(actor.projection(women.group), type = 'local'),
+#'     opsahl.transitivity(women.group, type = 'local'),
+#'     excl.transitivity(women.group, type = 'local'),
+#'     dyn.transitivity.an(women.group, type = 'local')
+#' )
 
-dyn.transitivity.bigraph <-
-    function(graph, memory = Inf, type = 'global', count.closures = FALSE) {
+dyn.transitivity.an <-
+    function(graph, memory = Inf, type = "global") {
 
         if(vcount(graph) == 0) {
             # Empty resulting data frame
@@ -121,7 +128,7 @@ dyn.transitivity.bigraph <-
             wedges <- as.matrix(unname(aggregate(
                 wedges[, 4],
                 by = list(wedges[, 1], wedges[, 2], wedges[, 3]),
-                FUN = if(count.closures) sum else max
+                FUN = max  # use `sum` to count closures
             )))
 
         }

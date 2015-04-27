@@ -2,10 +2,8 @@
 % Please edit documentation in R/data.R
 \name{chicago1960s}
 \alias{chicago1960s}
-\title{Corporate and social club interlocks among directors.}
-\format{An undirected igraph object with nodes of logical attribute `type`;
-directors correspond to nodes of type `FALSE`, organizations to nodes of type
-`TRUE`.}
+\title{Corporate interlocks among directors in Chicago.}
+\format{An affiliation network; see `is.an`.}
 \source{
 Barnes & Burkett (2010) "Structural Redundancy and Multiplicity in
 Corporate Networks", *Connections* **30**(2), p. 4-20.

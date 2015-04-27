@@ -6,7 +6,7 @@
 #' igraph::triad.census, from which in small cases a simple triad census can be
 #' recovered through strategic coordinate sums, returns nonsense frequencies for
 #' many large graphs.
-#' @param graph A one-mode network
+#' @param graph An igraph object.
 #' @export
 
 simple.triad.census <-

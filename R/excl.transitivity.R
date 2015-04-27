@@ -13,12 +13,13 @@
 #' clustering coefficient.
 #' @export
 #' @examples
-#' data(davis.group)
-#' excl.transitivity(davis.group)
+#' data(women.group)
+#' excl.transitivity(women.group)
 #' cbind(
-#'     transitivity(actor.projection(davis.group), type = 'local'),
-#'     opsahl.transitivity(davis.group, type = 'local'),
-#'     excl.transitivity(davis.group, type = 'local')
+#'     watts.strogatz.transitivity(actor.projection(women.group),
+#'                                 type = "local"),
+#'     opsahl.transitivity(women.group, type = "local"),
+#'     excl.transitivity(women.group, type = "local")
 #' )
 
 excl.transitivity <-
@@ -28,5 +29,5 @@ excl.transitivity <-
     ) {
         transitivity.an(
             bigraph = bigraph, type = type, stat = stat,
-            wedge.fun = indstr.wedges, vids = vids)
+            wedgeFun = indstr.wedges, vids = vids)
     }

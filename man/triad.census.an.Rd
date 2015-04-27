@@ -17,9 +17,9 @@ triad.census.an(bigraph, add.names = FALSE, verbose = FALSE)
 This function computes the full triad census for an affiliation network.
 }
 \examples{
-data(davis.clique)
-tc <- triad.census.an(davis.clique, add.names = TRUE)
+data(women.clique)
+tc <- triad.census.an(women.clique, add.names = TRUE)
 tc
-sum(tc) == choose(vcount(actor.projection(davis.clique)), 3)
+sum(tc) == choose(vcount(actor.projection(women.clique)), 3)
 }
 

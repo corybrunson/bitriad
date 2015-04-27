@@ -2,7 +2,7 @@
 % Please edit documentation in R/injstr.wedges.R
 \name{injstr.wedges}
 \alias{injstr.wedges}
-\title{Wedges (injective morphisms modulo structural equivalence)}
+\title{Affiliation network wedges (injective morphisms modulo structural equivalence)}
 \usage{
 injstr.wedges(bigraph, Q)
 }

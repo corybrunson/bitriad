@@ -7,16 +7,21 @@
 project.census(census, scheme = NULL, add.names = FALSE)
 }
 \arguments{
-\item{census}{Numeric; the input triad census. It is classified as
-"uniformity", "structural", or "simple" if its dimensons are 8-by-2, 4-by-2,
-or 4-by-1, respectively, or unless otherwise specified; otherwise it is
-classified as "full".}
+\item{census}{Numeric matrix or vector; the input triad census. It is
+classified as "uniformity", "structural", or "simple" if its dimensons are
+8-by-2, 4-by-2, or 4-by-1, respectively, or unless otherwise specified;
+otherwise it is classified as "full".}
 
 \item{scheme}{Character; the type of census (to be matched to "full",
-"uniformity", "structural", or "simple")}
+"uniformity", "structural", or "simple").}
+
+\item{add.names}{Logical; whether to label the rows and (where applicable)
+columns of the projected censuses.}
 }
 \description{
-This function inputes a triad census of any scheme and returns a list of
-triad censuses projected from it (not icluding itself).
+This function inputes an affiliation network triad census of any scheme and
+returns a list of triad censuses projected from it (not icluding itself). In
+order of projectability, the census schemes are full (affiliation network),
+uniformity, structural, and simple.
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/connectedTriples.R
 \name{connectedTriples}
 \alias{connectedTriples}
-\title{Triad tallies}
+\title{Tally and classify triads in an affiliation network}
 \usage{
 connectedTriples(bigraph, graph = actor.projection(bigraph, name = "id"))
 }

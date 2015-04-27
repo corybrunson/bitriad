@@ -1,19 +1,19 @@
-#' Projection onto events of an affiliation network
+#' Project an affiliation network onto its events
 #'
-#' This function uses the igraph function bipartite.projection to compute the
+#' This function uses the igraph function `bipartite.projection` to compute the
 #' projection of an affiliation network onto the event nodes.
-#' @param bigraph The ambient affiliation network
+#' @param bigraph An affiliation network; see `is.an`.
 #' @param name What attribute of the event nodes in bigraph to name the nodes
-#' in the projection (defaults to 'name')
+#' in the projection (defaults to "name")
 #' @export
 #' @examples
-#' data(inner.circle)
-#' tab <- table(V(inner.circle)$type)
-#' proj <- event.projection(inner.circle)
+#' data(southafrica1905)
+#' tab <- table(V(southafrica1905)$type)
+#' proj <- event.projection(southafrica1905)
 #' vcount(proj) == tab[2]
 
 event.projection <-
-function(bigraph, name = 'name') {
+function(bigraph, name = "name") {
     if(vcount(bigraph) == 0) return(graph.empty())
     if(name == 'id') V(bigraph)$name <- V(bigraph)
     bipartite.projection(bigraph, multiplicity = TRUE)[[2]]

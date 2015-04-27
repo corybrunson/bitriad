@@ -2,19 +2,19 @@
 % Please edit documentation in R/actor.count.R
 \name{actor.count}
 \alias{actor.count}
-\title{Number of actors in an affiliation network}
+\title{Count the actors in an affiliation network}
 \usage{
 actor.count(bigraph)
 }
 \arguments{
-\item{bigraph}{The ambient affiliation network}
+\item{bigraph}{An affiliation network; see `is.an`.}
 }
 \description{
 This function returns the number of actors (nodes of type FALSE) in an
 affiliation network.
 }
 \examples{
-data(inner.circle)
-actor.count(inner.circle)
+data(southafrica1905)
+actor.count(southafrica1905)
 }
 

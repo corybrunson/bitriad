@@ -1,6 +1,9 @@
-#' Affiliation network
+#' Test and coerce affiliation network conditions
 #' 
-#' @param graph A graph object
+#' These functions test for or, when possible, impose the properties used in
+#' bitriad to distinguish affiliation networks from the very general igraph
+#' class.
+#' @param graph An igraph object
 #' @export
 
 is.an <-

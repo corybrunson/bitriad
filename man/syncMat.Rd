@@ -7,11 +7,11 @@
 syncMat(lst)
 }
 \arguments{
-\item{lst}{A list of matrices}
+\item{lst}{A list of matrices.}
 }
 \description{
-Given a list of matrices, extend them all by the necessary zero rows to have
-dimension the greatest number of rows by the greatest number of columns among
-them.
+This function extends each member of a list of matrices, extend them all by
+the necessary zero rows and columns to have dimension the greatest number of
+rows by the greatest number of columns among them.
 }
 

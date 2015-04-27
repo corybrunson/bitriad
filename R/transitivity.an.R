@@ -1,34 +1,35 @@
 #' Affiliation network clustering coefficients
 #' 
-#' This function takes an affiliation network and a "flavor" of transitivity
-#' (triadic closure) to compute thereon. The calculations are performed locally
-#' and can be returned in either of three formats: global (a single statistic),
-#' local (a vector of values labeled by actor names), and raw. Each flavor is
-#' defined as a proportion of "wedges" that are "closed", for suitable
-#' definitions of both terms. The raw format returns a 2-column matrix, each row
-#' of which gives the number of wedges and the number of closed wedges centered
-#' at an actor. The function `transitivity.an` is a shell that proceeds across
-#' actors and computes wedges using the provided `wedge.fun`.
-#' @param bigraph An affiliation network.
+#' This function computes a given flavor of transitivity (triadic closure) on a
+#' given affiliation network. The calculations are performed locally and can be
+#' returned in either of three formats: global (a single statistic), local (a
+#' vector of values labeled by actor names), and raw. Each flavor is defined as
+#' a proportion of "wedges" that are "closed", for suitable definitions of both
+#' terms. The raw format is a 2-column matrix, each row of which gives the
+#' number of wedges and the number of closed wedges centered at an actor. The
+#' function `transitivity.an` is a shell that proceeds across actors and
+#' computes wedges using the provided `wedgeFun` (which characterizes the
+#' flavor).
+#' @param bigraph An affiliation network; see `is.an`.
 #' @param type Character; the type of clustering coefficient (defaults to
 #' "global").
 #' @param stat Character; the form of the statistic (matched to "clustering" or
 #' "transitivity"; defaults to "clust").
-#' @param wedge.fun The wedge function (see the entry on `wedges`)
+#' @param wedgeFun The wedge function (see `wedges`)
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient
 #' @param add.names Logical; whether to label the matrix rows and columns
 #' @export
 #' @examples
-#' data(davis.clique)
+#' data(women.clique)
 #' sapply(c(injequ.wedges, injstr.wedges, indstr.wedges),
-#'          transitivity.an, bigraph = davis.clique, type = "local")
+#'          transitivity.an, bigraph = women.clique, type = "local")
 
 transitivity.an <-
     function(
         bigraph,
         type = "global", stat = "clust",
-        wedge.fun = injequ.wedges,
+        wedgeFun = injequ.wedges,
         vids = which(!V(bigraph)$type), add.names = FALSE
     ) {
         if(vcount(bigraph) == 0) {
@@ -45,7 +46,7 @@ transitivity.an <-
         # Array of 4-paths centered at each Q in Qs
         wedges <- matrix(unlist(lapply(Qs, function(Q) {
             # Return wedge and closed wedge counts at Q
-            wedge.fun(bigraph, Q)
+            wedgeFun(bigraph, Q)
         })), nr = 2)
         if(type == 'global') {
             C <- sum(wedges[2, ]) / sum(wedges[1, ])

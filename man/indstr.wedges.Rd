@@ -2,7 +2,7 @@
 % Please edit documentation in R/indstr.wedges.R
 \name{indstr.wedges}
 \alias{indstr.wedges}
-\title{Wedges}
+\title{Affiliation network wedges}
 \usage{
 indstr.wedges(bigraph, Q)
 }

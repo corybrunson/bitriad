@@ -4,14 +4,12 @@
 \alias{shareWeight}
 \title{Schedule}
 \usage{
-shareWeight(bigraph, vids, name = "name")
+shareWeight(bigraph, vids)
 }
 \arguments{
 \item{bigraph}{The ambient affiliation network}
 
-\item{vids}{Vertex ids, the event count among which is being considered}
-
-\item{v}{A subset of actor node ids.}
+\item{vids}{Vertex ids, the event count among which is being considered.}
 }
 \description{
 The schedule of a subset of actor nodes in an affiliation network is the

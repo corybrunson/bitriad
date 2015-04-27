@@ -3,14 +3,13 @@
 \name{whigs}
 \alias{whigs}
 \title{Membership network of American Whigs.}
-\format{An undirected igraph object with nodes of logical attribute `type`;
-members correspond to nodes of type `FALSE`, organizations to nodes of type
-`TRUE`.}
+\format{An affiliation network; see `is.an`.}
 \source{
 Fischer (1994) *Paul Revere's Ride*
 \url{https://github.com/kjhealy/revere}
 }
 \description{
-An affiliation network of 136 members of 5 American Whig organizations.
+These data record the membership of 136 colonial Americans in 5 Whig
+organizations.
 }
 

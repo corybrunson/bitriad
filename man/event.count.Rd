@@ -2,19 +2,19 @@
 % Please edit documentation in R/event.count.R
 \name{event.count}
 \alias{event.count}
-\title{Number of events in an affiliation network}
+\title{Count the events in an affiliation network}
 \usage{
 event.count(bigraph)
 }
 \arguments{
-\item{bigraph}{The ambient affiliation network}
+\item{bigraph}{An affiliation network; see `is.an`.}
 }
 \description{
 This function returns the number of events (nodes of type TRUE) in an
 affiliation network.
 }
 \examples{
-data(inner.circle)
-event.count(inner.circle)
+data(southafrica1905)
+event.count(southafrica1905)
 }
 

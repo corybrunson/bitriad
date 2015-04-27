@@ -2,16 +2,16 @@
 % Please edit documentation in R/indexPartition.R
 \name{indexPartition}
 \alias{indexPartition}
-\title{Combinatorial bijections for affiliation network triad labeling}
+\title{Combinatorial bijections for affiliation network triad indexing}
 \usage{
 indexPartition(i)
 }
 \arguments{
-\item{i}{An index under the total order. Starts at 0.}
+\item{i}{An index in the total order; starts at 0.}
 }
 \description{
 These functions biject among partitions of at most 3 parts, 3-subsets of
-natural numbers, and indices for the lexicographic total orders on both.
+natural numbers, and indices for the lexicographic total orders on them.
 }
 \examples{
 indexPartition(2)

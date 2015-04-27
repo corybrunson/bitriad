@@ -1,14 +1,14 @@
-#' Dual of an affiliation network
+#' Take the dual of an affiliation network
 #'
-#' This function swaps the TRUE and FALSE values of the `type` attribute,
-#' which in `bitriad` has the effect of taking the dual of the affiliation
-#' network (swapping the roles of actors and events).
-#' @param bigraph The ambient affiliation network
+#' This function negates the logical values of the vertex `type` attribute and
+#' reorders the vertex ids accordingly, effectively obtaining the dual
+#' affiliation network.
+#' @param bigraph An affiliation network; see `is.an`.
 #' @export
 #' @examples
-#' data(inner.circle)
-#' tab <- table(V(inner.circle)$type)
-#' proj <- actor.projection(dual.an(inner.circle))
+#' data(southafrica1905)
+#' tab <- table(V(southafrica1905)$type)
+#' proj <- actor.projection(dual.an(southafrica1905))
 #' vcount(proj) == tab[2]
 
 dual.an <-

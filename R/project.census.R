@@ -1,13 +1,17 @@
 #' Project a triad census
 #' 
-#' This function inputes a triad census of any scheme and returns a list of
-#' triad censuses projected from it (not icluding itself).
-#' @param census Numeric; the input triad census. It is classified as
-#' "uniformity", "structural", or "simple" if its dimensons are 8-by-2, 4-by-2,
-#' or 4-by-1, respectively, or unless otherwise specified; otherwise it is
-#' classified as "full".
+#' This function inputes an affiliation network triad census of any scheme and
+#' returns a list of triad censuses projected from it (not icluding itself). In
+#' order of projectability, the census schemes are full (affiliation network),
+#' uniformity, structural, and simple.
+#' @param census Numeric matrix or vector; the input triad census. It is
+#' classified as "uniformity", "structural", or "simple" if its dimensons are
+#' 8-by-2, 4-by-2, or 4-by-1, respectively, or unless otherwise specified;
+#' otherwise it is classified as "full".
 #' @param scheme Character; the type of census (to be matched to "full",
-#' "uniformity", "structural", or "simple")
+#' "uniformity", "structural", or "simple").
+#' @param add.names Logical; whether to label the rows and (where applicable)
+#' columns of the projected censuses.
 #' @export
 
 project.census <-
