@@ -4,16 +4,12 @@
 \alias{excl.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-excl.transitivity(bigraph, type = "global", stat = "clust",
-  vids = which(!V(bigraph)$type))
+excl.transitivity(bigraph, type = "global", vids = which(!V(bigraph)$type))
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
 
 \item{type}{The type of clustering coefficient (defaults to 'global')}
-
-\item{stat}{Whether to compute a `clustering coefficient` or a `transitivity
-ratio`; defaults to 'coeff'}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient.}
@@ -29,7 +25,7 @@ and if the local, then at the given nodes.
 data(women.group)
 excl.transitivity(women.group)
 cbind(
-    watts.strogatz.transitivity(women.group, type = "local"),
+    project.transitivity(women.group, type = "local"),
     opsahl.transitivity(women.group, type = "local"),
     excl.transitivity(women.group, type = "local")
 )

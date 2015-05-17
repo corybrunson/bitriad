@@ -13,8 +13,6 @@
 #' @param bigraph An affiliation network; see `is.an`.
 #' @param type Character; the type of clustering coefficient (defaults to
 #' "global").
-#' @param stat Character; the form of the statistic (matched to "clustering" or
-#' "transitivity"; defaults to "clust").
 #' @param wedgeFun The wedge function (see `wedges`)
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient
@@ -28,7 +26,7 @@
 transitivity.an <-
     function(
         bigraph,
-        type = "global", stat = "clust",
+        type = "global",
         wedgeFun = injequ.wedges,
         vids = which(!V(bigraph)$type), add.names = FALSE
     ) {
@@ -49,13 +47,7 @@ transitivity.an <-
             wedgeFun(bigraph, Q)
         })), nr = 2)
         if(type == 'global') {
-            C <- sum(wedges[2, ]) / sum(wedges[1, ])
-            stat <- match.arg(stat, c("clustering", "transitivity"))
-            if(stat == "clustering") {
-                return(C)
-            } else {
-                return(C / (3 - 2 * C))
-            }
+            return(sum(wedges[2, ]) / sum(wedges[1, ]))
         }
         if(type == 'local') return(wedges[2, ] / wedges[1, ])
         wedges <- t(wedges)

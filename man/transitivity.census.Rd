@@ -5,7 +5,7 @@
 \title{Global transitivity from a triad census}
 \usage{
 transitivity.census(census, flavor, scheme = NULL, openFun, closedFun,
-  stat = "clust", counts = FALSE)
+  counts = FALSE)
 }
 \arguments{
 \item{census}{Numeric matrix; the input triad census. It is classified as
@@ -26,11 +26,8 @@ classified as "full".}
 \item{closedFun}{The closed wedge count for a triad (ignored if `flavor` is
 not `NULL`).}
 
-\item{stat}{Character; the form of the statistic (matched to "clustering" or
-"transitivity"; defaults to "clust"; ignored if `counts` is `TRUE`).}
-
 \item{counts}{Logical; whether to return open and closed wedge counts instead
-of a ratio statistic (if `TRUE`, overrides `stat`; defaults to `FALSE`).}
+of a ratio statistic (defaults to `FALSE`).}
 }
 \description{
 Each global clustering coefficient can be recovered from the full triad

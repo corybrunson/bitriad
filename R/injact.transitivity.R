@@ -7,18 +7,16 @@
 #' and if the local, then at the given nodes.
 #' @param bigraph An affiliation network.
 #' @param type The type of clustering coefficient (defaults to 'global')
-#' @param stat Whether to compute a `clustering coefficient` or a `transitivity
-#' ratio`; defaults to 'coeff'
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient.
 #' @export
 
 injact.transitivity <-
 function(
-        bigraph, type = 'global', stat = "clust",
+        bigraph, type = "global",
         vids = which(!V(bigraph)$type)
     ) {
         transitivity.an(
-            bigraph = bigraph, type = type, stat = stat,
+            bigraph = bigraph, type = type,
             wedgeFun = injact.wedges, vids = vids)
     }

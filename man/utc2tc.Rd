@@ -10,6 +10,6 @@ utc2tc(tc)
 \item{tc}{A uniformity triad census (not necessarily labeled)}
 }
 \description{
-Uniformity triad census to simple triad census
+TO BE DELETED
 }
 

@@ -1,5 +1,6 @@
 #' Full triad census to structural triad census
 #' 
+#' TO BE DELETED
 #' @param tc A full triad census (not necessarily labeled)
 
 ftc2stc <-

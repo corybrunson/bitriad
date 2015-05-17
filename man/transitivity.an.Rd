@@ -4,18 +4,14 @@
 \alias{transitivity.an}
 \title{Affiliation network clustering coefficients}
 \usage{
-transitivity.an(bigraph, type = "global", stat = "clust",
-  wedgeFun = injequ.wedges, vids = which(!V(bigraph)$type),
-  add.names = FALSE)
+transitivity.an(bigraph, type = "global", wedgeFun = injequ.wedges,
+  vids = which(!V(bigraph)$type), add.names = FALSE)
 }
 \arguments{
 \item{bigraph}{An affiliation network; see `is.an`.}
 
 \item{type}{Character; the type of clustering coefficient (defaults to
 "global").}
-
-\item{stat}{Character; the form of the statistic (matched to "clustering" or
-"transitivity"; defaults to "clust").}
 
 \item{wedgeFun}{The wedge function (see `wedges`)}
 

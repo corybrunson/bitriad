@@ -17,16 +17,13 @@
 #' `NULL`).
 #' @param closedFun The closed wedge count for a triad (ignored if `flavor` is
 #' not `NULL`).
-#' @param stat Character; the form of the statistic (matched to "clustering" or
-#' "transitivity"; defaults to "clust"; ignored if `counts` is `TRUE`).
 #' @param counts Logical; whether to return open and closed wedge counts instead
-#' of a ratio statistic (if `TRUE`, overrides `stat`; defaults to `FALSE`).
+#' of a ratio statistic (defaults to `FALSE`).
 #' @export
 
 transitivity.census <-
     function(
-        census, flavor, scheme = NULL, openFun, closedFun,
-        stat = "clust", counts = FALSE
+        census, flavor, scheme = NULL, openFun, closedFun, counts = FALSE
     ) {
         # Put into matrix form (single column if vector)
         census <- as.matrix(census)
@@ -57,13 +54,6 @@ transitivity.census <-
         if(flavor %in% c("watts.strogatz", "classical")) flavor <- "allact"
         if(flavor == "opsahl") flavor <- "injequ"
         if(flavor == "exclusive") flavor <- "indstr"
-        # Decide what statistic is desired
-        stat <- match.arg(stat, c("clustering", "transitivity"))
-        # Throw error if transitivity ratio is not meaningful
-        if(!(flavor == "indstr" | substr(flavor, 4, 6) == "act") &
-               stat == "transitivity") {
-            stop("Statistic is not meaningful for transitivity flavor")
-        }
         # Simple census can only return classical (Watts-Strogatz) transitivity
         if(scheme == "simple") {
             if(flavor == "allact") {
@@ -103,12 +93,10 @@ transitivity.census <-
                 wedgeCt <- ftcFun(census)
             }
         }
-        # Return counts or statistic as desired
+        # Return counts or clustering coefficient
         if(counts) {
             wedgeCt
-        } else if(stat == "clustering") {
-            unname(wedgeCt[2] / (wedgeCt[1] + wedgeCt[2]))
         } else {
-            unname(wedgeCt[2] / (3 * wedgeCt[1] + wedgeCt[2]))
+            unname(wedgeCt[2] / (wedgeCt[1] + wedgeCt[2]))
         }
     }

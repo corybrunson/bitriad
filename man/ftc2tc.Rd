@@ -10,6 +10,6 @@ ftc2tc(tc)
 \item{tc}{A full triad census (not necessarily labeled)}
 }
 \description{
-Full triad census to simple triad census
+TO BE DELETED
 }
 

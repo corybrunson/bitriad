@@ -10,6 +10,6 @@ ftc2utc(tc)
 \item{tc}{A full two-mode triad census (not necessarily labeled)}
 }
 \description{
-Full triad census to uniformity triad census
+TO BE DELETED
 }
 

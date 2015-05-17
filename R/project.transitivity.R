@@ -4,7 +4,7 @@
 #' are "closed", for suitable definitions of both terms. The main function,
 #' transitivity.an, calls one of the wedge functions and computes the
 #' global or local clustering coefficient of the given affiliation network,
-#' and if the local, then at the given nodes. (`watts.strogatz.transitivity`
+#' and if the local, then at the given nodes. (`project.transitivity`
 #' cheats by using the native `transitivity` but produces output consistent
 #' with the other variants of `transitivity.an`.)
 #' @param bigraph An affiliation network.
@@ -15,7 +15,7 @@
 #' clustering coefficient.
 #' @export
 
-watts.strogatz.transitivity <-
+project.transitivity <-
     function(
         bigraph, type = "global", stat = "clust",
         vids = which(!V(bigraph)$type)
