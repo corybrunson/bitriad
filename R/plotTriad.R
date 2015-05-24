@@ -12,7 +12,7 @@
 #' @param rot.w An orientation parameter specifically for inclusive events
 #' @export
 
-plot.triad <-
+plotTriad <-
     function(
         lambda, w, layout, scale = 0.3, cex = 1, angdir = -1,
         rot = -pi/2, rot.lambda = c(0, 0, 0), rot.w = pi/12,
