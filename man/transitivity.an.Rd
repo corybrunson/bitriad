@@ -8,29 +8,32 @@ transitivity.an(bigraph, type = "global", wedgeFun = injequ.wedges,
   vids = which(!V(bigraph)$type), add.names = FALSE)
 }
 \arguments{
-\item{bigraph}{An affiliation network; see `is.an`.}
+\item{bigraph}{An affiliation network; see \code{is.an}.}
 
 \item{type}{Character; the type of clustering coefficient (defaults to
 "global").}
 
-\item{wedgeFun}{The wedge function (see `wedges`)}
+\item{wedgeFun}{The wedge function.}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
-clustering coefficient}
+clustering coefficient.}
 
-\item{add.names}{Logical; whether to label the matrix rows and columns}
+\item{add.names}{Logical; whether to label the matrix rows and columns.}
+}
+\value{
+If \code{type} is "global", the global clustering coefficient of the
+network; if "local", the local clustering coefficients of the actors;
+otherwise, a 2-column matrix, each row of which gives the number of wedges
+and the number of closed wedges centered at each actor.
 }
 \description{
 This function computes a given flavor of transitivity (triadic closure) on a
-given affiliation network. The calculations are performed locally and can be
-returned in either of three formats: global (a single statistic), local (a
-vector of values labeled by actor names), and raw. Each flavor is defined as
-a proportion of "wedges" that are "closed", for suitable definitions of both
-terms. The raw format is a 2-column matrix, each row of which gives the
-number of wedges and the number of closed wedges centered at an actor. The
-function `transitivity.an` is a shell that proceeds across actors and
-computes wedges using the provided `wedgeFun` (which characterizes the
-flavor).
+given affiliation network. The calculations are performed locally. Each
+flavor is defined as a proportion of "wedges" that are "closed", for suitable
+definitions of both terms. The function `transitivity.an` is a shell that
+proceeds across actors and computes wedges using the provided `wedgeFun`.
+These functions count the "wedges", and among them the "closed" ones,
+centered at a given actor node in a given affiliation network.
 }
 \examples{
 data(women.clique)

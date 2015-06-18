@@ -4,16 +4,13 @@
 \alias{project.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-project.transitivity(bigraph, type = "global", stat = "clust",
+project.transitivity(bigraph, type = "global",
   vids = which(!V(bigraph)$type))
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
 
 \item{type}{The type of clustering coefficient (defaults to "global")}
-
-\item{stat}{Whether to compute a clustering coefficient or a transitivity
-ratio; defaults to "coeff"}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient.}

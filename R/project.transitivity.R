@@ -9,15 +9,13 @@
 #' with the other variants of `transitivity.an`.)
 #' @param bigraph An affiliation network.
 #' @param type The type of clustering coefficient (defaults to "global")
-#' @param stat Whether to compute a clustering coefficient or a transitivity
-#' ratio; defaults to "coeff"
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient.
 #' @export
 
 project.transitivity <-
     function(
-        bigraph, type = "global", stat = "clust",
+        bigraph, type = "global",
         vids = which(!V(bigraph)$type)
     ) {
         if(vcount(bigraph) == 0) {
@@ -32,15 +30,11 @@ project.transitivity <-
         proj.vids <- which(which(!V(bigraph)$type) %in% vids)
         stopifnot(length(proj.vids) == length(vids))
         if(type == 'global') {
-            C <- transitivity(graph, type = 'global')
-            if(substr(stat, 1, 5) %in% c('clust', 'coeff')) return(C)
-            if(substr(stat, 1, 5) %in% c('trans', 'ratio'))
-                return(C / (3 - 2 * C))
+            return(transitivity(graph, type = 'global'))
         }
         C <- transitivity(graph, type = 'local', vids = proj.vids)
         if(type == 'local') return(C)
         C[is.na(C)] <- 0
         W <- choose(degree(graph)[proj.vids], 2)
         unname(cbind(W, W * C))
-        #data.frame(Wedges = W, Closed = W * C)
     }
