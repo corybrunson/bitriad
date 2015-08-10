@@ -3,7 +3,7 @@
 \name{women.clique}
 \alias{women.clique}
 \title{Clique of women connected by event coattendance in Old City.}
-\format{An affiliation network; see `is.an`.}
+\format{An affiliation network; see \code{\link{is.an}}.}
 \source{
 Davis, Gardner, and Gardner (1941) *Deep South: A Social
 Anthropological Study of Caste and Class*

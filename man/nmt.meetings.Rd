@@ -3,7 +3,7 @@
 \name{nmt.meetings}
 \alias{nmt.meetings}
 \title{Noordin Top meeting attendance network.}
-\format{An affiliation network; see `is.an`.}
+\format{An affiliation network; see \code{\link{is.an}}.}
 \source{
 The Association of Religious Data Archives
 \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}

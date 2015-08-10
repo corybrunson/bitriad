@@ -3,7 +3,7 @@
 \name{chicago1960s}
 \alias{chicago1960s}
 \title{Corporate interlocks among directors in Chicago.}
-\format{An affiliation network; see `is.an`.}
+\format{An affiliation network; see \code{\link{is.an}}.}
 \source{
 Barnes & Burkett (2010) "Structural Redundancy and Multiplicity in
 Corporate Networks", *Connections* **30**(2), p. 4-20.

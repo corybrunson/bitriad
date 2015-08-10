@@ -22,4 +22,13 @@ transitivity.an, calls one of the wedge functions and computes the
 global or local clustering coefficient of the given affiliation network,
 and if the local, then at the given nodes.
 }
+\seealso{
+Other clustering coefficients: \code{\link{excl.transitivity}};
+  \code{\link{indequ.transitivity}};
+  \code{\link{indstr.transitivity}};
+  \code{\link{injact.transitivity}};
+  \code{\link{injstr.transitivity}};
+  \code{\link{opsahl.transitivity}};
+  \code{\link{project.transitivity}}
+}
 

@@ -18,6 +18,8 @@
 #'     opsahl.transitivity(women.group, type = "local"),
 #'     excl.transitivity(women.group, type = "local")
 #' )
+#' @family clustering coefficients
+#' @seealso \code{\link{project.transitivity}}, \code{\link{opsahl.transitivity}}
 
 excl.transitivity <-
     function(

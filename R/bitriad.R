@@ -1,0 +1,43 @@
+#' bitriad: Triadic analysis of affiliation networks
+#' 
+#' The package contains two principal tools for the triadic analysis of 
+#' affiliation networks: the triad census and the clustering coefficient. The 
+#' former includes several variations; the latter involves a shell that uses any
+#' of several notions of wedge and wedge closure. Assorted additional functions,
+#' including a measure of dynamic triadic closure, are available for affiliation
+#' network manipulation.
+#' 
+#' @section Triad censuses: The function \code{\link{triad.census.an}} computes 
+#'   the full triad census for an affiliation network. The functions 
+#'   \code{\link{unif.triad.census}} and \code{\link{str.triad.census}} compute 
+#'   the more compact uniformity and structural triad censuses, respectively, 
+#'   using similar methods. The function \code{\link{simple.triad.census}} 
+#'   computes the classical (undirected) triad census for the actor projection 
+#'   of an affiliation network, using \code{\link[igraph]{triad.census}} but, 
+#'   if the result doesn't make sense (i.e. the sum of the entries is not the 
+#'   number of triples of nodes), then it instead uses its own, much slower 
+#'   method. Each of these censuses can be projected from the previous using the
+#'   function \code{\link{project.census}}.
+#'   
+#' @section Clustering coefficients: Three clustering coefficients are
+#'   implemented by name: \code{\link{project.transitivity}} calculates the
+#'   Watts-Strogatz clustering coefficient
+#'   \url{http://www.nature.com/nature/journal/v393/n6684/abs/393440a0.html} of
+#'   the actor projection; \code{\link{opsahl.transitivity}} computes the
+#'   "two-mode" clustering coefficient proposed by Opsahl
+#'   \url{http://www.sciencedirect.com/science/article/pii/S0378873311000360};
+#'   and \code{\link{excl.transitivity}} computes the exclusive clustering
+#'   coefficient proposed by the author
+#'   \cite{\link{http://arxiv.org/abs/1502.07016}}. The latter two, and several
+#'   additional clustering coefficients, are named according to the criteria by
+#'   which they define wedges and wedge closures among triples of actors
+#'   (\code{\link{injequ.transitivity}}, \code{\link{injstr.transitivity}},
+#'   \code{\link{injact.transitivity}}, \code{\link{indequ.transitivity}},
+#'   \code{\link{indstr.transitivity}}). Each of these uses the wrapper
+#'   \code{\link{transitivity.an}} with a corresponding wedge function (e.g.
+#'   \code{\link{injact.wedges}}).
+#'   
+#' @docType package
+#' @name bitriad
+NULL
+#> NULL

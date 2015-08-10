@@ -10,9 +10,10 @@
 #' @param bigraph An affiliation network; see \code{is.an}.
 #' @param type Character; the type of clustering coefficient (defaults to
 #' "global").
-#' @param wedgeFun The wedge function.
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient.
+#' @param wedgeFun The wedge function; overrides \code{flavor}.
+#' @param flavor The flavor of transitivity to be used; overridden by \code{wedgeFun}.
 #' @param add.names Logical; whether to label the matrix rows and columns.
 #' @return If \code{type} is "global", the global clustering coefficient of the
 #' network; if "local", the local clustering coefficients of the actors;
@@ -28,8 +29,10 @@ transitivity.an <-
     function(
         bigraph,
         type = "global",
-        wedgeFun = injequ.wedges,
-        vids = which(!V(bigraph)$type), add.names = FALSE
+        wedgeFun,
+        flavor,
+        vids = which(!V(bigraph)$type),
+        add.names = FALSE
     ) {
         if(vcount(bigraph) == 0) {
             if(type == "global") {
@@ -42,19 +45,24 @@ transitivity.an <-
         stopifnot(all(!V(bigraph)$type[vids]))
         # If global or both, need to look at all vertices
         Qs <- if(type == "global") which(!V(bigraph)$type) else vids
-        # Array of 4-paths centered at each Q in Qs
-        wedges <- matrix(unlist(lapply(Qs, function(Q) {
-            # Return wedge and closed wedge counts at Q
-            wedgeFun(bigraph, Q)
-        })), nr = 2)
-        if(type == "global") {
-            return(sum(wedges[2, ]) / sum(wedges[1, ]))
+        
+        if(missing(wedgeFun)) {
+            if(missing(flavor)) {
+                stop("Need a wedge function or a flavor")
+            } else {
+                wedges <- transitivity.an.triads(bigraph, Qs, flavor)
+            }
+        } else {
+            if(!missing(flavor))
+                warning("Wedge function provided; overriding flavor")
+            wedges <- transitivity.an.wedges(bigraph, Qs, wedgeFun)
         }
-        if(type == "local") return(wedges[2, ] / wedges[1, ])
-        wedges <- t(wedges)
-        if(add.names) {
-            rownames(wedges) <- V(bigraph)$name[vids]
-            colnames(wedges) <- c("Wedges", "Closed")
+        
+        # Return appropriate statistics
+        if(mode(wedges) == "list") {
+            do.call(cbind, lapply(wedges, wedgeReturn,
+                                  type = type, add.names = add.names))
+        } else {
+            wedgeReturn(wedges, type = type, add.names = add.names)
         }
-        wedges
     }

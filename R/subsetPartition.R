@@ -6,6 +6,7 @@
 #' @export
 #' @examples
 #' subsetPartition(c(3, 2, 0))
+#' @return A partition of 3 parts (possibly including 0).
 
 subsetPartition <-
     function(vec) vec - (length(vec) - 1):0

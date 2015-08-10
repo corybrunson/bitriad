@@ -7,14 +7,14 @@
 actor.projection(bigraph, name = "name")
 }
 \arguments{
-\item{bigraph}{An affiliation network; see `is.an`.}
+\item{bigraph}{An affiliation network; see \code{\link{is.an}}.}
 
-\item{name}{What attribute of the actor nodes in bigraph to name the nodes
-in the projection (defaults to "name")}
+\item{name}{What attribute of the actor nodes in bigraph to name the nodes in
+the projection (defaults to "name")}
 }
 \description{
-This function uses the igraph function `bipartite.projection` to compute the
-projection of an affiliation network onto the actor nodes.
+This function uses the igraph function \code{\link{bipartite.projection}} to
+compute the projection of an affiliation network onto the actor nodes.
 }
 \examples{
 data(southafrica1905)

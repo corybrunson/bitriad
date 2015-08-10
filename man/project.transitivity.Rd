@@ -24,4 +24,15 @@ and if the local, then at the given nodes. (`project.transitivity`
 cheats by using the native `transitivity` but produces output consistent
 with the other variants of `transitivity.an`.)
 }
+\seealso{
+\code{\link{opsahl.transitivity}}, \code{\link{opsahl.transitivity}}
+
+Other clustering coefficients: \code{\link{excl.transitivity}};
+  \code{\link{indequ.transitivity}};
+  \code{\link{indstr.transitivity}};
+  \code{\link{injact.transitivity}};
+  \code{\link{injequ.transitivity}};
+  \code{\link{injstr.transitivity}};
+  \code{\link{opsahl.transitivity}}
+}
 

@@ -12,6 +12,8 @@
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient.
 #' @export
+#' @family clustering coefficients
+#' @seealso \code{\link{opsahl.transitivity}}, \code{\link{opsahl.transitivity}}
 
 project.transitivity <-
     function(

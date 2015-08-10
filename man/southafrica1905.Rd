@@ -3,7 +3,7 @@
 \name{southafrica1905}
 \alias{southafrica1905}
 \title{Small inner ring of South African finance.}
-\format{An affiliation network; see `is.an`.}
+\format{An affiliation network; see \code{\link{is.an}}.}
 \source{
 Hobson, John A. (1919) *The Evolution of Modern Capitalism*
 \url{https://archive.org/details/evolutionofmoder00hobsuoft}

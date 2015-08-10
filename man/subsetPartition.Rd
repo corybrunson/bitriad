@@ -9,6 +9,9 @@ subsetPartition(vec)
 \arguments{
 \item{vec}{A (decreasing) 3-subset of natural numbers (including 0).}
 }
+\value{
+A partition of 3 parts (possibly including 0).
+}
 \description{
 These functions biject among partitions of at most 3 parts, 3-subsets of
 natural numbers, and indices for the lexicographic total orders on them.

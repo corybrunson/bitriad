@@ -7,16 +7,16 @@
 #' @param memory Numeric; a duration of time after which events are forgotten.
 #' @param type Character; whether to compute the global or local statistic, or
 #' to return a 2-column matrix of wedge counts (defaults to "global").
-#' @export
 #' @examples
 #' data(women.group)
 #' dyn.transitivity.an(women.group)
 #' cbind(
-#'     transitivity(actor.projection(women.group), type = 'local'),
-#'     opsahl.transitivity(women.group, type = 'local'),
-#'     excl.transitivity(women.group, type = 'local'),
-#'     dyn.transitivity.an(women.group, type = 'local')
+#'     transitivity(actor.projection(women.group), type = "local"),
+#'     opsahl.transitivity(women.group, type = "local"),
+#'     excl.transitivity(women.group, type = "local"),
+#'     dyn.transitivity.an(women.group, type = "local")
 #' )
+#' @export
 
 dyn.transitivity.an <-
     function(graph, memory = Inf, type = "global") {
@@ -29,10 +29,10 @@ dyn.transitivity.an <-
             )
             # Tailor the output to global, local, or raw
             return(
-                if(type == 'global') {
+                if(type == "global") {
                     sum(wedges.dat$closed, na.rm = TRUE) /
                         sum(wedges.dat$wedges, na.rm = TRUE)
-                } else if(type == 'local') {
+                } else if(type == "local") {
                     wedges.dat$closed / wedges.dat$wedges
                 } else wedges.dat
             )
@@ -92,7 +92,7 @@ dyn.transitivity.an <-
             stopifnot(all(V(proj0)$name == V(proj1)$name))
 
             # Local transitivities of proj0
-            tr0 <- transitivity(proj0, type = 'local')
+            tr0 <- transitivity(proj0, type = "local")
 
             # Exclude actors with undefined or complete transitivity
             wh.tr0 <- which((!is.na(tr0)) & (tr0 != 1))
@@ -151,10 +151,10 @@ dyn.transitivity.an <-
         rownames(wedges.dat) <- actors
 
         # Tailor the output to global, local, or raw
-        if(type == 'global') {
+        if(type == "global") {
             sum(wedges.dat$closed, na.rm = TRUE) /
                 sum(wedges.dat$wedges, na.rm = TRUE)
-        } else if(type == 'local') {
+        } else if(type == "local") {
             wedges.dat$closed / wedges.dat$wedges
         } else wedges.dat
 

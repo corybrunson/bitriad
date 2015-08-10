@@ -6,6 +6,7 @@
 #' @export
 #' @examples
 #' indexSubset(2)
+#' @return A (decreasing) 3-subset of natural numbers (including 0).
 
 indexSubset <-
     function(i) {

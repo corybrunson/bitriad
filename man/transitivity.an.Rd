@@ -4,7 +4,7 @@
 \alias{transitivity.an}
 \title{Affiliation network clustering coefficients}
 \usage{
-transitivity.an(bigraph, type = "global", wedgeFun = injequ.wedges,
+transitivity.an(bigraph, type = "global", wedgeFun, flavor,
   vids = which(!V(bigraph)$type), add.names = FALSE)
 }
 \arguments{
@@ -13,7 +13,9 @@ transitivity.an(bigraph, type = "global", wedgeFun = injequ.wedges,
 \item{type}{Character; the type of clustering coefficient (defaults to
 "global").}
 
-\item{wedgeFun}{The wedge function.}
+\item{wedgeFun}{The wedge function; overrides \code{flavor}.}
+
+\item{flavor}{The flavor of transitivity to be used; overridden by \code{wedgeFun}.}
 
 \item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient.}

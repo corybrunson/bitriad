@@ -3,7 +3,7 @@
 \name{women.group}
 \alias{women.group}
 \title{Group of women connected by event coattendance in Old City.}
-\format{An affiliation network; see `is.an`. Events carry a `time` attribute
+\format{An affiliation network; see \code{\link{is.an}}. Events carry a \code{time} attribute
 equal to the number of days since the previous 31 December.}
 \source{
 Davis, Gardner, and Gardner (1941) *Deep South: A Social

@@ -17,4 +17,9 @@ are "closed", for suitable definitions of both terms. These functions count
 the "wedges", and among them the "closed" ones, centered at a given actor
 node in a given affiliation network.
 }
+\seealso{
+Other wedge functions: \code{\link{indequ.wedges}};
+  \code{\link{indstr.wedges}}; \code{\link{injact.wedges}};
+  \code{\link{injequ.wedges}}
+}
 

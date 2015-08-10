@@ -23,10 +23,10 @@ closed at a later time.
 data(women.group)
 dyn.transitivity.an(women.group)
 cbind(
-    transitivity(actor.projection(women.group), type = 'local'),
-    opsahl.transitivity(women.group, type = 'local'),
-    excl.transitivity(women.group, type = 'local'),
-    dyn.transitivity.an(women.group, type = 'local')
+    transitivity(actor.projection(women.group), type = "local"),
+    opsahl.transitivity(women.group, type = "local"),
+    excl.transitivity(women.group, type = "local"),
+    dyn.transitivity.an(women.group, type = "local")
 )
 }
 

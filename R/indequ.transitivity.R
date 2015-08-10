@@ -9,6 +9,7 @@
 #' @param type The type of clustering coefficient (defaults to 'global')
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient.
+#' @family clustering coefficients
 #' @export
 
 indequ.transitivity <-

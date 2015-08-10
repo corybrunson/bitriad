@@ -4,12 +4,15 @@
 \alias{triad.class}
 \title{Triad classification}
 \usage{
-triad.class(bigraph, v)
+triad.class(bigraph, v, sorted = TRUE)
 }
 \arguments{
 \item{bigraph}{An affiliation network}
 
 \item{v}{A subset of three actor nodes in bigraph}
+
+\item{sorted}{Whether to sort the exclusive events, versus reporting them in
+order of the nodes; defaults to TRUE}
 }
 \description{
 Given three actor nodes in an affiliation network, determine the isomorphism

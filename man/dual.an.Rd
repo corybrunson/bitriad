@@ -7,11 +7,11 @@
 dual.an(bigraph)
 }
 \arguments{
-\item{bigraph}{An affiliation network; see `is.an`.}
+\item{bigraph}{An affiliation network; see \code{\link{is.an}}.}
 }
 \description{
-This function negates the logical values of the vertex `type` attribute and
-reorders the vertex ids accordingly, effectively obtaining the dual
+This function negates the logical values of the vertex \code{type} attribute
+and reorders the vertex ids accordingly, effectively obtaining the dual
 affiliation network.
 }
 \examples{

@@ -6,6 +6,7 @@
 #' @export
 #' @examples
 #' indexPartition(2)
+#' @return A partition of 3 parts (possibly including 0).
 
 indexPartition <-
     function(i) {

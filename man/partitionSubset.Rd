@@ -7,7 +7,10 @@
 partitionSubset(lambda)
 }
 \arguments{
-\item{lambda}{A partition of at most 3 parts.}
+\item{lambda}{A partition of 3 parts (possibly including 0).}
+}
+\value{
+A (decreasing) 3-subset of natural numbers (including 0).
 }
 \description{
 These functions biject among partitions of at most 3 parts, 3-subsets of

@@ -7,7 +7,7 @@
 actor.count(bigraph)
 }
 \arguments{
-\item{bigraph}{An affiliation network; see `is.an`.}
+\item{bigraph}{An affiliation network; see \code{\link{is.an}}.}
 }
 \description{
 This function returns the number of actors (nodes of type FALSE) in an

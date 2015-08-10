@@ -6,6 +6,7 @@
 #' @export
 #' @examples
 #' subsetIndex(c(3, 2, 0))
+#' @return An index in the total order; starts at 0.
 
 subsetIndex <-
     function(vec) {

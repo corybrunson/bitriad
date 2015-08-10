@@ -3,7 +3,7 @@
 \name{whigs}
 \alias{whigs}
 \title{Membership network of American Whigs.}
-\format{An affiliation network; see `is.an`.}
+\format{An affiliation network; see \code{\link{is.an}}.}
 \source{
 Fischer (1994) *Paul Revere's Ride*
 \url{https://github.com/kjhealy/revere}

@@ -30,4 +30,15 @@ cbind(
     excl.transitivity(women.group, type = "local")
 )
 }
+\seealso{
+\code{\link{project.transitivity}}, \code{\link{opsahl.transitivity}}
+
+Other clustering coefficients: \code{\link{indequ.transitivity}};
+  \code{\link{indstr.transitivity}};
+  \code{\link{injact.transitivity}};
+  \code{\link{injequ.transitivity}};
+  \code{\link{injstr.transitivity}};
+  \code{\link{opsahl.transitivity}};
+  \code{\link{project.transitivity}}
+}
 

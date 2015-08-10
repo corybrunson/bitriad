@@ -9,6 +9,9 @@ indexSubset(i)
 \arguments{
 \item{i}{An index in the total order; starts at 0.}
 }
+\value{
+A (decreasing) 3-subset of natural numbers (including 0).
+}
 \description{
 These functions biject among partitions of at most 3 parts, 3-subsets of
 natural numbers, and indices for the lexicographic total orders on them.

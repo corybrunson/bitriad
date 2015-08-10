@@ -6,6 +6,7 @@
 #' node in a given affiliation network.
 #' @param bigraph The ambient affiliation network.
 #' @param Q An actor node in the network.
+#' @family wedge functions
 #' @export
 
 indequ.wedges <-

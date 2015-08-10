@@ -2,11 +2,11 @@
 #'
 #' This function returns the number of actors (nodes of type FALSE) in an
 #' affiliation network.
-#' @param bigraph An affiliation network; see `is.an`.
-#' @export
+#' @param bigraph An affiliation network; see \code{\link{is.an}}.
 #' @examples
 #' data(southafrica1905)
 #' actor.count(southafrica1905)
+#' @export
 
 actor.count <-
 function(bigraph) {
