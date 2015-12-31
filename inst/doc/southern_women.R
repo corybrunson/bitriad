@@ -1,4 +1,4 @@
-## ----, echo = FALSE, results = 'hide', message = FALSE, warning = FALSE----
+## ---- echo = FALSE, results = 'hide', message = FALSE, warning = FALSE----
 pkgs <- c('knitr')
 for(pkg in pkgs) library(pkg, character.only = TRUE)
 opts_knit$set(progress = FALSE)
@@ -13,11 +13,11 @@ library(bitriad)
 data(women.clique)
 get.incidence(women.clique)
 
-## ----, echo = FALSE, fig.height = 6--------------------------------------
+## ---- echo = FALSE, fig.height = 6---------------------------------------
 women.clique <- prettify.an(women.clique)
 V(women.clique)$label <- c(LETTERS[1:5], 1:5)
 V(women.clique)$label.color <- "white"
-set.seed(10)
+set.seed(13)
 plot(women.clique,
      layout = layout.fruchterman.reingold(women.clique, niter = 100))
 
@@ -77,7 +77,7 @@ C.local.dat <- cbind(
 rownames(C.local.dat) <- V(women.clique.proj)$name
 C.local.dat
 
-## ----, fig.height = 5----------------------------------------------------
+## ---- fig.height = 5-----------------------------------------------------
 ddc <- data.frame(k = degree(women.clique.proj),
                   C = transitivity(women.clique.proj, type = 'local'))
 print(ddc)
@@ -85,7 +85,7 @@ plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
      main = 'Degree-dependent local clustering',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 
-## ----, fig.height = 6----------------------------------------------------
+## ---- fig.height = 6-----------------------------------------------------
 data(women.group)
 women.group <- prettify.an(women.group)
 V(women.group)$label <- substr(V(women.group)$name, 1,
@@ -94,7 +94,7 @@ V(women.group)$label.color <- "white"
 set.seed(2)
 plot(women.group, layout = layout.bipartite(women.group))
 
-## ----, fig.height = 5----------------------------------------------------
+## ---- fig.height = 5-----------------------------------------------------
 women.group.proj <- actor.projection(women.group)
 ddc2 <- data.frame(
     k = degree(women.group.proj),
@@ -106,7 +106,7 @@ plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
      main = 'Degree-dependent local clustering',
      xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
 
-## ----, fig.height = 5----------------------------------------------------
+## ---- fig.height = 5-----------------------------------------------------
 women.group.wedges <- opsahl.transitivity(women.group, type = '')
 women.group.wedges <- cbind(
     women.group.wedges,
@@ -118,7 +118,7 @@ plot(aggregate(women.group.wedges[, 3],
      main = 'Wedge-dependent local clustering (Opsahl)',
      xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
 
-## ----, fig.height = 5----------------------------------------------------
+## ---- fig.height = 5-----------------------------------------------------
 women.group.wedges <- excl.transitivity(women.group, type = '')
 women.group.wedges <- cbind(
     women.group.wedges,

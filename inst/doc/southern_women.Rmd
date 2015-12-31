@@ -42,7 +42,7 @@ The function `prettify.an` imbues an affiliation network with attributes designe
 women.clique <- prettify.an(women.clique)
 V(women.clique)$label <- c(LETTERS[1:5], 1:5)
 V(women.clique)$label.color <- "white"
-set.seed(10)
+set.seed(13)
 plot(women.clique,
      layout = layout.fruchterman.reingold(women.clique, niter = 100))
 ```

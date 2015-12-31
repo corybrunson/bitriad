@@ -16,7 +16,7 @@ oneTiedTriads <-
             x = E(graph)$weight,
             n = vcount(graph) - as.numeric(sapply(1:ecount(graph), function(i) {
                 length(unique(unlist(neighborhood(graph, order = 1,
-                                                  get.edge(graph, i)))))
+                                                  ends(graph, i)))))
             }))
         )
         # Return the aggregated data frame
