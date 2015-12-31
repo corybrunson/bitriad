@@ -61,6 +61,4 @@ The folder `data` contains .rda (R data) files for the affiliation networks asso
 
 ## Vignette
 
-The vignette [`southern_women`] [11] outlines an analysis of `women.clique` and `women.group` using the censuses, some clustering coefficients, and other tools.
-
-[11]: https://github.com/corybrunson/bitriad/blob/master/inst/doc/southern_women.md
+The vignette `southern_women` outlines an analysis of `women.clique` and `women.group` using the censuses, some clustering coefficients, and other tools.
