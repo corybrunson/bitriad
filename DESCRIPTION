@@ -1,7 +1,7 @@
 Package: bitriad
 Type: Package
 Title: Triadic Analysis of Affiliation Networks
-Version: 0.1
+Version: 0.2
 Date: 2015-03-02
 Authors@R: person('Jason Cory', 'Brunson', email = 'jabrunso@vt.edu',
     role = c('aut', 'cre'))
@@ -12,13 +12,14 @@ Description: The package contains two principal tools for the triadic analysis
     uses any of several notions of wedge and wedge closure. Assorted additional
     functions, including a measure of dynamic triadic closure, are available for
     affiliation network manipulation.
-Depends: 
-    R (>= 3.0.1),
+Depends:
+    R (>= 3.3.1)
+Imports:
     igraph
-Imports: 
-Suggests: 
+Suggests:
     MASS,
     knitr
 License: GPL-2
 VignetteBuilder: knitr
 Classification/MSC: 05C82, 91D30
+RoxygenNote: 5.0.1

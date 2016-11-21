@@ -1,0 +1,8 @@
+## Files to ignore when building the package
+
+# alternate and test unctions
+^R-alt$
+
+# data generation
+^data-raw$
+

@@ -11,8 +11,8 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-```{r, echo = FALSE, results = 'hide', message = FALSE, warning = FALSE}
-pkgs <- c('knitr')
+```{r, echo = FALSE, results = "hide", message = FALSE, warning = FALSE}
+pkgs <- c("knitr")
 for(pkg in pkgs) library(pkg, character.only = TRUE)
 opts_knit$set(progress = FALSE)
 opts_chunk$set(
@@ -26,27 +26,28 @@ This vignette uses several tools from the `bitriad` package (which depends on [`
 
 ### Source
 
-In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), five social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural town in Mississippi. Among the data they collected were several tables of attendance at various events by groups of acquainces. Three of these are presented in the book. One, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five activities, described as bridge, dinner, movies, dance, and visiting, some subset of the women participated in each of which. The attendance records serve as the adjacency matrix for the `igraph` object `women.clique`:
+In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), five social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural town in Mississippi. Among the data they collected were several tables of attendance at various events by groups of acquainces. Three of these are presented in the book. One, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five activities, described as bridge, dinner, movies, dance, and visiting, some subset of the women participated in each of which. The attendance records serve as the adjacency matrix for the `igraph` object `women_clique`:
 
 ```{r}
+library(igraph)
 library(bitriad)
-data(women.clique)
-get.incidence(women.clique)
+data(women_clique)
+as_incidence_matrix(women_clique)
 ```
 
 To be recognized as bipartite, the object's vertices must have a logical `type` attribute. The tools of `bitriad` interpret the nodes of type `FALSE` as actors and those of type `TRUE` as events, in keeping with the convention in `igraph` of adjacency matrix rows corresponding to type-`FALSE` vertices.
 
 ### Visualization
 
-The function `prettify.an` imbues an affiliation network with attributes designed to help visually distinguish between actors and events. In particular, it scales vertex sizes with the reciprocal of the vertex count (up to 100), and it adopts shape and color conventions from the literature.
+The function `prettify_an` imbues an affiliation network with attributes designed to help visually distinguish between actors and events. In particular, it scales vertex sizes with the reciprocal of the vertex count (up to 100), and it adopts shape and color conventions from the literature.
 
 ```{r, echo = FALSE, fig.height = 6}
-women.clique <- prettify.an(women.clique)
-V(women.clique)$label <- c(LETTERS[1:5], 1:5)
-V(women.clique)$label.color <- "white"
+women_clique <- prettify_an(women_clique)
+V(women_clique)$label <- c(LETTERS[1:5], 1:5)
+V(women_clique)$label.color <- "white"
 set.seed(13)
-plot(women.clique,
-     layout = layout.fruchterman.reingold(women.clique, niter = 100))
+plot(women_clique,
+     layout = layout.fruchterman.reingold(women_clique, niter = 100))
 ```
 
 The layout reveals a symmetry between the actors and the events: Exchanging Miss A and Event 2, Miss B and Event 5, and so on yields a graph isomorphism. Thus any structural information we learn about the actors in this network can be flipped into equivalent information about the events. Such symmetry is unusual, but the *duality* between actors and events, which would allow us to use actor-centric tools in the study of events (and vice-versa, though this will not be done here), is [of central importance](http://www.rci.rutgers.edu/~pmclean/mcleanp_01_920_313_breiger_duality.pdf) to the study of affiliation networks.
@@ -56,9 +57,8 @@ The layout reveals a symmetry between the actors and the events: Exchanging Miss
 This social network is just large enough to house a diversity of triads and just small enough for us to examine them all in detail. Classically, the *triad census* refers to the distribution of triads of 16 isomorphism classes throughout a *directed, unipartite* network. The women's clique is neither, but we can view a simplified (undirected) version of the triad census on its *projection*--the network of five women with acquaintanceship ties inferred from their shared activities. There are only four isomorphism classes of undirected triads, distinguished by the number of edges (0 through 3) among the three nodes:
 
 ```{r}
-women.clique.proj <- actor.projection(women.clique)
-tc <- simple.triad.census(women.clique.proj, add.names = TRUE)
-tc
+women_clique_proj <- actor_projection(women_clique)
+(tc <- simple_triad_census(women_clique_proj, add.names = TRUE))
 ```
 
 There are no null (no edges) or disconnected (one edge) triples among the women, only three "vees" (two edges) and seven "triangles" (three edges). But these categories, especially the last, ignore higher-order structure in the original affiliation network. This structure--three actors at a time and any events from which connections among them are inferred--is the basis for the **(full) affiliation network triad census**. Given an affiliation network, this census tallies all triples of actors by the number of "inclusive" events they all three attended and the distribution among them of "exclusive" events only attended by two.[^3]
@@ -66,8 +66,7 @@ There are no null (no edges) or disconnected (one edge) triples among the women,
 [^3]: My naming convention for several functions mimics that for a hypothetical class `an` (for "affiliation network"), which may be appropriate for this package but is not currently defined.)
 
 ```{r}
-antc <- triad.census.an(women.clique, add.names = TRUE)
-antc
+(antc <- triad_census_an(women_clique, add.names = TRUE))
 ```
 
 The arrangement is not so intuitive. The rows reflect the distribution of exclusive events, and the columns indicate the number of inclusive events; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. The exclusive events thus form the (ordered) sequence (2,1,0), so the triad (A, B, C) is counted in the sixth row and first column (zero inclusive events) of the matrix. (The appropriate row is the index of (2 ≥ 1 ≥ 0) in the enumeration scheme provided by the *revolving door algorithm*.
@@ -75,16 +74,16 @@ The arrangement is not so intuitive. The rows reflect the distribution of exclus
 As networks grow, this scheme quickly becomes ridiculous. There are, however, intermediate schemes that capture valuable information that is lost to the simple census. Consider the **structural triad census**, which collapses duplicate events (relative to the triad), replacing the counts with (numeric) indicators, but still distinguishes inclusive from exclusive:
 
 ```{r}
-antc.proj <- project.census(antc, add.names = TRUE)
-antc.proj$structural
+antc_proj <- project_census(antc, add.names = TRUE)
+antc_proj$structural
 ```
 
 The column indicates the existence of an inclusive event; the row indicates the number of non-duplicate exclusive events (0, 1, 2, or 3). The simple triad census can be recovered from either of these higher-order censuses:
 
 ```{r}
 cbind(tc,
-      antc.proj$simple,
-      project.census(antc.proj$structural)$simple)
+      antc_proj$simple,
+      project_census(antc_proj$structural)$simple)
 ```
 
 ### Global clustering coefficients
@@ -92,29 +91,28 @@ cbind(tc,
 The classical (global) clustering coefficient may be defined for a traditional network as the proportion of "vees" that are "closed"--that is, whose end nodes are tied. Since every triad of three edges counts thrice as a closed vee, while every two-edged triad constitutes a single open vee, we can compute the clustering coefficient of the projection from the simple census:
 
 ```{r}
-C <- unname(3 * tc[4] / (tc[3] + 3 * tc[4]))
-C
+(C <- unname(3 * tc[4] / (tc[3] + 3 * tc[4])))
 ```
 
 The value tells us what proportion of the time two coattendees with the same third woman have themselves been to an activity together. The clustering coefficient has proven a valuable indicator of triadic closure--the tendency for shared connections to lead to direct connections, i.e. for "friends of friends" to in fact be (or become) "friends".
 
 The paper discusses in detail two alternative clustering coefficients specifically designed for affiliation networks. The first is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*, the first proposed measure of triadic closure specific to affiliation networks. (This distinction ignores previous bipartite clustering coefficients that were not based on triples of actors.) The second is dubbed the **exclusive clustering coefficient** because it depends only on the exclusive events any triad. Analogously to above, both of these diagnostics is recoverable from the triad census.[^2]
 
-[^2]: The calculations are wrapped into `transitivity.census()`, which can also handle uniformity, structural, and simple census input, provided the desired flavor of transitivity can be recovered therefrom.
+[^2]: The calculations are wrapped into `transitivity_from_census()`, which can also handle uniformity, structural, and simple census input, provided the desired flavor of transitivity can be recovered therefrom.
 
 ```{r}
-C.vec <- c(
-    C = transitivity.census(antc, scheme = "full", flavor = "classical"),
-    OpsahlC = transitivity.census(antc, scheme = "full", flavor = "opsahl"),
-    exclC = transitivity.census(antc, scheme = "full", flavor = "exclusive")
+C_vec <- c(
+    C = transitivity_from_census(antc, scheme = "full", flavor = "classical"),
+    OpsahlC = transitivity_from_census(antc, scheme = "full", flavor = "opsahl"),
+    exclC = transitivity_from_census(antc, scheme = "full", flavor = "exclusive")
 )
-C.vec
+C_vec
 ```
 
 In fact, the exclusive clustering coefficient can be calculated from the structural census, since its definition does not depend on the presence of duplicate events:
 
 ```{r}
-stc <- antc.proj$structural
+stc <- antc_proj$structural
 3 * sum(stc[4, ]) / (sum(stc[3, ]) + 3 * sum(stc[4, ]))
 ```
 
@@ -125,16 +123,15 @@ So far we have only measured triadic closure network-wide; that is, we have been
 The classical local clustering coeffiicent is the proportion of pairs of an actor's neighbors who are themselves neighbors. From the image above we can see that the only pair of women not linked through at least one event are Miss B and Miss C. This means that the only local clustering coefficients we'll observe are 5/6 (for women who count Mss. B and C among their neighobrs, i.e. everyone except Mss. B and C) and 1 (for Mss. B and C):
 
 ```{r}
-C.local <- transitivity(women.clique.proj, type = 'local')
-names(C.local) <- V(women.clique.proj)$name
-C.local
+C_local <- transitivity(women_clique_proj, type = "local")
+names(C_local) <- V(women_clique_proj)$name
+C_local
 ```
 
 Our higher-order candidates (Opsahl and exclusive) are implemented using `transitivity.an()`, a shell for the required "wedge" function that counts the open and closed wedges at a node. It is this function that determines the species of triadic closure to be calculated. Once the wedges are tallied in a 2-column matrix, `transitivity.an` computes from them whatever summary statistic is desired. For example, here are the "exclusive" wedges among the five women:
 
 ```{r}
-exclWedges <- excl.transitivity(women.clique, type = "")
-exclWedges
+(exclWedges <- excl_transitivity(women_clique, type = ""))
 ```
 
 From these, the global and local exclusive clustering coefficiencs may be recovered:
@@ -147,13 +144,13 @@ exclWedges[, 2] / exclWedges[, 1]            # local
 (Note the absence of multiplication by 3 in the global calculation; each triangle contributes 3 closed wedges to `exclWedges`.) The three local clustering coefficients provide an illustrative comparison:
 
 ```{r}
-C.local.dat <- cbind(
-    C = C.local,
-    OpsahlC = opsahl.transitivity(women.clique, type = 'local'),
-    exclC = excl.transitivity(women.clique, type = 'local')
+C_local_dat <- cbind(
+    C = C_local,
+    OpsahlC = opsahl_transitivity(women_clique, type = "local"),
+    exclC = excl_transitivity(women_clique, type = "local")
 )
-rownames(C.local.dat) <- V(women.clique.proj)$name
-C.local.dat
+rownames(C_local_dat) <- V(women_clique_proj)$name
+C_local_dat
 ```
 
 (Paraphrase the example in the paper.)
@@ -167,12 +164,12 @@ One [thoroughly documented](http://arxiv.org/abs/cond-mat/0211528) property of s
 Here's the relationship between connectivity and clusterability in Clique A:
 
 ```{r, fig.height = 5}
-ddc <- data.frame(k = degree(women.clique.proj),
-                  C = transitivity(women.clique.proj, type = 'local'))
+ddc <- data.frame(k = degree(women_clique_proj),
+                  C = transitivity(women_clique_proj, type = "local"))
 print(ddc)
-plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = 'b',
-     main = 'Degree-dependent local clustering',
-     xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
+plot(aggregate(ddc$C, by = list(ddc$k), FUN = mean), pch = 19, type = "b",
+     main = "Degree-dependent local clustering",
+     xlab = "Degree", ylab = "Mean conditional local clustering coefficient")
 ```
 
 There is little insight to be gleaned here; a more heterogeneous network is required. Though the curve at least proceeds in the expected direction. The same research team recorded another table of women and events, helpfully labeled Group I (p. 148)[^1].
@@ -182,28 +179,28 @@ There is little insight to be gleaned here; a more heterogeneous network is requ
 For this network, we'll use the bipartite layout, though some interesting structure is discernible from the Fruchterman-Reingold layout:
 
 ```{r, fig.height = 6}
-data(women.group)
-women.group <- prettify.an(women.group)
-V(women.group)$label <- substr(V(women.group)$name, 1,
-                          ifelse(V(women.group)$type, 5, 2))
-V(women.group)$label.color <- "white"
+data(women_group)
+women_group <- prettify_an(women_group)
+V(women_group)$label <- substr(V(women_group)$name, 1,
+                          ifelse(V(women_group)$type, 5, 2))
+V(women_group)$label.color <- "white"
 set.seed(2)
-plot(women.group, layout = layout.bipartite(women.group))
+plot(women_group, layout = layout_as_bipartite(women_group))
 ```
 
 As hoped, the women of Group I exhibit a range of connectivity and clusterability (in the classical sense):
 
 ```{r, fig.height = 5}
-women.group.proj <- actor.projection(women.group)
+women_group_proj <- actor_projection(women_group)
 ddc2 <- data.frame(
-    k = degree(women.group.proj),
-    C = transitivity(women.group.proj, type = 'local')
+    k = degree(women_group_proj),
+    C = transitivity(women_group_proj, type = "local")
 )
 print(ddc2)
 plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
-     pch = 19, type = 'b',
-     main = 'Degree-dependent local clustering',
-     xlab = 'Degree', ylab = 'Mean conditional local clustering coefficient')
+     pch = 19, type = "b",
+     main = "Degree-dependent local clustering",
+     xlab = "Degree", ylab = "Mean conditional local clustering coefficient")
 ```
 
 There is also clearly a trade-off between the number of a woman's acquaintances and the proportion that are also acquainted; perhaps one's capacity for acquaintanceship outpaces one's ability to make introductions and forge new acquaintanceships.
@@ -211,31 +208,31 @@ There is also clearly a trade-off between the number of a woman's acquaintances 
 This distribution can be fruitfully generalized to the two-mode setting. What's needed a suitable analog of degree--that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the `transitivity.an` function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using the Opsahl clustering coefficient:
 
 ```{r, fig.height = 5}
-women.group.wedges <- opsahl.transitivity(women.group, type = '')
-women.group.wedges <- cbind(
-    women.group.wedges,
-    women.group.wedges[, 2] / women.group.wedges[, 1]
+women_group_wedges <- opsahl_transitivity(women_group, type = "")
+women_group_wedges <- cbind(
+    women_group_wedges,
+    women_group_wedges[, 2] / women_group_wedges[, 1]
 )
-plot(aggregate(women.group.wedges[, 3],
-               by = list(women.group.wedges[, 1]), FUN = mean),
-     pch = 19, type = 'b',
-     main = 'Wedge-dependent local clustering (Opsahl)',
-     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
+plot(aggregate(women_group_wedges[, 3],
+               by = list(women_group_wedges[, 1]), FUN = mean),
+     pch = 19, type = "b",
+     main = "Wedge-dependent local clustering (Opsahl)",
+     xlab = "Wedges", ylab = "Mean conditional local clustering coefficient")
 ```
 
 This plot defies the behavior we saw in the classical case; clusterability neither grows nor declines with connectivity. Here is the equivalent relationship for exclusive clustering:
 
 ```{r, fig.height = 5}
-women.group.wedges <- excl.transitivity(women.group, type = '')
-women.group.wedges <- cbind(
-    women.group.wedges,
-    C = women.group.wedges[, 2] / women.group.wedges[, 1]
+women_group_wedges <- excl_transitivity(women_group, type = "")
+women_group_wedges <- cbind(
+    women_group_wedges,
+    C = women_group_wedges[, 2] / women_group_wedges[, 1]
 )
-plot(aggregate(women.group.wedges[, 3],
-               by = list(women.group.wedges[, 1]), FUN = mean),
-     pch = 19, type = 'b',
-     main = 'Wedge-dependent local clustering (exclusive)',
-     xlab = 'Wedges', ylab = 'Mean conditional local clustering coefficient')
+plot(aggregate(women_group_wedges[, 3],
+               by = list(women_group_wedges[, 1]), FUN = mean),
+     pch = 19, type = "b",
+     main = "Wedge-dependent local clustering (exclusive)",
+     xlab = "Wedges", ylab = "Mean conditional local clustering coefficient")
 ```
 
 This plot mimics the classical behavior. In the classical case we expect local clustering coefficients to be quite large in tight-knit networks such as those produced for sociological analysis of cliques and communities; the exclusive clustering coefficient, in contrast, takes nearly the full range of possible values, providing a more descriptive metric for dense affiliation networks like Group I.
