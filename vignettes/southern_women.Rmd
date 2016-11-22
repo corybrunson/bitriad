@@ -4,7 +4,6 @@ author: "Jason Cory Brunson"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette
-#  rmarkdown::md_document
 vignette: >
   %\VignetteIndexEntry{Triadic analysis of the southern women datasets}
   %\VignetteEngine{knitr::rmarkdown}
