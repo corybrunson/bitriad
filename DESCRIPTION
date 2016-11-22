@@ -11,7 +11,8 @@ Description: The package contains two principal tools for the triadic analysis
     The former includes several variations; the latter involves a shell that
     uses any of several notions of wedge and wedge closure. Assorted additional
     functions, including a measure of dynamic triadic closure, are available for
-    affiliation network manipulation.
+    affiliation network manipulation. The package is built on top of the igraph
+    package.
 Depends:
     R (>= 3.3.1)
 Imports:
