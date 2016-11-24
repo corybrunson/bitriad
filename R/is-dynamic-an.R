@@ -5,14 +5,9 @@
 #' 
 #' @param graph An igraph object.
 #' @export
-is_dynamic <-
+is_dynamic_an <-
   function(graph) {
-    if (!is_igraph(graph)) {
-      stop("Not a graph object")
-    }
-    if(is_bipartite(graph)) {
-      "time" %in% vertex_attr_names(graph)
-    } else {
-      "time" %in% vertex_attr_names(graph)
-    }
+    if (!is_igraph(graph)) stop("Not a graph object")
+    if (!is_an(graph)) stop("Not an affiliation network")
+    "time" %in% vertex_attr_names(graph)
   }
