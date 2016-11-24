@@ -15,11 +15,11 @@ The package is not on CRAN; it can be installed using the [devtools](http://cran
 
 ```r
 if(!require(devtools)) {
-    install.packages("devtools")
-    if(require(devtools))
-        install_github("corybrunson/bitriad")
-    else
-        stop("Fail.")
+  install.packages("devtools")
+  if(require(devtools))
+    install_github("corybrunson/bitriad")
+  else
+    stop("Fail.")
 }
 ```
 
