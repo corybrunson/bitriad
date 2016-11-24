@@ -18,8 +18,8 @@ compute the projection of an affiliation network onto the event nodes.
 }
 \examples{
 data(southafrica1905)
-tab <- table(igraph::V(southafrica1905)$type)
+tab <- table(V(southafrica1905)$type)
 proj <- event_projection(southafrica1905)
-igraph::vcount(proj) == tab[2]
+vcount(proj) == tab[2]
 }
 

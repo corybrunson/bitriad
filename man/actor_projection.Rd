@@ -18,8 +18,8 @@ compute the projection of an affiliation network onto the actor nodes.
 }
 \examples{
 data(southafrica1905)
-tab <- table(igraph::V(southafrica1905)$type)
+tab <- table(V(southafrica1905)$type)
 proj <- actor_projection(southafrica1905)
-igraph::vcount(proj) == tab[1]
+vcount(proj) == tab[1]
 }
 

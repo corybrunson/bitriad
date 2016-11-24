@@ -23,7 +23,7 @@ closed at a later time.
 data(women_group)
 dynamic_transitivity_an(women_group)
 cbind(
-    igraph::transitivity(actor_projection(women_group), type = "local"),
+    transitivity(actor_projection(women_group), type = "local"),
     opsahl_transitivity(women_group, type = "local"),
     excl_transitivity(women_group, type = "local"),
     dynamic_transitivity_an(women_group, type = "local")

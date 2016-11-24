@@ -20,6 +20,6 @@ This function computes the full triad census for an affiliation network.
 data(women_clique)
 tc <- triad_census_an(women_clique, add.names = TRUE)
 tc
-sum(tc) == choose(igraph::vcount(actor_projection(women_clique)), 3)
+sum(tc) == choose(vcount(actor_projection(women_clique)), 3)
 }
 

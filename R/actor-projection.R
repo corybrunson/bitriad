@@ -8,9 +8,9 @@
 #'   the projection (defaults to "name")
 #' @examples
 #' data(southafrica1905)
-#' tab <- table(igraph::V(southafrica1905)$type)
+#' tab <- table(V(southafrica1905)$type)
 #' proj <- actor_projection(southafrica1905)
-#' igraph::vcount(proj) == tab[1]
+#' vcount(proj) == tab[1]
 #' @export
 actor_projection <-
   function(bigraph, name = "name") {

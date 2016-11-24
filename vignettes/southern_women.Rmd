@@ -28,7 +28,6 @@ This vignette uses several tools from the `bitriad` package (which depends on [`
 In their book [*Deep South*](http://books.google.com/books?id=Q3b9QTOgLFcC), five social anthropologists presented a comprehensive case study of the American caste system as it operated in a rural town in Mississippi. Among the data they collected were several tables of attendance at various events by groups of acquainces. Three of these are presented in the book. One, labeled Clique A (p. 209, Fig. 11) consists of five women, designated "Miss A" through "Miss E", and five activities, described as bridge, dinner, movies, dance, and visiting, some subset of the women participated in each of which. The attendance records serve as the adjacency matrix for the `igraph` object `women_clique`:
 
 ```{r}
-library(igraph)
 library(bitriad)
 data(women_clique)
 as_incidence_matrix(women_clique)
