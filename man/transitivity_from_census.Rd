@@ -7,10 +7,14 @@
 \alias{ftc2injact}
 \alias{ftc2injequ}
 \alias{ftc2injstr}
+\alias{transitivity.census}
 \alias{transitivity_from_census}
 \title{Global transitivity from a triad census}
 \usage{
 transitivity_from_census(census, flavor, scheme = NULL, openFun, closedFun,
+  counts = FALSE)
+
+transitivity.census(census, flavor, scheme = NULL, openFun, closedFun,
   counts = FALSE)
 
 ftc2indequ(census)

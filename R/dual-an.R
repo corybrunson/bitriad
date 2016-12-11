@@ -4,6 +4,7 @@
 #' and reorders the vertex ids accordingly, effectively obtaining the dual 
 #' affiliation network.
 #' 
+#' @name dual
 #' @import igraph
 #' @param bigraph An affiliation network; see \code{\link{is_an}}.
 #' @examples
@@ -18,3 +19,7 @@ dual_an <-
     V(bigraph)$type <- !V(bigraph)$type
     bigraph
   }
+
+#' @rdname dual
+#' @export
+dual.an <- dual_an

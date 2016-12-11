@@ -4,6 +4,7 @@
 #' census. the first function provides a framework for this calculation, and the
 #' following call that framework for specific clustering coefficients.
 #' 
+#' @name wedgecount_census
 #' @param census Numeric matrix; a full triad census
 #' @param openFun The open wedge count for a triad
 #' @param closedFun The closed wedge count for a triad
@@ -29,3 +30,7 @@ wedgecount_census <-
       })))
     c(open = openCt, closed = closedCt)
   }
+
+#' @rdname wedgecount_census
+#' @export
+wedgecount.census <- wedgecount_census

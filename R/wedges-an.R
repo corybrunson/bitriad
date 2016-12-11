@@ -50,6 +50,10 @@ indequ_wedges <-
 
 #' @rdname wedges_an
 #' @export
+indequ.wedges <- indequ_wedges
+
+#' @rdname wedges_an
+#' @export
 indstr_wedges <-
   function(bigraph, Q) {
     # Identify nodes of separation (exactly) 1 and 2 from Q
@@ -81,6 +85,10 @@ indstr_wedges <-
 
 #' @rdname wedges_an
 #' @export
+indstr.wedges <- indstr_wedges
+
+#' @rdname wedges_an
+#' @export
 injact_wedges <-
   function(bigraph, Q) {
     # Identify nodes of separation (exactly) 1 and 2 from Q
@@ -105,6 +113,10 @@ injact_wedges <-
     })
     return(rowSums(wedgelist))
   }
+
+#' @rdname wedges_an
+#' @export
+injact.wedges <- injact_wedges
 
 #' @rdname wedges_an
 #' @export
@@ -139,6 +151,10 @@ injequ_wedges <-
     }))
     rowSums(wedgelist)
   }
+
+#' @rdname wedges_an
+#' @export
+injequ.wedges <- injequ_wedges
 
 #' @rdname wedges_an
 #' @export
@@ -178,3 +194,7 @@ injstr_wedges <-
     })
     rowSums(wedgelist)
   }
+
+#' @rdname wedges_an
+#' @export
+injstr.wedges <- injstr_wedges

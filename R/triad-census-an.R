@@ -2,6 +2,7 @@
 #'
 #' This function computes the full triad census for an affiliation network.
 #' 
+#' @name triad_census_an
 #' @param bigraph An affiliation network.
 #' @param add.names Logical; whether to label the matrix rows and columns
 #' @param verbose Logical; whether to display progress bars
@@ -94,3 +95,7 @@ triad_census_an <-
     }
     as.matrix(C)
   }
+
+#' @rdname triad_census_an
+#' @export
+triad.census.an <- triad_census_an

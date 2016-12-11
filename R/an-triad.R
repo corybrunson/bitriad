@@ -139,3 +139,19 @@ plot_triad <-
          vertex.label.color = "white",
          edge.width = 2, edge.color = "black", rescale = FALSE, asp = 0)
   }
+
+#' @rdname triad
+#' @export
+is.triad <- is_triad
+
+#' @rdname triad
+#' @export
+an.triad <- an_triad
+
+#' @rdname triad
+#' @export
+layout.triad <- layout_triad
+
+#' @rdname triad
+#' @export
+plotTriad <- plot_triad

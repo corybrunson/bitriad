@@ -2,10 +2,16 @@
 % Please edit documentation in R/combinatorial-bijections.R
 \name{combinatorial_bijections}
 \alias{combinatorial_bijections}
+\alias{indexPartition}
+\alias{indexSubset}
 \alias{index_partition}
 \alias{index_subset}
+\alias{partitionIndex}
+\alias{partitionSubset}
 \alias{partition_index}
 \alias{partition_subset}
+\alias{subsetIndex}
+\alias{subsetPartition}
 \alias{subset_index}
 \alias{subset_partition}
 \title{Combinatorial bijections for affiliation network triad indexing}
@@ -21,6 +27,18 @@ subset_partition(vec)
 partition_index(lambda)
 
 partition_subset(lambda)
+
+indexSubset(i)
+
+indexPartition(i)
+
+subsetIndex(vec)
+
+subsetPartition(vec)
+
+partitionIndex(lambda)
+
+partitionSubset(lambda)
 }
 \arguments{
 \item{i}{An index in the total order; starts at 0.}

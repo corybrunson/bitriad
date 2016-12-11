@@ -4,6 +4,7 @@
 #' of a bipartite graph to prepare it for visualization using
 #' \code{plot.igraph}.
 #' 
+#' @name prettify
 #' @param bigraph An affiliation network; see \code{is_an}.
 #' @export
 #' @examples
@@ -35,3 +36,7 @@ prettify_an <-
     # Return graph
     bigraph
   }
+
+#' @rdname prettify
+#' @export
+prettify.an <- prettify_an

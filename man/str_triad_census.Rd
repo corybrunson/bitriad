@@ -2,9 +2,12 @@
 % Please edit documentation in R/str-triad-census.R
 \name{str_triad_census}
 \alias{str_triad_census}
+\alias{structural.triad.census}
 \title{Structural triad census}
 \usage{
 str_triad_census(bigraph, verbose = FALSE)
+
+structural.triad.census(bigraph, verbose = FALSE)
 }
 \arguments{
 \item{bigraph}{The affiliation network}

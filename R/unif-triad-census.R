@@ -9,6 +9,7 @@
 #' The census must sum to choose(n, 3), where n is
 #' the number of actor nodes.
 #' 
+#' @name unif_triad_census
 #' @param bigraph The affiliation network
 #' @export
 unif_triad_census <- function(bigraph) {
@@ -64,3 +65,7 @@ unif_triad_census <- function(bigraph) {
   stopifnot(sum(C) == choose(n, 3))
   C
 }
+
+#' @rdname unif_triad_census
+#' @export
+unif.triad.census <- unif_triad_census

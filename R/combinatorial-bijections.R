@@ -59,3 +59,27 @@ partition_index <-
 #' @export
 partition_subset <-
     function(lambda) lambda + (length(lambda) - 1):0
+
+#' @rdname combinatorial_bijections
+#' @export
+indexSubset <- index_subset
+
+#' @rdname combinatorial_bijections
+#' @export
+indexPartition <- index_partition
+
+#' @rdname combinatorial_bijections
+#' @export
+subsetIndex <- subset_index
+
+#' @rdname combinatorial_bijections
+#' @export
+subsetPartition <- subset_partition
+
+#' @rdname combinatorial_bijections
+#' @export
+partitionIndex <- partition_index
+
+#' @rdname combinatorial_bijections
+#' @export
+partitionSubset <- partition_subset

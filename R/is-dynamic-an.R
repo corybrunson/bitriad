@@ -3,6 +3,7 @@
 #' A simple graph is dynamic if its edges have time stamps. A bipartite graph is
 #' dynamic if its event nodes have time stamps.
 #' 
+#' @name dynamic_an
 #' @param graph An igraph object.
 #' @export
 is_dynamic_an <-
@@ -11,3 +12,7 @@ is_dynamic_an <-
     if (!is_an(graph)) stop("Not an affiliation network")
     "time" %in% vertex_attr_names(graph)
   }
+
+#' @rdname dynamic_an
+#' @export
+is.dyn <- is_dynamic_an

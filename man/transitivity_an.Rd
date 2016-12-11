@@ -2,13 +2,23 @@
 % Please edit documentation in R/transitivity-an.R
 \name{transitivity_an}
 \alias{centeredTriads}
+\alias{excl.transitivity}
 \alias{excl_transitivity}
+\alias{indequ.transitivity}
 \alias{indequ_transitivity}
+\alias{indstr.transitivity}
 \alias{indstr_transitivity}
+\alias{injact.transitivity}
 \alias{injact_transitivity}
+\alias{injequ.transitivity}
 \alias{injequ_transitivity}
+\alias{injstr.transitivity}
 \alias{injstr_transitivity}
+\alias{opsahl.transitivity}
 \alias{opsahl_transitivity}
+\alias{transitivity.an}
+\alias{transitivity.an.triads}
+\alias{transitivity.an.wedges}
 \alias{transitivity_an}
 \alias{transitivity_an_triads}
 \alias{transitivity_an_wedges}
@@ -22,6 +32,13 @@ transitivity_an_triads(bigraph, vids = which(!V(bigraph)$type), flavor)
 
 transitivity_an_wedges(bigraph, vids = which(!V(bigraph)$type), wedgeFun)
 
+transitivity.an(bigraph, type = "global", wedgeFun, flavor,
+  vids = which(!V(bigraph)$type), add.names = FALSE)
+
+transitivity.an.triads(bigraph, vids = which(!V(bigraph)$type), flavor)
+
+transitivity.an.wedges(bigraph, vids = which(!V(bigraph)$type), wedgeFun)
+
 centeredTriads(bigraph, vids)
 
 triadWedges(triads, flavor)
@@ -29,22 +46,42 @@ triadWedges(triads, flavor)
 indequ_transitivity(bigraph, type = "global",
   vids = which(!V(bigraph)$type))
 
+indequ.transitivity(bigraph, type = "global",
+  vids = which(!V(bigraph)$type))
+
 indstr_transitivity(bigraph, type = "global",
+  vids = which(!V(bigraph)$type))
+
+indstr.transitivity(bigraph, type = "global",
   vids = which(!V(bigraph)$type))
 
 injact_transitivity(bigraph, type = "global",
   vids = which(!V(bigraph)$type))
 
+injact.transitivity(bigraph, type = "global",
+  vids = which(!V(bigraph)$type))
+
 injequ_transitivity(bigraph, type = "global",
+  vids = which(!V(bigraph)$type))
+
+injequ.transitivity(bigraph, type = "global",
   vids = which(!V(bigraph)$type))
 
 injstr_transitivity(bigraph, type = "global",
   vids = which(!V(bigraph)$type))
 
+injstr.transitivity(bigraph, type = "global",
+  vids = which(!V(bigraph)$type))
+
 opsahl_transitivity(bigraph, type = "global",
   vids = which(!V(bigraph)$type))
 
+opsahl.transitivity(bigraph, type = "global",
+  vids = which(!V(bigraph)$type))
+
 excl_transitivity(bigraph, type = "global", vids = which(!V(bigraph)$type))
+
+excl.transitivity(bigraph, type = "global", vids = which(!V(bigraph)$type))
 }
 \arguments{
 \item{bigraph}{An affiliation network; see \code{is_an}.}

@@ -7,6 +7,7 @@
 #' recovered through strategic coordinate sums, returns nonsense frequencies for
 #' many large graphs.
 #' 
+#' @name simple_triad_census
 #' @param graph An igraph object.
 #' @param add.names Logical; whether to label the matrix rows and columns
 #' @export
@@ -34,3 +35,7 @@ simple_triad_census <-
     if(!add.names) C <- unname(C)
     C
   }
+
+#' @rdname simple_triad_census
+#' @export
+simple.triad.census <- simple_triad_census

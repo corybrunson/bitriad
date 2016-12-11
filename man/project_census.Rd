@@ -4,6 +4,7 @@
 \alias{ftc2stc}
 \alias{ftc2tc}
 \alias{ftc2utc}
+\alias{project.census}
 \alias{project_census}
 \alias{stc2tc}
 \alias{utc2stc}
@@ -11,6 +12,8 @@
 \title{Project a triad census}
 \usage{
 project_census(census, scheme = NULL, add.names = FALSE)
+
+project.census(census, scheme = NULL, add.names = FALSE)
 
 ftc2utc(census)
 

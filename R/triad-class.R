@@ -4,6 +4,7 @@
 #' class of the triad they form by its index (a partition of three parts and a 
 #' nonnegative integer).
 #' 
+#' @name triad_class
 #' @param bigraph An affiliation network
 #' @param v A subset of three actor nodes in bigraph
 #' @param sorted Whether to sort the exclusive events, versus reporting them in
@@ -32,3 +33,7 @@ triad_class <-
     # Return class
     c(w = w, x = lambda[1], y = lambda[2], z = lambda[3])
   }
+
+#' @rdname triad_class
+#' @export
+triad.class <- triad_class

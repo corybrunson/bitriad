@@ -52,3 +52,11 @@ as_an <-
     ord <- order(order(V(graph)$type))
     permute(graph, ord)
   }
+
+#' @rdname an
+#' @export
+is.an <- is_an
+
+#' @rdname an
+#' @export
+as.an <- as_an

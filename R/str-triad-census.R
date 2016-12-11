@@ -5,6 +5,7 @@
 #' triad, modulo an equivalence relation of event nodes by which actors they
 #' are tied to, which sum to choose(n, 3), where n is the number of actor nodes.
 #' 
+#' @name str_triad_census
 #' @param bigraph The affiliation network
 #' @param verbose Logical; whether to display progress bars
 #' @export
@@ -50,3 +51,7 @@ str_triad_census <-
     stopifnot(sum(C) == choose(n, 3))
     C
   }
+
+#' @rdname str_triad_census
+#' @export
+structural.triad.census <- str_triad_census

@@ -120,6 +120,18 @@ transitivity_an_wedges <-
   }
 
 #' @rdname transitivity_an
+#' @export
+transitivity.an <- transitivity_an
+
+#' @rdname transitivity_an
+#' @export
+transitivity.an.triads <- transitivity_an_triads
+
+#' @rdname transitivity_an
+#' @export
+transitivity.an.wedges <- transitivity_an_wedges
+
+#' @rdname transitivity_an
 centeredTriads <- function(bigraph, vids) {
   
   # Require consistent indexing (for interchangeability of actor ids below)
@@ -234,6 +246,10 @@ indequ_transitivity <-
 
 #' @rdname transitivity_an
 #' @export
+indequ.transitivity <- indequ_transitivity
+
+#' @rdname transitivity_an
+#' @export
 indstr_transitivity <-
   function(
     bigraph, type = "global",
@@ -243,6 +259,10 @@ indstr_transitivity <-
       bigraph = bigraph, type = type,
       wedgeFun = indstr_wedges, vids = vids)
   }
+
+#' @rdname transitivity_an
+#' @export
+indstr.transitivity <- indstr_transitivity
 
 #' @rdname transitivity_an
 #' @export
@@ -258,6 +278,10 @@ injact_transitivity <-
 
 #' @rdname transitivity_an
 #' @export
+injact.transitivity <- injact_transitivity
+
+#' @rdname transitivity_an
+#' @export
 injequ_transitivity <-
   function(
     bigraph, type = "global",
@@ -267,6 +291,10 @@ injequ_transitivity <-
       bigraph = bigraph, type = type,
       wedgeFun = injequ_wedges, vids = vids)
   }
+
+#' @rdname transitivity_an
+#' @export
+injequ.transitivity <- injequ_transitivity
 
 #' @rdname transitivity_an
 #' @export
@@ -282,6 +310,10 @@ injstr_transitivity <-
 
 #' @rdname transitivity_an
 #' @export
+injstr.transitivity <- injstr_transitivity
+
+#' @rdname transitivity_an
+#' @export
 opsahl_transitivity <-
   function(
     bigraph, type = "global",
@@ -294,6 +326,10 @@ opsahl_transitivity <-
 
 #' @rdname transitivity_an
 #' @export
+opsahl.transitivity <- opsahl_transitivity
+
+#' @rdname transitivity_an
+#' @export
 excl_transitivity <-
   function(
     bigraph, type = "global",
@@ -303,3 +339,7 @@ excl_transitivity <-
       bigraph = bigraph, type = type,
       wedgeFun = indstr_wedges, vids = vids)
   }
+
+#' @rdname transitivity_an
+#' @export
+excl.transitivity <- excl_transitivity

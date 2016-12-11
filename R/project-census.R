@@ -86,6 +86,10 @@ project_census <-
   }
 
 #' @rdname project_census
+#' @export
+project.census <- project_census
+
+#' @rdname project_census
 ftc2utc <-
   function(census) {
     # Trivial cases

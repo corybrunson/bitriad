@@ -2,13 +2,19 @@
 % Please edit documentation in R/an.R
 \name{an}
 \alias{an}
+\alias{as.an}
 \alias{as_an}
+\alias{is.an}
 \alias{is_an}
 \title{Affiliation network}
 \usage{
 is_an(graph)
 
 as_an(graph)
+
+is.an(graph)
+
+as.an(graph)
 }
 \arguments{
 \item{graph}{An igraph object}

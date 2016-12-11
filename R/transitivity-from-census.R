@@ -103,6 +103,10 @@ transitivity_from_census <-
   }
 
 #' @rdname transitivity_from_census
+#' @export
+transitivity.census <- transitivity_from_census
+
+#' @rdname transitivity_from_census
 ftc2indequ <-
   function(census) wedgecount_census(
     census,
