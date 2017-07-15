@@ -2,10 +2,10 @@
 % Please edit documentation in R/an.R
 \name{an}
 \alias{an}
-\alias{as.an}
+\alias{is_an}
 \alias{as_an}
 \alias{is.an}
-\alias{is_an}
+\alias{as.an}
 \title{Affiliation network}
 \usage{
 is_an(graph)
@@ -32,4 +32,3 @@ function \code{is_an} tests also for this condition. The coersive function
 \code{as_an} imposes, by a minimal permutation of vertex labels, provided the
 \code{igraph} object is bipartite to begin with.
 }
-

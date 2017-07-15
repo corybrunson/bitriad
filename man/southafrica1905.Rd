@@ -12,4 +12,3 @@ Hobson, John A. (1919) *The Evolution of Modern Capitalism*
 These data record the memberships of 6 directors on the boards of 5 gold,
 diamond, and finance companies.
 }
-

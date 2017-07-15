@@ -37,7 +37,9 @@
 #'   corresponding wedge function (e.g. \code{\link{injact_wedges}}).
 #'   
 #' @docType package
+#' @author Jason Cory Brunson
+#' @import MASS igraph Rcpp
+#' @importFrom Rcpp evalCpp
+#' @useDynLib bitriad
 #' @name bitriad
-#' @import igraph
 NULL
-#> NULL

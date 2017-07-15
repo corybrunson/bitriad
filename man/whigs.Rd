@@ -12,4 +12,3 @@ Fischer (1994) *Paul Revere's Ride*
 These data record the membership of 136 colonial Americans in 5 Whig
 organizations.
 }
-

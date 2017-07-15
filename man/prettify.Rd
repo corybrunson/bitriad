@@ -2,8 +2,8 @@
 % Please edit documentation in R/prettify-an.R
 \name{prettify}
 \alias{prettify}
-\alias{prettify.an}
 \alias{prettify_an}
+\alias{prettify.an}
 \title{Set plotting parameters for an affiliation network}
 \usage{
 prettify_an(bigraph)
@@ -26,4 +26,3 @@ for(g in list(women_clique, whigs)) {
     plot(prettify_an(g))
 }
 }
-

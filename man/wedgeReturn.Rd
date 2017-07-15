@@ -22,4 +22,3 @@ A transitivity statistic of type \code{type} calculated from the
 \description{
 Compress a wedgelist into a desired statistic
 }
-

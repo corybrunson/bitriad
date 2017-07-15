@@ -2,8 +2,8 @@
 % Please edit documentation in R/dual-an.R
 \name{dual}
 \alias{dual}
-\alias{dual.an}
 \alias{dual_an}
+\alias{dual.an}
 \title{Take the dual of an affiliation network}
 \usage{
 dual_an(bigraph)
@@ -24,4 +24,3 @@ tab <- table(V(southafrica1905)$type)
 proj <- actor_projection(dual_an(southafrica1905))
 vcount(proj) == tab[2]
 }
-

@@ -12,4 +12,3 @@ Corporate Networks", *Connections* **30**(2), p. 4-20.
 \description{
 An affiliation network of 20 directors of 24 corporations and social clubs.
 }
-

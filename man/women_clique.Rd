@@ -13,4 +13,3 @@ Anthropological Study of Caste and Class*
 These data record the participation of 5 African-American women in 5 social
 activities.
 }
-

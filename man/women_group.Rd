@@ -15,4 +15,3 @@ Davis, Gardner, and Gardner (1941) *Deep South: A Social
 These data record the attendance of 18 white women at 14 social events over a
 9-month period.
 }
-

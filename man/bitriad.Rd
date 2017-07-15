@@ -46,3 +46,6 @@ network manipulation.
   corresponding wedge function (e.g. \code{\link{injact_wedges}}).
 }
 
+\author{
+Jason Cory Brunson
+}

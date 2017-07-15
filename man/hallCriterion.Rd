@@ -14,4 +14,3 @@ Test for the existence of a system of distinct representatives for a finite
 set. 
 \url{www.encyclopediaofmath.org/index.php/System_of_different_representatives}
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/is-dynamic-an.R
 \name{dynamic_an}
 \alias{dynamic_an}
-\alias{is.dyn}
 \alias{is_dynamic_an}
+\alias{is.dyn}
 \title{Dynamic graphs}
 \usage{
 is_dynamic_an(graph)
@@ -17,4 +17,3 @@ is.dyn(graph)
 A simple graph is dynamic if its edges have time stamps. A bipartite graph is
 dynamic if its event nodes have time stamps.
 }
-

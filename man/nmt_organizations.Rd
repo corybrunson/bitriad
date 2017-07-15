@@ -12,4 +12,3 @@ The Association of Religious Data Archives
 These data record the attendance of 67 members of 32 organizations
 associated with Noordin Mohammad Top.
 }
-

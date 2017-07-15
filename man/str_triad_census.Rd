@@ -20,4 +20,3 @@ network, a 4-by-2 array of frequency counts for each isomorphism class of
 triad, modulo an equivalence relation of event nodes by which actors they
 are tied to, which sum to choose(n, 3), where n is the number of actor nodes.
 }
-

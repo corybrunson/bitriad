@@ -2,18 +2,18 @@
 % Please edit documentation in R/combinatorial-bijections.R
 \name{combinatorial_bijections}
 \alias{combinatorial_bijections}
-\alias{indexPartition}
-\alias{indexSubset}
-\alias{index_partition}
 \alias{index_subset}
-\alias{partitionIndex}
-\alias{partitionSubset}
-\alias{partition_index}
-\alias{partition_subset}
-\alias{subsetIndex}
-\alias{subsetPartition}
+\alias{index_partition}
 \alias{subset_index}
 \alias{subset_partition}
+\alias{partition_index}
+\alias{partition_subset}
+\alias{indexSubset}
+\alias{indexPartition}
+\alias{subsetIndex}
+\alias{subsetPartition}
+\alias{partitionIndex}
+\alias{partitionSubset}
 \title{Combinatorial bijections for affiliation network triad indexing}
 \usage{
 index_subset(i)
@@ -59,4 +59,3 @@ subset_partition(c(3, 2, 0))
 partition_index(c(1, 1, 0))
 partition_subset(c(1, 1, 0))
 }
-

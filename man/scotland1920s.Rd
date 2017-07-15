@@ -14,4 +14,3 @@ Five affiliation networks constructed from the multiple directors lists of
 the top >100 Scottish companies over five two-year intervals between 1904 and
 1974.
 }
-

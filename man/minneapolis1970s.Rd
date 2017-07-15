@@ -13,4 +13,3 @@ These data record the memberships of 26 directors on the boards of 15
 companies. They are a subset of a larger dataset that is not publicly
 available.
 }
-

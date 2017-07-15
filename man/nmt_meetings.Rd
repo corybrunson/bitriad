@@ -12,4 +12,3 @@ The Association of Religious Data Archives
 These data record the attendance of 26 individuals at 20 meetings
 associated with Noordin Mohammad Top.
 }
-
