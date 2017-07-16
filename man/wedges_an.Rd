@@ -12,6 +12,15 @@
 \alias{injstr_wedges}
 \alias{injstr.wedges}
 \alias{wedges_an}
+\alias{wedges_an_watts_strogatz}
+\alias{wedges_an_classical}
+\alias{wedges_an_opsahl}
+\alias{wedges_an_twomode}
+\alias{wedges_an_liebig_rao_0}
+\alias{wedges_an_unconnected}
+\alias{wedges_an_liebig_rao_3}
+\alias{wedges_an_completely_connected}
+\alias{wedges_an_exclusive}
 \title{Affiliation network wedges}
 \usage{
 indequ_wedges(bigraph, Q)
@@ -34,17 +43,42 @@ injstr_wedges(bigraph, Q)
 
 injstr.wedges(bigraph, Q)
 
-wedges_an(bigraph, q, alcove = 0, wedge = 0, maps = 0, congruence = 0)
+wedges_an(bigraph, actor, alcove = 0, wedge = 0, maps = 0,
+  congruence = 0)
+
+wedges_an_watts_strogatz(bigraph, actor)
+
+wedges_an_classical(bigraph, actor)
+
+wedges_an_opsahl(bigraph, actor)
+
+wedges_an_twomode(bigraph, actor)
+
+wedges_an_liebig_rao_0(bigraph, actor)
+
+wedges_an_unconnected(bigraph, actor)
+
+wedges_an_liebig_rao_3(bigraph, actor)
+
+wedges_an_completely_connected(bigraph, actor)
+
+wedges_an_exclusive(bigraph, actor)
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
 
 \item{Q}{An actor node in the network.}
 
-\item{q}{An actor node in \code{bigraph}.}
+\item{actor}{An actor node in \code{bigraph}.}
 
-\item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and
+\item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
 congruence (see Details).}
+}
+\value{
+A two-element list consisting of (1) a 3- or 5-row integer matrix of 
+  (representatives of) all (congruence classes of) wedges in \code{bigraph} 
+  centered at \code{actor}, and (2) a logical vector indicating whether each 
+  wedge is closed.
 }
 \description{
 Each clustering coefficient can be defined as the proportion of "wedges" that
@@ -52,48 +86,92 @@ are "closed", for suitable definitions of both terms. These functions count
 the "wedges", and among them the "closed" ones, centered at a given actor
 node in a given affiliation network.
 
-Given an affiliation network and a vector of node IDs, list all 
-  wedges of a specified type centered at each node and indicate whether each 
-  is closed.
+Given an affiliation network and a node ID, identify all wedges 
+  of a specified flavor centered at the node and indicate whether each is 
+  closed.
 }
 \details{
 Each measure of transitive closure implemented here is defined as 
   the proportion of wedges that are closed, where a \emph{wedge} is the image
-  of a specified self-dual two-event triad \eqn{W} under a specified 
-  subcategory of graph maps \eqn{\mathcal{C}} subject to a specified 
-  congruence relation \eqn{\tilde}, and where a wedge is \emph{closed} if it 
-  is the image of such a map that factors through a canonical inclusion of 
-  \eqn{W} to a specified self-dual three-event triad \eqn{X}.
+  of a specified two-event triad \eqn{W} under a specified subcategory of 
+  graph maps \eqn{C} subject to a specified congruence relation \eqn{~}, and 
+  where a wedge is \emph{closed} if it is the image of such a map that 
+  factors through a canonical inclusion of \eqn{W} to a specified self-dual 
+  three-event triad \eqn{X}.
   
-  The alcove, wedge, maps, and congruence can be specified by numerical codes
-  as follows:
+The alcove, wedge, maps, and congruence can be specified by numerical codes
+as follows:
+\itemize{
+ \item{\code{alcove}:
   \itemize{
-   \item{"alcove:"}{
-    \itemize{0}{\eqn{T_{(1,1,1),0}}}
-    \itemize{1}{\eqn{T_{(1,1,0),1}}}
-    \itemize{2}{\eqn{T_{(1,0,0),2}}}
-    \itemize{3}{\eqn{T_{(0,0,0),3}}}
-   }
-   \item{"wedge:"}{
-    \itemize{0}{\eqn{T_{(1,1,0),0}}}
-    \itemize{1}{\eqn{T_{(1,0,0),1}}}
-    \itemize{2}{\eqn{T_{(0,0,0),2}}}
-   }
-   \item{"maps:"}{
-    \itemize{0}{all graph maps (injective on actors)}
-    \itemize{1}{injective graph maps}
-    \itemize{2}{induced injective graph maps}
-   }
-   \item{"congruence:"}{
-    \itemize{0}{same actor images}
-    \itemize{1}{same actor images, structurally equivalent event images}
-    \itemize{2}{same actor images, same event images}
-   }
+   \item{\code{0}: \eqn{T_{(1,1,1),0}}}
+   \item{\code{1}: \eqn{T_{(1,1,0),1}}}
+   \item{\code{2}: \eqn{T_{(1,0,0),2}}}
+   \item{\code{3}: \eqn{T_{(0,0,0),3}}}
   }
+ }
+ \item{\code{wedge}:
+  \itemize{
+   \item{\code{0}: \eqn{T_{(1,1,0),0}}}
+   \item{\code{1}: \eqn{T_{(1,0,0),1}}}
+   \item{\code{2}: \eqn{T_{(0,0,0),2}}}
+  }
+ }
+ \item{\code{maps}:
+  \itemize{
+   \item{\code{0}: all graph maps (injective on actors)}
+   \item{\code{1}: injective graph maps}
+   \item{\code{2}: induced injective graph maps}
+  }
+ }
+ \item{\code{congruence}:
+  \itemize{
+   \item{\code{0}: same actor and event images (equivalence)}
+   \item{\code{1}: same actor images, structurally equivalent event images}
+   \item{\code{2}: same actor images}
+  }
+ }
+}
+See Brunson (2015) for a full definition.
 
-See the references for a full definition.
+Some specifications correspond to statistics of especial interest:
+\itemize{
+ \item{\code{0,0,0,2}:
+  the classical clustering coefficient (Watts & Strogatz, 1998),
+  evaluated on the unipartite actor projection
+ }
+ \item{\code{0,0,1,0}:
+  the two-mode clustering coefficient (Opsahl, 2013)
+ }
+ \item{\code{0,0,2,0}:
+  the unconnected clustering coefficient (Liebig & Rao, 2014)
+ }
+ \item{\code{3,2,2,0}:
+  the completely clustering coefficient (Liebig & Rao, 2014)
+  (\strong{not yet implemented})
+ }
+ \item{\code{0,0,2,1}:
+  the exclusive clustering coefficient (Brunson, 2015)
+ }
+ \item{\code{0,0,2,2}:
+  the exclusive clustering coefficient
+ }
+}
+See the references for discussions of each.
 }
 \references{
-Brunson, J.C. (2015). Triadic analysis of affiliation networks. 
-  *Network Science*, 3 (4), 480--508.
+Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world" 
+networks. \emph{Nature}, 393(6684), 440--442.
+
+Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the 
+global and local clustering coefficients. \emph{Social Networks}, 35(2),
+159--167. Special Issue on Advances in Two-mode Social Networks.
+
+Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite 
+networks using the clustering coefficient. Pages 323--330 of:
+\emph{Proceedings of the tenth international conference on signal-image
+technology and internet-based systems}.
+
+Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
+Science}, 3(4), 480--508.
 }

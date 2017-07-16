@@ -14,6 +14,9 @@
 #' subset_partition(c(3, 2, 0))
 #' partition_index(c(1, 1, 0))
 #' partition_subset(c(1, 1, 0))
+NULL
+
+#' @rdname combinatorial_bijections
 #' @export
 index_subset <-
     function(i) {

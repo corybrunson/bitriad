@@ -99,9 +99,9 @@ List actor_actors(IntegerMatrix el, int q) {
 //   1 <-> injective graph maps
 //   2 <-> induced injective graph maps
 // congruence relations c:
-//   0 <-> same actor images
+//   0 <-> same actor images, same event images
 //   1 <-> same actor images, structurally equivalent event images
-//   2 <-> same actor images, same event images
+//   2 <-> same actor images
 
 // X = T_111,0; W = T_110,0
 // all graph maps, modulo equal event images
@@ -775,6 +775,7 @@ List wedges_x0w0m1c2(IntegerMatrix el, int q) {
 
 // X = T_111,0; W = T_110,0
 // induced graph maps, modulo equal event images
+// (Liebig-Rao unconnected wedges and closure)
 // chordless 4-paths p,a,q,b,r (with p,q,r and a,b distinct)
 // and whether they are contained in chordless 6-cycles (with a,b,c distinct)
 // [[Rcpp::export]]
