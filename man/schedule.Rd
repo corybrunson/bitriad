@@ -2,29 +2,17 @@
 % Please edit documentation in R/schedule.R
 \name{schedule}
 \alias{schedule}
-\alias{edgeWeight}
-\alias{shareWeight}
-\title{Schedule}
+\title{Actors' shared events}
 \usage{
-schedule(bigraph, v)
-
-edgeWeight(graph, vp)
-
-shareWeight(bigraph, vids)
+schedule(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE])
 }
 \arguments{
-\item{bigraph}{The ambient affiliation network}
+\item{bigraph}{An affiliation network.}
 
-\item{v}{A subset of actor node ids.}
-
-\item{graph}{A one-mode network (used as the one-mode projection of bigraph)}
-
-\item{vp}{Ids of vertex pair, the edge between which is being considered}
-
-\item{vids}{Vertex ids, the event count among which is being considered}
+\item{actors}{A vector of actor nodes in \code{bigraph}.}
 }
 \description{
-The schedule of a subset of actor nodes in an affiliation network is the
-induced subgraph on the actor nodes together with all event nodes incident
-to at least two of the actor nodes.
+Given an affiliation network and a vector of actor node IDs, 
+  produce the induced subgraph on the actor nodes together with all event 
+  nodes incident to at least two of them.
 }

@@ -60,13 +60,13 @@ If \code{type} is \code{"global"}, the global statistic for
   wedges and of closed wedges centered at \code{actors}.
 }
 \description{
-Given an affiliation network and a vector of node IDs, calculate
-  a specified flavor of triad closure centered at the nodes.
+Given an affiliation network and a vector of actor node IDs,
+  calculate a specified flavor of triad closure centered at the nodes.
 }
 \details{
 The \code{triadclosure_*} functions implement the several flavors of
-  triad closure described below. Each function returns a single global
-  statistic, a vector of local statistics, or a matrix of local denominators
+  triad closure described below. Each function returns a single global 
+  statistic, a vector of local statistics, or a matrix of local denominators 
   and numerators from which the global and local statistics can be recovered.
 
 

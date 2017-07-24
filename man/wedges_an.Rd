@@ -89,14 +89,14 @@ are "closed", for suitable definitions of both terms. These functions count
 the "wedges", and among them the "closed" ones, centered at a given actor
 node in a given affiliation network.
 
-Given an affiliation network and a node ID, identify all wedges 
-  of a specified flavor centered at the node and indicate whether each is 
-  closed.
+Given an affiliation network and an actor node ID, identify all
+  wedges of a specified flavor centered at the node and indicate whether each
+  is closed.
 }
 \details{
-The \code{wedges_*} functions implement wedge censuses underlying
+The \code{wedges_*} functions implement wedge censuses underlying 
   the several flavors of triad closure described below. Each function returns
-  a transversal of wedges from the congruence classes of wedges centered at
+  a transversal of wedges from the congruence classes of wedges centered at 
   the index actor and indicators of whether each class is closed.
 
 
