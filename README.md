@@ -21,7 +21,7 @@ If you experience any problems with the installation process (that aren't resolv
 
 The package implements several tools from the paper, most importantly
 * `triad_census_an`, which conducts a motif survey of affiliation network triads, understood to be triples of actor nodes and any events attended by at least two, and the results of which can be collapsed down to the incrementally more compact uniformity, structural, and simple censuses; and
-* `transitivity_an`, a shell for bipartite clustering coefficients that can be specialized to the [Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/), exclusive, and several other clustering coefficients, including a shortcut to the [Watts--Strogatz](http://www.nature.com/nature/journal/v393/n6684/abs/393440a0.html) clustering coefficient of the projection onto actors (to be eventually replaced with a proof-of-concept implementation in the same vein as the others).
+* `transitivity_an`, a shell for bipartite clustering coefficients that can be specialized to the [Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/), exclusive, and several other clustering coefficients, including a shortcut to the [Watts-Strogatz](http://www.nature.com/nature/journal/v393/n6684/abs/393440a0.html) clustering coefficient of the projection onto actors (to be eventually replaced with a proof-of-concept implementation in the same vein as the others).
 
 ## Datasets
 
