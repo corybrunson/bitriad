@@ -19,7 +19,7 @@ The package contains two principal tools for the triadic analysis of
 
 
 }
-\section{Triad censuses}{
+\section{Triad census}{
  The function \code{\link{triad_census_an}} computes 
   the full triad census for an affiliation network. The functions 
   \code{\link{unif_triad_census}} and \code{\link{str_triad_census}} compute 
@@ -33,13 +33,13 @@ The package contains two principal tools for the triadic analysis of
   function \code{\link{project_census}}.
 }
 
-\section{Triad closure}{
- Each measure of triad closure is defined as the 
-  proportion of wedges that are closed, where a \emph{wedge} is the image of
-  a specified two-event triad \eqn{W} under a specified subcategory of graph
-  maps \eqn{C} subject to a specified congruence relation \eqn{~}, and where
-  a wedge is \emph{closed} if it is the image of such a map that factors
-  through a canonical inclusion of \eqn{W} to a specified self-dual
+\section{Flavors of triad closure}{
+ Each measure of triad closure is defined
+  as the proportion of wedges that are closed, where a \emph{wedge} is the
+  image of a specified two-event triad \eqn{W} under a specified subcategory
+  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
+  and where a wedge is \emph{closed} if it is the image of such a map that
+  factors through a canonical inclusion of \eqn{W} to a specified self-dual 
   three-event triad \eqn{X}.
   
 The alcove, wedge, maps, and congruence can be specified by numerical codes

@@ -94,21 +94,20 @@ Given an affiliation network and a node ID, identify all wedges
   closed.
 }
 \details{
-Each wedge function produces a census of (congruence classes of) 
-  wedges in \code{bigraph} centered at \code{actor} and indicators of which 
-  of these wedges are closed. The local triad closure statistics are defined
-  to be the closure rates of the corresponding wedges, and the global
-  statistics the closure rates of the sets of all of wedges in the network.
+The \code{wedges_*} functions implement wedge censuses underlying
+  the several flavors of triad closure described below. Each function returns
+  a transversal of wedges from the congruence classes of wedges centered at
+  the index actor and indicators of whether each class is closed.
 
 
 }
-\section{Triad closure}{
- Each measure of triad closure is defined as the 
-  proportion of wedges that are closed, where a \emph{wedge} is the image of
-  a specified two-event triad \eqn{W} under a specified subcategory of graph
-  maps \eqn{C} subject to a specified congruence relation \eqn{~}, and where
-  a wedge is \emph{closed} if it is the image of such a map that factors
-  through a canonical inclusion of \eqn{W} to a specified self-dual
+\section{Flavors of triad closure}{
+ Each measure of triad closure is defined
+  as the proportion of wedges that are closed, where a \emph{wedge} is the
+  image of a specified two-event triad \eqn{W} under a specified subcategory
+  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
+  and where a wedge is \emph{closed} if it is the image of such a map that
+  factors through a canonical inclusion of \eqn{W} to a specified self-dual 
   three-event triad \eqn{X}.
   
 The alcove, wedge, maps, and congruence can be specified by numerical codes

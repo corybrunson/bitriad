@@ -2,16 +2,51 @@
 % Please edit documentation in R/triadclosure-an.r
 \name{triadclosure_an}
 \alias{triadclosure_an}
-\title{Triad closure in affiliation networks}
+\alias{triadclosure_watts_strogatz}
+\alias{triadclosure_classical}
+\alias{triadclosure_opsahl}
+\alias{triadclosure_twomode}
+\alias{triadclosure_liebig_rao_0}
+\alias{triadclosure_unconnected}
+\alias{triadclosure_liebig_rao_3}
+\alias{triadclosure_completely_connected}
+\alias{triadclosure_exclusive}
+\title{Triad closure for affiliation networks}
 \usage{
 triadclosure_an(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
   type = "global", ...)
+
+triadclosure_watts_strogatz(bigraph, actors = V(bigraph)[V(bigraph)$type ==
+  FALSE], type = "global")
+
+triadclosure_classical(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  type = "global")
+
+triadclosure_opsahl(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  type = "global")
+
+triadclosure_twomode(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  type = "global")
+
+triadclosure_liebig_rao_0(bigraph, actors = V(bigraph)[V(bigraph)$type ==
+  FALSE], type = "global")
+
+triadclosure_unconnected(bigraph, actors = V(bigraph)[V(bigraph)$type ==
+  FALSE], type = "global")
+
+triadclosure_liebig_rao_3(bigraph, actors = V(bigraph)[V(bigraph)$type ==
+  FALSE], type = "global")
+
+triadclosure_completely_connected(bigraph, actors = V(bigraph)[V(bigraph)$type
+  == FALSE], type = "global")
+
+triadclosure_exclusive(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  type = "global")
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
 
-\item{actors}{Actor nodes in \code{bigraph}; (re)set to \code{V(bigraph)} if 
-\code{type} is \code{"global"}.}
+\item{actors}{A vector of actor nodes in \code{bigraph}.}
 
 \item{type}{The type of statistic, matched to \code{"global"}, 
 \code{"local"}, or \code{"raw"}.}
@@ -19,9 +54,6 @@ triadclosure_an(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
 \item{...}{Flavor specifications passed to \code{\link{wedges_an}}.}
 }
 \value{
-A numeric vector of length \code{length(actors)} giving the value of 
-  the specified local triad closure statistic at each actor node.
-
 If \code{type} is \code{"global"}, the global statistic for 
   \code{bigraph}; if \code{"local"}, the local statistics for \code{actors}; 
   if \code{"raw"}, a 2-column matrix, each row of which gives the number of
@@ -29,6 +61,101 @@ If \code{type} is \code{"global"}, the global statistic for
 }
 \description{
 Given an affiliation network and a vector of node IDs, calculate
-  the (proportion of) triad closure of a specified flavor at each node. See 
-  \code{\link{wedges_an}} and \code{triads_an} for details.
+  a specified flavor of triad closure centered at the nodes.
+}
+\details{
+The \code{triadclosure_*} functions implement the several flavors of
+  triad closure described below. Each function returns a single global
+  statistic, a vector of local statistics, or a matrix of local denominators
+  and numerators from which the global and local statistics can be recovered.
+
+
+}
+\section{Flavors of triad closure}{
+ Each measure of triad closure is defined
+  as the proportion of wedges that are closed, where a \emph{wedge} is the
+  image of a specified two-event triad \eqn{W} under a specified subcategory
+  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
+  and where a wedge is \emph{closed} if it is the image of such a map that
+  factors through a canonical inclusion of \eqn{W} to a specified self-dual 
+  three-event triad \eqn{X}.
+  
+The alcove, wedge, maps, and congruence can be specified by numerical codes
+as follows (no plans exist to implement more flavors than these):
+\itemize{
+ \item{\code{alcove}:
+  \itemize{
+   \item{\code{0}: \eqn{T_{(1,1,1),0}}}
+   \item{\code{1}: \eqn{T_{(1,1,0),1}}} (\strong{not yet implemented})
+   \item{\code{2}: \eqn{T_{(1,0,0),2}}} (\strong{not yet implemented})
+   \item{\code{3}: \eqn{T_{(0,0,0),3}}} (\strong{not yet implemented})
+  }
+ }
+ \item{\code{wedge}:
+  \itemize{
+   \item{\code{0}: \eqn{T_{(1,1,0),0}}}
+   \item{\code{1}: \eqn{T_{(1,0,0),1}}} (\strong{not yet implemented})
+   \item{\code{2}: \eqn{T_{(0,0,0),2}}} (\strong{not yet implemented})
+  }
+ }
+ \item{\code{maps}:
+  \itemize{
+   \item{\code{0}: all graph maps (injective on actors)}
+   \item{\code{1}: injective graph maps}
+   \item{\code{2}: induced injective graph maps}
+  }
+ }
+ \item{\code{congruence}:
+  \itemize{
+   \item{\code{0}: same actor and event images (equivalence)}
+   \item{\code{1}: same actor images, structurally equivalent event images}
+   \item{\code{2}: same actor images}
+  }
+ }
+}
+Some specifications correspond to statistics of especial interest:
+\itemize{
+ \item{\code{0,0,0,2}:
+  the classical clustering coefficient (Watts & Strogatz, 1998),
+  evaluated on the unipartite actor projection
+ }
+ \item{\code{0,0,1,0}:
+  the two-mode clustering coefficient (Opsahl, 2013)
+ }
+ \item{\code{0,0,2,0}:
+  the unconnected clustering coefficient (Liebig & Rao, 2014)
+ }
+ \item{\code{3,2,2,0}:
+  the completely clustering coefficient (Liebig & Rao, 2014)
+  (\strong{not yet implemented})
+ }
+ \item{\code{0,0,2,1}:
+  the exclusive clustering coefficient (Brunson, 2015)
+ }
+ \item{\code{0,0,2,2}:
+  the exclusive clustering coefficient
+ }
+}
+See Brunson (2015) for a general definition and the aforecited references for
+discussions of each statistic.
+}
+
+\references{
+Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world" 
+networks. \emph{Nature}, 393(6684), 440--442.
+
+Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the 
+global and local clustering coefficients. \emph{Social Networks}, 35(2),
+159--167. Special Issue on Advances in Two-mode Social Networks.
+
+Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite 
+networks using the clustering coefficient. Pages 323--330 of:
+\emph{Proceedings of the tenth international conference on signal-image
+technology and internet-based systems}.
+
+Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
+Science}, 3(4), 480--508.
+}
+\seealso{
+Other triad closure: \code{\link{triadclosure_projection}}
 }

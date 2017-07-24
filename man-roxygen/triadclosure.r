@@ -1,12 +1,12 @@
 #' @details
 #' 
 
-#' @section Triad closure: Each measure of triad closure is defined as the 
-#'   proportion of wedges that are closed, where a \emph{wedge} is the image of
-#'   a specified two-event triad \eqn{W} under a specified subcategory of graph
-#'   maps \eqn{C} subject to a specified congruence relation \eqn{~}, and where
-#'   a wedge is \emph{closed} if it is the image of such a map that factors
-#'   through a canonical inclusion of \eqn{W} to a specified self-dual
+#' @section Flavors of triad closure: Each measure of triad closure is defined
+#'   as the proportion of wedges that are closed, where a \emph{wedge} is the
+#'   image of a specified two-event triad \eqn{W} under a specified subcategory
+#'   of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
+#'   and where a wedge is \emph{closed} if it is the image of such a map that
+#'   factors through a canonical inclusion of \eqn{W} to a specified self-dual 
 #'   three-event triad \eqn{X}.
 #'   
 

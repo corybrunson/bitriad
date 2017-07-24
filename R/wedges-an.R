@@ -4,12 +4,11 @@
 #'   of a specified flavor centered at the node and indicate whether each is 
 #'   closed.
 #'   
-#' @details Each wedge function produces a census of (congruence classes of) 
-#'   wedges in \code{bigraph} centered at \code{actor} and indicators of which 
-#'   of these wedges are closed. The local triad closure statistics are defined
-#'   to be the closure rates of the corresponding wedges, and the global
-#'   statistics the closure rates of the sets of all of wedges in the network.
-#'   
+#' @details The \code{wedges_*} functions implement wedge censuses underlying
+#'   the several flavors of triad closure described below. Each function returns
+#'   a transversal of wedges from the congruence classes of wedges centered at
+#'   the index actor and indicators of whether each class is closed.
+#' 
 #' @template triadclosure
 #'   
 
