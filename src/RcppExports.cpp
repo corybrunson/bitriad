@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // actor_events
 List actor_events(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_actor_events(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_actor_events(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // event_actors
 List event_actors(IntegerMatrix el, int a);
-RcppExport SEXP bitriad_event_actors(SEXP elSEXP, SEXP aSEXP) {
+RcppExport SEXP _bitriad_event_actors(SEXP elSEXP, SEXP aSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // actor_actors
 List actor_actors(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_actor_actors(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_actor_actors(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // wedges_x0w0m0c0
 List wedges_x0w0m0c0(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_wedges_x0w0m0c0(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_wedges_x0w0m0c0(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -55,7 +55,7 @@ END_RCPP
 }
 // wedges_x0w0m0c1
 List wedges_x0w0m0c1(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_wedges_x0w0m0c1(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_wedges_x0w0m0c1(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -67,7 +67,7 @@ END_RCPP
 }
 // wedges_x0w0m0c2
 List wedges_x0w0m0c2(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_wedges_x0w0m0c2(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_wedges_x0w0m0c2(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -79,7 +79,7 @@ END_RCPP
 }
 // wedges_x0w0m1c0
 List wedges_x0w0m1c0(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_wedges_x0w0m1c0(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_wedges_x0w0m1c0(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -91,7 +91,7 @@ END_RCPP
 }
 // wedges_x0w0m1c1
 List wedges_x0w0m1c1(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_wedges_x0w0m1c1(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_wedges_x0w0m1c1(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -103,7 +103,7 @@ END_RCPP
 }
 // wedges_x0w0m1c2
 List wedges_x0w0m1c2(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_wedges_x0w0m1c2(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_wedges_x0w0m1c2(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -115,7 +115,7 @@ END_RCPP
 }
 // wedges_x0w0m2c0
 List wedges_x0w0m2c0(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_wedges_x0w0m2c0(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_wedges_x0w0m2c0(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -127,7 +127,7 @@ END_RCPP
 }
 // wedges_x0w0m2c1
 List wedges_x0w0m2c1(IntegerMatrix el, int q);
-RcppExport SEXP bitriad_wedges_x0w0m2c1(SEXP elSEXP, SEXP qSEXP) {
+RcppExport SEXP _bitriad_wedges_x0w0m2c1(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -139,17 +139,17 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"bitriad_actor_events", (DL_FUNC) &bitriad_actor_events, 2},
-    {"bitriad_event_actors", (DL_FUNC) &bitriad_event_actors, 2},
-    {"bitriad_actor_actors", (DL_FUNC) &bitriad_actor_actors, 2},
-    {"bitriad_wedges_x0w0m0c0", (DL_FUNC) &bitriad_wedges_x0w0m0c0, 2},
-    {"bitriad_wedges_x0w0m0c1", (DL_FUNC) &bitriad_wedges_x0w0m0c1, 2},
-    {"bitriad_wedges_x0w0m0c2", (DL_FUNC) &bitriad_wedges_x0w0m0c2, 2},
-    {"bitriad_wedges_x0w0m1c0", (DL_FUNC) &bitriad_wedges_x0w0m1c0, 2},
-    {"bitriad_wedges_x0w0m1c1", (DL_FUNC) &bitriad_wedges_x0w0m1c1, 2},
-    {"bitriad_wedges_x0w0m1c2", (DL_FUNC) &bitriad_wedges_x0w0m1c2, 2},
-    {"bitriad_wedges_x0w0m2c0", (DL_FUNC) &bitriad_wedges_x0w0m2c0, 2},
-    {"bitriad_wedges_x0w0m2c1", (DL_FUNC) &bitriad_wedges_x0w0m2c1, 2},
+    {"_bitriad_actor_events", (DL_FUNC) &_bitriad_actor_events, 2},
+    {"_bitriad_event_actors", (DL_FUNC) &_bitriad_event_actors, 2},
+    {"_bitriad_actor_actors", (DL_FUNC) &_bitriad_actor_actors, 2},
+    {"_bitriad_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_x0w0m0c0, 2},
+    {"_bitriad_wedges_x0w0m0c1", (DL_FUNC) &_bitriad_wedges_x0w0m0c1, 2},
+    {"_bitriad_wedges_x0w0m0c2", (DL_FUNC) &_bitriad_wedges_x0w0m0c2, 2},
+    {"_bitriad_wedges_x0w0m1c0", (DL_FUNC) &_bitriad_wedges_x0w0m1c0, 2},
+    {"_bitriad_wedges_x0w0m1c1", (DL_FUNC) &_bitriad_wedges_x0w0m1c1, 2},
+    {"_bitriad_wedges_x0w0m1c2", (DL_FUNC) &_bitriad_wedges_x0w0m1c2, 2},
+    {"_bitriad_wedges_x0w0m2c0", (DL_FUNC) &_bitriad_wedges_x0w0m2c0, 2},
+    {"_bitriad_wedges_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_x0w0m2c1, 2},
     {NULL, NULL, 0}
 };
 

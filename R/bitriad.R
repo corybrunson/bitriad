@@ -1,40 +1,15 @@
-#' bitriad: Triadic analysis of affiliation networks
-#' 
-#' The package contains two principal tools for the triadic analysis of 
-#' affiliation networks: the triad census and the clustering coefficient. The 
-#' former includes several variations; the latter involves a shell that uses any
-#' of several notions of wedge and wedge closure. Assorted additional functions,
-#' including a measure of dynamic triadic closure, are available for affiliation
-#' network manipulation.
-#' 
-#' @section Triad censuses: The function \code{\link{triad_census_an}} computes 
-#'   the full triad census for an affiliation network. The functions 
-#'   \code{\link{unif_triad_census}} and \code{\link{str_triad_census}} compute 
-#'   the more compact uniformity and structural triad censuses, respectively, 
-#'   using similar methods. The function \code{\link{simple_triad_census}} 
-#'   computes the classical (undirected) triad census for the actor projection 
-#'   of an affiliation network, using \code{\link[igraph]{triad_census}} but, if
-#'   the result doesn't make sense (i.e. the sum of the entries is not the 
-#'   number of triples of nodes), then it instead uses its own, much slower 
-#'   method. Each of these censuses can be projected from the previous using the
-#'   function \code{\link{project_census}}.
+#' @title \code{bitriad}: Triadic analysis of affiliation networks
 #'   
-#' @section Clustering coefficients: Three clustering coefficients are 
-#'   implemented by name: \code{\link{project_transitivity}} calculates the 
-#'   Watts-Strogatz clustering coefficient 
-#'   \url{http://www.nature.com/nature/journal/v393/n6684/abs/393440a0.html} of 
-#'   the actor projection; \code{\link{opsahl_transitivity}} computes the 
-#'   "two-mode" clustering coefficient proposed by Opsahl 
-#'   \url{http://www.sciencedirect.com/science/article/pii/S0378873311000360}; 
-#'   and \code{\link{excl_transitivity}} computes the exclusive clustering 
-#'   coefficient proposed by the author \url{http://arxiv.org/abs/1502.07016}.
-#'   The latter two, and several additional clustering coefficients, are named
-#'   according to the criteria by which they define wedges and wedge closures
-#'   among triples of actors (\code{\link{injequ_transitivity}},
-#'   \code{\link{injstr_transitivity}}, \code{\link{injact_transitivity}},
-#'   \code{\link{indequ_transitivity}}, \code{\link{indstr_transitivity}}). Each
-#'   of these uses the wrapper \code{\link{transitivity_an}} with a
-#'   corresponding wedge function (e.g. \code{\link{injact_wedges}}).
+#' @description Calculate triad censuses and triad closure statistics designed 
+#'   for affiliation networks.
+#'   
+#' @details The package contains two principal tools for the triadic analysis of
+#'   affiliation networks: triad censuses and triad closure statistics. Assorted
+#'   additional functions, including a measure of dynamic triad closure, are
+#'   also included.
+#'   
+#' @template triadcensus
+#' @template triadclosure
 #'   
 #' @docType package
 #' @author Jason Cory Brunson

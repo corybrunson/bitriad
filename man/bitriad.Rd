@@ -4,14 +4,20 @@
 \name{bitriad}
 \alias{bitriad}
 \alias{bitriad-package}
-\title{bitriad: Triadic analysis of affiliation networks}
+\title{\code{bitriad}: Triadic analysis of affiliation networks}
 \description{
-The package contains two principal tools for the triadic analysis of 
-affiliation networks: the triad census and the clustering coefficient. The 
-former includes several variations; the latter involves a shell that uses any
-of several notions of wedge and wedge closure. Assorted additional functions,
-including a measure of dynamic triadic closure, are available for affiliation
-network manipulation.
+Calculate triad censuses and triad closure statistics designed 
+  for affiliation networks.
+}
+\details{
+The package contains two principal tools for the triadic analysis of
+  affiliation networks: triad censuses and triad closure statistics. Assorted
+  additional functions, including a measure of dynamic triad closure, are
+  also included.
+
+
+
+
 }
 \section{Triad censuses}{
  The function \code{\link{triad_census_an}} computes 
@@ -27,25 +33,91 @@ network manipulation.
   function \code{\link{project_census}}.
 }
 
-\section{Clustering coefficients}{
- Three clustering coefficients are 
-  implemented by name: \code{\link{project_transitivity}} calculates the 
-  Watts-Strogatz clustering coefficient 
-  \url{http://www.nature.com/nature/journal/v393/n6684/abs/393440a0.html} of 
-  the actor projection; \code{\link{opsahl_transitivity}} computes the 
-  "two-mode" clustering coefficient proposed by Opsahl 
-  \url{http://www.sciencedirect.com/science/article/pii/S0378873311000360}; 
-  and \code{\link{excl_transitivity}} computes the exclusive clustering 
-  coefficient proposed by the author \url{http://arxiv.org/abs/1502.07016}.
-  The latter two, and several additional clustering coefficients, are named
-  according to the criteria by which they define wedges and wedge closures
-  among triples of actors (\code{\link{injequ_transitivity}},
-  \code{\link{injstr_transitivity}}, \code{\link{injact_transitivity}},
-  \code{\link{indequ_transitivity}}, \code{\link{indstr_transitivity}}). Each
-  of these uses the wrapper \code{\link{transitivity_an}} with a
-  corresponding wedge function (e.g. \code{\link{injact_wedges}}).
+\section{Triad closure}{
+ Each measure of triad closure is defined as the 
+  proportion of wedges that are closed, where a \emph{wedge} is the image of
+  a specified two-event triad \eqn{W} under a specified subcategory of graph
+  maps \eqn{C} subject to a specified congruence relation \eqn{~}, and where
+  a wedge is \emph{closed} if it is the image of such a map that factors
+  through a canonical inclusion of \eqn{W} to a specified self-dual
+  three-event triad \eqn{X}.
+  
+The alcove, wedge, maps, and congruence can be specified by numerical codes
+as follows (no plans exist to implement more flavors than these):
+\itemize{
+ \item{\code{alcove}:
+  \itemize{
+   \item{\code{0}: \eqn{T_{(1,1,1),0}}}
+   \item{\code{1}: \eqn{T_{(1,1,0),1}}} (\strong{not yet implemented})
+   \item{\code{2}: \eqn{T_{(1,0,0),2}}} (\strong{not yet implemented})
+   \item{\code{3}: \eqn{T_{(0,0,0),3}}} (\strong{not yet implemented})
+  }
+ }
+ \item{\code{wedge}:
+  \itemize{
+   \item{\code{0}: \eqn{T_{(1,1,0),0}}}
+   \item{\code{1}: \eqn{T_{(1,0,0),1}}} (\strong{not yet implemented})
+   \item{\code{2}: \eqn{T_{(0,0,0),2}}} (\strong{not yet implemented})
+  }
+ }
+ \item{\code{maps}:
+  \itemize{
+   \item{\code{0}: all graph maps (injective on actors)}
+   \item{\code{1}: injective graph maps}
+   \item{\code{2}: induced injective graph maps}
+  }
+ }
+ \item{\code{congruence}:
+  \itemize{
+   \item{\code{0}: same actor and event images (equivalence)}
+   \item{\code{1}: same actor images, structurally equivalent event images}
+   \item{\code{2}: same actor images}
+  }
+ }
+}
+Some specifications correspond to statistics of especial interest:
+\itemize{
+ \item{\code{0,0,0,2}:
+  the classical clustering coefficient (Watts & Strogatz, 1998),
+  evaluated on the unipartite actor projection
+ }
+ \item{\code{0,0,1,0}:
+  the two-mode clustering coefficient (Opsahl, 2013)
+ }
+ \item{\code{0,0,2,0}:
+  the unconnected clustering coefficient (Liebig & Rao, 2014)
+ }
+ \item{\code{3,2,2,0}:
+  the completely clustering coefficient (Liebig & Rao, 2014)
+  (\strong{not yet implemented})
+ }
+ \item{\code{0,0,2,1}:
+  the exclusive clustering coefficient (Brunson, 2015)
+ }
+ \item{\code{0,0,2,2}:
+  the exclusive clustering coefficient
+ }
+}
+See Brunson (2015) for a general definition and the aforecited references for
+discussions of each statistic.
 }
 
+\references{
+Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world" 
+networks. \emph{Nature}, 393(6684), 440--442.
+
+Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the 
+global and local clustering coefficients. \emph{Social Networks}, 35(2),
+159--167. Special Issue on Advances in Two-mode Social Networks.
+
+Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite 
+networks using the clustering coefficient. Pages 323--330 of:
+\emph{Proceedings of the tenth international conference on signal-image
+technology and internet-based systems}.
+
+Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
+Science}, 3(4), 480--508.
+}
 \author{
 Jason Cory Brunson
 }

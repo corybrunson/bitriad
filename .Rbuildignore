@@ -6,3 +6,5 @@
 # data generation
 ^data-raw$
 
+# documentation templates
+man-roxygen
