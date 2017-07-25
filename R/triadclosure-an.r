@@ -18,23 +18,50 @@
 #' @param type The type of statistic, matched to \code{"global"}, 
 #'   \code{"local"}, or \code{"raw"}.
 #' @param ... Flavor specifications passed to \code{\link{wedges_an}}.
+#' @param wedges.fun A custom wedge census function. It must accept an 
+#'   affiliation network \code{bigraph} and a single actor node ID \code{actor} 
+#'   and may have any additional parameters. It must return a named list with 
+#'   values \code{wedges} a numeric matrix of node IDs whose columns record the
+#'   wedges centered at \code{actor} and \code{closed} a logical vector
+#'   recording whether each wedge is closed.
 #' @return If \code{type} is \code{"global"}, the global statistic for 
 #'   \code{bigraph}; if \code{"local"}, the local statistics for \code{actors}; 
-#'   if \code{"raw"}, a 2-column matrix, each row of which gives the number of
+#'   if \code{"raw"}, a 2-column matrix, each row of which gives the number of 
 #'   wedges and of closed wedges centered at \code{actors}.
+#' @examples
+#' data(women_clique)
+#' mapply(
+#'   triadclosure_an,
+#'   wedges.fun = c("watts_strogatz", "opsahl", "exclusive"),
+#'   MoreArgs = list(bigraph = women_clique, type = "local")
+#' )
+#' data(women_group)
+#' cbind(
+#'     triadclosure_watts_strogatz(women_group, type = "local"),
+#'     triadclosure_opsahl(women_group, type = "local"),
+#'     triadclosure_exclusive(women_group, type = "local")
+#' )
 #' @export
 triadclosure_an <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
   type = "global",
-  ...
+  ...,
+  wedges.fun = NULL
 ) {
   type <- match.arg(type, c("global", "local", "raw"))
   if (type == "global" &&
       !setequal(V(bigraph)[V(bigraph)$type == FALSE], V(bigraph)[actors])) {
     warning("Calculating a global statistic on a subset of actors.")
   }
+  wedges_fun <- if (is.null(wedges.fun)) {
+    wedges_an
+  } else if (is.character(wedges.fun)) {
+    get(paste0("wedges_", wedges.fun))
+  } else {
+    wedges.fun
+  }
   wedges <- sapply(actors, function(actor) {
-    wc <- wedges_an(bigraph, actor, ...)$closed
+    wc <- wedges_fun(bigraph, actor, ...)$closed
     c(length(wc), sum(wc))
   })
   wedgeReturn(wedges = t(wedges), type = type)

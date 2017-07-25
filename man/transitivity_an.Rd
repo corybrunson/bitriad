@@ -7,8 +7,6 @@
 \alias{transitivity.an}
 \alias{transitivity.an.triads}
 \alias{transitivity.an.wedges}
-\alias{centeredTriads}
-\alias{triadWedges}
 \alias{indequ_transitivity}
 \alias{indequ.transitivity}
 \alias{indstr_transitivity}
@@ -38,10 +36,6 @@ transitivity.an(bigraph, type = "global", wedgeFun, flavor,
 transitivity.an.triads(bigraph, vids = which(!V(bigraph)$type), flavor)
 
 transitivity.an.wedges(bigraph, vids = which(!V(bigraph)$type), wedgeFun)
-
-centeredTriads(bigraph, vids)
-
-triadWedges(triads, flavor)
 
 indequ_transitivity(bigraph, type = "global",
   vids = which(!V(bigraph)$type))
@@ -124,15 +118,4 @@ cost. The wedges method \code{transitivity_an_wedges} relies on a separate
 wedge function to run over the necessary wedge centers and return a wedge
 count matrix, which is returned back into \code{transitivity_an} for
 outputting.
-}
-\examples{
-data(women_clique)
-sapply(c(injequ_wedges, injstr_wedges, indstr_wedges),
-         transitivity_an, bigraph = women_clique, type = "local")
-data(women_group)
-cbind(
-    project_transitivity(women_group, type = "local"),
-    opsahl_transitivity(women_group, type = "local"),
-    excl_transitivity(women_group, type = "local")
-)
 }

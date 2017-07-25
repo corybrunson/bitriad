@@ -14,7 +14,7 @@
 \title{Triad closure for affiliation networks}
 \usage{
 triadclosure_an(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
-  type = "global", ...)
+  type = "global", ..., wedges.fun = NULL)
 
 triadclosure_watts_strogatz(bigraph, actors = V(bigraph)[V(bigraph)$type ==
   FALSE], type = "global")
@@ -52,11 +52,18 @@ triadclosure_exclusive(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
 \code{"local"}, or \code{"raw"}.}
 
 \item{...}{Flavor specifications passed to \code{\link{wedges_an}}.}
+
+\item{wedges.fun}{A custom wedge census function. It must accept an 
+affiliation network \code{bigraph} and a single actor node ID \code{actor} 
+and may have any additional parameters. It must return a named list with 
+values \code{wedges} a numeric matrix of node IDs whose columns record the
+wedges centered at \code{actor} and \code{closed} a logical vector
+recording whether each wedge is closed.}
 }
 \value{
 If \code{type} is \code{"global"}, the global statistic for 
   \code{bigraph}; if \code{"local"}, the local statistics for \code{actors}; 
-  if \code{"raw"}, a 2-column matrix, each row of which gives the number of
+  if \code{"raw"}, a 2-column matrix, each row of which gives the number of 
   wedges and of closed wedges centered at \code{actors}.
 }
 \description{
@@ -140,6 +147,20 @@ See Brunson (2015) for a general definition and the aforecited references for
 discussions of each statistic.
 }
 
+\examples{
+data(women_clique)
+mapply(
+  triadclosure_an,
+  wedges.fun = c("watts_strogatz", "opsahl", "exclusive"),
+  MoreArgs = list(bigraph = women_clique, type = "local")
+)
+data(women_group)
+cbind(
+    triadclosure_watts_strogatz(women_group, type = "local"),
+    triadclosure_opsahl(women_group, type = "local"),
+    triadclosure_exclusive(women_group, type = "local")
+)
+}
 \references{
 Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world" 
 networks. \emph{Nature}, 393(6684), 440--442.

@@ -16,31 +16,31 @@
 #' @export
 #' @family clustering coefficients
 #' @seealso \code{\link{opsahl_transitivity}}, \code{\link{opsahl_transitivity}}
-project_transitivity <-
-  function(
-    bigraph, type = "global",
-    vids = which(!V(bigraph)$type)
-  ) {
-    if(vcount(bigraph) == 0) {
-      if(type == 'global') {
-        return(NaN)
-      } else if(type == 'local') {
-        return(NULL)
-      } else return(matrix(NA, nrow = 0, ncol = 2))
-    }
-    stopifnot(all(!V(bigraph)$type[vids]))
-    graph <- actor_projection(bigraph)
-    proj_vids <- which(which(!V(bigraph)$type) %in% vids)
-    stopifnot(length(proj_vids) == length(vids))
+project_transitivity <- function(
+  bigraph, type = "global",
+  vids = which(!V(bigraph)$type)
+) {
+  .Deprecated("triadclosure_projection")
+  if(vcount(bigraph) == 0) {
     if(type == 'global') {
-      return(transitivity(graph, type = 'global'))
-    }
-    C <- transitivity(graph, type = 'local', vids = proj_vids)
-    if(type == 'local') return(C)
-    C[is.na(C)] <- 0
-    W <- choose(degree(graph)[proj_vids], 2)
-    unname(cbind(W, W * C))
+      return(NaN)
+    } else if(type == 'local') {
+      return(NULL)
+    } else return(matrix(NA, nrow = 0, ncol = 2))
   }
+  stopifnot(all(!V(bigraph)$type[vids]))
+  graph <- actor_projection(bigraph)
+  proj_vids <- which(which(!V(bigraph)$type) %in% vids)
+  stopifnot(length(proj_vids) == length(vids))
+  if(type == 'global') {
+    return(transitivity(graph, type = 'global'))
+  }
+  C <- transitivity(graph, type = 'local', vids = proj_vids)
+  if(type == 'local') return(C)
+  C[is.na(C)] <- 0
+  W <- choose(degree(graph)[proj_vids], 2)
+  unname(cbind(W, W * C))
+}
 
 #' @rdname project_transitivity
 #' @export
