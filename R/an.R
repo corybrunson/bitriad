@@ -1,57 +1,66 @@
-#' Affiliation network
-#' 
-#' An affiliation network is, essentially, a bipartite graph. The igraph 
-#' function \code{\link{is_bipartite}} tests an igraph object for the logical
-#' vertex attribute \code{type} (if it has any vertices at all), which is
-#' intended to provide a bipartition of the vertices. It does not, however, test
-#' whether edges exist within either part of the partition. The function
-#' \code{\link{is_an}} tests this condition. To simplify some functions,
-#' affiliation networks, as defined here, must also have their vertices indexed
-#' in order of part; all actor vertices must precede all event vertices. The
-#' function \code{is_an} tests also for this condition. The coersive function
-#' \code{as_an} imposes, by a minimal permutation of vertex labels, provided the
-#' \code{igraph} object is bipartite to begin with.
-#' 
+#' @title Affiliation networks
+#'   
+#' @description Test for and impose affiliation network structure on `igraph` 
+#'   objects.
+#'   
+#' @details An affiliation network is a bipartite graph whose nodes are 
+#'   classified as actors and events in such a way that all links are between 
+#'   actors and events. The function \code{\link[igraph]{is_bipartite}} tests an
+#'   `igraph` object for a \code{type} attribute, which is intended to
+#'   bipartition of the nodes. It does not test whether the links respect this
+#'   partition. The function \code{is_an} tests this, as well as the condition
+#'   that actor nodes precede event nodes in their node IDs, which simplifies
+#'   some other functions. The function \code{as_an} coerces an `igraph` object
+#'   to an affiliation network by verifying that the object is bipartite and
+#'   minimally permuting the node IDs. If \code{igraph} has no \code{type}
+#'   attribute and \code{add.type.attribute} is \code{FALSE}, then \code{as_an}
+#'   throws an error; if \code{add.type.attribute} is \code{TRUE}, then
+#'   \code{as_an} introduces a logical \code{type} attribute that takes the 
+#'   value \code{FALSE} at the first node (by node ID) in each connected
+#'   component and \code{TRUE} or \code{FALSE} at the remaining nodes according
+#'   as they are an odd or even number of hops from the first.
+#'   
 #' @name an
-#' @param graph An igraph object
+#' @param graph An \code{igraph} object.
+#' @param add.type.attribute Logical; whether to introduce a \code{type} 
+#'   attribute if \code{igraph} has none before testing for bipartite structure.
 #' @export
-is_an <-
-  function(graph) {
-    # Must be a graph object
-    if(!is_igraph(graph)) return(FALSE)
-    if(vcount(graph) == 0) return(TRUE)
-    # Must have node types (i.e. be "bipartite")
-    if(!('type' %in% vertex_attr_names(graph))) return(FALSE)
-    # Vertices must be in order of type
-    if(!all(V(graph)$type == sort(V(graph)$type))) return(FALSE)
-    # There must be no edges between nodes of the same type
-    el <- as_edgelist(graph, names = FALSE)
-    all(V(graph)$type[el[, 1]] + V(graph)$type[el[, 2]])
+is_an <- function(graph) {
+  if (!is_igraph(graph)) return(FALSE)
+  if (vcount(graph) == 0) return(TRUE)
+  if (is_directed(graph)) {
+    warning("Graph is directed.")
   }
+  if (!("type" %in% vertex_attr_names(graph))) return(FALSE)
+  if (is.unsorted(V(graph)$type)) return(FALSE)
+  el <- as_edgelist(graph, names = FALSE)
+  all(as.numeric(V(graph)$type[el[, 1]]) +
+        as.numeric(V(graph)$type[el[, 2]]) == 1)
+}
 
 #' @rdname an
 #' @export
-as_an <-
-  function(graph) {
-    # Must be a graph object
-    if(!is_igraph(graph)) stop('Not an igraph object')
-    # Trivial graphs are OK
-    if(vcount(graph) == 0) return(graph)
-    # Must have node types (i.e. be "bipartite")
-    if(!('type' %in% vertex_attr_names(graph))) {
-      
-      # REPLACE THIS WITH A SCRIPT TO START AT THE FIRST NODE WITH type 0,
-      # THEN ASSIGN TYPES ACCORDING TO SHORTEST PATH LENGTH FROM FIRST NODE
-      stop('Needs type attribute')
-    }
-    # There must be no edges between nodes of the same type
-    el <- as_edgelist(graph, names = FALSE)
-    if(!all(V(graph)$type[el[, 1]] + V(graph)$type[el[, 2]]))
-      stop('Type attribute does not form a bipartition')
-    # Put nodes in order of type
-    ord <- order(order(V(graph)$type))
-    permute(graph, ord)
+as_an <- function(graph, add.type.attribute = FALSE) {
+  if (!is_igraph(graph)) stop("Not an igraph object.")
+  if (vcount(graph) == 0) return(graph)
+  if (is_directed(graph)) {
+    warning("Graph is directed; collapsing directed links.")
+    graph <- as.undirected(graph, mode = "collapse")
   }
+  if (!("type" %in% vertex_attr_names(graph))) {
+    if (add.type.attribute) {
+      graph <- try_type(graph)
+    } else {
+      stop("Needs 'type' attribute.")
+    }
+  }
+  el <- as_edgelist(graph, names = FALSE)
+  if (!all(as.numeric(V(graph)$type[el[, 1]]) +
+           as.numeric(V(graph)$type[el[, 2]]) == 1)) {
+    stop("Attribute 'type' does not form a bipartition.")
+  }
+  permute(graph, order(order(V(graph)$type)))
+}
 
 #' @rdname an
 #' @export
@@ -60,3 +69,13 @@ is.an <- is_an
 #' @rdname an
 #' @export
 as.an <- as_an
+
+try_type <- function(graph) {
+  comps <- components(graph)
+  start_nodes <- which(!duplicated(comps$membership))
+  dist_mat <- distances(graph, v = start_nodes, weights = NA)
+  dist_mat[is.infinite(dist_mat)] <- NA
+  dists <- apply(dist_mat, 2, sum, na.rm = TRUE)
+  V(graph)$type <- as.logical(dists %% 2)
+  graph
+}

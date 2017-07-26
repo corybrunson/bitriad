@@ -6,29 +6,41 @@
 \alias{as_an}
 \alias{is.an}
 \alias{as.an}
-\title{Affiliation network}
+\title{Affiliation networks}
 \usage{
 is_an(graph)
 
-as_an(graph)
+as_an(graph, add.type.attribute = FALSE)
 
 is.an(graph)
 
-as.an(graph)
+as.an(graph, add.type.attribute = FALSE)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An \code{igraph} object.}
+
+\item{add.type.attribute}{Logical; whether to introduce a \code{type} 
+attribute if \code{igraph} has none before testing for bipartite structure.}
 }
 \description{
-An affiliation network is, essentially, a bipartite graph. The igraph 
-function \code{\link{is_bipartite}} tests an igraph object for the logical
-vertex attribute \code{type} (if it has any vertices at all), which is
-intended to provide a bipartition of the vertices. It does not, however, test
-whether edges exist within either part of the partition. The function
-\code{\link{is_an}} tests this condition. To simplify some functions,
-affiliation networks, as defined here, must also have their vertices indexed
-in order of part; all actor vertices must precede all event vertices. The
-function \code{is_an} tests also for this condition. The coersive function
-\code{as_an} imposes, by a minimal permutation of vertex labels, provided the
-\code{igraph} object is bipartite to begin with.
+Test for and impose affiliation network structure on `igraph` 
+  objects.
+}
+\details{
+An affiliation network is a bipartite graph whose nodes are 
+  classified as actors and events in such a way that all links are between 
+  actors and events. The function \code{\link[igraph]{is_bipartite}} tests an
+  `igraph` object for a \code{type} attribute, which is intended to
+  bipartition of the nodes. It does not test whether the links respect this
+  partition. The function \code{is_an} tests this, as well as the condition
+  that actor nodes precede event nodes in their node IDs, which simplifies
+  some other functions. The function \code{as_an} coerces an `igraph` object
+  to an affiliation network by verifying that the object is bipartite and
+  minimally permuting the node IDs. If \code{igraph} has no \code{type}
+  attribute and \code{add.type.attribute} is \code{FALSE}, then \code{as_an}
+  throws an error; if \code{add.type.attribute} is \code{TRUE}, then
+  \code{as_an} introduces a logical \code{type} attribute that takes the 
+  value \code{FALSE} at the first node (by node ID) in each connected
+  component and \code{TRUE} or \code{FALSE} at the remaining nodes according
+  as they are an odd or even number of hops from the first.
 }
