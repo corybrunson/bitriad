@@ -5,72 +5,6 @@
 
 using namespace Rcpp;
 
-// index_subset_C
-IntegerVector index_subset_C(int i);
-RcppExport SEXP _bitriad_index_subset_C(SEXP iSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type i(iSEXP);
-    rcpp_result_gen = Rcpp::wrap(index_subset_C(i));
-    return rcpp_result_gen;
-END_RCPP
-}
-// subset_index_C
-int subset_index_C(IntegerVector vec);
-RcppExport SEXP _bitriad_subset_index_C(SEXP vecSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type vec(vecSEXP);
-    rcpp_result_gen = Rcpp::wrap(subset_index_C(vec));
-    return rcpp_result_gen;
-END_RCPP
-}
-// subset_partition_C
-IntegerVector subset_partition_C(IntegerVector vec);
-RcppExport SEXP _bitriad_subset_partition_C(SEXP vecSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type vec(vecSEXP);
-    rcpp_result_gen = Rcpp::wrap(subset_partition_C(vec));
-    return rcpp_result_gen;
-END_RCPP
-}
-// partition_subset_C
-IntegerVector partition_subset_C(IntegerVector lambda);
-RcppExport SEXP _bitriad_partition_subset_C(SEXP lambdaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type lambda(lambdaSEXP);
-    rcpp_result_gen = Rcpp::wrap(partition_subset_C(lambda));
-    return rcpp_result_gen;
-END_RCPP
-}
-// index_partition_C
-IntegerVector index_partition_C(int i);
-RcppExport SEXP _bitriad_index_partition_C(SEXP iSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type i(iSEXP);
-    rcpp_result_gen = Rcpp::wrap(index_partition_C(i));
-    return rcpp_result_gen;
-END_RCPP
-}
-// partition_index_C
-int partition_index_C(IntegerVector lambda);
-RcppExport SEXP _bitriad_partition_index_C(SEXP lambdaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type lambda(lambdaSEXP);
-    rcpp_result_gen = Rcpp::wrap(partition_index_C(lambda));
-    return rcpp_result_gen;
-END_RCPP
-}
 // wedges_x0w0m0c0
 List wedges_x0w0m0c0(IntegerMatrix el, int q);
 RcppExport SEXP _bitriad_wedges_x0w0m0c0(SEXP elSEXP, SEXP qSEXP) {
@@ -167,14 +101,74 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// index_subset_C
+IntegerVector index_subset_C(int i);
+RcppExport SEXP _bitriad_index_subset_C(SEXP iSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type i(iSEXP);
+    rcpp_result_gen = Rcpp::wrap(index_subset_C(i));
+    return rcpp_result_gen;
+END_RCPP
+}
+// subset_index_C
+int subset_index_C(IntegerVector vec);
+RcppExport SEXP _bitriad_subset_index_C(SEXP vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type vec(vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(subset_index_C(vec));
+    return rcpp_result_gen;
+END_RCPP
+}
+// subset_partition_C
+IntegerVector subset_partition_C(IntegerVector vec);
+RcppExport SEXP _bitriad_subset_partition_C(SEXP vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type vec(vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(subset_partition_C(vec));
+    return rcpp_result_gen;
+END_RCPP
+}
+// partition_subset_C
+IntegerVector partition_subset_C(IntegerVector lambda);
+RcppExport SEXP _bitriad_partition_subset_C(SEXP lambdaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(partition_subset_C(lambda));
+    return rcpp_result_gen;
+END_RCPP
+}
+// index_partition_C
+IntegerVector index_partition_C(int i);
+RcppExport SEXP _bitriad_index_partition_C(SEXP iSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type i(iSEXP);
+    rcpp_result_gen = Rcpp::wrap(index_partition_C(i));
+    return rcpp_result_gen;
+END_RCPP
+}
+// partition_index_C
+int partition_index_C(IntegerVector lambda);
+RcppExport SEXP _bitriad_partition_index_C(SEXP lambdaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type lambda(lambdaSEXP);
+    rcpp_result_gen = Rcpp::wrap(partition_index_C(lambda));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_bitriad_index_subset_C", (DL_FUNC) &_bitriad_index_subset_C, 1},
-    {"_bitriad_subset_index_C", (DL_FUNC) &_bitriad_subset_index_C, 1},
-    {"_bitriad_subset_partition_C", (DL_FUNC) &_bitriad_subset_partition_C, 1},
-    {"_bitriad_partition_subset_C", (DL_FUNC) &_bitriad_partition_subset_C, 1},
-    {"_bitriad_index_partition_C", (DL_FUNC) &_bitriad_index_partition_C, 1},
-    {"_bitriad_partition_index_C", (DL_FUNC) &_bitriad_partition_index_C, 1},
     {"_bitriad_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_x0w0m0c0, 2},
     {"_bitriad_wedges_x0w0m0c1", (DL_FUNC) &_bitriad_wedges_x0w0m0c1, 2},
     {"_bitriad_wedges_x0w0m0c2", (DL_FUNC) &_bitriad_wedges_x0w0m0c2, 2},
@@ -183,6 +177,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_wedges_x0w0m1c2", (DL_FUNC) &_bitriad_wedges_x0w0m1c2, 2},
     {"_bitriad_wedges_x0w0m2c0", (DL_FUNC) &_bitriad_wedges_x0w0m2c0, 2},
     {"_bitriad_wedges_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_x0w0m2c1, 2},
+    {"_bitriad_index_subset_C", (DL_FUNC) &_bitriad_index_subset_C, 1},
+    {"_bitriad_subset_index_C", (DL_FUNC) &_bitriad_subset_index_C, 1},
+    {"_bitriad_subset_partition_C", (DL_FUNC) &_bitriad_subset_partition_C, 1},
+    {"_bitriad_partition_subset_C", (DL_FUNC) &_bitriad_partition_subset_C, 1},
+    {"_bitriad_index_partition_C", (DL_FUNC) &_bitriad_index_partition_C, 1},
+    {"_bitriad_partition_index_C", (DL_FUNC) &_bitriad_partition_index_C, 1},
     {NULL, NULL, 0}
 };
 
