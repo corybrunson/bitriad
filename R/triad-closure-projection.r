@@ -5,12 +5,12 @@
 #'   the actors in the unipartite projection onto the actor nodes.
 #'   
 #' @details This function recapitulates
-#'   \code{\link{triadclosure_watts_strogatz}} by invoking the
+#'   \code{\link{triad_closure_watts_strogatz}} by invoking the
 #'   \code{\link[igraph]{bipartite_projection}} and
 #'   \code{\link[igraph]{transitivity}} functions in \strong{igraph}.
 #'   
 
-#' @name triadclosure_projection
+#' @name triad_closure_projection
 #' @family triad closure
 #' @param bigraph An affiliation network.
 #' @param actors A vector of actor nodes in \code{bigraph}.
@@ -20,9 +20,9 @@
 #'   \code{bigraph}; if \code{"local"}, the local statistics for \code{actors}; 
 #'   if \code{"raw"}, a 2-column matrix, each row of which gives the number of
 #'   wedges and of closed wedges centered at \code{actors}.
-#' @seealso \code{\link{triadclosure_an}}
+#' @seealso \code{\link{triad_closure_an}}
 #' @export
-triadclosure_projection <- function(
+triad_closure_projection <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
   type = "global"
 ) {

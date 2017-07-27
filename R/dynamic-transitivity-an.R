@@ -14,8 +14,8 @@
 #' dynamic_transitivity_an(women_group)
 #' cbind(
 #'     transitivity(actor_projection(women_group), type = "local"),
-#'     triadclosure_opsahl(women_group, type = "local"),
-#'     triadclosure_exclusive(women_group, type = "local"),
+#'     triad_closure_opsahl(women_group, type = "local"),
+#'     triad_closure_exclusive(women_group, type = "local"),
 #'     dynamic_transitivity_an(women_group, type = "local")
 #' )
 #' @export

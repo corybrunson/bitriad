@@ -129,7 +129,7 @@ C_local
 Our higher-order candidates (Opsahl and exclusive) are implemented using `transitivity.an()`, a shell for the required "wedge" function that counts the open and closed wedges at a node. It is this function that determines the species of triadic closure to be calculated. Once the wedges are tallied in a 2-column matrix, `transitivity.an` computes from them whatever summary statistic is desired. For example, here are the "exclusive" wedges among the five women:
 
 ```{r}
-(exclWedges <- triadclosure_exclusive(women_clique, type = "raw"))
+(exclWedges <- triad_closure_exclusive(women_clique, type = "raw"))
 ```
 
 From these, the global and local exclusive clustering coefficiencs may be recovered:
@@ -144,8 +144,8 @@ exclWedges[, 2] / exclWedges[, 1]            # local
 ```{r}
 C_local_dat <- cbind(
     C = C_local,
-    OpsahlC = triadclosure_opsahl(women_clique, type = "local"),
-    exclC = triadclosure_exclusive(women_clique, type = "local")
+    OpsahlC = triad_closure_opsahl(women_clique, type = "local"),
+    exclC = triad_closure_exclusive(women_clique, type = "local")
 )
 rownames(C_local_dat) <- V(women_clique_proj)$name
 C_local_dat
@@ -206,7 +206,7 @@ There is also clearly a trade-off between the number of a woman's acquaintances 
 This distribution can be fruitfully generalized to the two-mode setting. What's needed a suitable analog of degree--that is, a measure of local connectivity on which local clustering can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the `transitivity.an` function returns when neither type (local or global) is specified. Here are the wedge-dependent means and distributions using the Opsahl clustering coefficient:
 
 ```{r, fig.height = 5}
-women_group_wedges <- triadclosure_opsahl(women_group, type = "raw")
+women_group_wedges <- triad_closure_opsahl(women_group, type = "raw")
 women_group_wedges <- cbind(
     women_group_wedges,
     women_group_wedges[, 2] / women_group_wedges[, 1]
@@ -221,7 +221,7 @@ plot(aggregate(women_group_wedges[, 3],
 This plot defies the behavior we saw in the classical case; clusterability neither grows nor declines with connectivity. Here is the equivalent relationship for exclusive clustering:
 
 ```{r, fig.height = 5}
-women_group_wedges <- triadclosure_exclusive(women_group, type = "raw")
+women_group_wedges <- triad_closure_exclusive(women_group, type = "raw")
 women_group_wedges <- cbind(
     women_group_wedges,
     C = women_group_wedges[, 2] / women_group_wedges[, 1]
