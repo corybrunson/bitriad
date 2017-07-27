@@ -1,11 +1,12 @@
-// survey wedges and determine closure
+// Wedge censuses and closure indicators
 
 // #include <iostream>
 // #include <vector>
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// [[Rcpp::export]]
+//' @rdname wedges_an
+
 List actor_events(IntegerMatrix el, int q) {
   
   int m = el.nrow();
@@ -15,7 +16,7 @@ List actor_events(IntegerMatrix el, int q) {
   int i;
   for (i = 0; i < m; i++) {
     if (el(i, 0) == q) {
-      if(std::find(n1.begin(), n1.end(), el(i, 1)) != n1.end()) {
+      if (std::find(n1.begin(), n1.end(), el(i, 1)) != n1.end()) {
         continue;
       } else {
         n1.push_back(el(i, 1));
@@ -27,7 +28,6 @@ List actor_events(IntegerMatrix el, int q) {
                       Named("d1") = n1);
 }
 
-// [[Rcpp::export]]
 List event_actors(IntegerMatrix el, int a) {
   
   int m = el.nrow();
@@ -37,7 +37,7 @@ List event_actors(IntegerMatrix el, int a) {
   int i;
   for (i = 0; i < m; i++) {
     if (el(i, 1) == a) {
-      if(std::find(n1.begin(), n1.end(), el(i, 0)) != n1.end()) {
+      if (std::find(n1.begin(), n1.end(), el(i, 0)) != n1.end()) {
         continue;
       } else {
         n1.push_back(el(i, 0));
@@ -49,7 +49,6 @@ List event_actors(IntegerMatrix el, int a) {
                       Named("d1") = n1);
 }
 
-// [[Rcpp::export]]
 List actor_actors(IntegerMatrix el, int q) {
   
   int m = el.nrow();
@@ -60,7 +59,7 @@ List actor_actors(IntegerMatrix el, int q) {
   int i, j;
   for (i = 0; i < m; i++) {
     if (el(i, 0) == q) {
-      if(std::find(n1.begin(), n1.end(), el(i, 1)) != n1.end()) {
+      if (std::find(n1.begin(), n1.end(), el(i, 1)) != n1.end()) {
         continue;
       } else {
         n1.push_back(el(i, 1));
@@ -69,7 +68,7 @@ List actor_actors(IntegerMatrix el, int q) {
             continue;
           }
           if (el(j, 1) == el(i, 1)) {
-            if(std::find(n2.begin(), n2.end(), el(j, 0)) != n2.end()) {
+            if (std::find(n2.begin(), n2.end(), el(j, 0)) != n2.end()) {
               continue;
             } else {
               n2.push_back(el(j, 0));
