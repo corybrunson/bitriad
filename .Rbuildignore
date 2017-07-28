@@ -2,6 +2,7 @@
 
 # alternate and test unctions
 ^R-alt$
+^src-alt$
 
 # data generation
 ^data-raw$

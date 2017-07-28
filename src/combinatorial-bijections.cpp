@@ -23,6 +23,7 @@ using namespace Rcpp;
 
 // https://stackoverflow.com/a/9331125
 unsigned choose_C(unsigned n, unsigned k) {
+  
   if (k > n) return 0;
   if (k * 2 > n) k = n - k;
   if (k == 0) return 1;
@@ -32,6 +33,7 @@ unsigned choose_C(unsigned n, unsigned k) {
     res *= (n - i + 1);
     res /= i;
   }
+  
   return res;
 }
 
@@ -43,9 +45,6 @@ IntegerVector index_subset_C(int i) {
     stop("Index 'i' must be a non-negative integer.");
   }
   IntegerVector vec(3);
-  if (i == 0) {
-    return vec;
-  }
   int n = i;
   for (int j = 3; j > 0; j--) {
     int c = j - 1;
