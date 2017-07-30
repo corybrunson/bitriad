@@ -1132,9 +1132,11 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
   unsigned lambda_i = 0;
   unsigned max_i = 0;
   unsigned max_w = 0;
+  unsigned max_i_given = tetrahedral_C(max_weight) - 1;
+  unsigned max_w_given = max_weight;
   
   // Initialize triad census matrix
-  IntegerMatrix tc(tetrahedral_C(max_weight), max_weight + 1);
+  IntegerMatrix tc(max_i_given + 1, max_w_given + 1);
   
   std::sort(actors.begin(), actors.end());
   
@@ -1184,6 +1186,10 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
       lambda[2] = 0;
       lambda_i = partition_index_C(lambda);
       max_i = std::max(max_i, lambda_i);
+      // Reality check
+      if ((max_i > max_i_given) | (max_w > max_w_given)) {
+        stop("Census dimensions exceed those determined from 'max_weight'.");
+      }
       // Inclusive event count w
       w = 0;
       // Increment matrix entry
@@ -1234,6 +1240,10 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
         std::reverse(lambda.begin(), lambda.end());
         lambda_i = partition_index_C(lambda);
         max_i = std::max(max_i, lambda_i);
+        // Reality check
+        if ((max_i > max_i_given) | (max_w > max_w_given)) {
+          stop("Census dimensions exceed those determined from 'max_weight'.");
+        }
         // Inclusive event count w
         w = events_d.size();
         max_w = std::max(max_w, w);
@@ -1260,7 +1270,12 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
   tc(lambda_i, w) += (choose_C(actors.size(), 3) - tot);
   
   // Subset matrix according to 'max_i' and 'max_w'
-  tc = tc(Range(0, max_i + 1), Range(0, max_w));
+  IntegerVector max_lambda = index_partition_C(max_i);
+  max_lambda[0] += 1;
+  max_lambda[1] = 0;
+  max_lambda[2] = 0;
+  max_i = partition_index_C(max_lambda) - 1;
+  tc = tc(Range(0, max_i), Range(0, max_w));
   
   return tc;
 }
