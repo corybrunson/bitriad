@@ -28,10 +28,10 @@ compute the projections of an affiliation network onto the actor and event
 nodes.
 }
 \examples{
-data(southafrica1905)
-tab <- table(V(southafrica1905)$type)
-proj <- actor_projection(southafrica1905)
+data(chicago1960s)
+tab <- table(V(chicago1960s)$type)
+proj <- actor_projection(chicago1960s)
 vcount(proj) == tab[1]
-proj <- event_projection(southafrica1905)
+proj <- event_projection(chicago1960s)
 vcount(proj) == tab[2]
 }

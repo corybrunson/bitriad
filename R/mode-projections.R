@@ -9,11 +9,11 @@
 #' @param name What attribute of the actor nodes in bigraph to name the nodes in
 #'   the projection (defaults to "name")
 #' @examples
-#' data(southafrica1905)
-#' tab <- table(V(southafrica1905)$type)
-#' proj <- actor_projection(southafrica1905)
+#' data(chicago1960s)
+#' tab <- table(V(chicago1960s)$type)
+#' proj <- actor_projection(chicago1960s)
 #' vcount(proj) == tab[1]
-#' proj <- event_projection(southafrica1905)
+#' proj <- event_projection(chicago1960s)
 #' vcount(proj) == tab[2]
 #' @export
 actor_projection <-

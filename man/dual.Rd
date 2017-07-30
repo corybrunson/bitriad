@@ -19,8 +19,8 @@ and reorders the vertex ids accordingly, effectively obtaining the dual
 affiliation network.
 }
 \examples{
-data(southafrica1905)
-tab <- table(V(southafrica1905)$type)
-proj <- actor_projection(dual_an(southafrica1905))
+data(women_clique)
+tab <- table(V(women_clique)$type)
+proj <- actor_projection(dual_an(women_clique))
 vcount(proj) == tab[2]
 }

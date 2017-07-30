@@ -8,9 +8,9 @@
 #' @import igraph
 #' @param bigraph An affiliation network; see \code{\link{is_an}}.
 #' @examples
-#' data(southafrica1905)
-#' tab <- table(V(southafrica1905)$type)
-#' proj <- actor_projection(dual_an(southafrica1905))
+#' data(women_clique)
+#' tab <- table(V(women_clique)$type)
+#' proj <- actor_projection(dual_an(women_clique))
 #' vcount(proj) == tab[2]
 #' @export
 dual_an <-

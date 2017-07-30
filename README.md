@@ -26,7 +26,6 @@ The package implements several tools from the paper, most importantly
 ## Datasets
 
 Sources of the network data include
-* Hobson's [*The Evolution of Modern Capitalism*](https://archive.org/details/evolutionofmoder00hobsuoft), p. 271 (`southafrica1905`);
 * Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*](http://www.amazon.com/Deep-South-Anthropological-Southern-Classics/dp/1570038155), p. 148 (`women_group`) and p. 209 (`women_clique`);
 * Scott and Hughes' [*The Anatomy of Scottish Capital*](http://books.google.com/books?id=59mvAwAAQBAJ), specifically Table 2, covering 1920-21 (`scotland1920s`);
 * Galaskiewicz's [*Social Organization of an Urban Grants Economy*](http://books.google.com/books?id=Vd25AAAAIAAJ), specifically a subset reproduced in Faust's ["Centrality in affiliation networks"](http://www.socsci.uci.edu/~kfaust/faust/research/articles/faust_centrality_sn_1997.pdf) (`minneapolis1970s`);

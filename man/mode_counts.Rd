@@ -24,7 +24,7 @@ These functions return the number of actors (nodes of type "FALSE") or events
 ("TRUE") in an affiliation network.
 }
 \examples{
-data(southafrica1905)
-actor_count(southafrica1905)
-event_count(southafrica1905)
+data(chicago1960s)
+actor_count(chicago1960s)
+event_count(chicago1960s)
 }

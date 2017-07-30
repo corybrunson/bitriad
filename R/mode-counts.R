@@ -6,9 +6,9 @@
 #' @name mode_counts
 #' @param bigraph An affiliation network; see \code{\link{is_an}}.
 #' @examples
-#' data(southafrica1905)
-#' actor_count(southafrica1905)
-#' event_count(southafrica1905)
+#' data(chicago1960s)
+#' actor_count(chicago1960s)
+#' event_count(chicago1960s)
 #' @export
 actor_count <-
   function(bigraph) {
