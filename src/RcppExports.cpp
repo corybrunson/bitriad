@@ -71,16 +71,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// triad_census_edgelist
-IntegerMatrix triad_census_edgelist(IntegerMatrix el, IntegerVector actors, int max_weight);
-RcppExport SEXP _bitriad_triad_census_edgelist(SEXP elSEXP, SEXP actorsSEXP, SEXP max_weightSEXP) {
+// triad_census_batagelj_mrvar_C
+IntegerMatrix triad_census_batagelj_mrvar_C(IntegerMatrix el, IntegerVector actors, int max_weight);
+RcppExport SEXP _bitriad_triad_census_batagelj_mrvar_C(SEXP elSEXP, SEXP actorsSEXP, SEXP max_weightSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type actors(actorsSEXP);
     Rcpp::traits::input_parameter< int >::type max_weight(max_weightSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_edgelist(el, actors, max_weight));
+    rcpp_result_gen = Rcpp::wrap(triad_census_batagelj_mrvar_C(el, actors, max_weight));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -188,7 +188,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_partition_subset_C", (DL_FUNC) &_bitriad_partition_subset_C, 1},
     {"_bitriad_index_partition_C", (DL_FUNC) &_bitriad_index_partition_C, 1},
     {"_bitriad_partition_index_C", (DL_FUNC) &_bitriad_partition_index_C, 1},
-    {"_bitriad_triad_census_edgelist", (DL_FUNC) &_bitriad_triad_census_edgelist, 3},
+    {"_bitriad_triad_census_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_C, 3},
     {"_bitriad_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_x0w0m0c0, 2},
     {"_bitriad_wedges_x0w0m0c1", (DL_FUNC) &_bitriad_wedges_x0w0m0c1, 2},
     {"_bitriad_wedges_x0w0m0c2", (DL_FUNC) &_bitriad_wedges_x0w0m0c2, 2},

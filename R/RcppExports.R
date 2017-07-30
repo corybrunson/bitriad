@@ -56,8 +56,8 @@ partition_index_C <- function(lambda) {
     .Call('_bitriad_partition_index_C', PACKAGE = 'bitriad', lambda)
 }
 
-triad_census_edgelist <- function(el, actors, max_weight) {
-    .Call('_bitriad_triad_census_edgelist', PACKAGE = 'bitriad', el, actors, max_weight)
+triad_census_batagelj_mrvar_C <- function(el, actors, max_weight) {
+    .Call('_bitriad_triad_census_batagelj_mrvar_C', PACKAGE = 'bitriad', el, actors, max_weight)
 }
 
 wedges_x0w0m0c0 <- function(el, q) {

@@ -2,10 +2,7 @@
 #'
 #' This function computes the full triad census for an affiliation network.
 #' 
-#' @name triad_census_an
-#' @param bigraph An affiliation network.
-#' @param add.names Logical; whether to label the matrix rows and columns
-#' @param verbose Logical; whether to display progress bars
+#' @rdname triad_census_an
 #' @export
 #' @examples
 #' data(women_clique)
@@ -16,16 +13,16 @@ triad_census_an <-
   function(bigraph, add.names = FALSE, verbose = FALSE) {
     
     # Check that bigraph is an affiliation network
-    if(!is_an(bigraph)) stop('Not an affiliation network')
+    if (!is_an(bigraph)) stop('Not an affiliation network')
     
     # Drop trivial cases
-    if(vcount(bigraph) == 0) return(matrix(0, nrow = 0, ncol = 0))
+    if (vcount(bigraph) == 0) return(matrix(0, nrow = 0, ncol = 0))
     # Create projection
     graph <- actor_projection(bigraph, name = 'id')
     # Trivial case
-    if(ecount(graph) == 0) {
+    if (ecount(graph) == 0) {
       C <- matrix(choose(vcount(graph), 3), nrow = 1, ncol = 1)
-      if(add.names) {
+      if (add.names) {
         rownames(C) <- '(0,0,0)'
         colnames(C) <- '0'
       }
@@ -43,24 +40,24 @@ triad_census_an <-
     ot <- oneTiedTriads(graph)
     # Insert the totals at the proper entries of C
     # (Aggregated, so no repeats, so no information loss)
-    if(length(ot) > 0) C[sapply(ot$x, function(x) {
+    if (length(ot) > 0) C[sapply(ot$x, function(x) {
       partition_index(c(x, 0, 0))
     }) + 1, 1] <- ot$n
-    if(verbose) print('One-tied triads tallied')
+    if (verbose) print('One-tied triads tallied')
     
     # Tally two-tied triads
     tt <- twoTiedTriads(graph)
     # Insert the totals at the proper entries of C
     # (Aggregated, so no repeats, so no information loss)
-    if(!is.null(tt)) C[sapply(1:dim(tt)[1], function(i) {
+    if (!is.null(tt)) C[sapply(1:dim(tt)[1], function(i) {
       partition_index(c(tt[i, 1], tt[i, 2], 0))
     }) + 1, 1] <- tt$n
-    if(verbose) print('Two-tied triads tallied')
+    if (verbose) print('Two-tied triads tallied')
     
     # Tally triangles
     tht <- threeTiedTriads(bigraph, graph = graph)
     # If there are any...
-    if(!is.null(tht)) {
+    if (!is.null(tht)) {
       # Trim any unnecessary columns
       max.w <- max(tht$w)
       C <- C[, 1:(max.w + 1), drop = FALSE]
@@ -70,12 +67,12 @@ triad_census_an <-
         rs <- which(tht$w == w)
         # Insert the totals at the proper rows in column w + 1 of C
         # (No repeats, so no information loss)
-        if(length(rs) > 0) C[sapply(rs, function(i) {
+        if (length(rs) > 0) C[sapply(rs, function(i) {
           partition_index(as.numeric(tht[i, 1:3])) + 1
         }), w + 1] <- tht$n[rs]
       }
     }
-    if(verbose) print('Three-tied triads tallied')
+    if (verbose) print('Three-tied triads tallied')
     
     # The remaining triads share no secondary nodes; count them as empty
     # (No triads should have yet been counted as empty)
@@ -87,7 +84,7 @@ triad_census_an <-
     stopifnot(sum(C) == choose(vcount(graph), 3))
     # Clear names
     colnames(C) <- NULL
-    if(add.names) {
+    if (add.names) {
       colnames(C) <- 0:(ncol(C) - 1)
       rownames(C) <- sapply(0:(nrow(C) - 1), function(i) paste(
         '(', paste(index_partition(i), collapse = ','),

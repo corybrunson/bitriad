@@ -219,7 +219,7 @@ unsigned tetrahedral_C(unsigned n) {
 // algorithm adapted from Batagelj and Mrvar (2001)
 // performed on an edgelist
 // [[Rcpp::export]]
-IntegerMatrix triad_census_edgelist(
+IntegerMatrix triad_census_batagelj_mrvar_C(
     IntegerMatrix el,
     IntegerVector actors,
     int max_weight
