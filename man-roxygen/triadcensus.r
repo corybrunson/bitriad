@@ -1,7 +1,7 @@
 #' @details
 #' 
 
-#' @section Triad census: The function \code{\link{triad_census_an}} computes 
+#' @section Triad censuses: The function \code{\link{triad_census_an}} computes 
 #'   the full triad census for an affiliation network. The functions 
 #'   \code{\link{unif_triad_census}} and \code{\link{str_triad_census}} compute 
 #'   the more compact uniformity and structural triad censuses, respectively, 

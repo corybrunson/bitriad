@@ -19,7 +19,7 @@ The package contains two principal tools for the triadic analysis of
 
 
 }
-\section{Triad census}{
+\section{Triad censuses}{
  The function \code{\link{triad_census_an}} computes 
   the full triad census for an affiliation network. The functions 
   \code{\link{unif_triad_census}} and \code{\link{str_triad_census}} compute 
