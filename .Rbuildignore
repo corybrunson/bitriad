@@ -1,7 +1,6 @@
 ## Files to ignore when building the package
 
 # alternate and test unctions
-^R-alt$
 ^src-alt$
 
 # data generation
