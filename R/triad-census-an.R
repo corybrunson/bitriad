@@ -1,7 +1,3 @@
-#' Affiliation network (full) triad census
-#'
-#' This function computes the full triad census for an affiliation network.
-#' 
 #' @rdname triad_census_an
 #' @export
 #' @examples

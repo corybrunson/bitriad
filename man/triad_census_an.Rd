@@ -5,7 +5,7 @@
 \alias{triad.census.an}
 \alias{triad_census_an}
 \alias{triad_census_method}
-\title{Affiliation network (full) triad census}
+\title{Triad census for affiliation networks}
 \usage{
 triad_census_an(bigraph, add.names = FALSE, verbose = FALSE)
 
@@ -34,8 +34,6 @@ A matrix counts of triad congruence classes, with row indices
   triadwise events.
 }
 \description{
-This function computes the full triad census for an affiliation network.
-
 Given an affiliation network, tally all actor triads by 
   isomorphism class.
 }

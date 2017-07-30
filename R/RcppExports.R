@@ -20,6 +20,38 @@
 #' partition_subset_C(c(1, 1, 0))
 NULL
 
+wedges_x0w0m0c0 <- function(el, q) {
+    .Call('_bitriad_wedges_x0w0m0c0', PACKAGE = 'bitriad', el, q)
+}
+
+wedges_x0w0m0c1 <- function(el, q) {
+    .Call('_bitriad_wedges_x0w0m0c1', PACKAGE = 'bitriad', el, q)
+}
+
+wedges_x0w0m0c2 <- function(el, q) {
+    .Call('_bitriad_wedges_x0w0m0c2', PACKAGE = 'bitriad', el, q)
+}
+
+wedges_x0w0m1c0 <- function(el, q) {
+    .Call('_bitriad_wedges_x0w0m1c0', PACKAGE = 'bitriad', el, q)
+}
+
+wedges_x0w0m1c1 <- function(el, q) {
+    .Call('_bitriad_wedges_x0w0m1c1', PACKAGE = 'bitriad', el, q)
+}
+
+wedges_x0w0m1c2 <- function(el, q) {
+    .Call('_bitriad_wedges_x0w0m1c2', PACKAGE = 'bitriad', el, q)
+}
+
+wedges_x0w0m2c0 <- function(el, q) {
+    .Call('_bitriad_wedges_x0w0m2c0', PACKAGE = 'bitriad', el, q)
+}
+
+wedges_x0w0m2c1 <- function(el, q) {
+    .Call('_bitriad_wedges_x0w0m2c1', PACKAGE = 'bitriad', el, q)
+}
+
 #' @rdname combinatorial_bijections
 #' @export
 index_subset_C <- function(i) {
@@ -58,37 +90,5 @@ partition_index_C <- function(lambda) {
 
 triad_census_batagelj_mrvar_C <- function(el, actors, max_weight) {
     .Call('_bitriad_triad_census_batagelj_mrvar_C', PACKAGE = 'bitriad', el, actors, max_weight)
-}
-
-wedges_x0w0m0c0 <- function(el, q) {
-    .Call('_bitriad_wedges_x0w0m0c0', PACKAGE = 'bitriad', el, q)
-}
-
-wedges_x0w0m0c1 <- function(el, q) {
-    .Call('_bitriad_wedges_x0w0m0c1', PACKAGE = 'bitriad', el, q)
-}
-
-wedges_x0w0m0c2 <- function(el, q) {
-    .Call('_bitriad_wedges_x0w0m0c2', PACKAGE = 'bitriad', el, q)
-}
-
-wedges_x0w0m1c0 <- function(el, q) {
-    .Call('_bitriad_wedges_x0w0m1c0', PACKAGE = 'bitriad', el, q)
-}
-
-wedges_x0w0m1c1 <- function(el, q) {
-    .Call('_bitriad_wedges_x0w0m1c1', PACKAGE = 'bitriad', el, q)
-}
-
-wedges_x0w0m1c2 <- function(el, q) {
-    .Call('_bitriad_wedges_x0w0m1c2', PACKAGE = 'bitriad', el, q)
-}
-
-wedges_x0w0m2c0 <- function(el, q) {
-    .Call('_bitriad_wedges_x0w0m2c0', PACKAGE = 'bitriad', el, q)
-}
-
-wedges_x0w0m2c1 <- function(el, q) {
-    .Call('_bitriad_wedges_x0w0m2c1', PACKAGE = 'bitriad', el, q)
 }
 
