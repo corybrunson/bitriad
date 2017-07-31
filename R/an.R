@@ -28,6 +28,7 @@
 is_an <- function(graph) {
   if (!is_igraph(graph)) return(FALSE)
   if (vcount(graph) == 0) return(TRUE)
+  if (!is_simple(graph)) return(FALSE)
   if (is_directed(graph)) {
     warning("Graph is directed.")
   }
@@ -43,6 +44,9 @@ is_an <- function(graph) {
 as_an <- function(graph, add.type.attribute = FALSE) {
   if (!is_igraph(graph)) stop("Not an igraph object.")
   if (vcount(graph) == 0) return(graph)
+  if (!is_simple(graph)) {
+    graph <- simplify(graph)
+  }
   if (is_directed(graph)) {
     warning("Graph is directed; collapsing directed links.")
     graph <- as.undirected(graph, mode = "collapse")

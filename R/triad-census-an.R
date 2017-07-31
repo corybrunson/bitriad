@@ -38,9 +38,18 @@ triad_census_an <- function(
   add.names = FALSE
 ) {
   stopifnot(is_an(bigraph))
+  
+  # trivial case
+  if (max(degree(bigraph, V(bigraph)$type)) <= 1) {
+    return(matrix(choose(actor_count(bigraph), 3), nrow = 1, ncol = 1))
+  }
+  
+  # method
   method <- match.arg(method, c("batagelj_mrvar", "original"))
   triad_census_fun <- get(paste0("triad_census_", method))
   tc <- triad_census_fun(bigraph = bigraph, ...)
+  
+  # annotation
   if (add.names) {
     colnames(tc) <- 0:(ncol(tc) - 1)
     rownames(tc) <- paste(
@@ -50,6 +59,7 @@ triad_census_an <- function(
       ")", sep = ""
     )
   }
+  
   tc
 }
 
@@ -60,6 +70,16 @@ triad.census.an <- triad_census_an
 #' @rdname triad_census_an
 #' @export
 triad_census_batagelj_mrvar <- function(
+  bigraph
+) {
+  triad_census_batagelj_mrvar_C(
+    el = as_edgelist(bigraph, names = FALSE)
+  )
+}
+
+#' @rdname triad_census_an
+#' @export
+triad_census_batagelj_mrvar_alt <- function(
   bigraph,
   actors = NULL, max_weight = NULL
 ) {
@@ -69,7 +89,7 @@ triad_census_batagelj_mrvar <- function(
   if (is.null(max_weight)) {
     max_weight <- max(E(actor_projection(bigraph))$weight)
   }
-  triad_census_batagelj_mrvar_C(
+  triad_census_batagelj_mrvar_alt_C(
     el = as_edgelist(bigraph, names = FALSE),
     actors = actors,
     max_weight = max_weight
@@ -87,11 +107,6 @@ triad_census_original <- function(
   if (vcount(bigraph) == 0) return(matrix(0, nrow = 0, ncol = 0))
   # Create projection
   graph <- actor_projection(bigraph, name = 'id')
-  # Trivial case
-  if (ecount(graph) == 0) {
-    C <- matrix(choose(vcount(graph), 3), nrow = 1, ncol = 1)
-    return(C)
-  }
   
   # Find maximum values of x and of w
   max.x <- max(E(graph)$weight)

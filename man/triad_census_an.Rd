@@ -4,6 +4,7 @@
 \alias{triad_census_an}
 \alias{triad.census.an}
 \alias{triad_census_batagelj_mrvar}
+\alias{triad_census_batagelj_mrvar_alt}
 \alias{triad_census_original}
 \title{Triad census for affiliation networks}
 \usage{
@@ -11,7 +12,9 @@ triad_census_an(bigraph, method = "batagelj_mrvar", ..., add.names = FALSE)
 
 triad.census.an(bigraph, method = "batagelj_mrvar", ..., add.names = FALSE)
 
-triad_census_batagelj_mrvar(bigraph, actors = NULL, max_weight = NULL)
+triad_census_batagelj_mrvar(bigraph)
+
+triad_census_batagelj_mrvar_alt(bigraph, actors = NULL, max_weight = NULL)
 
 triad_census_original(bigraph, verbose = FALSE)
 }
