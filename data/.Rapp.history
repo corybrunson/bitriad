@@ -1,5 +1,0 @@
-load("/Users/corybrunson/Documents/programming/R/triadic/data/women1.rda")
-vcount(women1)
-library(igraph)
-vcount(women1)
-get.adjacency(women1)

@@ -1,15 +1,15 @@
 # Create graph objects for affiliation network data sets
-pkgs <- c(
-  "igraph"       # for functions
-  , "latentnet"  # for davis data
-  , "devtools"   # for install_github
-)
-for(pkg in pkgs) {
-  if(!require(pkg, character.only = TRUE)) {
-    install.packages(pkg)
-    library(pkg, character.only = TRUE)
-  }
-}
+
+# Setup
+library(devtools)  # for install_github()
+library(igraph)    # for functions
+library(latentnet) # for Davis data
+#install_github("corybrunson/scottish.capital")
+library(scottish.capital)
+# http://bioconductor.wustl.edu/data/experiment/html/SNAData.html
+#source("http://bioconductor.org/biocLite.R")
+#biocLite("SNAData", ask = FALSE)
+library(SNAData)
 
 # Davis Southern Women
 data(davis)
@@ -39,16 +39,12 @@ women_clique <- graph_from_incidence_matrix(as.matrix(read.csv(
   row.names = 1)))
 
 # Scott and Hughes, *The Anatomy of Scottish Capital*
-# [url]
-install_github("corybrunson/scottish.capital")
-library(scottish.capital)
+# https://github.com/corybrunson/scottish.capital
 data(scottish.capital)
-scotland1920s <- scottish.capital[[2]]
+scotland1920s <- permute(scottish.capital[[2]],
+                         order(order(V(scottish.capital[[2]])$type)))
 
 # Galaskiewicz, "Social organization of an urban grants economy"
-# http://bioconductor.wustl.edu/data/experiment/html/SNAData.html
-source("http://bioconductor.org/biocLite.R")
-biocLite("SNAData", ask = FALSE)
 library(SNAData)
 data(CEOclubsAM)
 minneapolis1970s <- graph_from_incidence_matrix(CEOclubsAM)
@@ -107,7 +103,7 @@ V(whigs)$name[V(whigs)$type == 0] <- sapply(
   })
 
 # Save graphs to package data folder (with comments as to why)
-if(file.exists("../data")) {
+if (file.exists("../data")) {
   for(name in c(
     # widely used; dynamic; triad closure example
     "women_group",
@@ -128,6 +124,4 @@ if(file.exists("../data")) {
   )) {
     save(list = name, file = paste0("../data/", name, ".rda"))
   }
-} else warning("Directory 'data' not where it should be")
-
-rm(list = ls())
+} else warning("Directory 'data' not where it should be.")
