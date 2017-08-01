@@ -146,7 +146,7 @@ centeredTriads <- function(bigraph, vids) {
       # Triad class, unsorted, with v at the center
       triad_class(bigraph,
                   c(ns[1, j], v, ns[2, j]),
-                  sorted = FALSE)
+                  as.partition = FALSE, format = "vector")
     })))
     #colnames(dat)[3:5] <- c("x", "y", "z")
     dat

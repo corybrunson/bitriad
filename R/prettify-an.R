@@ -20,12 +20,9 @@ prettify_an <-
     # Use number of vertices to scale down vertex size
     vertex_scale <- max(1 / log(vcount(bigraph)), .001)
     # Vertex style specs
-    V(bigraph)$shape <- ifelse(V(bigraph)$type,
-                               "square", "circle")
-    V(bigraph)$size <- ifelse(V(bigraph)$type,
-                              28, 32) * vertex_scale
-    V(bigraph)$color <- ifelse(V(bigraph)$type,
-                               "lightcoral", "SkyBlue2")
+    V(bigraph)$shape <- ifelse(V(bigraph)$type, "square", "circle")
+    V(bigraph)$size <- ifelse(V(bigraph)$type, 28, 32) * vertex_scale
+    V(bigraph)$color <- ifelse(V(bigraph)$type, "lightcoral", "SkyBlue2")
     # Labeling specs
     V(bigraph)$label.family <- "sans"
     V(bigraph)$label.font <- 2
@@ -33,6 +30,7 @@ prettify_an <-
     V(bigraph)$label.cex <- 2 * vertex_scale
     # Edge specs
     E(bigraph)$width <- .5 + 2.5 * vertex_scale
+    E(bigraph)$color <- "darkgrey"
     # Return graph
     bigraph
   }
