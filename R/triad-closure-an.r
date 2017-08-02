@@ -17,7 +17,7 @@
 #' @param actors A vector of actor nodes in \code{bigraph}.
 #' @param type The type of statistic, matched to \code{"global"}, 
 #'   \code{"local"}, or \code{"raw"}.
-#' @param ... Flavor specifications passed to \code{\link{wedges_an}}.
+#' @param ... Flavor specifications passed to \code{\link{wedges}}.
 #' @param wedges.fun A custom wedge census function. It must accept an 
 #'   affiliation network \code{bigraph} and a single actor node ID \code{actor} 
 #'   and may have any additional parameters. It must return a named list with 
@@ -54,7 +54,7 @@ triad_closure_an <- function(
     warning("Calculating a global statistic on a subset of actors.")
   }
   wedges_fun <- if (is.null(wedges.fun)) {
-    wedges_an
+    wedges
   } else if (is.character(wedges.fun)) {
     get(paste0("wedges_", wedges.fun))
   } else {

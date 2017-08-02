@@ -51,7 +51,7 @@ triad_closure_exclusive(bigraph, actors = V(bigraph)[V(bigraph)$type ==
 \item{type}{The type of statistic, matched to \code{"global"}, 
 \code{"local"}, or \code{"raw"}.}
 
-\item{...}{Flavor specifications passed to \code{\link{wedges_an}}.}
+\item{...}{Flavor specifications passed to \code{\link{wedges}}.}
 
 \item{wedges.fun}{A custom wedge census function. It must accept an 
 affiliation network \code{bigraph} and a single actor node ID \code{actor} 
@@ -78,17 +78,17 @@ The \code{triad_closure_*} functions implement the several flavors of
 
 
 }
-\section{Flavors of triad closure}{
- Each measure of triad closure is defined
-  as the proportion of wedges that are closed, where a \emph{wedge} is the
-  image of a specified two-event triad \eqn{W} under a specified subcategory
-  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
-  and where a wedge is \emph{closed} if it is the image of such a map that
+\section{Measures of triad closure}{
+ Each measure of triad closure is defined 
+  as the proportion of wedges that are closed, where a \emph{wedge} is the 
+  image of a specified two-event triad \eqn{W} under a specified subcategory 
+  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~}, 
+  and where a wedge is \emph{closed} if it is the image of such a map that 
   factors through a canonical inclusion of \eqn{W} to a specified self-dual 
   three-event triad \eqn{X}.
   
 The alcove, wedge, maps, and congruence can be specified by numerical codes
-as follows (no plans exist to implement more flavors than these):
+as follows (no plans exist to implement more measures than these):
 \itemize{
  \item{\code{alcove}:
   \itemize{

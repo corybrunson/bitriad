@@ -5,7 +5,7 @@
 #' the "wedges", and among them the "closed" ones, centered at a given actor
 #' node in a given affiliation network.
 #' 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @param Q An actor node in the network.
 #' @export
 indequ_wedges <-
@@ -46,11 +46,11 @@ indequ_wedges <-
     rowSums(wedgelist)
   }
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 indequ.wedges <- indequ_wedges
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 indstr_wedges <-
   function(bigraph, Q) {
@@ -81,11 +81,11 @@ indstr_wedges <-
     c(length(cl), sum(cl))
   }
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 indstr.wedges <- indstr_wedges
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 injact_wedges <-
   function(bigraph, Q) {
@@ -112,11 +112,11 @@ injact_wedges <-
     return(rowSums(wedgelist))
   }
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 injact.wedges <- injact_wedges
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 injequ_wedges <-
   function(bigraph, Q) {
@@ -150,11 +150,11 @@ injequ_wedges <-
     rowSums(wedgelist)
   }
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 injequ.wedges <- injequ_wedges
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 injstr_wedges <-
   function(bigraph, Q) {
@@ -193,7 +193,7 @@ injstr_wedges <-
     rowSums(wedgelist)
   }
 
-#' @rdname wedges_an
+#' @rdname wedges
 #' @export
 injstr.wedges <- injstr_wedges
 

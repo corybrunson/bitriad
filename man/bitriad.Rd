@@ -33,17 +33,17 @@ The package contains two principal tools for the triadic analysis of
   function \code{\link{project_census}}.
 }
 
-\section{Flavors of triad closure}{
- Each measure of triad closure is defined
-  as the proportion of wedges that are closed, where a \emph{wedge} is the
-  image of a specified two-event triad \eqn{W} under a specified subcategory
-  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
-  and where a wedge is \emph{closed} if it is the image of such a map that
+\section{Measures of triad closure}{
+ Each measure of triad closure is defined 
+  as the proportion of wedges that are closed, where a \emph{wedge} is the 
+  image of a specified two-event triad \eqn{W} under a specified subcategory 
+  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~}, 
+  and where a wedge is \emph{closed} if it is the image of such a map that 
   factors through a canonical inclusion of \eqn{W} to a specified self-dual 
   three-event triad \eqn{X}.
   
 The alcove, wedge, maps, and congruence can be specified by numerical codes
-as follows (no plans exist to implement more flavors than these):
+as follows (no plans exist to implement more measures than these):
 \itemize{
  \item{\code{alcove}:
   \itemize{
