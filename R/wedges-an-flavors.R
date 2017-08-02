@@ -196,3 +196,14 @@ injstr_wedges <-
 #' @rdname wedges_an
 #' @export
 injstr.wedges <- injstr_wedges
+
+# Test for the existence of a system of distinct representatives for a finite 
+# set. 
+# \url{www.encyclopediaofmath.org/index.php/System_of_different_representatives}
+hallCriterion <- function(lst) {
+  all(sapply(0:(2 ^ length(lst) - 1),
+             function(i) {
+               w <- which(intToBits(i) == 1)
+               length(unique(unlist(lst[w]))) >= length(w)
+             }))
+}
