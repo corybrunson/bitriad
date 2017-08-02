@@ -27,23 +27,27 @@ triad_closure_projection <- function(
   type = "global"
 ) {
   type <- match.arg(type, c("global", "local", "raw"))
-  if(vcount(bigraph) == 0) {
-    if(type == "global") {
+  if (vcount(bigraph) == 0) {
+    if (type == "global") {
       return(NaN)
-    } else if(type == "local") {
+    } else if (type == "local") {
       return(NULL)
-    } else return(matrix(NA, nrow = 0, ncol = 2))
+    } else {
+      return(matrix(NA, nrow = 0, ncol = 2))
+    }
   }
   stopifnot(all(V(bigraph)$type[actors] == FALSE))
   graph <- actor_projection(bigraph)
   proj_actors <- which(which(!V(bigraph)$type) %in% actors)
   stopifnot(length(proj_actors) == length(actors))
-  if(type == "global") {
+  if (type == "global") {
     return(transitivity(graph, type = "global"))
+  } else if (type == "local") {
+    return(transitivity(graph, type = "local", vids = proj_actors))
+  } else {
+    C <- transitivity(graph, type = "local", vids = proj_actors)
+    C[is.na(C)] <- 0
+    W <- choose(degree(graph)[proj_actors], 2)
+    return(unname(cbind(W, as.integer(W * C))))
   }
-  C <- transitivity(graph, type = "local", vids = proj_actors)
-  if(type == "local") return(C)
-  C[is.na(C)] <- 0
-  W <- choose(degree(graph)[proj_actors], 2)
-  unname(cbind(W, as.integer(W * C)))
 }
