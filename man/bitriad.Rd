@@ -88,7 +88,7 @@ Some specifications correspond to statistics of especial interest:
   the unconnected clustering coefficient (Liebig & Rao, 2014)
  }
  \item{\code{3,2,2,0}:
-  the completely clustering coefficient (Liebig & Rao, 2014)
+  the completely connected clustering coefficient (Liebig & Rao, 2014)
   (\strong{not yet implemented})
  }
  \item{\code{0,0,2,1}:
