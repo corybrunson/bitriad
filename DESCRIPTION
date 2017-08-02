@@ -22,7 +22,8 @@ Imports:
     Rcpp (>= 0.12.11)
 LinkingTo: Rcpp
 Suggests:
-    knitr
+    knitr,
+    testthat
 License: GPL-2
 VignetteBuilder: knitr
 Classification/MSC: 05C82, 91D30

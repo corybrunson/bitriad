@@ -4,9 +4,9 @@
 #'   for affiliation networks.
 #'   
 #' @details The package contains two principal tools for the triadic analysis of
-#'   affiliation networks: triad censuses and triad closure statistics. Assorted
-#'   additional functions, including a measure of dynamic triad closure, are
-#'   also included.
+#'   affiliation networks: triad censuses and measures of triad closure.
+#'   Assorted additional functions, including a measure of dynamic triad
+#'   closure, are also included.
 #'   
 #' @template triadcensus
 #' @template triadclosure

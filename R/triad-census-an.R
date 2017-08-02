@@ -12,14 +12,16 @@
 #' @name triad_census_an
 #' @param bigraph An affiliation network.
 #' @param method Character; the triad census method to use. Currently only 
-#'   \code{"batagelj_mrvar"} is implemented. \code{"original"} calls an 
-#'   inefficient but reliable original implementation in R.
+#'   \code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
+#'   inefficient but reliable implementation in R from the first package version
+#'   that invokes the \code{\link{simple_triad_census}} of the
+#'   \code{\link{actor_projection}} of \code{bigraph}.
 #' @param ... Additional arguments passed to the \code{method} function.
 #' @param add.names Logical; whether to label the rows and columns of the output
 #'   matrix.
 #' @param verbose Logical; whether to display progress bars.
 #' @param actors Numeric vector of \code{bigraph} actor node IDs (\strong{to 
-#'   expedite the C++ function; to be obviated by a self-contained
+#'   expedite the C++ function; to be obviated by a self-contained 
 #'   implementation}).
 #' @param max_weight Numeric; maximum number of events shared by two actors of 
 #'   \code{bigraph} (\strong{to expedite the C++ function; to be obviated by a 
@@ -45,7 +47,7 @@ triad_census_an <- function(
   }
   
   # method
-  method <- match.arg(method, c("batagelj_mrvar", "original"))
+  method <- match.arg(method, c("batagelj_mrvar", "projection"))
   triad_census_fun <- get(paste0("triad_census_", method))
   tc <- triad_census_fun(bigraph = bigraph, ...)
   
@@ -55,7 +57,7 @@ triad_census_an <- function(
     rownames(tc) <- paste(
       "(",
       sapply(0:(nrow(tc) - 1),
-             function(i) paste(index_partition_C(i), collapse = ",")),
+             function(i) paste(index_partition(i), collapse = ",")),
       ")", sep = ""
     )
   }
@@ -98,7 +100,7 @@ triad_census_batagelj_mrvar_alt <- function(
 
 #' @rdname triad_census_an
 #' @export
-triad_census_original <- function(
+triad_census_projection <- function(
   bigraph,
   verbose = FALSE
 ) {

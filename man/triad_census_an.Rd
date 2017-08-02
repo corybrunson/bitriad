@@ -5,7 +5,7 @@
 \alias{triad.census.an}
 \alias{triad_census_batagelj_mrvar}
 \alias{triad_census_batagelj_mrvar_alt}
-\alias{triad_census_original}
+\alias{triad_census_projection}
 \title{Triad census for affiliation networks}
 \usage{
 triad_census_an(bigraph, method = "batagelj_mrvar", ..., add.names = FALSE)
@@ -16,14 +16,16 @@ triad_census_batagelj_mrvar(bigraph)
 
 triad_census_batagelj_mrvar_alt(bigraph, actors = NULL, max_weight = NULL)
 
-triad_census_original(bigraph, verbose = FALSE)
+triad_census_projection(bigraph, verbose = FALSE)
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
 
 \item{method}{Character; the triad census method to use. Currently only 
-\code{"batagelj_mrvar"} is implemented. \code{"original"} calls an 
-inefficient but reliable original implementation in R.}
+\code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
+inefficient but reliable implementation in R from the first package version
+that invokes the \code{\link{simple_triad_census}} of the
+\code{\link{actor_projection}} of \code{bigraph}.}
 
 \item{...}{Additional arguments passed to the \code{method} function.}
 
@@ -31,7 +33,7 @@ inefficient but reliable original implementation in R.}
 matrix.}
 
 \item{actors}{Numeric vector of \code{bigraph} actor node IDs (\strong{to 
-expedite the C++ function; to be obviated by a self-contained
+expedite the C++ function; to be obviated by a self-contained 
 implementation}).}
 
 \item{max_weight}{Numeric; maximum number of events shared by two actors of 

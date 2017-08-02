@@ -12,12 +12,12 @@
 #' @param lambda Integer; a partition of at most 3 parts, with parts in 
 #'   non-increasing order.
 #' @examples
-#' index_subset_C(2)
-#' index_partition_C(2)
-#' subset_index_C(c(3, 2, 0))
-#' subset_partition_C(c(3, 2, 0))
-#' partition_index_C(c(1, 1, 0))
-#' partition_subset_C(c(1, 1, 0))
+#' index_subset(2)
+#' index_partition(2)
+#' subset_index(c(3, 2, 0))
+#' subset_partition(c(3, 2, 0))
+#' partition_index(c(1, 1, 0))
+#' partition_subset(c(1, 1, 0))
 NULL
 
 wedges_x0w0m0c0 <- function(el, q) {
@@ -54,38 +54,38 @@ wedges_x0w0m2c1 <- function(el, q) {
 
 #' @rdname combinatorial_bijections
 #' @export
-index_subset_C <- function(i) {
-    .Call('_bitriad_index_subset_C', PACKAGE = 'bitriad', i)
+index_subset <- function(i) {
+    .Call('_bitriad_index_subset', PACKAGE = 'bitriad', i)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-subset_index_C <- function(vec) {
-    .Call('_bitriad_subset_index_C', PACKAGE = 'bitriad', vec)
+subset_index <- function(vec) {
+    .Call('_bitriad_subset_index', PACKAGE = 'bitriad', vec)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-subset_partition_C <- function(vec) {
-    .Call('_bitriad_subset_partition_C', PACKAGE = 'bitriad', vec)
+subset_partition <- function(vec) {
+    .Call('_bitriad_subset_partition', PACKAGE = 'bitriad', vec)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-partition_subset_C <- function(lambda) {
-    .Call('_bitriad_partition_subset_C', PACKAGE = 'bitriad', lambda)
+partition_subset <- function(lambda) {
+    .Call('_bitriad_partition_subset', PACKAGE = 'bitriad', lambda)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-index_partition_C <- function(i) {
-    .Call('_bitriad_index_partition_C', PACKAGE = 'bitriad', i)
+index_partition <- function(i) {
+    .Call('_bitriad_index_partition', PACKAGE = 'bitriad', i)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-partition_index_C <- function(lambda) {
-    .Call('_bitriad_partition_index_C', PACKAGE = 'bitriad', lambda)
+partition_index <- function(lambda) {
+    .Call('_bitriad_partition_index', PACKAGE = 'bitriad', lambda)
 }
 
 triad_census_batagelj_mrvar_C <- function(el) {

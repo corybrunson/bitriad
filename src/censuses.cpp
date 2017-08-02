@@ -1009,17 +1009,17 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
 //' @param lambda Integer; a partition of at most 3 parts, with parts in 
 //'   non-increasing order.
 //' @examples
-//' index_subset_C(2)
-//' index_partition_C(2)
-//' subset_index_C(c(3, 2, 0))
-//' subset_partition_C(c(3, 2, 0))
-//' partition_index_C(c(1, 1, 0))
-//' partition_subset_C(c(1, 1, 0))
+//' index_subset(2)
+//' index_partition(2)
+//' subset_index(c(3, 2, 0))
+//' subset_partition(c(3, 2, 0))
+//' partition_index(c(1, 1, 0))
+//' partition_subset(c(1, 1, 0))
 
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-IntegerVector index_subset_C(int i) {
+IntegerVector index_subset(int i) {
   if (i < 0) {
     stop("Index 'i' must be a non-negative integer.");
   }
@@ -1039,7 +1039,7 @@ IntegerVector index_subset_C(int i) {
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-int subset_index_C(IntegerVector vec) {
+int subset_index(IntegerVector vec) {
   if (vec.size() != 3) {
     stop("Vector 'vec' must be of length 3.");
   }
@@ -1059,7 +1059,7 @@ int subset_index_C(IntegerVector vec) {
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-IntegerVector subset_partition_C(IntegerVector vec) {
+IntegerVector subset_partition(IntegerVector vec) {
   if (vec.size() != 3) {
     stop("Vector 'vec' must be of length 3.");
   }
@@ -1079,7 +1079,7 @@ IntegerVector subset_partition_C(IntegerVector vec) {
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-IntegerVector partition_subset_C(IntegerVector lambda) {
+IntegerVector partition_subset(IntegerVector lambda) {
   if (lambda.size() != 3) {
     stop("Partition 'lambda' must have 3 parts.");
   }
@@ -1101,15 +1101,15 @@ IntegerVector partition_subset_C(IntegerVector lambda) {
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-IntegerVector index_partition_C(int i) {
-  return subset_partition_C(index_subset_C(i));
+IntegerVector index_partition(int i) {
+  return subset_partition(index_subset(i));
 }
 
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-int partition_index_C(IntegerVector lambda) {
-  return subset_index_C(partition_subset_C(lambda));
+int partition_index(IntegerVector lambda) {
+  return subset_index(partition_subset(lambda));
 }
 
 // Triad census for affiliation networks
@@ -1187,7 +1187,7 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
       lambda[0] = events_a.size();
       lambda[1] = 0;
       lambda[2] = 0;
-      lambda_i = partition_index_C(lambda);
+      lambda_i = partition_index(lambda);
       max_i = std::max(max_i, lambda_i);
       // Expand triad census dimensions if necessary
       if (max_i + 1 > tc.nrow()) {
@@ -1242,7 +1242,7 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
         lambda[2] = events_c.size() - events_d.size();
         std::sort(lambda.begin(), lambda.end());
         std::reverse(lambda.begin(), lambda.end());
-        lambda_i = partition_index_C(lambda);
+        lambda_i = partition_index(lambda);
         max_i = std::max(max_i, lambda_i);
         // Inclusive event count w
         w = events_d.size();
@@ -1279,11 +1279,11 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
   tc(lambda_i, w) += (choose_C(actors.size(), 3) - tot);
   
   // Subset matrix according to 'max_i' and 'max_w'
-  IntegerVector max_lambda = index_partition_C(max_i);
+  IntegerVector max_lambda = index_partition(max_i);
   max_lambda[0] += 1;
   max_lambda[1] = 0;
   max_lambda[2] = 0;
-  max_i = partition_index_C(max_lambda) - 1;
+  max_i = partition_index(max_lambda) - 1;
   // Expand triad census dimensions if necessary
   if (max_i + 1 > tc.nrow()) {
     IntegerMatrix z(tc.ncol(), max_i + 1 - tc.nrow());
@@ -1364,7 +1364,7 @@ IntegerMatrix triad_census_batagelj_mrvar_alt_C(
       lambda[0] = events_a.size();
       lambda[1] = 0;
       lambda[2] = 0;
-      lambda_i = partition_index_C(lambda);
+      lambda_i = partition_index(lambda);
       max_i = std::max(max_i, lambda_i);
       // Reality check
       if ((max_i > max_i_given) | (max_w > max_w_given)) {
@@ -1418,7 +1418,7 @@ IntegerMatrix triad_census_batagelj_mrvar_alt_C(
         lambda[2] = events_c.size() - events_d.size();
         std::sort(lambda.begin(), lambda.end());
         std::reverse(lambda.begin(), lambda.end());
-        lambda_i = partition_index_C(lambda);
+        lambda_i = partition_index(lambda);
         max_i = std::max(max_i, lambda_i);
         // Reality check
         if ((max_i > max_i_given) | (max_w > max_w_given)) {
@@ -1450,11 +1450,11 @@ IntegerMatrix triad_census_batagelj_mrvar_alt_C(
   tc(lambda_i, w) += (choose_C(actors.size(), 3) - tot);
   
   // Subset matrix according to 'max_i' and 'max_w'
-  IntegerVector max_lambda = index_partition_C(max_i);
+  IntegerVector max_lambda = index_partition(max_i);
   max_lambda[0] += 1;
   max_lambda[1] = 0;
   max_lambda[2] = 0;
-  max_i = partition_index_C(max_lambda) - 1;
+  max_i = partition_index(max_lambda) - 1;
   tc = tc(Range(0, max_i), Range(0, max_w));
   
   return tc;
