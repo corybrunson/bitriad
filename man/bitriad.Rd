@@ -30,9 +30,9 @@ The package contains two principal tools for the triadic analysis of
   positive integer, \eqn{w}, indicating the number of events attended by all 
   three actors. The isomorphism classes are organized into a matrix with rows
   indexed by \eqn{\lambda} and columns indexed by \eqn{w}, with the 
-  partitions \eqn{\lambda} ordered according to the *revolving door ordering*
-  (Kreher & Stinson, 1999). The main function \code{\link{triad_census_an}}
-  defaults to this census.
+  partitions \eqn{\lambda} ordered according to the \emph{revolving door
+  ordering} (Kreher & Stinson, 1999). The main function
+  \code{\link{triad_census_an}} defaults to this census.
   \item In the context of sparse affiliation networks, the full triad census 
   may be less useful than information on how many triads are connected by at 
   least one event in each distinct way. Conceptually, a congruence relation 
@@ -40,21 +40,22 @@ The package contains two principal tools for the triadic analysis of
   if each corresponding pair of actors both attended or did not attend at 
   least one event not attended by the third, and if the corresponding triads 
   both attended or did not attend at least one event together. The 
-  \emph{binary triad census} (Brunson, 2015; therein called the *structural 
-  triad census*) records the number of triads in each congruence class.
+  \emph{binary triad census} (Brunson, 2015; therein called the
+  \emph{structural triad census}) records the number of triads in each
+  congruence class.
   \item The \emph{simple triad census} is just the traditional 4-entry triad 
   census on the netwok projected onto the actor nodes. The function 
   \code{\link{simple_triad_census}} computes the classical (undirected) triad
   census for the actor projection of an affiliation network, using 
   \code{\link[igraph]{triad_census}}; if the result doesn't make sense (i.e.,
-  the sum of the entries is not the number of triples of nodes), then it
+  the sum of the entries is not the number of triples of nodes), then it 
   instead uses its own, much slower method.
   }
   Each of these censuses can be projected from the previous using the 
-  function \code{\link{project_census}}. A fourth census, called the
-  *uniformity triad census* and implemented as 
-  \code{\link{unif_triad_census}}, is deprecated. Three-actor triad
-  affiliation networks can be constructed and plotted using the
+  function \code{\link{project_census}}. A fourth census, called the 
+  \emph{uniformity triad census} and implemented as 
+  \code{\link{unif_triad_census}}, is deprecated. Three-actor triad 
+  affiliation networks can be constructed and plotted using the 
   \code{\link{triad}} functions.
   
   The default method for the two affiliation network--specific triad censuses
