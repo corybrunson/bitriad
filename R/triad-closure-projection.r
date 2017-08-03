@@ -20,7 +20,7 @@
 #'   \code{bigraph}; if \code{"local"}, the local statistics for \code{actors}; 
 #'   if \code{"raw"}, a 2-column matrix, each row of which gives the number of
 #'   wedges and of closed wedges centered at \code{actors}.
-#' @seealso \code{\link{triad_closure_an}}
+#' @seealso \code{\link{triad_closure}}
 #' @export
 triad_closure_projection <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],

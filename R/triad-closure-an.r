@@ -11,7 +11,7 @@
 #' @template triadclosure
 #'   
 
-#' @name triad_closure_an
+#' @name triad_closure
 #' @family triad closure
 #' @param bigraph An affiliation network.
 #' @param actors A vector of actor nodes in \code{bigraph}.
@@ -31,7 +31,7 @@
 #' @examples
 #' data(women_clique)
 #' mapply(
-#'   triad_closure_an,
+#'   triad_closure,
 #'   wedges.fun = c("watts_strogatz", "opsahl", "exclusive"),
 #'   MoreArgs = list(bigraph = women_clique, type = "local")
 #' )
@@ -42,7 +42,7 @@
 #'     triad_closure_exclusive(women_group, type = "local")
 #' )
 #' @export
-triad_closure_an <- function(
+triad_closure <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
   type = "global",
   ...,
@@ -67,63 +67,67 @@ triad_closure_an <- function(
   wedgeReturn(wedges = t(wedges), type = type)
 }
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
+#' @export
+triad_closure_an <- triad_closure
+
+#' @rdname triad_closure
 #' @export
 triad_closure_watts_strogatz <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
-) triad_closure_an(
+) triad_closure(
   bigraph = bigraph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 0, congruence = 2
 )
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
 #' @export
 triad_closure_classical <- triad_closure_watts_strogatz
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
 #' @export
 triad_closure_opsahl <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
-) triad_closure_an(
+) triad_closure(
   bigraph = bigraph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 1, congruence = 0
 )
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
 #' @export
 triad_closure_twomode <- triad_closure_opsahl
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
 #' @export
 triad_closure_liebig_rao_0 <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
-) triad_closure_an(
+) triad_closure(
   bigraph = bigraph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 2, congruence = 0
 )
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
 #' @export
 triad_closure_unconnected <- triad_closure_liebig_rao_0
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
 #' @export
 triad_closure_liebig_rao_3 <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
-) triad_closure_an(
+) triad_closure(
   bigraph = bigraph, actors = actors, type = type,
   alcove = 3, wedge = 2, maps = 2, congruence = 0
 )
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
 #' @export
 triad_closure_completely_connected <- triad_closure_liebig_rao_3
 
-#' @rdname triad_closure_an
+#' @rdname triad_closure
 #' @export
 triad_closure_exclusive <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
-) triad_closure_an(
+) triad_closure(
   bigraph = bigraph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 2, congruence = 1
 )

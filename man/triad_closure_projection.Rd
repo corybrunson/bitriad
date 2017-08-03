@@ -33,7 +33,7 @@ This function recapitulates
   \code{\link[igraph]{transitivity}} functions in \strong{igraph}.
 }
 \seealso{
-\code{\link{triad_closure_an}}
+\code{\link{triad_closure}}
 
-Other triad closure: \code{\link{triad_closure_an}}
+Other triad closure: \code{\link{triad_closure}}
 }
