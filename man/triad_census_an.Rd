@@ -45,7 +45,7 @@ structural.triad.census(bigraph, method = "batagelj_mrvar", ...,
 \item{bigraph}{An affiliation network.}
 
 \item{census}{Character; the type of triad census to calculate, either
-\code{"full"} or \code{"binary"} (also called \emph{structural}).}
+\code{"full"} or \code{"binary"} (or \code{"structural"}).}
 
 \item{method}{Character; the triad census method to use. Currently only 
 \code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
@@ -75,11 +75,14 @@ A matrix counts of triad congruence classes, with row indices
 }
 \description{
 Given an affiliation network, tally all actor triads by 
-  isomorphism class.
+  isomorphism or other congruence class.
 }
 \details{
-The \code{triad_census_*} functions implement the four triad
-  censuses described below in matrix form.
+The \code{triad_census_*} functions implement the several triad 
+  censuses described below. Each census is based on a congruence relation 
+  among the triads in an affiliation network, and each function returns a 
+  matrix (or, in the "simple" case, a vector) recording the number of triads
+  in each congruence class.
 
 
 }

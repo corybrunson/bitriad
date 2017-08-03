@@ -1,18 +1,21 @@
 #' @title Triad census for affiliation networks
 #'   
 #' @description Given an affiliation network, tally all actor triads by 
-#'   isomorphism class.
+#'   isomorphism or other congruence class.
 #'   
-#' @details The \code{triad_census_*} functions implement the four triad
-#'   censuses described below in matrix form.
+#' @details The \code{triad_census_*} functions implement the several triad 
+#'   censuses described below. Each census is based on a congruence relation 
+#'   among the triads in an affiliation network, and each function returns a 
+#'   matrix (or, in the "simple" case, a vector) recording the number of triads
+#'   in each congruence class.
 #'   
 #' @template triadcensus
-#' 
+#'   
 
 #' @name triad_census_an
 #' @param bigraph An affiliation network.
 #' @param census Character; the type of triad census to calculate, either
-#'   \code{"full"} or \code{"binary"} (also called \emph{structural}).
+#'   \code{"full"} or \code{"binary"} (or \code{"structural"}).
 #' @param method Character; the triad census method to use. Currently only 
 #'   \code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
 #'   inefficient but reliable implementation in R from the first package version
@@ -45,7 +48,7 @@ triad_census_an <- function(
   stopifnot(is_an(bigraph))
   
   # type of census
-  census <- match.arg(census, c("full", "binary"))
+  census <- match.arg(census, c("full", "binary", "structural"))
   if (census == "full") {
     return(triad_census_full(bigraph = bigraph,
                              method = method, ...,

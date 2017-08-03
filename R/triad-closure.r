@@ -1,10 +1,10 @@
 #' @title Triad closure for affiliation networks
 #'   
-#' @description Given an affiliation network and a vector of actor node IDs,
-#'   calculate a specified flavor of triad closure centered at the nodes.
+#' @description Given an affiliation network and a vector of actor node IDs, 
+#'   calculate a specified measure of triad closure centered at the nodes.
 #'   
-#' @details The \code{triad_closure_*} functions implement the several flavors of
-#'   triad closure described below. Each function returns a single global 
+#' @details The \code{triad_closure_*} functions implement the several measures
+#'   of triad closure described below. Each function returns a single global 
 #'   statistic, a vector of local statistics, or a matrix of local denominators 
 #'   and numerators from which the global and local statistics can be recovered.
 #'   
@@ -17,7 +17,7 @@
 #' @param actors A vector of actor nodes in \code{bigraph}.
 #' @param type The type of statistic, matched to \code{"global"}, 
 #'   \code{"local"}, or \code{"raw"}.
-#' @param ... Flavor specifications passed to \code{\link{wedges}}.
+#' @param ... Measure specifications passed to \code{\link{wedges}}.
 #' @param wedges.fun A custom wedge census function. It must accept an 
 #'   affiliation network \code{bigraph} and a single actor node ID \code{actor} 
 #'   and may have any additional parameters. It must return a named list with 

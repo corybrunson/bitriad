@@ -55,7 +55,7 @@ triad_closure_exclusive(bigraph, actors = V(bigraph)[V(bigraph)$type ==
 \item{type}{The type of statistic, matched to \code{"global"}, 
 \code{"local"}, or \code{"raw"}.}
 
-\item{...}{Flavor specifications passed to \code{\link{wedges}}.}
+\item{...}{Measure specifications passed to \code{\link{wedges}}.}
 
 \item{wedges.fun}{A custom wedge census function. It must accept an 
 affiliation network \code{bigraph} and a single actor node ID \code{actor} 
@@ -71,12 +71,12 @@ If \code{type} is \code{"global"}, the global statistic for
   wedges and of closed wedges centered at \code{actors}.
 }
 \description{
-Given an affiliation network and a vector of actor node IDs,
-  calculate a specified flavor of triad closure centered at the nodes.
+Given an affiliation network and a vector of actor node IDs, 
+  calculate a specified measure of triad closure centered at the nodes.
 }
 \details{
-The \code{triad_closure_*} functions implement the several flavors of
-  triad closure described below. Each function returns a single global 
+The \code{triad_closure_*} functions implement the several measures
+  of triad closure described below. Each function returns a single global 
   statistic, a vector of local statistics, or a matrix of local denominators 
   and numerators from which the global and local statistics can be recovered.
 
