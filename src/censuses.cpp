@@ -20,7 +20,7 @@ unsigned choose_C(unsigned n, unsigned k) {
 }
 
 unsigned tetrahedral_C(unsigned n) {
-  return choose_C(n + 3, 3);
+  return choose_C(n + 2, 3);
 }
 
 List actor_nbhd_1(IntegerMatrix el, int q) {
@@ -1124,7 +1124,7 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
   
   // Loop indices
   unsigned i, j, k;
-  // Counters
+  // Triad class indices
   IntegerVector lambda(3);
   unsigned w;
   // Limits
@@ -1305,14 +1305,14 @@ IntegerMatrix triad_census_batagelj_mrvar_alt_C(
   
   // Loop indices
   unsigned i, j, k;
-  // Counters
+  // Triad class indices
   IntegerVector lambda(3);
   unsigned w;
   // Limits
   unsigned lambda_i = 0;
   unsigned max_i = 0;
   unsigned max_w = 0;
-  unsigned max_i_given = tetrahedral_C(max_weight) - 1;
+  unsigned max_i_given = tetrahedral_C(max_weight + 1) - 1;
   unsigned max_w_given = max_weight;
   
   // Initialize triad census matrix
@@ -1456,6 +1456,131 @@ IntegerMatrix triad_census_batagelj_mrvar_alt_C(
   max_lambda[2] = 0;
   max_i = partition_index(max_lambda) - 1;
   tc = tc(Range(0, max_i), Range(0, max_w));
+  
+  return tc;
+}
+
+// algorithm adapted from Batagelj and Mrvar (2001)
+// performed on an edgelist
+// internally constructs actor list
+// [[Rcpp::export]]
+IntegerMatrix triad_census_binary_batagelj_mrvar_C(
+    IntegerMatrix el
+) {
+  
+  // Loop indices
+  unsigned i, j, k;
+  // Triad class indices
+  bool x, y, z, w;
+  
+  // Initialize triad census matrix
+  IntegerMatrix tc(4, 2);
+  
+  // Make vector of actor node IDs
+  IntegerVector attendees(el.nrow());
+  for (i = 0; i < el.nrow(); i++) {
+    attendees(i) = el(i, 0);
+  }
+  IntegerVector actors = sort_unique(attendees);
+  
+  // Loop over actors p
+  for (i = 0; i < actors.size(); i++) {
+    
+    List p_ego = actor_nbhd_2(el, actors[i]);
+    IntegerVector p_events = p_ego["d1"];
+    std::sort(p_events.begin(), p_events.end());
+    IntegerVector p_actors = p_ego["d2"];
+    std::sort(p_actors.begin(), p_actors.end());
+    
+    // Actors q co-incident with actor p
+    IntegerVector actors_q = p_actors;
+    
+    for (j = 0; j < actors_q.size(); j++) {
+      if (actors_q[j] <= actors[i]) {
+        continue;
+      }
+      
+      List q_ego = actor_nbhd_2(el, actors_q[j]);
+      IntegerVector q_events = q_ego["d1"];
+      std::sort(q_events.begin(), q_events.end());
+      IntegerVector q_actors = q_ego["d2"];
+      std::sort(q_actors.begin(), q_actors.end());
+      
+      // Events a attended by actors p and q
+      IntegerVector events_a = IntegerVector::create();
+      std::set_intersection(p_events.begin(), p_events.end(),
+                            q_events.begin(), q_events.end(),
+                            std::back_inserter(events_a));
+      
+      // Actors r co-incident with either actor p or q
+      // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
+      std::vector<int> actors_r(p_actors.size() + q_actors.size());
+      std::vector<int>::iterator it;
+      it = std::set_union(p_actors.begin(), p_actors.end(),
+                          q_actors.begin(), q_actors.end(),
+                          actors_r.begin());
+      actors_r.resize(it - actors_r.begin());
+      std::sort(actors_r.begin(), actors_r.end());
+      
+      // Tally one-link triads
+      tc(1, 0) += actors.size() - actors_r.size();
+      
+      for (k = 0; k < actors_r.size(); k++) {
+        if ((actors_r[k] == actors[i]) |
+            (actors_r[k] == actors_q[j])) {
+          continue;
+        }
+        
+        List r_ego = actor_nbhd_2(el, actors_r[k]);
+        IntegerVector r_events = r_ego["d1"];
+        std::sort(r_events.begin(), r_events.end());
+        IntegerVector r_actors = r_ego["d2"];
+        std::sort(r_actors.begin(), r_actors.end());
+        
+        // Events c attended by actors p and r
+        IntegerVector events_c = IntegerVector::create();
+        std::set_intersection(p_events.begin(), p_events.end(),
+                              r_events.begin(), r_events.end(),
+                              std::back_inserter(events_c));
+        
+        if ((actors_q[j] >= actors_r[k]) &
+            ((actors[i] >= actors_r[k]) |
+            (actors_r[k] >= actors_q[j]) |
+            (events_c.size() > 0))) {
+          continue;
+        }
+        
+        // Events b attended by actors q and r
+        IntegerVector events_b = IntegerVector::create();
+        std::set_intersection(q_events.begin(), q_events.end(),
+                              r_events.begin(), r_events.end(),
+                              std::back_inserter(events_b));
+        // Events d attended by actors p, q, and r
+        IntegerVector events_d = IntegerVector::create();
+        std::set_intersection(events_b.begin(), events_b.end(),
+                              events_c.begin(), events_c.end(),
+                              std::back_inserter(events_d));
+        
+        // Tally two- and three-link triads
+        x = (events_a.size() > events_d.size());
+        y = (events_b.size() > events_d.size());
+        z = (events_c.size() > events_d.size());
+        w = (events_d.size() > 0);
+        tc(x + y + z, w) += 1;
+        
+      }
+    }
+  }
+  
+  // Count non-zero triads
+  int tot = 0;
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 2; j++) {
+      tot += tc(i, j);
+    }
+  }
+  // Tally zero-link triads
+  tc(0, 0) += (choose_C(actors.size(), 3) - tot);
   
   return tc;
 }

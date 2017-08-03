@@ -9,10 +9,13 @@
 #' The census must sum to choose(n, 3), where n is
 #' the number of actor nodes.
 #' 
+#' \strong{This function is deprecated and may be removed in the next version.}
+#' 
 #' @name unif_triad_census
 #' @param bigraph The affiliation network
 #' @export
 unif_triad_census <- function(bigraph) {
+  .Deprecated()
   # Initialize the matrix and define the number of actors
   C <- matrix(0, nrow = 8, ncol = 2)
   n <- length(which(!V(bigraph)$type))

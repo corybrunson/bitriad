@@ -22,3 +22,6 @@ census, and the structural equivalence triad census can be recovered from it.
 The census must sum to choose(n, 3), where n is
 the number of actor nodes.
 }
+\details{
+\strong{This function is deprecated and may be removed in the next version.}
+}

@@ -191,6 +191,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// triad_census_binary_batagelj_mrvar_C
+IntegerMatrix triad_census_binary_batagelj_mrvar_C(IntegerMatrix el);
+RcppExport SEXP _bitriad_triad_census_binary_batagelj_mrvar_C(SEXP elSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_binary_batagelj_mrvar_C(el));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_x0w0m0c0, 2},
@@ -209,6 +220,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_partition_index", (DL_FUNC) &_bitriad_partition_index, 1},
     {"_bitriad_triad_census_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_C, 1},
     {"_bitriad_triad_census_batagelj_mrvar_alt_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_alt_C, 3},
+    {"_bitriad_triad_census_binary_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_C, 1},
     {NULL, NULL, 0}
 };
 
