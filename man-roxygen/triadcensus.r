@@ -16,15 +16,29 @@
 #'   ordering} (Kreher & Stinson, 1999). The main function
 #'   \code{\link{triad_census_an}} defaults to this census.
 
-#'   \item In the context of sparse affiliation networks, the full triad census 
-#'   may be less useful than information on how many triads are connected by at 
-#'   least one event in each distinct way. Conceptually, a congruence relation 
-#'   can be defined on the set of triads that considers any two triads congruent
-#'   if each corresponding pair of actors both attended or did not attend at 
-#'   least one event not attended by the third, and if the corresponding triads 
-#'   both attended or did not attend at least one event together. The 
-#'   \emph{binary triad census} (Brunson, 2015; therein called the
-#'   \emph{structural triad census}) records the number of triads in each
+#'   \item For the analysis of sparse affiliation networks, the full triad 
+#'   census may be less useful than information on whether the extent of 
+#'   connectivity through co-attended events differs between each pair of 
+#'   actors. In order to summarize this information, a coarser triad census can 
+#'   be conducted on classes of triads based on the following congruence 
+#'   relation: Using the indices \eqn{\lambda=(x\geq y\geq z)} and \eqn{w} 
+#'   above, note that the numbers of shared events for each pair and for the 
+#'   triad are \eqn{x+w\geq y+w\geq z+w\geq w\geq 0}. Consider two triads 
+#'   congruent if the same subset of these weak inequalities are strictly 
+#'   satisfied. The resulting \emph{difference triad census}, previously called 
+#'   the \emph{uniformity triad census}, implemented as
+#'   \code{\link{triad_census_difference}}, is organized into a \eqn{8\times 2} 
+#'   matrix with the strictness of the first three inequalities determining the 
+#'   row and that of the last inequality determining the column.
+
+#'   \item A still coarser congruence relation can be used to tally how many are
+#'   connected by at least one event in each distinct way. This relation 
+#'   considers two triads congruent if each corresponding pair of actors both 
+#'   attended or did not attend at least one event not attended by the third, 
+#'   and if the corresponding triads both attended or did not attend at least 
+#'   one event together. The \emph{binary triad census} (Brunson, 2015; therein 
+#'   called the \emph{structural triad census}), implemented as 
+#'   \code{\link{triad_census_binary}}, records the number of triads in each 
 #'   congruence class.
 
 #'   \item The \emph{simple triad census} is the 4-entry triad census on the

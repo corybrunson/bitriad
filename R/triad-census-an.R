@@ -14,13 +14,13 @@
 
 #' @name triad_census_an
 #' @param bigraph An affiliation network.
-#' @param scheme Character; the type of triad census to calculate, matched to
-#'   \code{"full"}, \code{"binary"} (equivalently, \code{"structural"}), or
-#'   \code{"simple"}.
+#' @param scheme Character; the type of triad census to calculate, matched to 
+#'   \code{"full"}, \code{"binary"} (also \code{"structural"}), 
+#'   \code{"difference"} (also \code{"uniformity"}), or \code{"simple"}.
 #' @param method Character; the triad census method to use. Currently only 
 #'   \code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
 #'   inefficient but reliable implementation in R from the first package version
-#'   that invokes the \code{\link{simple_triad_census}} of the
+#'   that invokes the \code{\link{simple_triad_census}} of the 
 #'   \code{\link{actor_projection}} of \code{bigraph}.
 #' @param ... Additional arguments passed to the \code{method} function.
 #' @param add.names Logical; whether to label the rows and columns of the output
@@ -49,7 +49,10 @@ triad_census_an <- function(
   stopifnot(is_an(bigraph))
   
   # type of census
-  scheme <- match.arg(scheme, c("full", "binary", "structural", "simple"))
+  scheme <- match.arg(scheme, c("full",
+                                "binary", "structural",
+                                "difference", "uniformity",
+                                "simple"))
   if (scheme == "full") {
     return(triad_census_full(bigraph = bigraph,
                              method = method, ...,
@@ -58,6 +61,10 @@ triad_census_an <- function(
     return(triad_census_binary(bigraph = bigraph,
                                method = method, ...,
                                add.names = add.names))
+  } else if (scheme %in% c("difference", "uniformity")) {
+    return(triad_census_difference(bigraph = bigraph,
+                                   method = method, ...,
+                                   add.names = add.names))
   } else {
     simple_triad_census(actor_projection(bigraph))
   }
@@ -197,6 +204,106 @@ triad_census_projection <- function(
   colnames(C) <- NULL
   as.matrix(C)
 }
+
+#' @rdname triad_census_an
+#' @export
+triad_census_difference <- function(
+  bigraph,
+  method = "batagelj_mrvar", ...,
+  add.names = FALSE
+) {
+  
+  # trivial case
+  if (max(degree(bigraph, V(bigraph)$type)) <= 1) {
+    tc <- matrix(0, nrow = 4, ncol = 2)
+  } else {
+    # method
+    method <- match.arg(method, c("batagelj_mrvar", "projection"))
+    triad_census_fun <- get(paste0("triad_census_difference_", method))
+    tc <- triad_census_fun(bigraph = bigraph, ...)
+  }
+  
+  # annotation
+  if (add.names) {
+    dimnames(tc) <- list(as.character(0:3), as.character(0:1))
+  }
+  
+  tc
+}
+
+#' @rdname triad_census_an
+#' @export
+triad_census_difference_batagelj_mrvar <- function(
+  bigraph
+) {
+  triad_census_difference_batagelj_mrvar_C(
+    el = as_edgelist(bigraph, names = FALSE)
+  )
+}
+
+#' @rdname triad_census_an
+#' @export
+triad_census_difference_projection <- function(bigraph) {
+  # Initialize the matrix and define the number of actors
+  C <- matrix(0, nrow = 8, ncol = 2)
+  n <- length(which(!V(bigraph)$type))
+  # Trivial casess (not enough actors)
+  if(n < 3) return(C)
+  # Trivial case (no events)
+  if((vcount(bigraph) - n) == 0) {
+    C[1, 1] <- C[1, 1] + choose(n, 3)
+    return(C)
+  }
+  
+  # Create one-mode projection
+  graph <- actor_projection(bigraph, name = 'id')
+  # Leverage one-mode triad census for zero- or one-edged triads
+  C[1:2, 1] <- simple_triad_census(graph)[1:2]
+  if(sum(C) == choose(n, 3)) return(C)
+  
+  # Tally two-tied triads
+  tt <- twoTiedTriads(graph)
+  if(!is.null(tt)) {
+    # Classify as 0,1,0 (equal edge wts) or 0,1,1 (distinct edge wts)
+    ed <- stats::aggregate(tt$n, by = list(tt$x == tt$y), FUN = sum)
+    # Insert the totals at the proper entries of C
+    if(nrow(ed) == 1) C[4 - ed$Group.1[1], 1] <- ed$x[1] else
+      C[3:4, 1] <- ed$x[2 - ed$Group.1]
+  }
+  
+  # Find all triangles in the projection
+  t <- do.call(cbind, cliques(graph, 3, 3))
+  # Vector of triad weights
+  w <- sapply(1:ncol(t), function(j) {
+    shareWeight(bigraph, V(graph)$name[c(t[1, j], t[2, j], t[3, j])])
+  })
+  # Classify and tally
+  l <- sapply(1:ncol(t), function(j) {
+    # Pairwise exclusive counts
+    pw <- sort(c(edgeWeight(graph, c(t[1, j], t[2, j])),
+                 edgeWeight(graph, c(t[2, j], t[3, j])),
+                 edgeWeight(graph, c(t[1, j], t[3, j])))) - w[j]
+    # Equal or distinct pairwise exclusive event counts
+    ed <- c(0, pw[1:2]) < pw
+    # Row index in C
+    sum((2 ^ (2:0)) * ed)
+  })
+  # Store tallies in C
+  C[5:8, 1] <- tabulate(l[w == 0] + 1, nbins = 8)[5:8]
+  C[, 2] <- tabulate(l[w > 0] + 1, nbins = 8)
+  
+  # Return the matrix
+  stopifnot(sum(C) == choose(n, 3))
+  C
+}
+
+#' @rdname triad_census_an
+#' @export
+unif_triad_census <- triad_census_difference
+
+#' @rdname triad_census_an
+#' @export
+unif.triad.census <- triad_census_difference
 
 #' @rdname triad_census_an
 #' @export
