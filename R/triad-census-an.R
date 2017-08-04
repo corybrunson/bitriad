@@ -14,8 +14,9 @@
 
 #' @name triad_census_an
 #' @param bigraph An affiliation network.
-#' @param census Character; the type of triad census to calculate, either
-#'   \code{"full"} or \code{"binary"} (or \code{"structural"}).
+#' @param scheme Character; the type of triad census to calculate, matched to
+#'   \code{"full"}, \code{"binary"} (equivalently, \code{"structural"}), or
+#'   \code{"simple"}.
 #' @param method Character; the triad census method to use. Currently only 
 #'   \code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
 #'   inefficient but reliable implementation in R from the first package version
@@ -41,22 +42,24 @@
 #' sum(tc) == choose(vcount(actor_projection(women_clique)), 3)
 triad_census_an <- function(
   bigraph,
-  census = "full",
+  scheme = "full",
   method = "batagelj_mrvar", ...,
   add.names = FALSE
 ) {
   stopifnot(is_an(bigraph))
   
   # type of census
-  census <- match.arg(census, c("full", "binary", "structural"))
-  if (census == "full") {
+  scheme <- match.arg(scheme, c("full", "binary", "structural", "simple"))
+  if (scheme == "full") {
     return(triad_census_full(bigraph = bigraph,
                              method = method, ...,
                              add.names = add.names))
-  } else {
+  } else if (scheme %in% c("binary", "structural")) {
     return(triad_census_binary(bigraph = bigraph,
                                method = method, ...,
                                add.names = add.names))
+  } else {
+    simple_triad_census(actor_projection(bigraph))
   }
 }
 

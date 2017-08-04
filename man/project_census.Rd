@@ -3,45 +3,113 @@
 \name{project_census}
 \alias{project_census}
 \alias{project.census}
-\alias{ftc2utc}
+\alias{binary_from_full_census}
 \alias{ftc2stc}
+\alias{simple_from_full_census}
 \alias{ftc2tc}
-\alias{utc2stc}
-\alias{utc2tc}
+\alias{simple_from_binary_census}
 \alias{stc2tc}
-\title{Project a triad census}
+\title{Project a higher-resolution triad census to a lower-resolution one}
 \usage{
 project_census(census, scheme = NULL, add.names = FALSE)
 
 project.census(census, scheme = NULL, add.names = FALSE)
 
-ftc2utc(census)
+binary_from_full_census(census)
 
 ftc2stc(census)
 
+simple_from_full_census(census)
+
 ftc2tc(census)
 
-utc2stc(census)
-
-utc2tc(census)
+simple_from_binary_census(census)
 
 stc2tc(census)
 }
 \arguments{
-\item{census}{Numeric matrix or vector; the input triad census. It is
-classified as "uniformity", "structural", or "simple" if its dimensons are
-8-by-2, 4-by-2, or 4-by-1, respectively, or unless otherwise specified;
-otherwise it is classified as "full".}
+\item{census}{Numeric matrix or vector; an affiliation network triad census. 
+It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1, 
+respectively, unless otherwise specified by \code{scheme}; otherwise it is 
+treated as full.}
 
-\item{scheme}{Character; the type of census (to be matched to "full",
-"uniformity", "structural", or "simple").}
+\item{scheme}{Character; the type of triad census to calculate, matched to 
+\code{"full"}, \code{"binary"} (equivalently, \code{"structural"}), or 
+\code{"simple"}.}
 
-\item{add.names}{Logical; whether to label the rows and (where applicable)
-columns of the projected censuses.}
+\item{add.names}{Logical; whether to label the rows and columns of the output
+matrix.}
 }
 \description{
-This function inputes an affiliation network triad census of any scheme and
-returns a list of triad censuses projected from it (not icluding itself). In
-order of projectability, the census schemes are full (affiliation network),
-uniformity, structural, and simple.
+Given a triad census of any scheme, construct a triad census of 
+  a coarser (strictly less informative) scheme.
+}
+\details{
+This function inputes an affiliation network triad census of any 
+  scheme and returns a list of triad censuses projected from it (not icluding
+  itself). The schemes are, in order of resolution, \emph{full} (also called 
+  the \emph{affiliation network triad census} without qualification), 
+  \emph{binary} (or \emph{structural}), and \emph{simple}. A final element of
+  the output list is the total number of triads in the affiliation network. 
+  Each summary can be recovered from those before it, specifically by 
+  aggregating certain matrix entries to form a smaller matrix. The helper
+  functions \code{*_from_*_census()} project a census of each scheme to one
+  of each coarser scheme.
+
+
+}
+\section{Triad censuses}{
+ Three triad censuses are implemented for affiliation 
+  networks:
+  \itemize{
+  \item The \emph{full triad census} (Brunson, 2015) records the number of 
+  triads of each isomorphism class. The classes are indexed by a partition, 
+  \eqn{\lambda=(\lambda_1\leq\lambda_2\leq\lambda_3)}, indicating the number 
+  of events attended by both actors in each pair but not the third, and a 
+  positive integer, \eqn{w}, indicating the number of events attended by all 
+  three actors. The isomorphism classes are organized into a matrix with rows
+  indexed by \eqn{\lambda} and columns indexed by \eqn{w}, with the 
+  partitions \eqn{\lambda} ordered according to the \emph{revolving door
+  ordering} (Kreher & Stinson, 1999). The main function
+  \code{\link{triad_census_an}} defaults to this census.
+  \item In the context of sparse affiliation networks, the full triad census 
+  may be less useful than information on how many triads are connected by at 
+  least one event in each distinct way. Conceptually, a congruence relation 
+  can be defined on the set of triads that considers any two triads congruent
+  if each corresponding pair of actors both attended or did not attend at 
+  least one event not attended by the third, and if the corresponding triads 
+  both attended or did not attend at least one event together. The 
+  \emph{binary triad census} (Brunson, 2015; therein called the
+  \emph{structural triad census}) records the number of triads in each
+  congruence class.
+  \item The \emph{simple triad census} is the 4-entry triad census on the
+  netwok projected onto the actor nodes. The function 
+  \code{\link{simple_triad_census}} computes the classical (undirected) triad
+  census for the actor projection of an affiliation network, using 
+  \code{\link[igraph]{triad_census}}; if the result doesn't make sense (i.e.,
+  the sum of the entries is not the number of triples of nodes), then it 
+  instead uses its own, much slower method.
+  }
+  Each of these censuses can be projected from the previous using the 
+  function \code{\link{project_census}}. A fourth census, called the 
+  \emph{uniformity triad census} and implemented as 
+  \code{\link{unif_triad_census}}, is deprecated. Three-actor triad 
+  affiliation networks can be constructed and plotted using the 
+  \code{\link{triad}} functions.
+  
+  The default method for the two affiliation network--specific triad censuses
+  is adapted from the algorithm of Batagelj and Mrvar (2001) for calculating
+  the classical triad census for a directed graph.
+}
+
+\references{
+Kreher, D.L., & Stinson, D.R. (1999). Combinatorial algorithms: generation, 
+enumeration, and search. \emph{SIGACT News}, 30(1), 33--35.
+
+Batagelj, V., & Mrvar, A. (2001). A subquadratic triad census algorithm for 
+large sparse networks with small maximum degree. \emph{Social Networks},
+23(3), 237--243.
+
+Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
+Science}, 3(4), 480--508.
 }

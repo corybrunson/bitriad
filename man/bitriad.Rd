@@ -43,8 +43,8 @@ The package contains two principal tools for the triadic analysis of
   \emph{binary triad census} (Brunson, 2015; therein called the
   \emph{structural triad census}) records the number of triads in each
   congruence class.
-  \item The \emph{simple triad census} is just the traditional 4-entry triad 
-  census on the netwok projected onto the actor nodes. The function 
+  \item The \emph{simple triad census} is the 4-entry triad census on the
+  netwok projected onto the actor nodes. The function 
   \code{\link{simple_triad_census}} computes the classical (undirected) triad
   census for the actor projection of an affiliation network, using 
   \code{\link[igraph]{triad_census}}; if the result doesn't make sense (i.e.,
@@ -59,7 +59,8 @@ The package contains two principal tools for the triadic analysis of
   \code{\link{triad}} functions.
   
   The default method for the two affiliation network--specific triad censuses
-  is adapted from the algorithm of Batagelj and Mrvar (2001).
+  is adapted from the algorithm of Batagelj and Mrvar (2001) for calculating
+  the classical triad census for a directed graph.
 }
 
 \section{Measures of triad closure}{

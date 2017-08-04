@@ -72,7 +72,7 @@ As networks grow, this scheme quickly becomes ridiculous. There are, however, in
 
 ```{r}
 antc_proj <- project_census(antc, add.names = TRUE)
-antc_proj$structural
+antc_proj$binary
 ```
 
 The column indicates the existence of an inclusive event; the row indicates the number of non-duplicate exclusive events (0, 1, 2, or 3). The simple triad census can be recovered from either of these higher-order censuses:
@@ -80,7 +80,7 @@ The column indicates the existence of an inclusive event; the row indicates the 
 ```{r}
 cbind(tc,
       antc_proj$simple,
-      project_census(antc_proj$structural)$simple)
+      project_census(antc_proj$binary)$simple)
 ```
 
 ### Global clustering coefficients

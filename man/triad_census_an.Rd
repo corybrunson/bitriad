@@ -14,10 +14,10 @@
 \alias{structural.triad.census}
 \title{Triad census for affiliation networks}
 \usage{
-triad_census_an(bigraph, census = "full", method = "batagelj_mrvar", ...,
+triad_census_an(bigraph, scheme = "full", method = "batagelj_mrvar", ...,
   add.names = FALSE)
 
-triad.census.an(bigraph, census = "full", method = "batagelj_mrvar", ...,
+triad.census.an(bigraph, scheme = "full", method = "batagelj_mrvar", ...,
   add.names = FALSE)
 
 triad_census_full(bigraph, method = "batagelj_mrvar", ...,
@@ -44,8 +44,9 @@ structural.triad.census(bigraph, method = "batagelj_mrvar", ...,
 \arguments{
 \item{bigraph}{An affiliation network.}
 
-\item{census}{Character; the type of triad census to calculate, either
-\code{"full"} or \code{"binary"} (or \code{"structural"}).}
+\item{scheme}{Character; the type of triad census to calculate, matched to
+\code{"full"}, \code{"binary"} (equivalently, \code{"structural"}), or
+\code{"simple"}.}
 
 \item{method}{Character; the triad census method to use. Currently only 
 \code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
@@ -110,8 +111,8 @@ The \code{triad_census_*} functions implement the several triad
   \emph{binary triad census} (Brunson, 2015; therein called the
   \emph{structural triad census}) records the number of triads in each
   congruence class.
-  \item The \emph{simple triad census} is just the traditional 4-entry triad 
-  census on the netwok projected onto the actor nodes. The function 
+  \item The \emph{simple triad census} is the 4-entry triad census on the
+  netwok projected onto the actor nodes. The function 
   \code{\link{simple_triad_census}} computes the classical (undirected) triad
   census for the actor projection of an affiliation network, using 
   \code{\link[igraph]{triad_census}}; if the result doesn't make sense (i.e.,
@@ -126,7 +127,8 @@ The \code{triad_census_*} functions implement the several triad
   \code{\link{triad}} functions.
   
   The default method for the two affiliation network--specific triad censuses
-  is adapted from the algorithm of Batagelj and Mrvar (2001).
+  is adapted from the algorithm of Batagelj and Mrvar (2001) for calculating
+  the classical triad census for a directed graph.
 }
 
 \examples{
