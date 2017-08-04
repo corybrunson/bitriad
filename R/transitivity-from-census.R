@@ -1,30 +1,37 @@
-#' Global transitivity from a triad census
-#' 
-#' Each global clustering coefficient can be recovered from the full triad
-#' census, and some from smaller censuses. This function determines the type of
-#' census being inputed and computes the desired measure of global transitivity,
-#' if possible, otherwise throwing an error.
-#' 
-#' @name transitivity_from_census
-#' @param census Numeric matrix; the input triad census. It is classified as
-#' "uniformity", "structural", or "simple" if its dimensons are 8-by-2, 4-by-2,
-#' or 4-by-1, respectively, or unless otherwise specified; otherwise it is
-#' classified as "full".
-#' @param flavor Character; the type of transitivity (matched to
-#' "watts.strogatz", "classical", "opsahl", "exclusive", "allact", "indequ",
-#' "indstr", "injact", "injequ", or "injstr")
-#' @param scheme Character; the type of census (to be matched to "full",
-#' "uniformity", "structural", or "simple").
-#' @param openFun The open wedge count for a triad (ignored if `flavor` is not
-#' `NULL`).
-#' @param closedFun The closed wedge count for a triad (ignored if `flavor` is
-#' not `NULL`).
+#' @title Global triad closure from a triad census
+#'   
+#' @description Given a triad census of a suitable scheme, calculate a global 
+#'   measure of triad closure for the associated affiliation network.
+#'   
+#' @details Each global measure of triad closure can be recovered from the full 
+#'   triad census, and some can be recovered from smaller censuses. This 
+#'   function verifies that a given census is sufficient to recover a given 
+#'   measure of triad closure and, if it is, returns its value.
+#'   
+#' @name triad_closure_from_census
+#' @param census Numeric matrix or vector; an affiliation network triad census. 
+#'   It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1, 
+#'   respectively, unless otherwise specified by \code{scheme}; otherwise it is 
+#'   treated as full.
+#' @param measure Character; the type of triad closure (matched to 
+#'   "watts.strogatz", "classical", "opsahl", "exclusive", "allact", "indequ", 
+#'   "indstr", "injact", "injequ", or "injstr")
+#' @param scheme Character; the type of triad census to calculate, matched to 
+#'   \code{"full"}, \code{"binary"} (equivalently, \code{"structural"}), or 
+#'   \code{"simple"}.
+#' @param openFun The open wedge count for a triad (ignored if \code{measure} is
+#'   not \code{NULL}).
+#' @param closedFun The closed wedge count for a triad (ignored if
+#'   \code{measure} is not \code{NULL}).
 #' @param counts Logical; whether to return open and closed wedge counts instead
-#' of a ratio statistic (defaults to `FALSE`).
+#'   of a ratio statistic.
 #' @export
-transitivity_from_census <-
-  function(
-    census, flavor, scheme = NULL, openFun, closedFun, counts = FALSE
+triad_closure_from_census <- function(
+    census,
+    measure,
+    scheme = NULL,
+    openFun, closedFun,
+    counts = FALSE
   ) {
     # Put into matrix form (single column if vector)
     census <- as.matrix(census)
@@ -45,50 +52,50 @@ transitivity_from_census <-
       census <- project_census(census, scheme = scheme)$structural
       scheme <- "structural"
     }
-    # Decide what flavor of transitivity is desired
-    if(!is.null(flavor)) {
-      flavor <- match.arg(flavor,
-                          c("watts.strogatz", "classical", "opsahl",
-                            "exclusive", "allact", "indequ", "indstr",
-                            "injact", "injequ", "injstr"))
+    # Decide what measure of triad closure is desired
+    if(!is.null(measure)) {
+      measure <- match.arg(measure,
+                           c("watts.strogatz", "classical", "opsahl",
+                             "exclusive", "allact", "indequ", "indstr",
+                             "injact", "injequ", "injstr"))
     }
-    if(flavor %in% c("watts.strogatz", "classical")) flavor <- "allact"
-    if(flavor == "opsahl") flavor <- "injequ"
-    if(flavor == "exclusive") flavor <- "indstr"
-    # Simple census can only return classical (Watts-Strogatz) transitivity
+    if(measure %in% c("watts.strogatz", "classical")) measure <- "allact"
+    if(measure == "opsahl") measure <- "injequ"
+    if(measure == "exclusive") measure <- "indstr"
+    # Simple census can only return classical (Watts-Strogatz) triad closure
     if(scheme == "simple") {
-      if(flavor == "allact") {
+      if(measure == "allact") {
         wedgeCt <- c(open = census[3, 1], closed = 3 * census[4, 1])
       } else {
-        stop("Transitivity flavor unrecoverable from census scheme")
+        stop("Triad closure measure unrecoverable from census scheme")
       }
     } else if(scheme == "structural") {
-      if(flavor == "allact") {
+      if(measure == "allact") {
         wedgeCt <- c(open = census[3, 1],
                      closed = 3 * (census[4, 1] + sum(census[, 2])))
-      } else if(flavor == "indstr") {
+      } else if(measure == "indstr") {
         wedgeCt <- c(open = sum(census[3, ]),
                      closed = 3 * sum(census[4, ]))
       } else {
-        stop("Transitivity flavor unrecoverable from census scheme")
+        stop("Triad closure measure unrecoverable from census scheme")
       }
     } else {
-      if(is.null(flavor)) {
+      if(is.null(measure)) {
         wedgeCt <- wedgecount_census(
           census, closedFun = closedFun, openFun = openFun
         )
       } else {
-        ftcFun <- if(flavor == "allact") {
+        ftcFun <- if(measure == "allact") {
           ftc2allact
-        } else if(flavor == "indequ") {
+        } else if(measure == "indequ") {
           ftc2indequ
-        } else if(flavor == "indstr") {
+        } else if(measure == "indstr") {
           ftc2indstr
-        } else if(flavor == "injact") {
+        } else if(measure == "injact") {
           ftc2injact
-        } else if(flavor == "injequ") {
+        } else if(measure == "injequ") {
           ftc2injequ
-        } else if(flavor == "injstr") {
+        } else if(measure == "injstr") {
           ftc2injstr
         }
         wedgeCt <- ftcFun(census)
@@ -102,30 +109,31 @@ transitivity_from_census <-
     }
   }
 
-#' @rdname transitivity_from_census
+#' @rdname triad_closure_from_census
 #' @export
-transitivity.census <- transitivity_from_census
+transitivity_from_census <- triad_closure_from_census
 
-#' @rdname transitivity_from_census
-ftc2indequ <-
-  function(census) wedgecount_census(
+#' @rdname triad_closure_from_census
+#' @export
+transitivity.census <- triad_closure_from_census
+
+#' @rdname triad_closure_from_census
+ftc2indequ <- function(census) wedgecount_census(
     census,
     function(L, w) if(L[3] == 0) 0 else
       L[1] * L[2] + L[2] * L[3] + L[1] * L[3],
     function(L, w) L[1] * L[2] * (L[3] == 0)
   )
 
-#' @rdname transitivity_from_census
-ftc2allact <-
-  function(census) wedgecount_census(
+#' @rdname triad_closure_from_census
+ftc2allact <- function(census) wedgecount_census(
     census,
     function(L, w) 3 * ((L[3] > 0) | (w > 0)),
     function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0))
   )
 
-#' @rdname transitivity_from_census
-ftc2injequ <-
-  function(census) wedgecount_census(
+#' @rdname triad_closure_from_census
+ftc2injequ <- function(census) wedgecount_census(
     census,
     function(L, w) {
       L[1] * L[2] * (L[3] + w > 0) + L[1] * L[3] + L[2] * L[3] +
@@ -142,17 +150,15 @@ ftc2injequ <-
     }
   )
 
-#' @rdname transitivity_from_census
-ftc2indstr <-
-  function(census) wedgecount_census(
+#' @rdname triad_closure_from_census
+ftc2indstr <- function(census) wedgecount_census(
     census,
     function(L, w) 3 * (L[3] > 0),
     function(L, w) ((L[2] > 0) & (L[3] == 0))
   )
 
-#' @rdname transitivity_from_census
-ftc2injact <-
-  function(census) wedgecount_census(
+#' @rdname triad_closure_from_census
+ftc2injact <- function(census) wedgecount_census(
     census,
     function(L, w) 3 * (length(which(L > 0)) + w > 2),
     function(L, w) (L[2] > 0 & L[3] == 0 & w == 0) +
@@ -160,9 +166,8 @@ ftc2injact <-
       3 * (L[1] == 0 & w == 2)
   )
 
-#' @rdname transitivity_from_census
-ftc2injstr <-
-  function(census) wedgecount_census(
+#' @rdname triad_closure_from_census
+ftc2injstr <- function(census) wedgecount_census(
     census,
     function(L, w) {
       (w == 0) * (3 * (L[3] > 0)) +

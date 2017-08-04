@@ -10,8 +10,8 @@
 #'   \emph{binary} (or \emph{structural}), and \emph{simple}. A final element of
 #'   the output list is the total number of triads in the affiliation network. 
 #'   Each summary can be recovered from those before it, specifically by 
-#'   aggregating certain matrix entries to form a smaller matrix. The helper
-#'   functions \code{*_from_*_census()} project a census of each scheme to one
+#'   aggregating certain matrix entries to form a smaller matrix. The helper 
+#'   functions \code{*_from_*_census()} project a census of each scheme to one 
 #'   of each coarser scheme.
 #'   
 #' @template triadcensus

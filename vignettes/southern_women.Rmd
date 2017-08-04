@@ -95,13 +95,13 @@ The value tells us what proportion of the time two coattendees with the same thi
 
 The paper discusses in detail two alternative clustering coefficients specifically designed for affiliation networks. The first is the *[Opsahl](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/) clustering coefficient*, the first proposed measure of triadic closure specific to affiliation networks. (This distinction ignores previous bipartite clustering coefficients that were not based on triples of actors.) The second is dubbed the **exclusive clustering coefficient** because it depends only on the exclusive events any triad. Analogously to above, both of these diagnostics is recoverable from the triad census.[^2]
 
-[^2]: The calculations are wrapped into `transitivity_from_census()`, which can also handle uniformity, structural, and simple census input, provided the desired flavor of transitivity can be recovered therefrom.
+[^2]: The calculations are wrapped into `triad_closure_from_census()`, which can also handle uniformity, structural, and simple census input, provided the desired measure of transitivity can be recovered therefrom.
 
 ```{r}
 (C_vec <- c(
-    C = transitivity_from_census(antc, scheme = "full", flavor = "classical"),
-    OpsahlC = transitivity_from_census(antc, scheme = "full", flavor = "opsahl"),
-    exclC = transitivity_from_census(antc, scheme = "full", flavor = "exclusive")
+    C = triad_closure_from_census(antc, scheme = "full", measure = "classical"),
+    OpsahlC = triad_closure_from_census(antc, scheme = "full", measure = "opsahl"),
+    exclC = triad_closure_from_census(antc, scheme = "full", measure = "exclusive")
 ))
 ```
 
