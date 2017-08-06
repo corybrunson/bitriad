@@ -62,9 +62,9 @@ It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1,
 respectively, unless otherwise specified by \code{scheme}; otherwise it is 
 treated as full.}
 
-\item{scheme}{Character; the type of triad census to calculate, matched to 
-\code{"full"}, \code{"binary"} (equivalently, \code{"structural"}), or 
-\code{"simple"}.}
+\item{scheme}{Character; the type of triad census provided, matched to 
+\code{"full"}, \code{"binary"} (also \code{"structural"}), 
+\code{"difference"} (also \code{"uniformity"}), or \code{"simple"}.}
 
 \item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
 congruence (see Details).}
@@ -78,7 +78,7 @@ congruence (see Details).}
 count for a triad, in order to calculate a custom measure of triad closure.
 Override \code{measure}.}
 
-\item{counts}{Logical; whether to return open and closed wedge counts
+\item{counts}{Logical; whether to return open and closed wedge counts 
 \eqn{w_o} and \eqn{w_c} instead of the quotient \eqn{\frac{w_c}{w_o+w_c}}.}
 }
 \description{

@@ -8,7 +8,7 @@
 #' cheats by using the native `transitivity` but produces output consistent
 #' with the other variants of `transitivity_an`.)
 #' 
-#' @name project-transitivity
+#' @name project_transitivity
 #' @param bigraph An affiliation network.
 #' @param type The type of clustering coefficient (defaults to "global")
 #' @param vids A subset of actor node ids at which to evaluate the local
@@ -42,6 +42,6 @@ project_transitivity <- function(
   unname(cbind(W, W * C))
 }
 
-#' @rdname project-transitivity
+#' @rdname project_transitivity
 #' @export
 project.transitivity <- project_transitivity

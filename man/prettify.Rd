@@ -22,7 +22,7 @@ Given an affiliation network, assign the node and link
 library(igraph)
 data(women_clique)
 data(whigs)
-for(g in list(women_clique, whigs)) {
+for (g in list(women_clique, whigs)) {
     plot(prettify_an(g))
 }
 }

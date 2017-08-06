@@ -12,7 +12,7 @@
 #' @template triadcensus
 #'   
 
-#' @name triad-census-an
+#' @name triad_census_an
 #' @param bigraph An affiliation network.
 #' @param scheme Character; the type of triad census to calculate, matched to 
 #'   \code{"full"}, \code{"binary"} (also \code{"structural"}), 
@@ -70,11 +70,11 @@ triad_census_an <- function(
   }
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad.census.an <- triad_census_an
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_full <- function(
   bigraph,
@@ -106,7 +106,7 @@ triad_census_full <- function(
   tc
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_batagelj_mrvar <- function(
   bigraph
@@ -116,7 +116,7 @@ triad_census_batagelj_mrvar <- function(
   )
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_batagelj_mrvar_alt <- function(
   bigraph,
@@ -135,7 +135,7 @@ triad_census_batagelj_mrvar_alt <- function(
   )
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_projection <- function(
   bigraph,
@@ -205,7 +205,7 @@ triad_census_projection <- function(
   as.matrix(C)
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_difference <- function(
   bigraph,
@@ -231,7 +231,7 @@ triad_census_difference <- function(
   tc
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_difference_batagelj_mrvar <- function(
   bigraph
@@ -241,7 +241,7 @@ triad_census_difference_batagelj_mrvar <- function(
   )
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_difference_projection <- function(bigraph) {
   # Initialize the matrix and define the number of actors
@@ -297,15 +297,15 @@ triad_census_difference_projection <- function(bigraph) {
   C
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 unif_triad_census <- triad_census_difference
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 unif.triad.census <- triad_census_difference
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_binary <- function(
   bigraph,
@@ -331,7 +331,7 @@ triad_census_binary <- function(
   tc
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_binary_batagelj_mrvar <- function(
   bigraph
@@ -341,7 +341,7 @@ triad_census_binary_batagelj_mrvar <- function(
   )
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 triad_census_binary_projection <- function(
   bigraph,
@@ -388,10 +388,10 @@ triad_census_binary_projection <- function(
   C
 }
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 str_triad_census <- triad_census_binary
 
-#' @rdname triad-census-an
+#' @rdname triad_census_an
 #' @export
 structural.triad.census <- triad_census_binary

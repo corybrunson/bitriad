@@ -4,7 +4,7 @@
 #'   compute the projections of an affiliation network onto the actor or event 
 #'   nodes.
 #'   
-#' @name mode-projection
+#' @name mode_projection
 #' @param bigraph An affiliation network.
 #' @param mode Numeric or character; whether to project onto actors (\code{1} or
 #'   \code{"actors"}) or onto events (\code{2} or \code{"events"}).
@@ -35,22 +35,22 @@ mode_projection <- function(bigraph, mode = "actors", name = "name") {
   bipartite_projection(bigraph, multiplicity = TRUE)[[mode]]
 }
 
-#' @rdname mode-projection
+#' @rdname mode_projection
 #' @export
 actor_projection <- function(bigraph, name = "name") {
   mode_projection(bigraph = bigraph, name = name, mode = 1)
 }
 
-#' @rdname mode-projection
+#' @rdname mode_projection
 #' @export
 event_projection <- function(bigraph, name = "name") {
   mode_projection(bigraph = bigraph, name = name, mode = 2)
 }
 
-#' @rdname mode-projection
+#' @rdname mode_projection
 #' @export
 actor.projection <- actor_projection
 
-#' @rdname mode-projection
+#' @rdname mode_projection
 #' @export
 event.projection <- event_projection

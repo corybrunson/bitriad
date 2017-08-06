@@ -17,7 +17,7 @@
 #' count matrix, which is returned back into \code{transitivity_an} for
 #' outputting.
 #' 
-#' @name transitivity-an
+#' @name transitivity_an
 #' @param bigraph An affiliation network; see \code{is_an}.
 #' @param type Character; the type of clustering coefficient (defaults to 
 #'   "global").
@@ -74,7 +74,7 @@ transitivity_an <- function(
   }
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 transitivity_an_triads <- function(
   bigraph,
@@ -93,29 +93,29 @@ transitivity_an_triads <- function(
   wedges
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 transitivity_an_wedges <- function(
   bigraph,
   vids = which(!V(bigraph)$type),
   wedgeFun
 ) {
-  .Deprecated("triadclosure_an")
+  .Deprecated("triad_closure")
   # Wedge and closed wedge counts at each node
   t(matrix(unlist(lapply(vids, function(v) {
     wedgeFun(bigraph, v)
   })), nrow = 2))
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 transitivity.an <- transitivity_an
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 transitivity.an.triads <- transitivity_an_triads
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 transitivity.an.wedges <- transitivity_an_wedges
 
@@ -218,7 +218,7 @@ triadWedges <- function(triads, flavor) {
   mat
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 indequ_transitivity <- function(
   bigraph, type = "global",
@@ -229,11 +229,11 @@ indequ_transitivity <- function(
     wedgeFun = indequ_wedges, vids = vids)
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 indequ.transitivity <- indequ_transitivity
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 indstr_transitivity <- function(
   bigraph, type = "global",
@@ -244,11 +244,11 @@ indstr_transitivity <- function(
     wedgeFun = indstr_wedges, vids = vids)
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 indstr.transitivity <- indstr_transitivity
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 injact_transitivity <- function(
   bigraph, type = "global",
@@ -259,11 +259,11 @@ injact_transitivity <- function(
     wedgeFun = injact_wedges, vids = vids)
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 injact.transitivity <- injact_transitivity
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 injequ_transitivity <- function(
   bigraph, type = "global",
@@ -274,11 +274,11 @@ injequ_transitivity <- function(
     wedgeFun = injequ_wedges, vids = vids)
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 injequ.transitivity <- injequ_transitivity
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 injstr_transitivity <- function(
   bigraph, type = "global",
@@ -289,11 +289,11 @@ injstr_transitivity <- function(
     wedgeFun = injstr_wedges, vids = vids)
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 injstr.transitivity <- injstr_transitivity
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 opsahl_transitivity <- function(
   bigraph, type = "global",
@@ -304,11 +304,11 @@ opsahl_transitivity <- function(
     wedgeFun = injequ_wedges, vids = vids)
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 opsahl.transitivity <- opsahl_transitivity
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 excl_transitivity <- function(
   bigraph, type = "global",
@@ -319,6 +319,6 @@ excl_transitivity <- function(
     wedgeFun = indstr_wedges, vids = vids)
 }
 
-#' @rdname transitivity-an
+#' @rdname transitivity_an
 #' @export
 excl.transitivity <- excl_transitivity

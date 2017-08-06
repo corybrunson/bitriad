@@ -10,7 +10,7 @@
 #'   \code{\link[igraph]{transitivity}} functions in \strong{igraph}.
 #'   
 
-#' @name triad-closure-projection
+#' @name triad_closure_projection
 #' @family triad closure
 #' @param bigraph An affiliation network.
 #' @param actors A vector of actor nodes in \code{bigraph}.

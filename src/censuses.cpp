@@ -995,7 +995,7 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
   );
 }
 
-//' @rdname combinatorial-bijections
+//' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
 IntegerVector index_subset(int i) {
@@ -1015,7 +1015,7 @@ IntegerVector index_subset(int i) {
   return vec;
 }
 
-//' @rdname combinatorial-bijections
+//' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
 int subset_index(IntegerVector vec) {
@@ -1035,7 +1035,7 @@ int subset_index(IntegerVector vec) {
   return i;
 }
 
-//' @rdname combinatorial-bijections
+//' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
 IntegerVector subset_partition(IntegerVector vec) {
@@ -1055,7 +1055,7 @@ IntegerVector subset_partition(IntegerVector vec) {
   return lambda;
 }
 
-//' @rdname combinatorial-bijections
+//' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
 IntegerVector partition_subset(IntegerVector lambda) {
@@ -1077,14 +1077,14 @@ IntegerVector partition_subset(IntegerVector lambda) {
   return vec;
 }
 
-//' @rdname combinatorial-bijections
+//' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
 IntegerVector index_partition(int i) {
   return subset_partition(index_subset(i));
 }
 
-//' @rdname combinatorial-bijections
+//' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
 int partition_index(IntegerVector lambda) {

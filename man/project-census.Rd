@@ -4,10 +4,16 @@
 \alias{project-census}
 \alias{project_census}
 \alias{project.census}
+\alias{difference_from_full_census}
+\alias{ftc2utc}
 \alias{binary_from_full_census}
 \alias{ftc2stc}
 \alias{simple_from_full_census}
 \alias{ftc2tc}
+\alias{binary_from_difference_census}
+\alias{utc2stc}
+\alias{simple_from_difference_census}
+\alias{utc2tc}
 \alias{simple_from_binary_census}
 \alias{stc2tc}
 \title{Project a higher-resolution triad census to a lower-resolution one}
@@ -16,6 +22,10 @@ project_census(census, scheme = NULL, add.names = FALSE)
 
 project.census(census, scheme = NULL, add.names = FALSE)
 
+difference_from_full_census(census)
+
+ftc2utc(census)
+
 binary_from_full_census(census)
 
 ftc2stc(census)
@@ -23,6 +33,14 @@ ftc2stc(census)
 simple_from_full_census(census)
 
 ftc2tc(census)
+
+binary_from_difference_census(census)
+
+utc2stc(census)
+
+simple_from_difference_census(census)
+
+utc2tc(census)
 
 simple_from_binary_census(census)
 
@@ -34,9 +52,9 @@ It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1,
 respectively, unless otherwise specified by \code{scheme}; otherwise it is 
 treated as full.}
 
-\item{scheme}{Character; the type of triad census to calculate, matched to 
-\code{"full"}, \code{"binary"} (equivalently, \code{"structural"}), or 
-\code{"simple"}.}
+\item{scheme}{Character; the type of triad census provided, matched to 
+\code{"full"}, \code{"binary"} (also \code{"structural"}), 
+\code{"difference"} (also \code{"uniformity"}), or \code{"simple"}.}
 
 \item{add.names}{Logical; whether to label the rows and columns of the output
 matrix.}
@@ -50,12 +68,12 @@ This function inputes an affiliation network triad census of any
   scheme and returns a list of triad censuses projected from it (not icluding
   itself). The schemes are, in order of resolution, \emph{full} (also called 
   the \emph{affiliation network triad census} without qualification), 
-  \emph{binary} (or \emph{structural}), and \emph{simple}. A final element of
-  the output list is the total number of triads in the affiliation network. 
-  Each summary can be recovered from those before it, specifically by 
-  aggregating certain matrix entries to form a smaller matrix. The helper 
-  functions \code{*_from_*_census()} project a census of each scheme to one 
-  of each coarser scheme.
+  \emph{difference}, \emph{binary}, and \emph{simple}. A final element of the
+  output list is the total number of triads in the affiliation network. Each
+  summary can be recovered from those before it, specifically by aggregating
+  certain matrix entries to form a smaller matrix. The helper functions
+  \code{*_from_*_census()} project a census of each scheme to one of each
+  coarser scheme.
 
 
 }

@@ -4,7 +4,7 @@
 #'   \code{type} attribute \code{FALSE}) or events (\code{TRUE}) in an
 #'   affiliation network.
 #'   
-#' @name mode-counts
+#' @name mode_counts
 #' @param bigraph An affiliation network.
 #' @examples
 #' data(chicago1960s)
@@ -12,7 +12,7 @@
 #' event_count(chicago1960s)
 NULL
 
-#' @rdname mode-counts
+#' @rdname mode_counts
 #' @export
 actor_count <- function(bigraph) {
   stopifnot(is_an(bigraph))
@@ -20,7 +20,7 @@ actor_count <- function(bigraph) {
   length(which(!V(bigraph)$type))
 }
 
-#' @rdname mode-counts
+#' @rdname mode_counts
 #' @export
 event_count <- function(bigraph) {
   stopifnot(is_an(bigraph))
@@ -28,10 +28,10 @@ event_count <- function(bigraph) {
   length(which(V(bigraph)$type))
 }
 
-#' @rdname mode-counts
+#' @rdname mode_counts
 #' @export
 actor.count <- actor_count
 
-#' @rdname mode-counts
+#' @rdname mode_counts
 #' @export
 event.count <- event_count

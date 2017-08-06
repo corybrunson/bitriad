@@ -20,7 +20,7 @@
 #'   component and \code{TRUE} or \code{FALSE} at the remaining nodes according 
 #'   as they are an odd or even number of hops from the first.
 #'   
-#' @name affiliation-network
+#' @name affiliation_network
 #' @param graph An \code{igraph} object.
 #' @param add.type.attribute Logical; whether to introduce a \code{type} 
 #'   attribute if \code{igraph} has none before testing for bipartite structure.
@@ -39,7 +39,7 @@ is_an <- function(graph) {
         as.numeric(V(graph)$type[el[, 2]]) == 1)
 }
 
-#' @rdname affiliation-network
+#' @rdname affiliation_network
 #' @export
 as_an <- function(graph, add.type.attribute = FALSE) {
   if (!is_igraph(graph)) stop("Not an igraph object.")
@@ -66,11 +66,11 @@ as_an <- function(graph, add.type.attribute = FALSE) {
   permute(graph, order(order(V(graph)$type)))
 }
 
-#' @rdname affiliation-network
+#' @rdname affiliation_network
 #' @export
 is.an <- is_an
 
-#' @rdname affiliation-network
+#' @rdname affiliation_network
 #' @export
 as.an <- as_an
 
