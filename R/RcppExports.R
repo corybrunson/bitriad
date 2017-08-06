@@ -33,37 +33,37 @@ wedges_x0w0m2c1 <- function(el, q) {
     .Call('_bitriad_wedges_x0w0m2c1', PACKAGE = 'bitriad', el, q)
 }
 
-#' @rdname combinatorial-bijections
+#' @rdname combinatorial_bijections
 #' @export
 index_subset <- function(i) {
     .Call('_bitriad_index_subset', PACKAGE = 'bitriad', i)
 }
 
-#' @rdname combinatorial-bijections
+#' @rdname combinatorial_bijections
 #' @export
 subset_index <- function(vec) {
     .Call('_bitriad_subset_index', PACKAGE = 'bitriad', vec)
 }
 
-#' @rdname combinatorial-bijections
+#' @rdname combinatorial_bijections
 #' @export
 subset_partition <- function(vec) {
     .Call('_bitriad_subset_partition', PACKAGE = 'bitriad', vec)
 }
 
-#' @rdname combinatorial-bijections
+#' @rdname combinatorial_bijections
 #' @export
 partition_subset <- function(lambda) {
     .Call('_bitriad_partition_subset', PACKAGE = 'bitriad', lambda)
 }
 
-#' @rdname combinatorial-bijections
+#' @rdname combinatorial_bijections
 #' @export
 index_partition <- function(i) {
     .Call('_bitriad_index_partition', PACKAGE = 'bitriad', i)
 }
 
-#' @rdname combinatorial-bijections
+#' @rdname combinatorial_bijections
 #' @export
 partition_index <- function(lambda) {
     .Call('_bitriad_partition_index', PACKAGE = 'bitriad', lambda)

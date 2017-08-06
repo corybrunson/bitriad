@@ -7,7 +7,7 @@
 \alias{partition_subset}
 \alias{index_partition}
 \alias{partition_index}
-\alias{combinatorial-bijections}
+\alias{combinatorial_bijections}
 \alias{indexSubset}
 \alias{indexPartition}
 \alias{subsetIndex}
