@@ -1,14 +1,3 @@
-#' Small inner ring of South African finance.
-#'
-#' These data record the memberships of 6 directors on the boards of 5 gold,
-#' diamond, and finance companies.
-#'
-#' @format An affiliation network; see \code{\link{is_an}}.
-#' @source Hobson, John A. (1919) *The Evolution of Modern Capitalism*
-#' \url{https://archive.org/details/evolutionofmoder00hobsuoft}
-#' @name southafrica1905
-NULL
-
 #' Group of women connected by event coattendance in Old City.
 #' 
 #' These data record the attendance of 18 white women at 14 social events over a

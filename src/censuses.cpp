@@ -995,25 +995,7 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
   );
 }
 
-//' Combinatorial bijections for affiliation network triad indexing
-//' 
-//' These functions biject among partitions of at most 3 parts, 3-subsets of
-//' natural numbers, and indices for the lexicographic total orders on them.
-//' 
-//' @param i Integer; an index in the total order, starting at 0.
-//' @param vec Integer; a set of 3 distinct non-negative integers, in decreasing
-//'   order.
-//' @param lambda Integer; a partition of at most 3 parts, with parts in 
-//'   non-increasing order.
-//' @examples
-//' index_subset(2)
-//' index_partition(2)
-//' subset_index(c(3, 2, 0))
-//' subset_partition(c(3, 2, 0))
-//' partition_index(c(1, 1, 0))
-//' partition_subset(c(1, 1, 0))
-
-//' @rdname combinatorial_bijections
+//' @rdname combinatorial-bijections
 //' @export
 // [[Rcpp::export]]
 IntegerVector index_subset(int i) {
@@ -1033,7 +1015,7 @@ IntegerVector index_subset(int i) {
   return vec;
 }
 
-//' @rdname combinatorial_bijections
+//' @rdname combinatorial-bijections
 //' @export
 // [[Rcpp::export]]
 int subset_index(IntegerVector vec) {
@@ -1053,7 +1035,7 @@ int subset_index(IntegerVector vec) {
   return i;
 }
 
-//' @rdname combinatorial_bijections
+//' @rdname combinatorial-bijections
 //' @export
 // [[Rcpp::export]]
 IntegerVector subset_partition(IntegerVector vec) {
@@ -1073,7 +1055,7 @@ IntegerVector subset_partition(IntegerVector vec) {
   return lambda;
 }
 
-//' @rdname combinatorial_bijections
+//' @rdname combinatorial-bijections
 //' @export
 // [[Rcpp::export]]
 IntegerVector partition_subset(IntegerVector lambda) {
@@ -1095,14 +1077,14 @@ IntegerVector partition_subset(IntegerVector lambda) {
   return vec;
 }
 
-//' @rdname combinatorial_bijections
+//' @rdname combinatorial-bijections
 //' @export
 // [[Rcpp::export]]
 IntegerVector index_partition(int i) {
   return subset_partition(index_subset(i));
 }
 
-//' @rdname combinatorial_bijections
+//' @rdname combinatorial-bijections
 //' @export
 // [[Rcpp::export]]
 int partition_index(IntegerVector lambda) {

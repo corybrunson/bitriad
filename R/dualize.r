@@ -5,13 +5,13 @@
 #'   the logical values of the node \code{type} attribute and reorders the
 #'   node ids accordingly.
 #'   
-#' @name dual
+#' @name dualize
 #' @param bigraph An affiliation network.
 #' @import igraph
 #' @examples
 #' data(women_clique)
 #' tab <- table(V(women_clique)$type)
-#' proj <- actor_projection(dual_an(women_clique))
+#' proj <- actor_projection(dualize(women_clique))
 #' vcount(proj) == tab[2]
 #' @export
 dualize <- function(bigraph) {
@@ -20,10 +20,16 @@ dualize <- function(bigraph) {
   permute(bigraph, order(order(V(bigraph)$type)))
 }
 
-#' @rdname dual
+#' @rdname dualize
 #' @export
-dual_an <- dualize
+dual_an <- function(bigraph) {
+  .Deprecated("dualize")
+  dualize(bigraph)
+}
 
-#' @rdname dual
+#' @rdname dualize
 #' @export
-dual.an <- dualize
+dual.an <- function(bigraph) {
+  .Deprecated("dualize")
+  dualize(bigraph)
+}

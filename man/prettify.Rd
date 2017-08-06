@@ -4,19 +4,19 @@
 \alias{prettify}
 \alias{prettify_an}
 \alias{prettify.an}
-\title{Set plotting parameters for an affiliation network}
+\title{Convenient plotting aesthetics for affiliation networks}
 \usage{
 prettify_an(bigraph)
 
 prettify.an(bigraph)
 }
 \arguments{
-\item{bigraph}{An affiliation network; see \code{is_an}.}
+\item{bigraph}{An affiliation network.}
 }
 \description{
-This function assigns several plotting parameters to the vertices and edges 
-of a bipartite graph to prepare it for visualization using
-\code{plot.igraph}.
+Given an affiliation network, assign the node and link
+  aesthetics to values that produce a neater visualization through
+  \code{\link[igraph]{plot.igraph}} than the \strong{igraph} defaults.
 }
 \examples{
 library(igraph)

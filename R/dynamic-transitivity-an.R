@@ -4,7 +4,7 @@
 #' of centered triples at which an open wedge exists at some time that is
 #' closed at a later time.
 #' 
-#' @name dynamic_transitivity
+#' @name dynamic-transitivity
 #' @param bigraph An affiliation network with time-stamped events.
 #' @param memory Numeric; a duration of time after which events are forgotten.
 #' @param type Character; whether to compute the global or local statistic, or
@@ -161,6 +161,6 @@ dynamic_transitivity_an <-
     
   }
 
-#' @rdname dynamic_transitivity
+#' @rdname dynamic-transitivity
 #' @export
 dyn.transitivity.an <- dynamic_transitivity_an

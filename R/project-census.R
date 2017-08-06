@@ -16,7 +16,7 @@
 #'   
 #' @template triadcensus
 #'   
-#' @name project_census
+#' @name project-census
 #' @param census Numeric matrix or vector; an affiliation network triad census. 
 #'   It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1, 
 #'   respectively, unless otherwise specified by \code{scheme}; otherwise it is 
@@ -65,11 +65,11 @@ project_census <- function(
   censuses
 }
 
-#' @rdname project_census
+#' @rdname project-census
 #' @export
 project.census <- project_census
 
-#' @rdname project_census
+#' @rdname project-census
 binary_from_full_census <- function(census) {
   # Trivial cases
   if(sum(census) == 0) return(matrix(0, nrow = 4, ncol = 2))
@@ -97,10 +97,10 @@ binary_from_full_census <- function(census) {
   ), nrow = 4, ncol = 2)
 }
 
-#' @rdname project_census
+#' @rdname project-census
 ftc2stc <- binary_from_full_census
 
-#' @rdname project_census
+#' @rdname project-census
 simple_from_full_census <- function(census) {
   # Trivial cases
   if(sum(census) == 0) return(rep(0, 4))
@@ -121,10 +121,10 @@ simple_from_full_census <- function(census) {
       ifelse(dim(census)[2] == 1, 0, sum(census[, 2:dim(census)[2]])))
 }
 
-#' @rdname project_census
+#' @rdname project-census
 ftc2tc <- simple_from_full_census
 
-#' @rdname project_census
+#' @rdname project-census
 simple_from_binary_census <- function(census) {
   c(
     census[1:3, 1],
@@ -132,5 +132,5 @@ simple_from_binary_census <- function(census) {
   )
 }
 
-#' @rdname project_census
+#' @rdname project-census
 stc2tc <- simple_from_binary_census

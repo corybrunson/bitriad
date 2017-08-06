@@ -8,7 +8,7 @@
 #' cheats by using the native `transitivity` but produces output consistent
 #' with the other variants of `transitivity_an`.)
 #' 
-#' @name project_transitivity
+#' @name project-transitivity
 #' @param bigraph An affiliation network.
 #' @param type The type of clustering coefficient (defaults to "global")
 #' @param vids A subset of actor node ids at which to evaluate the local
@@ -20,7 +20,7 @@ project_transitivity <- function(
   bigraph, type = "global",
   vids = which(!V(bigraph)$type)
 ) {
-  .Deprecated("triadclosure_projection")
+  .Deprecated("triad_closure_projection")
   if(vcount(bigraph) == 0) {
     if(type == 'global') {
       return(NaN)
@@ -42,6 +42,6 @@ project_transitivity <- function(
   unname(cbind(W, W * C))
 }
 
-#' @rdname project_transitivity
+#' @rdname project-transitivity
 #' @export
 project.transitivity <- project_transitivity

@@ -5,7 +5,7 @@
 #'   one, two, or three links. The values must sum to \eqn{\frac{n!}{3!(n-3)!}},
 #'   where \eqn{n} is the number of nodes.
 #'   
-#' @name simple_triad_census
+#' @name simple-triad-census
 #' @param graph An \code{igraph} object.
 #' @param add.names Logical; whether to label the matrix rows and columns.
 #' @export
@@ -33,6 +33,6 @@ simple_triad_census <- function(graph, add.names = FALSE) {
   tc
 }
 
-#' @rdname simple_triad_census
+#' @rdname simple-triad-census
 #' @export
 simple.triad.census <- simple_triad_census

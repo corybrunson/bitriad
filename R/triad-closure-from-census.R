@@ -11,7 +11,7 @@
 #' @template triadcensus
 #' @template triadclosure
 #'   
-#' @name triad_closure_from_census
+#' @name triad-closure-from-census
 #' @param census Numeric matrix or vector; an affiliation network triad census. 
 #'   It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1, 
 #'   respectively, unless otherwise specified by \code{scheme}; otherwise it is 
@@ -79,7 +79,7 @@ triad_closure_from_census_bottomup <- function(
   )
 }
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 #' @export
 wedges_from_simple_census <- function(
   census,
@@ -97,7 +97,7 @@ wedges_from_simple_census <- function(
   }
 }
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 #' @export
 wedges_from_binary_census <- function(
   census,
@@ -115,7 +115,7 @@ wedges_from_binary_census <- function(
   }
 }
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 #' @export
 triad_closure_from_census <- function(
   census,
@@ -204,15 +204,15 @@ triad_closure_from_census <- function(
   }
 }
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 #' @export
 transitivity_from_census <- triad_closure_from_census
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 #' @export
 transitivity.census <- triad_closure_from_census
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 ftc2indequ <- function(census) wedges_from_census(
   census,
   function(L, w) if(L[3] == 0) 0 else
@@ -220,14 +220,14 @@ ftc2indequ <- function(census) wedges_from_census(
   function(L, w) L[1] * L[2] * (L[3] == 0)
 )
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 ftc2allact <- function(census) wedges_from_census(
   census,
   function(L, w) 3 * ((L[3] > 0) | (w > 0)),
   function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0))
 )
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 ftc2injequ <- function(census) wedges_from_census(
   census,
   function(L, w) {
@@ -245,14 +245,14 @@ ftc2injequ <- function(census) wedges_from_census(
   }
 )
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 ftc2indstr <- function(census) wedges_from_census(
   census,
   function(L, w) 3 * (L[3] > 0),
   function(L, w) ((L[2] > 0) & (L[3] == 0))
 )
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 ftc2injact <- function(census) wedges_from_census(
   census,
   function(L, w) 3 * (length(which(L > 0)) + w > 2),
@@ -261,7 +261,7 @@ ftc2injact <- function(census) wedges_from_census(
     3 * (L[1] == 0 & w == 2)
 )
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 ftc2injstr <- function(census) wedges_from_census(
   census,
   function(L, w) {
@@ -280,7 +280,7 @@ ftc2injstr <- function(census) wedges_from_census(
   }
 )
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 #' @export
 wedges_from_census <-
   function(census, closed_fun, open_fun) {
@@ -304,11 +304,11 @@ wedges_from_census <-
     c(open = openCt, closed = closedCt)
   }
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 #' @export
 wedgecount_census <- wedges_from_census
 
-#' @rdname triad_closure_from_census
+#' @rdname triad-closure-from-census
 #' @export
 wedgecount.census <- wedges_from_census
 

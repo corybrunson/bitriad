@@ -1,11 +1,11 @@
-#' Set plotting parameters for an affiliation network
-#' 
-#' This function assigns several plotting parameters to the vertices and edges 
-#' of a bipartite graph to prepare it for visualization using
-#' \code{plot.igraph}.
-#' 
+#' @title Convenient plotting aesthetics for affiliation networks
+#'   
+#' @description Given an affiliation network, assign the node and link
+#'   aesthetics to values that produce a neater visualization through
+#'   \code{\link[igraph]{plot.igraph}} than the \strong{igraph} defaults.
+#'   
 #' @name prettify
-#' @param bigraph An affiliation network; see \code{is_an}.
+#' @param bigraph An affiliation network.
 #' @export
 #' @examples
 #' library(igraph)

@@ -8,7 +8,7 @@
 #' this number and the total number of triads with edges gives the number of
 #' triads without.)
 #' 
-#' @name triad_tallies
+#' @name triad-tallies
 #' @param graph A one-mode network
 #' @param bigraph The ambient affiliation network from which graph is projected
 connectedTriples <-
@@ -45,7 +45,7 @@ connectedTriples <-
     ))
   }
 
-#' @rdname triad_tallies
+#' @rdname triad-tallies
 oneTiedTriads <-
   function(graph) {
     # Create a data frame of weights and number of nonadjacent nodes
@@ -60,7 +60,7 @@ oneTiedTriads <-
     return(stats::aggregate(n ~ x, data = counts, FUN = sum))
   }
 
-#' @rdname triad_tallies
+#' @rdname triad-tallies
 twoTiedTriads <-
   function(graph) {
     # List of open wedges (shortest paths of length 2) up to reversal
@@ -89,7 +89,7 @@ twoTiedTriads <-
     ))
   }
 
-#' @rdname triad_tallies
+#' @rdname triad-tallies
 threeTiedTriads <-
   function(
     bigraph,
