@@ -104,3 +104,7 @@ triad_census_binary_batagelj_mrvar_C <- function(el) {
     .Call('_bitriad_triad_census_binary_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
 }
 
+wedges_from_binary_census_C <- function(census, alcove, wedge, maps, congruence) {
+    .Call('_bitriad_wedges_from_binary_census_C', PACKAGE = 'bitriad', census, alcove, wedge, maps, congruence)
+}
+

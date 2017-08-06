@@ -29,8 +29,7 @@ List actor_nbhd_1(IntegerMatrix el, int q) {
   
   // Identify the sphere of radius 1 about q
   std::vector<int> n1;
-  int i;
-  for (i = 0; i < m; i++) {
+  for (int i = 0; i < m; i++) {
     if (el(i, 0) == q) {
       if (std::find(n1.begin(), n1.end(), el(i, 1)) != n1.end()) {
         continue;
@@ -50,8 +49,7 @@ List event_nbhd_1(IntegerMatrix el, int a) {
   
   // Identify the sphere of radius 1 about a
   std::vector<int> n1;
-  int i;
-  for (i = 0; i < m; i++) {
+  for (int i = 0; i < m; i++) {
     if (el(i, 1) == a) {
       if (std::find(n1.begin(), n1.end(), el(i, 0)) != n1.end()) {
         continue;
@@ -72,14 +70,13 @@ List actor_nbhd_2(IntegerMatrix el, int q) {
   // Identify the spheres of radius 1 and 2 about q
   std::vector<int> n1;
   std::vector<int> n2;
-  int i, j;
-  for (i = 0; i < m; i++) {
+  for (int i = 0; i < m; i++) {
     if (el(i, 0) == q) {
       if (std::find(n1.begin(), n1.end(), el(i, 1)) != n1.end()) {
         continue;
       } else {
         n1.push_back(el(i, 1));
-        for (j = 0; j < m; j++) {
+        for (int j = 0; j < m; j++) {
           if (j == i) {
             continue;
           }
@@ -1123,14 +1120,14 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
 ) {
   
   // Loop indices
-  unsigned i, j, k;
+  int i, j, k;
   // Triad class indices
   IntegerVector lambda(3);
-  unsigned w;
+  int w;
   // Limits
-  unsigned lambda_i = 0;
-  unsigned max_i = 0;
-  unsigned max_w = 0;
+  int lambda_i = 0;
+  int max_i = 0;
+  int max_w = 0;
   
   // Initialize triad census matrix
   IntegerMatrix tc(1, 1);
@@ -1304,16 +1301,16 @@ IntegerMatrix triad_census_batagelj_mrvar_alt_C(
 ) {
   
   // Loop indices
-  unsigned i, j, k;
+  int i, j, k;
   // Triad class indices
   IntegerVector lambda(3);
-  unsigned w;
+  int w;
   // Limits
-  unsigned lambda_i = 0;
-  unsigned max_i = 0;
-  unsigned max_w = 0;
-  unsigned max_i_given = tetrahedral_C(max_weight + 1) - 1;
-  unsigned max_w_given = max_weight;
+  int lambda_i = 0;
+  int max_i = 0;
+  int max_w = 0;
+  int max_i_given = tetrahedral_C(max_weight + 1) - 1;
+  int max_w_given = max_weight;
   
   // Initialize triad census matrix
   IntegerMatrix tc(max_i_given + 1, max_w_given + 1);
@@ -1469,7 +1466,7 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
 ) {
   
   // Loop indices
-  unsigned i, j, k;
+  int i, j, k;
   // Triad class indices
   bool xy, yz, z0, w0;
   
@@ -1594,7 +1591,7 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
 ) {
   
   // Loop indices
-  unsigned i, j, k;
+  int i, j, k;
   // Triad class indices
   bool x, y, z, w;
   
@@ -1708,4 +1705,19 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
   tc(0, 0) += (choose_C(actors.size(), 3) - tot);
   
   return tc;
+}
+
+// recover a wedge census of given specifications from a binary triad census
+// [[Rcpp::export]]
+IntegerVector wedges_from_binary_census_C(
+    IntegerMatrix census,
+    int alcove, int wedge, int maps, int congruence
+) {
+  if (alcove >= 2 | maps == 1 | congruence == 0) {
+    stop("Specified wedges cannot be recovered from a binary census.");
+  }
+  
+  IntegerVector wedgecount;
+  
+  return wedgecount;
 }

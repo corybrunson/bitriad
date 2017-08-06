@@ -10,15 +10,13 @@ simple_triad_census(graph, add.names = FALSE)
 simple.triad.census(graph, add.names = FALSE)
 }
 \arguments{
-\item{graph}{An igraph object.}
+\item{graph}{An \code{igraph} object.}
 
-\item{add.names}{Logical; whether to label the matrix rows and columns}
+\item{add.names}{Logical; whether to label the matrix rows and columns.}
 }
 \description{
-This function inputs a simple graph and returns a vector of frequency counts 
-for the four isomorphism classes of triad, which therefore sum to choose(n,
-3), where n is the number of nodes. This function is needed because 
-\code{triad_census}, from which in small cases a simple triad census can be 
-recovered through strategic coordinate sums, returns nonsense frequencies for
-many large graphs.
+Given a simple graph, return a vector indicating the number of 
+  triads of each isomorphism class, namely whether the triad contains zero, 
+  one, two, or three links. The values must sum to \eqn{\frac{n!}{3!(n-3)!}},
+  where \eqn{n} is the number of nodes.
 }

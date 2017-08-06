@@ -3,7 +3,7 @@
 #' @description Given an affiliation network and a vector of actor node IDs, 
 #'   produce the induced subgraph on the actor nodes together with all event 
 #'   nodes incident to at least two of them. This is called the actors'
-#'   *schedule*.
+#'   \emph{schedule}.
 #'   
 #' @name schedule
 #' @param bigraph An affiliation network.

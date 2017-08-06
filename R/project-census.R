@@ -28,34 +28,13 @@
 #'   matrix.
 #' @export
 project_census <- function(
-  census,
-  scheme = NULL,
+  census, scheme = NULL,
   add.names = FALSE
 ) {
   # put into matrix form (single column if vector)
   census <- as.matrix(census)
   # identify the census scheme
-  cdim <- dim(census)
-  if (!is.null(scheme)) {
-    scheme <- match.arg(scheme, c("full", "binary", "structural", "simple"))
-    if (scheme %in% c("binary", "structural") & any(cdim != c(4, 2))) {
-      warning("A binary census must be formatted as a 4-by-2 matrix; ",
-              "the input census will be treated as a full census.")
-    }
-    if (scheme == "simple" & any(cdim != c(4, 1))) {
-      warning("A simple census must be formatted ",
-              "as a 4-by-1 matrix or as a length-4 vector; ",
-              "the input census will be treated as a full census.")
-    }
-  } else {
-    scheme <- if (all(cdim == c(4, 2))) {
-      "binary"
-    } else  if (all(cdim == c(4, 1))) {
-      "simple"
-    } else {
-      "full"
-    }
-  }
+  scheme <- census_scheme(census = census, scheme = scheme)
   
   # initiate census list
   censuses <- list()
