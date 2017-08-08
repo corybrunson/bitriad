@@ -33,6 +33,10 @@ wedges_x0w0m2c1 <- function(el, q) {
     .Call('_bitriad_wedges_x0w0m2c1', PACKAGE = 'bitriad', el, q)
 }
 
+wedges_dynamic_x0w0m0c0 <- function(el, q) {
+    .Call('_bitriad_wedges_dynamic_x0w0m0c0', PACKAGE = 'bitriad', el, q)
+}
+
 #' @rdname combinatorial_bijections
 #' @export
 index_subset <- function(i) {

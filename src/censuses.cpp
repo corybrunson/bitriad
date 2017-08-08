@@ -97,8 +97,6 @@ List actor_nbhd_2(IntegerMatrix el, int q) {
                       Named("d2") = n2);
 }
 
-// Wedge censuses and closure indicators
-
 // alcove x:
 //   0 <-> T_(1,1,1),0
 //   1 <-> T_(1,1,0),1
@@ -116,6 +114,8 @@ List actor_nbhd_2(IntegerMatrix el, int q) {
 //   0 <-> same actor images, same event images
 //   1 <-> same actor images, structurally equivalent event images
 //   2 <-> same actor images
+
+// Wedge censuses and closure indicators
 
 // X = T_111,0; W = T_110,0
 // all graph maps, modulo equal event images
@@ -995,6 +995,108 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
   );
 }
 
+// Dynamic wedge censuses and closure indicators
+
+// X = T_111,0; W = T_110,0
+// all graph maps, modulo equal event images
+// 4-paths p,a,q,b,r (with p,q,r distinct)
+// and whether they are contained in 6-cycles
+// [[Rcpp::export]]
+List wedges_dynamic_x0w0m0c0(IntegerMatrix el, int q) {
+  
+  // Loop indices
+  int i,j,k,l;
+  
+  // Incident events
+  IntegerVector q_events, a_actors, q_self, a_actors_q;
+  // Compute event (distance 1) neigborhoods about q
+  List q_ego = actor_nbhd_2(el, q);
+  q_events = q_ego["d1"];
+  std::sort(q_events.begin(), q_events.end());
+  int q_events_count = q_events.size();
+  // Compute actor (distance 1) neighborhoods about events of q, excluding q
+  q_self = q;
+  std::vector<IntegerVector> a_actors_q_list;
+  for (i = 0; i < q_events_count; i++) {
+    a_actors = event_nbhd_1(el, q_events[i])["d1"];
+    a_actors_q = IntegerVector::create();
+    std::set_difference(a_actors.begin(), a_actors.end(),
+                        q_self.begin(), q_self.end(),
+                        std::inserter(a_actors_q, a_actors_q.end()));
+    std::sort(a_actors_q.begin(), a_actors_q.end());
+    a_actors_q_list.push_back(a_actors_q);
+  }
+  
+  // Initialize paired vectors of event and actor neighbors of q
+  std::vector<int> p_vec;
+  std::vector<int> a_vec;
+  std::vector<int> b_vec;
+  std::vector<int> r_vec;
+  std::vector<bool> cl_vec;
+  // Initialize intersections and differences
+  std::vector<int> p_events;
+  std::vector<int> r_events;
+  std::vector<int> pr_events;
+  // Add 4-paths (with distinct actors)
+  bool cl;
+  for (i = 0; i < q_events_count; i++) {
+    for (j = i; j < q_events_count; j++) {
+      for (k = 0; k < a_actors_q_list[i].size(); k++) {
+        for (l = 0; l < a_actors_q_list[j].size(); l++) {
+          // Ensure that actors are distinct
+          if (a_actors_q_list[i][k] == a_actors_q_list[j][l]) {
+            continue;
+          }
+          // If the events are equal, then ensure that the actors are ordered
+          if ((q_events[i] == q_events[j]) &&
+              (a_actors_q_list[i][k] > a_actors_q_list[j][l])) {
+            continue;
+          }
+          // Keep the 4-path as a wedge
+          p_vec.push_back(a_actors_q_list[i][k]);
+          a_vec.push_back(q_events[i]);
+          b_vec.push_back(q_events[j]);
+          r_vec.push_back(a_actors_q_list[j][l]);
+          // Calculate the event (distance 1) neighborhoods of p and r
+          p_events = actor_nbhd_1(el, a_actors_q_list[i][k])["d1"];
+          r_events = actor_nbhd_1(el, a_actors_q_list[j][l])["d1"];
+          // Calculate the intersection of the events of p and of r
+          pr_events.clear();
+          std::set_intersection(p_events.begin(),
+                                p_events.end(),
+                                r_events.begin(),
+                                r_events.end(),
+                                std::back_inserter(pr_events));
+          // If p and r share an event,
+          // then the wedge is closed
+          cl = (pr_events.size() > 0);
+          cl_vec.push_back(cl);
+        }
+      }
+    }
+  }
+  
+  // Return integer matrix and closedness indicators
+  IntegerMatrix wedges(5, p_vec.size());
+  LogicalVector closed(p_vec.size());
+  for (i = 0; i < p_vec.size(); i++) {
+    wedges(0, i) = p_vec[i];
+    wedges(1, i) = a_vec[i];
+    wedges(2, i) = q;
+    wedges(3, i) = b_vec[i];
+    wedges(4, i) = r_vec[i];
+    closed(i) = cl_vec[i];
+  }
+  return List::create(
+    _["wedges"] = wedges,
+    _["closed"] = closed
+  );
+  
+  return 0;
+}
+
+// Combinatorial bijections for full triad census indexing
+
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
@@ -1688,6 +1790,8 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
   
   return tc;
 }
+
+// Wedge censuses from triad censuses
 
 // recover a wedge census of given specifications from a binary triad census
 // [[Rcpp::export]]

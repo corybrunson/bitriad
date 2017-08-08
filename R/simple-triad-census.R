@@ -2,14 +2,18 @@
 #'   
 #' @description Given a simple graph, return a vector indicating the number of 
 #'   triads of each isomorphism class, namely whether the triad contains zero, 
-#'   one, two, or three links. The values must sum to \eqn{\frac{n!}{3!(n-3)!}},
+#'   one, two, or three links. The values must sum to \eqn{n!/(3!(n-3)!)},
 #'   where \eqn{n} is the number of nodes.
 #'   
 #' @name simple_triad_census
-#' @param graph An \code{igraph} object.
+#' @param graph A simple, undirected \code{igraph} object.
 #' @param add.names Logical; whether to label the matrix rows and columns.
 #' @export
 simple_triad_census <- function(graph, add.names = FALSE) {
+  # Ensure that 'graph' is simple and undirected
+  if (!is_simple(graph) | is_directed(graph)) {
+    stop("Provided 'graph' is not simple and directed.")
+  }
   # Use implemented triad census if it makes sense
   tc <- triad_census(as.directed(graph))
   if (sum(tc) == choose(vcount(graph), 3) & all(tc >= 0) & !is.nan(tc[1])) {

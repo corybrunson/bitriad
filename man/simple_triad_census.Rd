@@ -10,13 +10,13 @@ simple_triad_census(graph, add.names = FALSE)
 simple.triad.census(graph, add.names = FALSE)
 }
 \arguments{
-\item{graph}{An \code{igraph} object.}
+\item{graph}{A simple, undirected \code{igraph} object.}
 
 \item{add.names}{Logical; whether to label the matrix rows and columns.}
 }
 \description{
 Given a simple graph, return a vector indicating the number of 
   triads of each isomorphism class, namely whether the triad contains zero, 
-  one, two, or three links. The values must sum to \eqn{\frac{n!}{3!(n-3)!}},
+  one, two, or three links. The values must sum to \eqn{n!/(3!(n-3)!)},
   where \eqn{n} is the number of nodes.
 }

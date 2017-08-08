@@ -101,6 +101,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// wedges_dynamic_x0w0m0c0
+List wedges_dynamic_x0w0m0c0(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_dynamic_x0w0m0c0(SEXP elSEXP, SEXP qSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< int >::type q(qSEXP);
+    rcpp_result_gen = Rcpp::wrap(wedges_dynamic_x0w0m0c0(el, q));
+    return rcpp_result_gen;
+END_RCPP
+}
 // index_subset
 IntegerVector index_subset(int i);
 RcppExport SEXP _bitriad_index_subset(SEXP iSEXP) {
@@ -238,6 +250,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_wedges_x0w0m1c2", (DL_FUNC) &_bitriad_wedges_x0w0m1c2, 2},
     {"_bitriad_wedges_x0w0m2c0", (DL_FUNC) &_bitriad_wedges_x0w0m2c0, 2},
     {"_bitriad_wedges_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_x0w0m2c1, 2},
+    {"_bitriad_wedges_dynamic_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_dynamic_x0w0m0c0, 2},
     {"_bitriad_index_subset", (DL_FUNC) &_bitriad_index_subset, 1},
     {"_bitriad_subset_index", (DL_FUNC) &_bitriad_subset_index, 1},
     {"_bitriad_subset_partition", (DL_FUNC) &_bitriad_subset_partition, 1},
