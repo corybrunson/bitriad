@@ -37,6 +37,26 @@ wedges_dynamic_x0w0m0c0 <- function(el, q) {
     .Call('_bitriad_wedges_dynamic_x0w0m0c0', PACKAGE = 'bitriad', el, q)
 }
 
+triad_census_batagelj_mrvar_C <- function(el) {
+    .Call('_bitriad_triad_census_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
+}
+
+triad_census_batagelj_mrvar_alt_C <- function(el, actors, max_weight) {
+    .Call('_bitriad_triad_census_batagelj_mrvar_alt_C', PACKAGE = 'bitriad', el, actors, max_weight)
+}
+
+triad_census_difference_batagelj_mrvar_C <- function(el) {
+    .Call('_bitriad_triad_census_difference_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
+}
+
+triad_census_binary_batagelj_mrvar_C <- function(el) {
+    .Call('_bitriad_triad_census_binary_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
+}
+
+wedges_from_binary_census_C <- function(census, alcove, wedge, maps, congruence) {
+    .Call('_bitriad_wedges_from_binary_census_C', PACKAGE = 'bitriad', census, alcove, wedge, maps, congruence)
+}
+
 #' @rdname combinatorial_bijections
 #' @export
 index_subset <- function(i) {
@@ -71,25 +91,5 @@ index_partition <- function(i) {
 #' @export
 partition_index <- function(lambda) {
     .Call('_bitriad_partition_index', PACKAGE = 'bitriad', lambda)
-}
-
-triad_census_batagelj_mrvar_C <- function(el) {
-    .Call('_bitriad_triad_census_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
-}
-
-triad_census_batagelj_mrvar_alt_C <- function(el, actors, max_weight) {
-    .Call('_bitriad_triad_census_batagelj_mrvar_alt_C', PACKAGE = 'bitriad', el, actors, max_weight)
-}
-
-triad_census_difference_batagelj_mrvar_C <- function(el) {
-    .Call('_bitriad_triad_census_difference_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
-}
-
-triad_census_binary_batagelj_mrvar_C <- function(el) {
-    .Call('_bitriad_triad_census_binary_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
-}
-
-wedges_from_binary_census_C <- function(census, alcove, wedge, maps, congruence) {
-    .Call('_bitriad_wedges_from_binary_census_C', PACKAGE = 'bitriad', census, alcove, wedge, maps, congruence)
 }
 

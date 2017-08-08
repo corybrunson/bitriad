@@ -113,6 +113,67 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// triad_census_batagelj_mrvar_C
+IntegerMatrix triad_census_batagelj_mrvar_C(IntegerMatrix el);
+RcppExport SEXP _bitriad_triad_census_batagelj_mrvar_C(SEXP elSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_batagelj_mrvar_C(el));
+    return rcpp_result_gen;
+END_RCPP
+}
+// triad_census_batagelj_mrvar_alt_C
+IntegerMatrix triad_census_batagelj_mrvar_alt_C(IntegerMatrix el, IntegerVector actors, int max_weight);
+RcppExport SEXP _bitriad_triad_census_batagelj_mrvar_alt_C(SEXP elSEXP, SEXP actorsSEXP, SEXP max_weightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type actors(actorsSEXP);
+    Rcpp::traits::input_parameter< int >::type max_weight(max_weightSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_batagelj_mrvar_alt_C(el, actors, max_weight));
+    return rcpp_result_gen;
+END_RCPP
+}
+// triad_census_difference_batagelj_mrvar_C
+IntegerMatrix triad_census_difference_batagelj_mrvar_C(IntegerMatrix el);
+RcppExport SEXP _bitriad_triad_census_difference_batagelj_mrvar_C(SEXP elSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_difference_batagelj_mrvar_C(el));
+    return rcpp_result_gen;
+END_RCPP
+}
+// triad_census_binary_batagelj_mrvar_C
+IntegerMatrix triad_census_binary_batagelj_mrvar_C(IntegerMatrix el);
+RcppExport SEXP _bitriad_triad_census_binary_batagelj_mrvar_C(SEXP elSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_binary_batagelj_mrvar_C(el));
+    return rcpp_result_gen;
+END_RCPP
+}
+// wedges_from_binary_census_C
+IntegerVector wedges_from_binary_census_C(IntegerMatrix census, int alcove, int wedge, int maps, int congruence);
+RcppExport SEXP _bitriad_wedges_from_binary_census_C(SEXP censusSEXP, SEXP alcoveSEXP, SEXP wedgeSEXP, SEXP mapsSEXP, SEXP congruenceSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type census(censusSEXP);
+    Rcpp::traits::input_parameter< int >::type alcove(alcoveSEXP);
+    Rcpp::traits::input_parameter< int >::type wedge(wedgeSEXP);
+    Rcpp::traits::input_parameter< int >::type maps(mapsSEXP);
+    Rcpp::traits::input_parameter< int >::type congruence(congruenceSEXP);
+    rcpp_result_gen = Rcpp::wrap(wedges_from_binary_census_C(census, alcove, wedge, maps, congruence));
+    return rcpp_result_gen;
+END_RCPP
+}
 // index_subset
 IntegerVector index_subset(int i);
 RcppExport SEXP _bitriad_index_subset(SEXP iSEXP) {
@@ -179,67 +240,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// triad_census_batagelj_mrvar_C
-IntegerMatrix triad_census_batagelj_mrvar_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_batagelj_mrvar_C(SEXP elSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_batagelj_mrvar_C(el));
-    return rcpp_result_gen;
-END_RCPP
-}
-// triad_census_batagelj_mrvar_alt_C
-IntegerMatrix triad_census_batagelj_mrvar_alt_C(IntegerMatrix el, IntegerVector actors, int max_weight);
-RcppExport SEXP _bitriad_triad_census_batagelj_mrvar_alt_C(SEXP elSEXP, SEXP actorsSEXP, SEXP max_weightSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type actors(actorsSEXP);
-    Rcpp::traits::input_parameter< int >::type max_weight(max_weightSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_batagelj_mrvar_alt_C(el, actors, max_weight));
-    return rcpp_result_gen;
-END_RCPP
-}
-// triad_census_difference_batagelj_mrvar_C
-IntegerMatrix triad_census_difference_batagelj_mrvar_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_difference_batagelj_mrvar_C(SEXP elSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_difference_batagelj_mrvar_C(el));
-    return rcpp_result_gen;
-END_RCPP
-}
-// triad_census_binary_batagelj_mrvar_C
-IntegerMatrix triad_census_binary_batagelj_mrvar_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_binary_batagelj_mrvar_C(SEXP elSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_binary_batagelj_mrvar_C(el));
-    return rcpp_result_gen;
-END_RCPP
-}
-// wedges_from_binary_census_C
-IntegerVector wedges_from_binary_census_C(IntegerMatrix census, int alcove, int wedge, int maps, int congruence);
-RcppExport SEXP _bitriad_wedges_from_binary_census_C(SEXP censusSEXP, SEXP alcoveSEXP, SEXP wedgeSEXP, SEXP mapsSEXP, SEXP congruenceSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type census(censusSEXP);
-    Rcpp::traits::input_parameter< int >::type alcove(alcoveSEXP);
-    Rcpp::traits::input_parameter< int >::type wedge(wedgeSEXP);
-    Rcpp::traits::input_parameter< int >::type maps(mapsSEXP);
-    Rcpp::traits::input_parameter< int >::type congruence(congruenceSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_from_binary_census_C(census, alcove, wedge, maps, congruence));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_x0w0m0c0, 2},
@@ -251,17 +251,17 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_wedges_x0w0m2c0", (DL_FUNC) &_bitriad_wedges_x0w0m2c0, 2},
     {"_bitriad_wedges_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_x0w0m2c1, 2},
     {"_bitriad_wedges_dynamic_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_dynamic_x0w0m0c0, 2},
+    {"_bitriad_triad_census_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_C, 1},
+    {"_bitriad_triad_census_batagelj_mrvar_alt_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_alt_C, 3},
+    {"_bitriad_triad_census_difference_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_difference_batagelj_mrvar_C, 1},
+    {"_bitriad_triad_census_binary_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_C, 1},
+    {"_bitriad_wedges_from_binary_census_C", (DL_FUNC) &_bitriad_wedges_from_binary_census_C, 5},
     {"_bitriad_index_subset", (DL_FUNC) &_bitriad_index_subset, 1},
     {"_bitriad_subset_index", (DL_FUNC) &_bitriad_subset_index, 1},
     {"_bitriad_subset_partition", (DL_FUNC) &_bitriad_subset_partition, 1},
     {"_bitriad_partition_subset", (DL_FUNC) &_bitriad_partition_subset, 1},
     {"_bitriad_index_partition", (DL_FUNC) &_bitriad_index_partition, 1},
     {"_bitriad_partition_index", (DL_FUNC) &_bitriad_partition_index, 1},
-    {"_bitriad_triad_census_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_C, 1},
-    {"_bitriad_triad_census_batagelj_mrvar_alt_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_alt_C, 3},
-    {"_bitriad_triad_census_difference_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_difference_batagelj_mrvar_C, 1},
-    {"_bitriad_triad_census_binary_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_C, 1},
-    {"_bitriad_wedges_from_binary_census_C", (DL_FUNC) &_bitriad_wedges_from_binary_census_C, 5},
     {NULL, NULL, 0}
 };
 
