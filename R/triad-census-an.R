@@ -26,12 +26,6 @@
 #' @param add.names Logical; whether to label the rows and columns of the output
 #'   matrix.
 #' @param verbose Logical; whether to display progress bars.
-#' @param actors Numeric vector of \code{bigraph} actor node IDs (\strong{to 
-#'   expedite the C++ function; to be obviated by a self-contained 
-#'   implementation}).
-#' @param max_weight Numeric; maximum number of events shared by two actors of 
-#'   \code{bigraph} (\strong{to expedite the C++ function; to be obviated by a 
-#'   self-contained implementation}).
 #' @return A matrix counts of triad congruence classes, with row indices 
 #'   reflecting pairwise exclusive events and column indices reflecting 
 #'   triadwise events.
@@ -107,7 +101,6 @@ triad_census_full <- function(
 }
 
 #' @rdname triad_census_an
-#' @export
 triad_census_batagelj_mrvar <- function(
   bigraph
 ) {
@@ -117,26 +110,6 @@ triad_census_batagelj_mrvar <- function(
 }
 
 #' @rdname triad_census_an
-#' @export
-triad_census_batagelj_mrvar_alt <- function(
-  bigraph,
-  actors = NULL, max_weight = NULL
-) {
-  if (is.null(actors)) {
-    actors <- as.numeric(V(bigraph)[V(bigraph)$type == FALSE])
-  }
-  if (is.null(max_weight)) {
-    max_weight <- max(E(actor_projection(bigraph))$weight)
-  }
-  triad_census_batagelj_mrvar_alt_C(
-    el = as_edgelist(bigraph, names = FALSE),
-    actors = actors,
-    max_weight = max_weight
-  )
-}
-
-#' @rdname triad_census_an
-#' @export
 triad_census_projection <- function(
   bigraph,
   verbose = FALSE
@@ -232,7 +205,6 @@ triad_census_difference <- function(
 }
 
 #' @rdname triad_census_an
-#' @export
 triad_census_difference_batagelj_mrvar <- function(
   bigraph
 ) {
@@ -242,8 +214,9 @@ triad_census_difference_batagelj_mrvar <- function(
 }
 
 #' @rdname triad_census_an
-#' @export
-triad_census_difference_projection <- function(bigraph) {
+triad_census_difference_projection <- function(
+  bigraph
+) {
   # Initialize the matrix and define the number of actors
   C <- matrix(0, nrow = 8, ncol = 2)
   n <- length(which(!V(bigraph)$type))
@@ -299,11 +272,17 @@ triad_census_difference_projection <- function(bigraph) {
 
 #' @rdname triad_census_an
 #' @export
-unif_triad_census <- triad_census_difference
+unif_triad_census <- function(bigraph) {
+  .Deprecated("triad_census_difference")
+  triad_census_difference(bigraph)
+}
 
 #' @rdname triad_census_an
 #' @export
-unif.triad.census <- triad_census_difference
+unif.triad.census <- function(bigraph) {
+  .Deprecated("triad_census_difference")
+  triad_census_difference(bigraph)
+}
 
 #' @rdname triad_census_an
 #' @export
@@ -332,7 +311,6 @@ triad_census_binary <- function(
 }
 
 #' @rdname triad_census_an
-#' @export
 triad_census_binary_batagelj_mrvar <- function(
   bigraph
 ) {
@@ -342,7 +320,6 @@ triad_census_binary_batagelj_mrvar <- function(
 }
 
 #' @rdname triad_census_an
-#' @export
 triad_census_binary_projection <- function(
   bigraph,
   verbose = FALSE
@@ -390,8 +367,14 @@ triad_census_binary_projection <- function(
 
 #' @rdname triad_census_an
 #' @export
-str_triad_census <- triad_census_binary
+str_triad_census <- function(bigraph) {
+  .Deprecated("triad_census_binary")
+  triad_census_binary(bigraph)
+}
 
 #' @rdname triad_census_an
 #' @export
-structural.triad.census <- triad_census_binary
+structural.triad.census <- function(bigraph) {
+  .Deprecated("triad_census_binary")
+  triad_census_binary(bigraph)
+}

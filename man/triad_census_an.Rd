@@ -5,7 +5,6 @@
 \alias{triad.census.an}
 \alias{triad_census_full}
 \alias{triad_census_batagelj_mrvar}
-\alias{triad_census_batagelj_mrvar_alt}
 \alias{triad_census_projection}
 \alias{triad_census_difference}
 \alias{triad_census_difference_batagelj_mrvar}
@@ -30,8 +29,6 @@ triad_census_full(bigraph, method = "batagelj_mrvar", ...,
 
 triad_census_batagelj_mrvar(bigraph)
 
-triad_census_batagelj_mrvar_alt(bigraph, actors = NULL, max_weight = NULL)
-
 triad_census_projection(bigraph, verbose = FALSE)
 
 triad_census_difference(bigraph, method = "batagelj_mrvar", ...,
@@ -41,11 +38,9 @@ triad_census_difference_batagelj_mrvar(bigraph)
 
 triad_census_difference_projection(bigraph)
 
-unif_triad_census(bigraph, method = "batagelj_mrvar", ...,
-  add.names = FALSE)
+unif_triad_census(bigraph)
 
-unif.triad.census(bigraph, method = "batagelj_mrvar", ...,
-  add.names = FALSE)
+unif.triad.census(bigraph)
 
 triad_census_binary(bigraph, method = "batagelj_mrvar", ...,
   add.names = FALSE)
@@ -54,10 +49,9 @@ triad_census_binary_batagelj_mrvar(bigraph)
 
 triad_census_binary_projection(bigraph, verbose = FALSE)
 
-str_triad_census(bigraph, method = "batagelj_mrvar", ..., add.names = FALSE)
+str_triad_census(bigraph)
 
-structural.triad.census(bigraph, method = "batagelj_mrvar", ...,
-  add.names = FALSE)
+structural.triad.census(bigraph)
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
@@ -76,14 +70,6 @@ that invokes the \code{\link{simple_triad_census}} of the
 
 \item{add.names}{Logical; whether to label the rows and columns of the output
 matrix.}
-
-\item{actors}{Numeric vector of \code{bigraph} actor node IDs (\strong{to 
-expedite the C++ function; to be obviated by a self-contained 
-implementation}).}
-
-\item{max_weight}{Numeric; maximum number of events shared by two actors of 
-\code{bigraph} (\strong{to expedite the C++ function; to be obviated by a 
-self-contained implementation}).}
 
 \item{verbose}{Logical; whether to display progress bars.}
 }

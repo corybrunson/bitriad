@@ -41,10 +41,6 @@ triad_census_batagelj_mrvar_C <- function(el) {
     .Call('_bitriad_triad_census_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
 }
 
-triad_census_batagelj_mrvar_alt_C <- function(el, actors, max_weight) {
-    .Call('_bitriad_triad_census_batagelj_mrvar_alt_C', PACKAGE = 'bitriad', el, actors, max_weight)
-}
-
 triad_census_difference_batagelj_mrvar_C <- function(el) {
     .Call('_bitriad_triad_census_difference_batagelj_mrvar_C', PACKAGE = 'bitriad', el)
 }
