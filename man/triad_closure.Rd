@@ -12,13 +12,14 @@
 \alias{triad_closure_liebig_rao_3}
 \alias{triad_closure_completely_connected}
 \alias{triad_closure_exclusive}
+\alias{triad_closure_projection}
 \title{Triad closure for affiliation networks}
 \usage{
 triad_closure(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
-  type = "global", ..., wedges.fun = NULL)
+  type = "global", ..., measure = NULL, wedges.fun = NULL)
 
 triad_closure_an(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
-  type = "global", ..., wedges.fun = NULL)
+  type = "global", ..., measure = NULL, wedges.fun = NULL)
 
 triad_closure_watts_strogatz(bigraph, actors = V(bigraph)[V(bigraph)$type ==
   FALSE], type = "global")
@@ -46,6 +47,9 @@ triad_closure_completely_connected(bigraph,
 
 triad_closure_exclusive(bigraph, actors = V(bigraph)[V(bigraph)$type ==
   FALSE], type = "global")
+
+triad_closure_projection(bigraph, actors = V(bigraph)[V(bigraph)$type ==
+  FALSE], type = "global")
 }
 \arguments{
 \item{bigraph}{An affiliation network.}
@@ -57,12 +61,19 @@ triad_closure_exclusive(bigraph, actors = V(bigraph)[V(bigraph)$type ==
 
 \item{...}{Measure specifications passed to \code{\link{wedges}}.}
 
+\item{measure}{Character; the measure of triad closure, used as the suffix 
+\code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 
+\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), 
+\code{"unconnected"} (also \code{"liebig_rao_0"}), 
+\code{"completely_connected"} (also \code{"liebig_rao_3"}), or 
+\code{"exclusive"}.}
+
 \item{wedges.fun}{A custom wedge census function. It must accept an 
 affiliation network \code{bigraph} and a single actor node ID \code{actor} 
 and may have any additional parameters. It must return a named list with 
-values \code{wedges} a numeric matrix of node IDs whose columns record the
-wedges centered at \code{actor} and \code{closed} a logical vector
-recording whether each wedge is closed.}
+values \code{wedges} a numeric matrix of node IDs whose columns record the 
+wedges centered at \code{actor} and \code{closed} a logical vector 
+recording whether each wedge is closed. Overrides \code{measure}.}
 }
 \value{
 If \code{type} is \code{"global"}, the global statistic for 
@@ -75,10 +86,15 @@ Given an affiliation network and a vector of actor node IDs,
   calculate a specified measure of triad closure centered at the nodes.
 }
 \details{
-The \code{triad_closure_*} functions implement the several measures
+The \code{triad_closure_*} functions implement the several measures 
   of triad closure described below. Each function returns a single global 
   statistic, a vector of local statistics, or a matrix of local denominators 
   and numerators from which the global and local statistics can be recovered.
+  
+  The function \code{triad_closure_projection} recapitulates 
+  \code{\link{triad_closure_watts_strogatz}} by invoking the 
+  \code{\link[igraph]{bipartite_projection}} and 
+  \code{\link[igraph]{transitivity}} functions in \strong{igraph}.
 
 
 }
@@ -155,14 +171,14 @@ discussions of each statistic.
 data(women_clique)
 mapply(
   triad_closure,
-  wedges.fun = c("watts_strogatz", "opsahl", "exclusive"),
+  measure = c("watts_strogatz", "opsahl", "exclusive"),
   MoreArgs = list(bigraph = women_clique, type = "local")
 )
 data(women_group)
 cbind(
-    triad_closure_watts_strogatz(women_group, type = "local"),
-    triad_closure_opsahl(women_group, type = "local"),
-    triad_closure_exclusive(women_group, type = "local")
+  triad_closure_watts_strogatz(women_group, type = "local"),
+  triad_closure_opsahl(women_group, type = "local"),
+  triad_closure_exclusive(women_group, type = "local")
 )
 }
 \references{
@@ -180,7 +196,4 @@ technology and internet-based systems}.
 
 Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
-}
-\seealso{
-Other triad closure: \code{\link{triad_closure_projection}}
 }

@@ -1,8 +1,8 @@
 #' @title Wedge censuses and closure indicators for affiliation networks
 #'   
 #' @description Given an affiliation network and an actor node ID, identify all 
-#'   wedges of a specified flavor centered at the node and indicate whether each
-#'   is closed.
+#'   wedges for a specified measure centered at the node and indicate whether 
+#'   each is closed.
 #'   
 #' @details The \code{wedges_*} functions implement wedge censuses underlying 
 #'   the several measures of triad closure described below. Each function 

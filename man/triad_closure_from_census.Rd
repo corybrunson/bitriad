@@ -69,7 +69,7 @@ treated as full.}
 \item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
 congruence (see Details).}
 
-\item{measure}{Character; the type of triad closure (matched to 
+\item{measure}{Character; the measure of triad closure (matched to 
 "watts.strogatz", "classical", "opsahl", "exclusive", "allact", "indequ", 
 "indstr", "injact", "injequ", or "injstr"). Overrides \code{alcove}, 
 \code{wedge}, \code{maps}, and \code{congruence}.}

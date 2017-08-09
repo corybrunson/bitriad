@@ -21,7 +21,7 @@
 #'   \code{"difference"} (also \code{"uniformity"}), or \code{"simple"}.
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
-#' @param measure Character; the type of triad closure (matched to 
+#' @param measure Character; the measure of triad closure (matched to 
 #'   "watts.strogatz", "classical", "opsahl", "exclusive", "allact", "indequ", 
 #'   "indstr", "injact", "injequ", or "injstr"). Overrides \code{alcove}, 
 #'   \code{wedge}, \code{maps}, and \code{congruence}.

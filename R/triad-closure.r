@@ -3,10 +3,15 @@
 #' @description Given an affiliation network and a vector of actor node IDs, 
 #'   calculate a specified measure of triad closure centered at the nodes.
 #'   
-#' @details The \code{triad_closure_*} functions implement the several measures
+#' @details The \code{triad_closure_*} functions implement the several measures 
 #'   of triad closure described below. Each function returns a single global 
 #'   statistic, a vector of local statistics, or a matrix of local denominators 
 #'   and numerators from which the global and local statistics can be recovered.
+#'   
+#'   The function \code{triad_closure_projection} recapitulates 
+#'   \code{\link{triad_closure_watts_strogatz}} by invoking the 
+#'   \code{\link[igraph]{bipartite_projection}} and 
+#'   \code{\link[igraph]{transitivity}} functions in \strong{igraph}.
 #'   
 #' @template triadclosure
 #'   
@@ -18,12 +23,18 @@
 #' @param type The type of statistic, matched to \code{"global"}, 
 #'   \code{"local"}, or \code{"raw"}.
 #' @param ... Measure specifications passed to \code{\link{wedges}}.
+#' @param measure Character; the measure of triad closure, used as the suffix 
+#'   \code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 
+#'   \code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), 
+#'   \code{"unconnected"} (also \code{"liebig_rao_0"}), 
+#'   \code{"completely_connected"} (also \code{"liebig_rao_3"}), or 
+#'   \code{"exclusive"}.
 #' @param wedges.fun A custom wedge census function. It must accept an 
 #'   affiliation network \code{bigraph} and a single actor node ID \code{actor} 
 #'   and may have any additional parameters. It must return a named list with 
-#'   values \code{wedges} a numeric matrix of node IDs whose columns record the
-#'   wedges centered at \code{actor} and \code{closed} a logical vector
-#'   recording whether each wedge is closed.
+#'   values \code{wedges} a numeric matrix of node IDs whose columns record the 
+#'   wedges centered at \code{actor} and \code{closed} a logical vector 
+#'   recording whether each wedge is closed. Overrides \code{measure}.
 #' @return If \code{type} is \code{"global"}, the global statistic for 
 #'   \code{bigraph}; if \code{"local"}, the local statistics for \code{actors}; 
 #'   if \code{"raw"}, a 2-column matrix, each row of which gives the number of 
@@ -32,33 +43,42 @@
 #' data(women_clique)
 #' mapply(
 #'   triad_closure,
-#'   wedges.fun = c("watts_strogatz", "opsahl", "exclusive"),
+#'   measure = c("watts_strogatz", "opsahl", "exclusive"),
 #'   MoreArgs = list(bigraph = women_clique, type = "local")
 #' )
 #' data(women_group)
 #' cbind(
-#'     triad_closure_watts_strogatz(women_group, type = "local"),
-#'     triad_closure_opsahl(women_group, type = "local"),
-#'     triad_closure_exclusive(women_group, type = "local")
+#'   triad_closure_watts_strogatz(women_group, type = "local"),
+#'   triad_closure_opsahl(women_group, type = "local"),
+#'   triad_closure_exclusive(women_group, type = "local")
 #' )
 #' @export
 triad_closure <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
   type = "global",
   ...,
+  measure = NULL,
   wedges.fun = NULL
 ) {
+  if (!is_an(bigraph)) {
+    stop("Not an affiliation network.")
+  }
   type <- match.arg(type, c("global", "local", "raw"))
   if (type == "global" &&
       !setequal(V(bigraph)[V(bigraph)$type == FALSE], V(bigraph)[actors])) {
     warning("Calculating a global statistic on a subset of actors.")
   }
-  wedges_fun <- if (is.null(wedges.fun)) {
-    wedges
-  } else if (is.character(wedges.fun)) {
-    get(paste0("wedges_", wedges.fun))
-  } else {
+  wedges_fun <- if (!is.null(wedges.fun)) {
     wedges.fun
+  } else if (!is.null(measure)) {
+    measure <- match.arg(measure, c("classical", "watts_strogatz",
+                                    "twomode", "opsahl",
+                                    "unconnected", "liebig_rao_0",
+                                    "completely_connected", "liebig_rao_3",
+                                    "exclusive"))
+    get(paste0("wedges_", measure))
+  } else {
+    wedges
   }
   wedges <- sapply(actors, function(actor) {
     wc <- wedges_fun(bigraph, actor, ...)$closed
@@ -149,4 +169,36 @@ wedgeReturn <- function(wedges, type, add.names) {
   #  colnames(wedges) <- c("Wedges", "Closed")
   #}
   wedges
+}
+
+#' @rdname triad_closure
+#' @export
+triad_closure_projection <- function(
+  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  type = "global"
+) {
+  type <- match.arg(type, c("global", "local", "raw"))
+  if (vcount(bigraph) == 0) {
+    if (type == "global") {
+      return(NaN)
+    } else if (type == "local") {
+      return(NULL)
+    } else {
+      return(matrix(NA, nrow = 0, ncol = 2))
+    }
+  }
+  stopifnot(all(V(bigraph)$type[actors] == FALSE))
+  graph <- actor_projection(bigraph)
+  proj_actors <- which(which(!V(bigraph)$type) %in% actors)
+  stopifnot(length(proj_actors) == length(actors))
+  if (type == "global") {
+    return(transitivity(graph, type = "global"))
+  } else if (type == "local") {
+    return(transitivity(graph, type = "local", vids = proj_actors))
+  } else {
+    C <- transitivity(graph, type = "local", vids = proj_actors)
+    C[is.na(C)] <- 0
+    W <- choose(degree(graph)[proj_actors], 2)
+    return(unname(cbind(W, as.integer(W * C))))
+  }
 }

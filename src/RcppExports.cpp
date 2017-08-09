@@ -101,15 +101,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// wedges_dynamic_x0w0m0c0
-List wedges_dynamic_x0w0m0c0(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_dynamic_x0w0m0c0(SEXP elSEXP, SEXP qSEXP) {
+// dynamic_wedges_x0w0m0c0
+List dynamic_wedges_x0w0m0c0(IntegerMatrix el, NumericVector t, int q, double memory, double window_begin, double window_end);
+RcppExport SEXP _bitriad_dynamic_wedges_x0w0m0c0(SEXP elSEXP, SEXP tSEXP, SEXP qSEXP, SEXP memorySEXP, SEXP window_beginSEXP, SEXP window_endSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type t(tSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_dynamic_x0w0m0c0(el, q));
+    Rcpp::traits::input_parameter< double >::type memory(memorySEXP);
+    Rcpp::traits::input_parameter< double >::type window_begin(window_beginSEXP);
+    Rcpp::traits::input_parameter< double >::type window_end(window_endSEXP);
+    rcpp_result_gen = Rcpp::wrap(dynamic_wedges_x0w0m0c0(el, t, q, memory, window_begin, window_end));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -237,7 +241,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_wedges_x0w0m1c2", (DL_FUNC) &_bitriad_wedges_x0w0m1c2, 2},
     {"_bitriad_wedges_x0w0m2c0", (DL_FUNC) &_bitriad_wedges_x0w0m2c0, 2},
     {"_bitriad_wedges_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_x0w0m2c1, 2},
-    {"_bitriad_wedges_dynamic_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_dynamic_x0w0m0c0, 2},
+    {"_bitriad_dynamic_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_dynamic_wedges_x0w0m0c0, 6},
     {"_bitriad_triad_census_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_C, 1},
     {"_bitriad_triad_census_difference_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_difference_batagelj_mrvar_C, 1},
     {"_bitriad_triad_census_binary_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_C, 1},

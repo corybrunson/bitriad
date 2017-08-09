@@ -1,25 +1,80 @@
-#' Dynamic triadic closure of an affiliation network
-#'
-#' Given an affiliation network with time-stamped events, compute the proportion
-#' of centered triples at which an open wedge exists at some time that is
-#' closed at a later time.
+#' Triadic closure for dynamic affiliation networks
 #' 
-#' @name dynamic_transitivity
+#' Given an affiliation network with time-stamped events, compute the proportion
+#' of centered triples at which an open wedge exists at some time that is closed
+#' at a later time.
+#' 
+#' @name dynamic_triad_closure
 #' @param bigraph An affiliation network with time-stamped events.
+#' @param actors A vector of actor nodes in \code{bigraph}.
+#' @param type The type of statistic, matched to \code{"global"}, 
+#'   \code{"local"}, or \code{"raw"}.
+#' @param ... Additional parameters passed to specific functions.
+#' @param measure Character; the measure of triad closure, used as the suffix 
+#'   \code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 
+#'   \code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), 
+#'   \code{"unconnected"} (also \code{"liebig_rao_0"}), 
+#'   \code{"completely_connected"} (also \code{"liebig_rao_3"}), 
+#'   \code{"exclusive"}, or \code{"projection"}.
 #' @param memory Numeric; a duration of time after which events are forgotten.
-#' @param type Character; whether to compute the global or local statistic, or
-#' to return a 2-column matrix of wedge counts (defaults to "global").
 #' @examples
 #' data(women_group)
-#' dynamic_transitivity_an(women_group)
+#' dynamic_triad_closure_an(women_group)
 #' cbind(
-#'     transitivity(actor_projection(women_group), type = "local"),
-#'     triad_closure_opsahl(women_group, type = "local"),
-#'     triad_closure_exclusive(women_group, type = "local"),
-#'     dynamic_transitivity_an(women_group, type = "local")
+#'   transitivity(actor_projection(women_group), type = "local"),
+#'   triad_closure_opsahl(women_group, type = "local"),
+#'   triad_closure_exclusive(women_group, type = "local"),
+#'   dynamic_triad_closure_an(women_group, type = "local")
 #' )
 #' @export
-dynamic_transitivity_an <- function(
+dynamic_triad_closure_an <- function(
+  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  type = "global",
+  ...,
+  measure = NULL
+) {
+  if (!is_dynamic_an(bigraph)) {
+    stop("Not a dynamic affiliation network.")
+  }
+  type <- match.arg(type, c("global", "local", "raw"))
+  if (type == "global" &&
+      !setequal(V(bigraph)[V(bigraph)$type == FALSE], V(bigraph)[actors])) {
+    warning("Calculating a global statistic on a subset of actors.")
+  }
+  if (!is.null(measure)) {
+    measure <- match.arg(measure, c("classical", "watts_strogatz",
+                                    "twomode", "opsahl",
+                                    "unconnected", "liebig_rao_0",
+                                    "completely_connected", "liebig_rao_3",
+                                    "exclusive",
+                                    "projection"))
+    if (measure == "projection") {
+      return(dynamic_triad_closure_projection(bigraph, ..., type = type))
+    }
+  }
+  wedges_fun <- if (!is.null(measure)) {
+    get(paste0("dynamic_wedges_", measure))
+  } else {
+    dynamic_wedges
+  }
+  wedges <- sapply(actors, function(actor) {
+    wc <- wedges_fun(bigraph, actor, ...)$closed
+    c(length(wc), sum(wc))
+  })
+  wedgeReturn(wedges = t(wedges), type = type)
+}
+
+#' @rdname dynamic_triad_closure
+#' @export
+dynamic_transitivity_an <- dynamic_triad_closure_an
+
+#' @rdname dynamic_triad_closure
+#' @export
+dyn.transitivity.an <- dynamic_triad_closure_an
+
+#' @rdname dynamic_triad_closure
+#' @export
+dynamic_triad_closure_projection <- function(
   bigraph,
   memory = Inf,
   type = "global"
@@ -163,7 +218,3 @@ dynamic_transitivity_an <- function(
   } else wedges_dat
   
 }
-
-#' @rdname dynamic_transitivity
-#' @export
-dyn.transitivity.an <- dynamic_transitivity_an

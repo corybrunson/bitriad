@@ -33,8 +33,8 @@ wedges_x0w0m2c1 <- function(el, q) {
     .Call('_bitriad_wedges_x0w0m2c1', PACKAGE = 'bitriad', el, q)
 }
 
-wedges_dynamic_x0w0m0c0 <- function(el, q) {
-    .Call('_bitriad_wedges_dynamic_x0w0m0c0', PACKAGE = 'bitriad', el, q)
+dynamic_wedges_x0w0m0c0 <- function(el, t, q, memory, window_begin, window_end) {
+    .Call('_bitriad_dynamic_wedges_x0w0m0c0', PACKAGE = 'bitriad', el, t, q, memory, window_begin, window_end)
 }
 
 triad_census_batagelj_mrvar_C <- function(el) {
