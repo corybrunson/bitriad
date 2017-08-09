@@ -171,13 +171,14 @@ discussions of each statistic.
 data(women_clique)
 mapply(
   triad_closure,
-  measure = c("watts_strogatz", "opsahl", "exclusive"),
+  measure = c("classical", "twomode", "unconnected", "exclusive"),
   MoreArgs = list(bigraph = women_clique, type = "local")
 )
 data(women_group)
 cbind(
   triad_closure_watts_strogatz(women_group, type = "local"),
   triad_closure_opsahl(women_group, type = "local"),
+  triad_closure_liebig_rao_0(women_group, type = "local"),
   triad_closure_exclusive(women_group, type = "local")
 )
 }
