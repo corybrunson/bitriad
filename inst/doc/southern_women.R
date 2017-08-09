@@ -29,25 +29,25 @@ women_clique_proj <- actor_projection(women_clique)
 
 ## ------------------------------------------------------------------------
 antc_proj <- project_census(antc, add.names = TRUE)
-antc_proj$structural
+antc_proj$binary
 
 ## ------------------------------------------------------------------------
 cbind(tc,
       antc_proj$simple,
-      project_census(antc_proj$structural)$simple)
+      project_census(antc_proj$binary)$simple)
 
 ## ------------------------------------------------------------------------
 (C <- unname(3 * tc[4] / (tc[3] + 3 * tc[4])))
 
 ## ------------------------------------------------------------------------
 (C_vec <- c(
-    C = transitivity_from_census(antc, scheme = "full", flavor = "classical"),
-    OpsahlC = transitivity_from_census(antc, scheme = "full", flavor = "opsahl"),
-    exclC = transitivity_from_census(antc, scheme = "full", flavor = "exclusive")
+    C = triad_closure_from_census(antc, scheme = "full", measure = "classical"),
+    OpsahlC = triad_closure_from_census(antc, scheme = "full", measure = "opsahl"),
+    exclC = triad_closure_from_census(antc, scheme = "full", measure = "exclusive")
 ))
 
 ## ------------------------------------------------------------------------
-stc <- antc_proj$structural
+stc <- antc_proj$binary
 3 * sum(stc[4, ]) / (sum(stc[3, ]) + 3 * sum(stc[4, ]))
 
 ## ------------------------------------------------------------------------

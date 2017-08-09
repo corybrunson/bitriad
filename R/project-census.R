@@ -40,7 +40,7 @@ project_census <- function(
   censuses <- list()
   # if "full", project to "difference"
   if (scheme == "full") {
-    census <- ftc2utc(census)
+    census <- difference_from_full_census(census)
     if (add.names) {
       dimnames(census) <- list(
         paste0(
@@ -56,7 +56,7 @@ project_census <- function(
   }
   # if "difference", project to "binary"
   if (scheme == "difference") {
-    census <- utc2stc(census)
+    census <- binary_from_difference_census(census)
     if (add.names) {
       dimnames(census) <- list(0:3, 0:1)
     }
@@ -65,7 +65,7 @@ project_census <- function(
   }
   # if "binary", project to "simple"
   if (scheme == "binary") {
-    census <- stc2tc(census)
+    census <- simple_from_binary_census(census)
     if (add.names) {
       names(census) <- 0:3
     }

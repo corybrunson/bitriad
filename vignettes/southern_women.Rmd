@@ -108,7 +108,7 @@ The paper discusses in detail two alternative clustering coefficients specifical
 In fact, the exclusive clustering coefficient can be calculated from the structural census, since its definition does not depend on the presence of duplicate events:
 
 ```{r}
-stc <- antc_proj$structural
+stc <- antc_proj$binary
 3 * sum(stc[4, ]) / (sum(stc[3, ]) + 3 * sum(stc[4, ]))
 ```
 
