@@ -5,7 +5,8 @@
 \title{Wedge censuses and closure indicators for dynamic affiliation networks}
 \usage{
 dynamic_wedges(bigraph, actor, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0, memory = Inf, window.begin = 0, window.end = Inf)
+  congruence = 0, memory = Inf, wedge.gap = Inf, close.after = 0,
+  close.by = Inf)
 }
 \arguments{
 \item{bigraph}{A dynamic affiliation network.}
@@ -15,9 +16,12 @@ dynamic_wedges(bigraph, actor, alcove = 0, wedge = 0, maps = 0,
 \item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
 congruence (see Details).}
 
-\item{memory}{Numeric; a duration of time after which events are forgotten.}
+\item{memory}{Numeric; minimum delay of wedge formation since would-have-been
+closing events.}
 
-\item{window.begin, window.end}{Numeric; minimum and maximum times after two 
+\item{wedge.gap}{Numeric; maximum delay between the two events of a wedge.}
+
+\item{close.after, close.by}{Numeric; minimum and maximum delays after both 
 events form a wedge for a third event to close it.}
 }
 \value{

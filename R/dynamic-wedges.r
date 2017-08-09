@@ -21,8 +21,10 @@
 #' @param actor An actor node in \code{bigraph}.
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
-#' @param memory Numeric; a duration of time after which events are forgotten.
-#' @param window.begin,window.end Numeric; minimum and maximum times after two 
+#' @param memory Numeric; minimum delay of wedge formation since would-have-been
+#'   closing events.
+#' @param wedge.gap Numeric; maximum delay between the two events of a wedge.
+#' @param close.after,close.by Numeric; minimum and maximum delays after both 
 #'   events form a wedge for a third event to close it.
 #' @return A two-element list consisting of (1) a 3- or 5-row integer matrix of 
 #'   (representatives of) all (congruence classes of) wedges in \code{bigraph} 
@@ -32,7 +34,7 @@
 dynamic_wedges <- function(
   bigraph, actor,
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
-  memory = Inf, window.begin = 0, window.end = Inf
+  memory = Inf, wedge.gap = Inf, close.after = 0, close.by = Inf
 ) {
   stopifnot(V(bigraph)[actor]$type == FALSE)
   suffix <- paste0(
@@ -46,6 +48,8 @@ dynamic_wedges <- function(
     el = as_edgelist(bigraph, names = FALSE),
     t = V(bigraph)$time,
     q = as.numeric(V(bigraph)[actor]),
-    memory = memory, window_begin = window.begin, window_end = window.end
+    memory = memory,
+    wedge_gap = wedge.gap,
+    close_after = close.after, close_by = close.by
   )
 }

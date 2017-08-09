@@ -11,7 +11,7 @@
 #'   \code{"local"}, or \code{"raw"}.
 #' @param ... Additional parameters passed to specific functions.
 #' @param measure Character; the measure of triad closure, used as the suffix 
-#'   \code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 
+#'   \code{*} to \code{triad_closure_*}. Matched to \code{"classical"} (also 
 #'   \code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), 
 #'   \code{"unconnected"} (also \code{"liebig_rao_0"}), 
 #'   \code{"completely_connected"} (also \code{"liebig_rao_3"}), 

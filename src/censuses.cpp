@@ -77,11 +77,6 @@ List wedges_x0w0m0c0(IntegerMatrix el, int q) {
               (a_actors_q_list[i][k] > a_actors_q_list[j][l])) {
             continue;
           }
-          // Keep the 4-path as a wedge
-          p_vec.push_back(a_actors_q_list[i][k]);
-          a_vec.push_back(q_events[i]);
-          b_vec.push_back(q_events[j]);
-          r_vec.push_back(a_actors_q_list[j][l]);
           // Calculate the event (distance 1) neighborhoods of p and r
           p_events = actor_nbhd_1(el, a_actors_q_list[i][k])["d1"];
           r_events = actor_nbhd_1(el, a_actors_q_list[j][l])["d1"];
@@ -92,6 +87,11 @@ List wedges_x0w0m0c0(IntegerMatrix el, int q) {
                                 r_events.begin(),
                                 r_events.end(),
                                 std::back_inserter(pr_events));
+          // Keep the 4-path as a wedge
+          p_vec.push_back(a_actors_q_list[i][k]);
+          a_vec.push_back(q_events[i]);
+          b_vec.push_back(q_events[j]);
+          r_vec.push_back(a_actors_q_list[j][l]);
           // If p and r share an event,
           // then the wedge is closed
           cl = (pr_events.size() > 0);
@@ -906,18 +906,19 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
 // all graph maps, modulo equal event images
 // 4-paths p,a,q,b,r (with p,q,r distinct)
 // and whether they are contained in 6-cycles with distinct event c
-// subject to max(t_a, t_b) + window_begin <= t_c <= max(t_a, t_b) + window_end
-// and no t_c' < min(t_a, t_b) - memory
+// subject to |t_a - t_b| <= wedge_gap,
+// max(t_a, t_b) + close_after <= t_c <= max(t_a, t_b) + close_by, and
+// no t_c' < min(t_a, t_b) - memory
 // [[Rcpp::export]]
 List dynamic_wedges_x0w0m0c0(
     IntegerMatrix el, NumericVector t, int q,
-    double memory, double window_begin, double window_end
+    double memory, double wedge_gap, double close_after, double close_by
 ) {
   
   // Loop indices
   int i,j,k,l,m;
   // Event times
-  double ab_start,ab_end;
+  double ab_t0,ab_t1,c_t;
   
   // Incident events
   IntegerVector q_events, a_actors, q_self, a_actors_q;
@@ -950,11 +951,17 @@ List dynamic_wedges_x0w0m0c0(
   std::vector<int> r_events;
   std::vector<int> pr_events;
   // Add 4-paths (with distinct actors)
+  bool we;
   bool cl;
   for (i = 0; i < q_events_count; i++) {
     for (j = i; j < q_events_count; j++) {
-      ab_start = std::min(t[q_events[i]], t[q_events[j]]);
-      ab_end = std::min(t[q_events[i]], t[q_events[j]]);
+      ab_t0 = std::min(t[q_events[i] - 1], t[q_events[j] - 1]);
+      ab_t1 = std::max(t[q_events[i] - 1], t[q_events[j] - 1]);
+      // If events a and b don't fall within 'wedge_gap' of each other,
+      // then there is no wedge
+      if (ab_t1 - ab_t0 > wedge_gap) {
+        continue;
+      }
       for (k = 0; k < a_actors_q_list[i].size(); k++) {
         for (l = 0; l < a_actors_q_list[j].size(); l++) {
           // Ensure that actors are distinct
@@ -976,29 +983,31 @@ List dynamic_wedges_x0w0m0c0(
                                 r_events.begin(),
                                 r_events.end(),
                                 std::back_inserter(pr_events));
+          we = TRUE;
           cl = FALSE;
           for (m = 0; m < pr_events.size(); m++) {
+            c_t = t[pr_events[m] - 1];
             // If p and q share c that precedes a and b within memory,
             // then there is no wedge
-            if ((ab_start - memory <= t[pr_events[m] - 1]) &
-                (t[pr_events[m] - 1] <= ab_end)) {
-              goto endloop;
+            if ((ab_t0 - memory <= c_t) &&
+                (c_t <= ab_t1)) {
+              we = (we & FALSE);
             }
             // If p and r share c that succeeds a and b within the pause window,
             // then any wedge is closed
-            if ((ab_end + window_begin <= t[pr_events[m] - 1]) &
-                (t[pr_events[m] - 1] <= ab_end + window_end)) {
-              cl = TRUE;
+            if ((ab_t1 + close_after <= c_t) &&
+                (c_t <= ab_t1 + close_by)) {
+              cl = (cl | TRUE);
             }
           }
           // Keep the 4-path as a wedge
-          p_vec.push_back(a_actors_q_list[i][k]);
-          a_vec.push_back(q_events[i]);
-          b_vec.push_back(q_events[j]);
-          r_vec.push_back(a_actors_q_list[j][l]);
-          cl_vec.push_back(cl);
-          // End of the loop
-          endloop: ;
+          if (we == TRUE) {
+            p_vec.push_back(a_actors_q_list[i][k]);
+            a_vec.push_back(q_events[i]);
+            b_vec.push_back(q_events[j]);
+            r_vec.push_back(a_actors_q_list[j][l]);
+            cl_vec.push_back(cl);
+          }
         }
       }
     }
@@ -1034,7 +1043,7 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
 ) {
   
   // Loop indices
-  int i, j, k;
+  int i,j,k;
   // Triad class indices
   IntegerVector lambda(3);
   int w;
@@ -1213,9 +1222,9 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
 ) {
   
   // Loop indices
-  int i, j, k;
+  int i,j,k;
   // Triad class indices
-  bool xy, yz, z0, w0;
+  bool xy,yz,z0,w0;
   
   // Initialize triad census matrix
   IntegerMatrix tc(8, 2);
@@ -1338,9 +1347,9 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
 ) {
   
   // Loop indices
-  int i, j, k;
+  int i,j,k;
   // Triad class indices
-  bool x, y, z, w;
+  bool x,y,z,w;
   
   // Initialize triad census matrix
   IntegerMatrix tc(4, 2);

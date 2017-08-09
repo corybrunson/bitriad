@@ -102,8 +102,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // dynamic_wedges_x0w0m0c0
-List dynamic_wedges_x0w0m0c0(IntegerMatrix el, NumericVector t, int q, double memory, double window_begin, double window_end);
-RcppExport SEXP _bitriad_dynamic_wedges_x0w0m0c0(SEXP elSEXP, SEXP tSEXP, SEXP qSEXP, SEXP memorySEXP, SEXP window_beginSEXP, SEXP window_endSEXP) {
+List dynamic_wedges_x0w0m0c0(IntegerMatrix el, NumericVector t, int q, double memory, double wedge_gap, double close_after, double close_by);
+RcppExport SEXP _bitriad_dynamic_wedges_x0w0m0c0(SEXP elSEXP, SEXP tSEXP, SEXP qSEXP, SEXP memorySEXP, SEXP wedge_gapSEXP, SEXP close_afterSEXP, SEXP close_bySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -111,9 +111,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type t(tSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
     Rcpp::traits::input_parameter< double >::type memory(memorySEXP);
-    Rcpp::traits::input_parameter< double >::type window_begin(window_beginSEXP);
-    Rcpp::traits::input_parameter< double >::type window_end(window_endSEXP);
-    rcpp_result_gen = Rcpp::wrap(dynamic_wedges_x0w0m0c0(el, t, q, memory, window_begin, window_end));
+    Rcpp::traits::input_parameter< double >::type wedge_gap(wedge_gapSEXP);
+    Rcpp::traits::input_parameter< double >::type close_after(close_afterSEXP);
+    Rcpp::traits::input_parameter< double >::type close_by(close_bySEXP);
+    rcpp_result_gen = Rcpp::wrap(dynamic_wedges_x0w0m0c0(el, t, q, memory, wedge_gap, close_after, close_by));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -241,7 +242,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_wedges_x0w0m1c2", (DL_FUNC) &_bitriad_wedges_x0w0m1c2, 2},
     {"_bitriad_wedges_x0w0m2c0", (DL_FUNC) &_bitriad_wedges_x0w0m2c0, 2},
     {"_bitriad_wedges_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_x0w0m2c1, 2},
-    {"_bitriad_dynamic_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_dynamic_wedges_x0w0m0c0, 6},
+    {"_bitriad_dynamic_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_dynamic_wedges_x0w0m0c0, 7},
     {"_bitriad_triad_census_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_batagelj_mrvar_C, 1},
     {"_bitriad_triad_census_difference_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_difference_batagelj_mrvar_C, 1},
     {"_bitriad_triad_census_binary_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_C, 1},
