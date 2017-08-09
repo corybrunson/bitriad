@@ -16,18 +16,20 @@
 #'   \code{"unconnected"} (also \code{"liebig_rao_0"}), 
 #'   \code{"completely_connected"} (also \code{"liebig_rao_3"}), 
 #'   \code{"exclusive"}, or \code{"projection"}.
-#' @param memory Numeric; a duration of time after which events are forgotten.
+#' @param memory Numeric; minimum delay of wedge formation since would-have-been
+#'   closing events.
 #' @examples
 #' data(women_group)
-#' dynamic_triad_closure_an(women_group)
+#' dynamic_triad_closure(women_group)
 #' cbind(
 #'   transitivity(actor_projection(women_group), type = "local"),
 #'   triad_closure_opsahl(women_group, type = "local"),
 #'   triad_closure_exclusive(women_group, type = "local"),
-#'   dynamic_triad_closure_an(women_group, type = "local")
+#'   dynamic_triad_closure_projection(women_group, type = "local"),
+#'   dynamic_triad_closure(women_group, type = "local")
 #' )
 #' @export
-dynamic_triad_closure_an <- function(
+dynamic_triad_closure <- function(
   bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
   type = "global",
   ...,
@@ -66,11 +68,15 @@ dynamic_triad_closure_an <- function(
 
 #' @rdname dynamic_triad_closure
 #' @export
-dynamic_transitivity_an <- dynamic_triad_closure_an
+dynamic_triad_closure_an <- dynamic_triad_closure
 
 #' @rdname dynamic_triad_closure
 #' @export
-dyn.transitivity.an <- dynamic_triad_closure_an
+dynamic_transitivity_an <- dynamic_triad_closure
+
+#' @rdname dynamic_triad_closure
+#' @export
+dyn.transitivity.an <- dynamic_triad_closure
 
 #' @rdname dynamic_triad_closure
 #' @export

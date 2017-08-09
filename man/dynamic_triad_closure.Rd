@@ -8,6 +8,9 @@
 \alias{dynamic_triad_closure_projection}
 \title{Triadic closure for dynamic affiliation networks}
 \usage{
+dynamic_triad_closure(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  type = "global", ..., measure = NULL)
+
 dynamic_triad_closure_an(bigraph, actors = V(bigraph)[V(bigraph)$type ==
   FALSE], type = "global", ..., measure = NULL)
 
@@ -36,7 +39,8 @@ dynamic_triad_closure_projection(bigraph, memory = Inf, type = "global")
 \code{"completely_connected"} (also \code{"liebig_rao_3"}), 
 \code{"exclusive"}, or \code{"projection"}.}
 
-\item{memory}{Numeric; a duration of time after which events are forgotten.}
+\item{memory}{Numeric; minimum delay of wedge formation since would-have-been
+closing events.}
 }
 \description{
 Given an affiliation network with time-stamped events, compute the proportion
@@ -45,11 +49,12 @@ at a later time.
 }
 \examples{
 data(women_group)
-dynamic_triad_closure_an(women_group)
+dynamic_triad_closure(women_group)
 cbind(
   transitivity(actor_projection(women_group), type = "local"),
   triad_closure_opsahl(women_group, type = "local"),
   triad_closure_exclusive(women_group, type = "local"),
-  dynamic_triad_closure_an(women_group, type = "local")
+  dynamic_triad_closure_projection(women_group, type = "local"),
+  dynamic_triad_closure(women_group, type = "local")
 )
 }
