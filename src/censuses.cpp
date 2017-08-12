@@ -956,13 +956,13 @@ List dynamic_wedges_x0w0m20c02(
   bool we;
   bool cl;
   for (i = 0; i < q_events_count - 1; i++) {
+    ab_t0 = t[q_events[i] - 1];
     for (j = i + 1; j < q_events_count; j++) {
-      ab_t0 = std::min(t[q_events[i] - 1], t[q_events[j] - 1]);
-      ab_t1 = std::max(t[q_events[i] - 1], t[q_events[j] - 1]);
+      ab_t1 = t[q_events[j] - 1];
       // If events a and b don't fall within 'wedge_gap' of each other,
       // then there is no wedge
       if (ab_t1 - ab_t0 > wedge_gap) {
-        continue;
+        continue;// BREAK LOOP
       }
       // Calculate the set differences of the actor neighborhoods of a and b
       a_b_actors.clear();
