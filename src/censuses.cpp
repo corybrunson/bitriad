@@ -952,7 +952,6 @@ List dynamic_wedges_x0w0m20c02(
   std::vector<int> p_events;
   std::vector<int> r_events;
   std::vector<int> pr_events;
-  std::vector<int> pr_q_events;
   // Add 4-paths (with distinct nodes)
   bool we;
   bool cl;

@@ -4,17 +4,26 @@
 \alias{dynamic_an}
 \alias{is_dynamic_an}
 \alias{is.dyn}
-\title{Dynamic graphs}
+\alias{as_dynamic_an}
+\title{Dynamic affiliation networks}
 \usage{
-is_dynamic_an(graph)
+is_dynamic_an(bigraph)
 
-is.dyn(graph)
+is.dyn(bigraph)
+
+as_dynamic_an(bigraph, add.time.attribute = FALSE)
 }
 \arguments{
-\item{graph}{An \code{igraph} object.}
+\item{bigraph}{An affiliation network.}
+
+\item{add.time.attribute}{Character or logical; if character, the existing 
+attribute to coerce to numeric if necessary and use as the time attribute;
+if logical, whether to introduce an artificial \code{time} attribute
+\code{1:event_count(bigraph)}, reflecting the order of the event node IDs,
+if \code{bigraph} has none.}
 }
 \description{
 An affiliation network is \emph{dynamic}, for present purposes, 
   if its event nodes have time stamps, recorded as a numeric vertex attribute
-  \code{"time"}.
+  \code{"time"} in non-decreasing order.
 }

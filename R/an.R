@@ -23,7 +23,7 @@
 #' @name affiliation_network
 #' @param graph An \code{igraph} object.
 #' @param add.type.attribute Logical; whether to introduce a \code{type} 
-#'   attribute if \code{igraph} has none before testing for bipartite structure.
+#'   attribute if \code{graph} has none before testing for bipartite structure.
 #' @export
 is_an <- function(graph) {
   if (!is_igraph(graph)) return(FALSE)
@@ -38,6 +38,10 @@ is_an <- function(graph) {
   all(as.numeric(V(graph)$type[el[, 1]]) +
         as.numeric(V(graph)$type[el[, 2]]) == 1)
 }
+
+#' @rdname affiliation_network
+#' @export
+is.an <- is_an
 
 #' @rdname affiliation_network
 #' @export
@@ -65,10 +69,6 @@ as_an <- function(graph, add.type.attribute = FALSE) {
   }
   permute(graph, order(order(V(graph)$type)))
 }
-
-#' @rdname affiliation_network
-#' @export
-is.an <- is_an
 
 #' @rdname affiliation_network
 #' @export

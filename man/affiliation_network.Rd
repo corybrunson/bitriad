@@ -3,16 +3,16 @@
 \name{affiliation_network}
 \alias{affiliation_network}
 \alias{is_an}
-\alias{as_an}
 \alias{is.an}
+\alias{as_an}
 \alias{as.an}
 \title{Affiliation networks}
 \usage{
 is_an(graph)
 
-as_an(graph, add.type.attribute = FALSE)
-
 is.an(graph)
+
+as_an(graph, add.type.attribute = FALSE)
 
 as.an(graph, add.type.attribute = FALSE)
 }
@@ -20,7 +20,7 @@ as.an(graph, add.type.attribute = FALSE)
 \item{graph}{An \code{igraph} object.}
 
 \item{add.type.attribute}{Logical; whether to introduce a \code{type} 
-attribute if \code{igraph} has none before testing for bipartite structure.}
+attribute if \code{graph} has none before testing for bipartite structure.}
 }
 \description{
 Test \code{igraph} objects for affiliation network structure or

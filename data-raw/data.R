@@ -31,6 +31,12 @@ V(women_group)$time[V(women_group)$type] <- as.numeric(
   as.Date(paste0("1933/", V(women_group)$name[V(women_group)$type])) -
     as.Date("1932/12/31")
 )
+# Put the events in chronological order
+women_group <- permute(women_group, c(
+  1:actor_count(women_group),
+  actor_count(women_group) +
+    order(order(V(women_group)[V(women_group)$type == TRUE]$time)))
+)
 
 # "Deep South" > "Social Cliques in Colored Society" > Fig. 11: Clique A
 # Read data directly into bipartite incidence matrix
@@ -124,4 +130,4 @@ if (file.exists("../data")) {
   )) {
     save(list = name, file = paste0("../data/", name, ".rda"))
   }
-} else warning("Directory 'data' not where it should be.")
+} else warning("Directory 'data' is not where it should be.")
