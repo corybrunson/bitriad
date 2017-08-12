@@ -102,8 +102,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // dynamic_wedges_x0w0m20c02
-List dynamic_wedges_x0w0m20c02(IntegerMatrix el, NumericVector t, int q, double memory, double wedge_gap, double close_after, double close_by);
-RcppExport SEXP _bitriad_dynamic_wedges_x0w0m20c02(SEXP elSEXP, SEXP tSEXP, SEXP qSEXP, SEXP memorySEXP, SEXP wedge_gapSEXP, SEXP close_afterSEXP, SEXP close_bySEXP) {
+List dynamic_wedges_x0w0m20c02(IntegerMatrix el, NumericVector t, int q, double memory, double wedge_gap, double close_after, double close_before);
+RcppExport SEXP _bitriad_dynamic_wedges_x0w0m20c02(SEXP elSEXP, SEXP tSEXP, SEXP qSEXP, SEXP memorySEXP, SEXP wedge_gapSEXP, SEXP close_afterSEXP, SEXP close_beforeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -113,14 +113,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type memory(memorySEXP);
     Rcpp::traits::input_parameter< double >::type wedge_gap(wedge_gapSEXP);
     Rcpp::traits::input_parameter< double >::type close_after(close_afterSEXP);
-    Rcpp::traits::input_parameter< double >::type close_by(close_bySEXP);
-    rcpp_result_gen = Rcpp::wrap(dynamic_wedges_x0w0m20c02(el, t, q, memory, wedge_gap, close_after, close_by));
+    Rcpp::traits::input_parameter< double >::type close_before(close_beforeSEXP);
+    rcpp_result_gen = Rcpp::wrap(dynamic_wedges_x0w0m20c02(el, t, q, memory, wedge_gap, close_after, close_before));
     return rcpp_result_gen;
 END_RCPP
 }
 // dynamic_wedges_x0w0m0c0
-List dynamic_wedges_x0w0m0c0(IntegerMatrix el, NumericVector t, int q, double memory, double wedge_gap, double close_after, double close_by);
-RcppExport SEXP _bitriad_dynamic_wedges_x0w0m0c0(SEXP elSEXP, SEXP tSEXP, SEXP qSEXP, SEXP memorySEXP, SEXP wedge_gapSEXP, SEXP close_afterSEXP, SEXP close_bySEXP) {
+List dynamic_wedges_x0w0m0c0(IntegerMatrix el, NumericVector t, int q, double memory, double wedge_gap, double close_after, double close_before);
+RcppExport SEXP _bitriad_dynamic_wedges_x0w0m0c0(SEXP elSEXP, SEXP tSEXP, SEXP qSEXP, SEXP memorySEXP, SEXP wedge_gapSEXP, SEXP close_afterSEXP, SEXP close_beforeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -130,8 +130,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type memory(memorySEXP);
     Rcpp::traits::input_parameter< double >::type wedge_gap(wedge_gapSEXP);
     Rcpp::traits::input_parameter< double >::type close_after(close_afterSEXP);
-    Rcpp::traits::input_parameter< double >::type close_by(close_bySEXP);
-    rcpp_result_gen = Rcpp::wrap(dynamic_wedges_x0w0m0c0(el, t, q, memory, wedge_gap, close_after, close_by));
+    Rcpp::traits::input_parameter< double >::type close_before(close_beforeSEXP);
+    rcpp_result_gen = Rcpp::wrap(dynamic_wedges_x0w0m0c0(el, t, q, memory, wedge_gap, close_after, close_before));
     return rcpp_result_gen;
 END_RCPP
 }

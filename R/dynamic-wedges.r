@@ -24,8 +24,8 @@
 #' @param memory Numeric; minimum delay of wedge formation since would-have-been
 #'   closing events.
 #' @param wedge.gap Numeric; maximum delay between the two events of a wedge.
-#' @param close.after,close.by Numeric; minimum and maximum delays after both 
-#'   events form a wedge for a third event to close it.
+#' @param close.after,close.before Numeric; minimum and maximum delays after
+#'   both events form a wedge for a third event to close it.
 #' @return A two-element list consisting of (1) a 3- or 5-row integer matrix of 
 #'   (representatives of) all (congruence classes of) wedges in \code{bigraph} 
 #'   centered at \code{actor}, and (2) a logical vector indicating whether each 
@@ -34,7 +34,7 @@
 dynamic_wedges <- function(
   bigraph, actor,
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
-  memory = Inf, wedge.gap = Inf, close.after = 0, close.by = Inf
+  memory = Inf, wedge.gap = Inf, close.after = 0, close.before = Inf
 ) {
   warning("'dynamic_wedges' is experimental.")
   stopifnot(V(bigraph)[actor]$type == FALSE)
@@ -51,6 +51,6 @@ dynamic_wedges <- function(
     q = as.numeric(V(bigraph)[actor]),
     memory = memory,
     wedge_gap = wedge.gap,
-    close_after = close.after, close_by = close.by
+    close_after = close.after, close_before = close.before
   )
 }

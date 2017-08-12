@@ -906,12 +906,12 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
 // exclusive events a shared by p and q and b shared by q and r
 // and whether a later exclusive or inclusive event c is shared by p and r
 // subject to |t_a - t_b| <= wedge_gap,
-// max(t_a, t_b) + close_after <= t_c <= max(t_a, t_b) + close_by, and
+// max(t_a, t_b) + close_after <= t_c <= max(t_a, t_b) + close_before, and
 // no t_c' < min(t_a, t_b) - memory
 // [[Rcpp::export]]
 List dynamic_wedges_x0w0m20c02(
     IntegerMatrix el, NumericVector t, int q,
-    double memory, double wedge_gap, double close_after, double close_by
+    double memory, double wedge_gap, double close_after, double close_before
 ) {
   
   // Loop indices
@@ -994,7 +994,7 @@ List dynamic_wedges_x0w0m20c02(
           we = TRUE;
           cl = FALSE;
           int first_c = 0;// SHOULD BE NA
-          double first_c_t = ab_t1 + close_by + 1;
+          double first_c_t = ab_t1 + close_before + 1;
           for (m = 0; m < pr_events.size(); m++) {
             c_t = t[pr_events[m] - 1];
             // If p and q share c that precedes a and b within memory,
@@ -1006,7 +1006,7 @@ List dynamic_wedges_x0w0m20c02(
             // If p and r share c that succeeds a and b within the pause window,
             // then any wedge is closed
             if ((ab_t1 + close_after <= c_t) &&
-                (c_t <= ab_t1 + close_by)) {
+                (c_t <= ab_t1 + close_before)) {
               cl = (cl | TRUE);
               if (c_t < first_c_t) {
                 first_c = pr_events[m];
@@ -1053,12 +1053,12 @@ List dynamic_wedges_x0w0m20c02(
 // 4-paths p,a,q,b,r (with p,q,r distinct)
 // and whether they are contained in 6-cycles with distinct event c
 // subject to |t_a - t_b| <= wedge_gap,
-// max(t_a, t_b) + close_after <= t_c <= max(t_a, t_b) + close_by, and
+// max(t_a, t_b) + close_after <= t_c <= max(t_a, t_b) + close_before, and
 // no t_c' < min(t_a, t_b) - memory
 // [[Rcpp::export]]
 List dynamic_wedges_x0w0m0c0(
     IntegerMatrix el, NumericVector t, int q,
-    double memory, double wedge_gap, double close_after, double close_by
+    double memory, double wedge_gap, double close_after, double close_before
 ) {
   
   // Loop indices
@@ -1143,7 +1143,7 @@ List dynamic_wedges_x0w0m0c0(
             // If p and r share c that succeeds a and b within the pause window,
             // then any wedge is closed
             if ((ab_t1 + close_after <= c_t) &&
-                (c_t <= ab_t1 + close_by)) {
+                (c_t <= ab_t1 + close_before)) {
               cl = (cl | TRUE);
             }
           }

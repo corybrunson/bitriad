@@ -6,7 +6,7 @@
 \usage{
 dynamic_wedges(bigraph, actor, alcove = 0, wedge = 0, maps = 0,
   congruence = 0, memory = Inf, wedge.gap = Inf, close.after = 0,
-  close.by = Inf)
+  close.before = Inf)
 }
 \arguments{
 \item{bigraph}{A dynamic affiliation network.}
@@ -21,8 +21,8 @@ closing events.}
 
 \item{wedge.gap}{Numeric; maximum delay between the two events of a wedge.}
 
-\item{close.after, close.by}{Numeric; minimum and maximum delays after both 
-events form a wedge for a third event to close it.}
+\item{close.after, close.before}{Numeric; minimum and maximum delays after
+both events form a wedge for a third event to close it.}
 }
 \value{
 A two-element list consisting of (1) a 3- or 5-row integer matrix of 
