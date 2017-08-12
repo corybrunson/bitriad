@@ -36,13 +36,14 @@ dynamic_wedges <- function(
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
   memory = Inf, wedge.gap = Inf, close.after = 0, close.by = Inf
 ) {
+  warning("'dynamic_wedges' is experimental.")
   stopifnot(V(bigraph)[actor]$type == FALSE)
-  suffix <- paste0(
+  suffix <- paste0(c(
     "x", alcove,
     "w", wedge,
     "m", maps,
     "c", congruence
-  )
+  ), collapse = "")
   wedges_fun <- get(paste0("dynamic_wedges_", suffix))
   wedges_fun(
     el = as_edgelist(bigraph, names = FALSE),

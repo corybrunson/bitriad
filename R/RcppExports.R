@@ -33,6 +33,10 @@ wedges_x0w0m2c1 <- function(el, q) {
     .Call('_bitriad_wedges_x0w0m2c1', PACKAGE = 'bitriad', el, q)
 }
 
+dynamic_wedges_x0w0m20c02 <- function(el, t, q, memory, wedge_gap, close_after, close_by) {
+    .Call('_bitriad_dynamic_wedges_x0w0m20c02', PACKAGE = 'bitriad', el, t, q, memory, wedge_gap, close_after, close_by)
+}
+
 dynamic_wedges_x0w0m0c0 <- function(el, t, q, memory, wedge_gap, close_after, close_by) {
     .Call('_bitriad_dynamic_wedges_x0w0m0c0', PACKAGE = 'bitriad', el, t, q, memory, wedge_gap, close_after, close_by)
 }

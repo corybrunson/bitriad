@@ -44,12 +44,6 @@ dynamic_triad_closure <- function(
     warning("Calculating a global statistic on a subset of actors.")
   }
   if (!is.null(measure)) {
-    measure <- match.arg(measure, c("classical", "watts_strogatz",
-                                    "twomode", "opsahl",
-                                    "unconnected", "liebig_rao_0",
-                                    "completely_connected", "liebig_rao_3",
-                                    "exclusive",
-                                    "projection"))
     if (measure == "projection") {
       return(dynamic_triad_closure_projection(bigraph, ..., type = type))
     }

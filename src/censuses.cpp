@@ -902,6 +902,153 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
 
 // Dynamic wedge censuses and closure indicators
 
+// Experimental dynamic triad closure
+// exclusive events a shared by p and q and b shared by q and r
+// and whether a later exclusive or inclusive event c is shared by p and r
+// subject to |t_a - t_b| <= wedge_gap,
+// max(t_a, t_b) + close_after <= t_c <= max(t_a, t_b) + close_by, and
+// no t_c' < min(t_a, t_b) - memory
+// [[Rcpp::export]]
+List dynamic_wedges_x0w0m20c02(
+    IntegerMatrix el, NumericVector t, int q,
+    double memory, double wedge_gap, double close_after, double close_by
+) {
+  
+  // Loop indices
+  int i,j,k,l,m;
+  // Event times
+  double ab_t0,ab_t1,c_t;
+  
+  // Incident events
+  IntegerVector q_events, a_actors, q_self, a_actors_q;
+  // Compute event (distance 1) neigborhoods about q
+  List q_ego = actor_nbhd_2(el, q);
+  q_events = q_ego["d1"];
+  std::sort(q_events.begin(), q_events.end());
+  int q_events_count = q_events.size();
+  // Compute actor (distance 1) neighborhoods about events of q, excluding q
+  q_self = q;
+  std::vector<IntegerVector> a_actors_q_list;
+  for (i = 0; i < q_events_count; i++) {
+    a_actors = event_nbhd_1(el, q_events[i])["d1"];
+    a_actors_q = IntegerVector::create();
+    std::set_difference(a_actors.begin(), a_actors.end(),
+                        q_self.begin(), q_self.end(),
+                        std::inserter(a_actors_q, a_actors_q.end()));
+    std::sort(a_actors_q.begin(), a_actors_q.end());
+    a_actors_q_list.push_back(a_actors_q);
+  }
+  
+  // Initialize paired vectors of event and actor neighbors of q
+  std::vector<int> p_vec;
+  std::vector<int> a_vec;
+  std::vector<int> b_vec;
+  std::vector<int> r_vec;
+  std::vector<bool> cl_vec;
+  std::vector<int> c_vec;
+  // Initialize intersections and differences
+  std::vector<int> a_b_actors;
+  std::vector<int> b_a_actors;
+  std::vector<int> p_events;
+  std::vector<int> r_events;
+  std::vector<int> pr_events;
+  std::vector<int> pr_q_events;
+  // Add 4-paths (with distinct nodes)
+  bool we;
+  bool cl;
+  for (i = 0; i < q_events_count - 1; i++) {
+    for (j = i + 1; j < q_events_count; j++) {
+      ab_t0 = std::min(t[q_events[i] - 1], t[q_events[j] - 1]);
+      ab_t1 = std::max(t[q_events[i] - 1], t[q_events[j] - 1]);
+      // If events a and b don't fall within 'wedge_gap' of each other,
+      // then there is no wedge
+      if (ab_t1 - ab_t0 > wedge_gap) {
+        continue;
+      }
+      // Calculate the set differences of the actor neighborhoods of a and b
+      a_b_actors.clear();
+      std::set_difference(a_actors_q_list[i].begin(),
+                          a_actors_q_list[i].end(),
+                          a_actors_q_list[j].begin(),
+                          a_actors_q_list[j].end(),
+                          std::inserter(a_b_actors, a_b_actors.end()));
+      b_a_actors.clear();
+      std::set_difference(a_actors_q_list[j].begin(),
+                          a_actors_q_list[j].end(),
+                          a_actors_q_list[i].begin(),
+                          a_actors_q_list[i].end(),
+                          std::inserter(b_a_actors, b_a_actors.end()));
+      for (k = 0; k < a_b_actors.size(); k++) {
+        for (l = 0; l < b_a_actors.size(); l++) {
+          // Calculate the event (distance 1) neighborhoods of p and r
+          p_events = actor_nbhd_1(el, a_b_actors[k])["d1"];
+          r_events = actor_nbhd_1(el, b_a_actors[l])["d1"];
+          // Calculate the intersection of the events of p and of r
+          pr_events.clear();
+          std::set_intersection(p_events.begin(),
+                                p_events.end(),
+                                r_events.begin(),
+                                r_events.end(),
+                                std::back_inserter(pr_events));
+          //std::sort(pr_events.begin(), pr_events.end());
+          // Review all closing events to determine wedge existence and closure
+          we = TRUE;
+          cl = FALSE;
+          int first_c = 0;// SHOULD BE NA
+          double first_c_t = ab_t1 + close_by + 1;
+          for (m = 0; m < pr_events.size(); m++) {
+            c_t = t[pr_events[m] - 1];
+            // If p and q share c that precedes a and b within memory,
+            // then there is no wedge
+            if ((ab_t0 - memory <= c_t) &&
+                (c_t <= ab_t1)) {
+              we = (we & FALSE);
+            }
+            // If p and r share c that succeeds a and b within the pause window,
+            // then any wedge is closed
+            if ((ab_t1 + close_after <= c_t) &&
+                (c_t <= ab_t1 + close_by)) {
+              cl = (cl | TRUE);
+              if (c_t < first_c_t) {
+                first_c = pr_events[m];
+                first_c_t = c_t;
+              }
+            }
+          }
+          if (we == TRUE) {
+            // Keep the 4-path as a wedge
+            p_vec.push_back(a_b_actors[k]);
+            a_vec.push_back(q_events[i]);
+            b_vec.push_back(q_events[j]);
+            r_vec.push_back(b_a_actors[l]);
+            cl_vec.push_back(cl);
+            c_vec.push_back(first_c);
+          }
+        }
+      }
+    }
+  }
+  
+  // Return integer matrix and closedness indicators
+  IntegerMatrix wedges(5, p_vec.size());
+  LogicalVector closed(p_vec.size());
+  IntegerVector closes(p_vec.size());
+  for (i = 0; i < p_vec.size(); i++) {
+    wedges(0, i) = p_vec[i];
+    wedges(1, i) = a_vec[i];
+    wedges(2, i) = q;
+    wedges(3, i) = b_vec[i];
+    wedges(4, i) = r_vec[i];
+    closed(i) = cl_vec[i];
+    closes(i) = c_vec[i];
+  }
+  return List::create(
+    _["wedges"] = wedges,
+    _["closed"] = closed,
+    _["closes"] = closes
+  );
+}
+
 // X = T_111,0; W = T_110,0
 // all graph maps, modulo equal event images
 // 4-paths p,a,q,b,r (with p,q,r distinct)
@@ -983,6 +1130,7 @@ List dynamic_wedges_x0w0m0c0(
                                 r_events.begin(),
                                 r_events.end(),
                                 std::back_inserter(pr_events));
+          // Review all closing events to determine wedge existence and closure
           we = TRUE;
           cl = FALSE;
           for (m = 0; m < pr_events.size(); m++) {
