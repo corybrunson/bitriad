@@ -41,7 +41,7 @@ The **igraph** package recognizes graph objects as bipartite if their nodes have
 
 The function `prettify_an()` assigns an affiliation network aesthetic attributes that help visually distinguish actors from events. It scales vertex sizes with the reciprocal of the vertex count (up to 100), and it adopts shape and color conventions common in recent scientific articles. Below is a visualization of the southern women dataset:
 
-```{r, echo=FALSE, fig.height=6}
+```{r, echo=FALSE, fig.height=5}
 women_clique <- prettify_an(women_clique)
 V(women_clique)$label <- c(LETTERS[1:5], 1:5)
 V(women_clique)$label.color <- "white"
@@ -67,7 +67,7 @@ There are no null (no edges) or disconnected (one edge) triples among the women,
 (antc <- triad_census_an(women_clique, add.names = TRUE))
 ```
 
-The arrangement is not so intuitive. The rows reflect the distribution of exclusive events, and the columns indicate the number of inclusive events; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. The exclusive events thus form the sequence $(2,1,0)$ (in decreasing order), so the triad $(A,B,C)$ is counted in the sixth row and first column (zero inclusive events) of the matrix. (The appropriate row is the index of $(2\leq 1\leq 0)$ in the enumeration scheme provided by the *revolving door algorithm* ([Kreher & Stinson, 1999](https://books.google.com/books?hl=en&lr=&id=0ArDOdcWNQcC)).)
+The arrangement is not so intuitive. The rows reflect the distribution of exclusive events, and the columns indicate the number of inclusive events; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. The exclusive events thus form the sequence $(2,1,0)$ (in decreasing order), so the triad $(A,B,C)$ is counted in the sixth row and first column (zero inclusive events) of the matrix. (The appropriate row is the index of $(2\leq 1\leq 0)$ in the enumeration scheme provided by the [*revolving door algorithm*](https://books.google.com/books?hl=en&lr=&id=0ArDOdcWNQcC).)
 
 As networks grow, this scheme quickly becomes ridiculous. There are, however, intermediate schemes that capture valuable information that is lost to the simple census. Consider the **binary triad census**, which collapses duplicate events and replaces the counts above with binary indicators of the existence of each type of event:
 
@@ -94,7 +94,7 @@ The "classical" global *clustering coefficient* ([Watts & Strogatz, 1998](http:/
 
 The value tells us what proportion of the time two coattendees with the same third attendee were themselves at an activity together. The clustering coefficient has been widely used as a measure of *triadic closure*--the tendency for shared connections to lead to direct connections, or for "friends of friends" to in fact be (or become) "friends".
 
-The paper accompanying this package ([Brunson, 2015](https://www.cambridge.org/core/journals/network-science/article/triadic-analysis-of-affiliation-networks/1C626B16E5C3365531B7E9B33BDB9934)) discusses in detail two alternative measures specifically designed for affiliation networks. The first measure of triadic closure specific to affiliation networks, ignoring previous bipartite clustering coefficients that were not based on triples of actors, was proposed by [*Opsahl* (2013)](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/). The second is dubbed the *exclusive clustering coefficient* because it depends only on the exclusive events any triad. Both of these diagnostics are recoverable from the full triad census:[^2]
+The paper accompanying this package ([Brunson, 2015](https://www.cambridge.org/core/journals/network-science/article/triadic-analysis-of-affiliation-networks/1C626B16E5C3365531B7E9B33BDB9934)) discusses in detail two alternative measures specifically designed for affiliation networks. The first measure of triadic closure specific to affiliation networks, ignoring previous bipartite clustering coefficients that were not based on triples of actors, was proposed by [Opsahl (2013)](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/). The second is dubbed the *exclusive clustering coefficient* because it depends only on the exclusive events any triad. Both of these diagnostics are recoverable from the full triad census:[^2]
 
 [^2]: The calculations are wrapped into `triad_closure_from_census()`, which can also handle difference, binary, and simple census input, provided the desired measure of triad closure can be recovered therefrom.
 

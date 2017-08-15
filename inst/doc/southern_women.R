@@ -14,7 +14,7 @@ library(bitriad)
 data(women_clique)
 as_incidence_matrix(women_clique)
 
-## ---- echo=FALSE, fig.height=6-------------------------------------------
+## ---- echo=FALSE, fig.height=5-------------------------------------------
 women_clique <- prettify_an(women_clique)
 V(women_clique)$label <- c(LETTERS[1:5], 1:5)
 V(women_clique)$label.color <- "white"
