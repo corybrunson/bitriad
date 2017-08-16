@@ -5,8 +5,8 @@
 \title{Networks of interlocking directorates}
 \format{An affiliation network; see \code{\link{is_an}}.}
 \source{
-John Scott and Michael Hughes (1980) *The Anatomy of Scottish
-Capital*
+Scott, J., & Hughes, M. (1980). \emph{The Anatomy of Scottish
+Capital}. Croom Helm. 
 \url{http://books.google.com/books?id=59mvAwAAQBAJ}
 }
 \description{

@@ -5,10 +5,11 @@
 \title{Membership network of American Whigs.}
 \format{An affiliation network; see \code{\link{is_an}}.}
 \source{
-Fischer (1994) *Paul Revere's Ride*
-\url{https://github.com/kjhealy/revere}
+Fischer, D.H. (1994). \emph{Paul Revere's Ride}. Oxford University
+  Press. \url{https://books.google.com/books?id=knC-kTFI9_gC}
+  \url{https://github.com/kjhealy/revere}
 }
 \description{
-These data record the membership of 136 colonial Americans in 5 Whig
+These data record the membership of 136 colonial Americans in 5 Whig 
 organizations.
 }

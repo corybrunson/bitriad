@@ -3,11 +3,12 @@
 #' These data record the attendance of 18 white women at 14 social events over a
 #' 9-month period.
 #' 
-#' @format An affiliation network; see \code{\link{is_an}}. Events carry a
-#'   \code{time} attribute equal to the number of days since the previous 31
+#' @format An affiliation network; see \code{\link{is_an}}. Events carry a 
+#'   \code{time} attribute equal to the number of days since the previous 31 
 #'   December.
-#' @source Davis, Gardner, and Gardner (1941) *Deep South: A Social 
-#'   Anthropological Study of Caste and Class* 
+#' @source Davis, A., Gardner, B.B., & Gardner, M.R. (1941). \emph{Deep South: A
+#'   Social Anthropological Study of Caste and Class}. Columbia, SC: University
+#'   of South Carolina Press. 
 #'   \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
 #' @name women_group
 NULL
@@ -18,9 +19,10 @@ NULL
 #' activities.
 #'
 #' @format An affiliation network; see \code{\link{is_an}}.
-#' @source Davis, Gardner, and Gardner (1941) *Deep South: A Social
-#' Anthropological Study of Caste and Class*
-#' \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
+#' @source Davis, A., Gardner, B.B., & Gardner, M.R. (1941). \emph{Deep South: A
+#'   Social Anthropological Study of Caste and Class}. Columbia, SC: University
+#'   of South Carolina Press. 
+#'   \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
 #' @name women_clique
 NULL
 
@@ -31,43 +33,45 @@ NULL
 #' 1974.
 #'
 #' @format An affiliation network; see \code{\link{is_an}}.
-#' @source John Scott and Michael Hughes (1980) *The Anatomy of Scottish
-#' Capital*
+#' @source Scott, J., & Hughes, M. (1980). \emph{The Anatomy of Scottish
+#' Capital}. Croom Helm. 
 #' \url{http://books.google.com/books?id=59mvAwAAQBAJ}
 #' @name scotland1920s
 NULL
 
 #' Interlocks among corporate philanthropists in Minneapolis-St. Paul.
-#'
-#' These data record the memberships of 26 directors on the boards of 15
-#' companies. They are a subset of a larger dataset that is not publicly
+#' 
+#' These data record the memberships of 26 directors on the boards of 15 
+#' companies. They are a subset of a larger dataset that is not publicly 
 #' available.
-#'
+#' 
 #' @format An affiliation network; see \code{\link{is_an}}.
-#' @source Wasserman & Faust (1994) *Social Network Analysis*
-#' \url{http://books.google.com/books?id=CAm2DpIqRUIC}
+#' @source Wasserman, S. & Faust, K. (1994). \emph{Social Network Analysis:
+#'   Methods and Applications}. Cambridge University Press. 
+#'   \url{http://books.google.com/books?id=CAm2DpIqRUIC}
 #' @name minneapolis1970s
 NULL
 
 #' Corporate interlocks among directors in Chicago.
-#'
+#' 
 #' An affiliation network of 20 directors of 24 corporations and social clubs.
-#'
+#' 
 #' @format An affiliation network; see \code{\link{is_an}}.
-#' @source Barnes & Burkett (2010) "Structural Redundancy and Multiplicity in
-#' Corporate Networks", *Connections* **30**(2), p. 4-20.
-#' \url{http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf}
+#' @source Barnes, R. & Burkett, T. (2010). Structural Redundancy and
+#'   Multiplicity in Corporate Networks. \emph{Connections}, 30(2), p. 4--20. 
+#'   \url{http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf}
 #' @name chicago1960s
 NULL
 
 #' Noordin Top meeting attendance network.
-#'
-#' These data record the attendance of 26 individuals at 20 meetings
-#' associated with Noordin Mohammad Top.
-#'
+#' 
+#' These data record the attendance of 26 individuals at 20 meetings associated
+#' with Noordin Mohammad Top.
+#' 
 #' @format An affiliation network; see \code{\link{is_an}}.
-#' @source The Association of Religious Data Archives
-#' \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
+#' @source Noordin Top Terrorist Network Data. (2011). The Association of
+#'   Religious Data Archives. 
+#'   \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
 #' @name nmt_meetings
 NULL
 
@@ -77,18 +81,20 @@ NULL
 #' associated with Noordin Mohammad Top.
 #'
 #' @format An affiliation network; see \code{\link{is_an}}.
-#' @source The Association of Religious Data Archives
-#' \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
+#' @source Noordin Top Terrorist Network Data. (2011). The Association of
+#'   Religious Data Archives. 
+#'   \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
 #' @name nmt_organizations
 NULL
 
 #' Membership network of American Whigs.
-#'
-#' These data record the membership of 136 colonial Americans in 5 Whig
+#' 
+#' These data record the membership of 136 colonial Americans in 5 Whig 
 #' organizations.
-#'
+#' 
 #' @format An affiliation network; see \code{\link{is_an}}.
-#' @source Fischer (1994) *Paul Revere's Ride*
-#' \url{https://github.com/kjhealy/revere}
+#' @source Fischer, D.H. (1994). \emph{Paul Revere's Ride}. Oxford University
+#'   Press. \url{https://books.google.com/books?id=knC-kTFI9_gC}
+#'   \url{https://github.com/kjhealy/revere}
 #' @name whigs
 NULL

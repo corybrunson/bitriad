@@ -5,9 +5,10 @@
 \title{Clique of women connected by event coattendance in Old City.}
 \format{An affiliation network; see \code{\link{is_an}}.}
 \source{
-Davis, Gardner, and Gardner (1941) *Deep South: A Social
-Anthropological Study of Caste and Class*
-\url{http://books.google.com/books?id=HGIdAAAAIAAJ}
+Davis, A., Gardner, B.B., & Gardner, M.R. (1941). \emph{Deep South: A
+  Social Anthropological Study of Caste and Class}. Columbia, SC: University
+  of South Carolina Press. 
+  \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
 }
 \description{
 These data record the participation of 5 African-American women in 5 social
