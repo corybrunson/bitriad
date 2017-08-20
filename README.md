@@ -25,15 +25,13 @@ The package implements several tools from the paper, most importantly
 
 ## Datasets
 
-Sources of the network data include
+The following empirical affiliation networks are included as datasets:
 * Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*](http://www.amazon.com/Deep-South-Anthropological-Southern-Classics/dp/1570038155), p. 148 (`women_group`) and p. 209 (`women_clique`);
 * Scott and Hughes' [*The Anatomy of Scottish Capital*](http://books.google.com/books?id=59mvAwAAQBAJ), specifically Table 2, covering 1920-21 (`scotland1920s`);
 * Galaskiewicz's [*Social Organization of an Urban Grants Economy*](http://books.google.com/books?id=Vd25AAAAIAAJ), specifically a subset reproduced in Faust's ["Centrality in affiliation networks"](http://www.socsci.uci.edu/~kfaust/faust/research/articles/faust_centrality_sn_1997.pdf) (`minneapolis1970s`);
 * Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"](http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf) (`chicago1960s`);
 * [Noordin Top Terrorist Network Data](http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp), using meetings (`nmt_meetings`) and organizations (`nmt_organizations`) as events;
 * Fischer's [*Paul Revere's Ride*](http://books.google.com/books/about/Paul_Revere_s_Ride.html?id=ZAvQfZFbLp4C), Appendix D, as used in Han's ["The Other Ride of Paul Revere"](http://www.sscnet.ucla.edu/polisci/faculty/chwe/ps269/han.pdf) (`whigs`).
-
-The folder `data` contains .rda (R data) files for the affiliation networks associated with them. All graphs are bipartite; the actors and events are given `type` attributes `FALSE` and `TRUE`, respectively.
 
 ## Vignette
 
