@@ -70,9 +70,10 @@ treated as full.}
 congruence (see Details).}
 
 \item{measure}{Character; the measure of triad closure (matched to 
-"watts.strogatz", "classical", "opsahl", "exclusive", "allact", "indequ", 
-"indstr", "injact", "injequ", or "injstr"). Overrides \code{alcove}, 
-\code{wedge}, \code{maps}, and \code{congruence}.}
+"classical", "watts_strogatz", "twomode", "opsahl", "unconnected",
+"liebig_rao_0", "completely_connected", "liebig_rao_3", "exclusive",
+"allact", "indequ", "indstr", "injact", "injequ", or "injstr"). Overrides
+\code{alcove}, \code{wedge}, \code{maps}, and \code{congruence}.}
 
 \item{open_fun, closed_fun}{Functions to calculate the open and closed wedge 
 count for a triad, in order to calculate a custom measure of triad closure.

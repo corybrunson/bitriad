@@ -15,12 +15,14 @@ census_scheme <- function(census, scheme) {
                                   "binary", "structural",
                                   "difference", "uniformity",
                                   "simple"))
-    if (scheme %in% c("difference", "uniformity") & any(cdim != c(8, 2))) {
+    if (scheme == "structural") scheme <- "binary"
+    if (scheme == "uniformity") scheme <- "difference"
+    if (scheme == "difference" & any(cdim != c(8, 2))) {
       warning("A difference census must be formatted as a 8-by-2 matrix; ",
               "the input census will be treated as a full census.")
       scheme <- "full"
     }
-    if (scheme %in% c("binary", "structural") & any(cdim != c(4, 2))) {
+    if (scheme == "binary" & any(cdim != c(4, 2))) {
       warning("A binary census must be formatted as a 4-by-2 matrix; ",
               "the input census will be treated as a full census.")
       scheme <- "full"

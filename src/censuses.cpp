@@ -44,6 +44,7 @@ List wedges_x0w0m0c0(IntegerMatrix el, int q) {
   std::vector<IntegerVector> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
+    std::sort(a_actors.begin(), a_actors.end());
     a_actors_q = IntegerVector::create();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
@@ -79,7 +80,9 @@ List wedges_x0w0m0c0(IntegerMatrix el, int q) {
           }
           // Calculate the event (distance 1) neighborhoods of p and r
           p_events = actor_nbhd_1(el, a_actors_q_list[i][k])["d1"];
+          std::sort(p_events.begin(), p_events.end());
           r_events = actor_nbhd_1(el, a_actors_q_list[j][l])["d1"];
+          std::sort(r_events.begin(), r_events.end());
           // Calculate the intersection of the events of p and of r
           pr_events.clear();
           std::set_intersection(p_events.begin(),
@@ -329,6 +332,7 @@ List wedges_x0w0m1c0(IntegerMatrix el, int q) {
   std::vector<IntegerVector> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
+    std::sort(a_actors.begin(), a_actors.end());
     a_actors_q = IntegerVector::create();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
@@ -372,7 +376,9 @@ List wedges_x0w0m1c0(IntegerMatrix el, int q) {
           // then the wedge is closed
           // Calculate the event (distance 1) neighborhoods of p and r
           p_events = actor_nbhd_1(el, a_actors_q_list[i][k])["d1"];
+          std::sort(p_events.begin(), p_events.end());
           r_events = actor_nbhd_1(el, a_actors_q_list[j][l])["d1"];
+          std::sort(r_events.begin(), r_events.end());
           // Calculate the intersection of the events of p and of r
           pr_events.clear();
           std::set_intersection(p_events.begin(),
@@ -715,6 +721,7 @@ List wedges_x0w0m2c0(IntegerMatrix el, int q) {
   std::vector<IntegerVector> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
+    std::sort(a_actors.begin(), a_actors.end());
     a_actors_q = IntegerVector::create();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
@@ -764,7 +771,9 @@ List wedges_x0w0m2c0(IntegerMatrix el, int q) {
           // then the wedge is closed
           // Calculate the event (distance 1) neighborhoods of p and r
           p_events = actor_nbhd_1(el, a_b_actors[k])["d1"];
+          std::sort(p_events.begin(), p_events.end());
           r_events = actor_nbhd_1(el, b_a_actors[l])["d1"];
+          std::sort(r_events.begin(), r_events.end());
           // Calculate the intersection of the events of p and of r
           pr_events.clear();
           std::set_intersection(p_events.begin(),
@@ -931,6 +940,7 @@ List dynamic_wedges_x0w0m20c02(
   std::vector<IntegerVector> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
+    std::sort(a_actors.begin(), a_actors.end());
     a_actors_q = IntegerVector::create();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
@@ -981,7 +991,9 @@ List dynamic_wedges_x0w0m20c02(
         for (l = 0; l < b_a_actors.size(); l++) {
           // Calculate the event (distance 1) neighborhoods of p and r
           p_events = actor_nbhd_1(el, a_b_actors[k])["d1"];
+          std::sort(p_events.begin(), p_events.end());
           r_events = actor_nbhd_1(el, b_a_actors[l])["d1"];
+          std::sort(r_events.begin(), r_events.end());
           // Calculate the intersection of the events of p and of r
           pr_events.clear();
           std::set_intersection(p_events.begin(),
@@ -1078,6 +1090,7 @@ List dynamic_wedges_x0w0m0c0(
   std::vector<IntegerVector> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
+    std::sort(a_actors.begin(), a_actors.end());
     a_actors_q = IntegerVector::create();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
@@ -1121,7 +1134,9 @@ List dynamic_wedges_x0w0m0c0(
           }
           // Calculate the event (distance 1) neighborhoods of p and r
           p_events = actor_nbhd_1(el, a_actors_q_list[i][k])["d1"];
+          std::sort(p_events.begin(), p_events.end());
           r_events = actor_nbhd_1(el, a_actors_q_list[j][l])["d1"];
+          std::sort(r_events.begin(), r_events.end());
           // Calculate the intersection of the events of p and of r
           pr_events.clear();
           std::set_intersection(p_events.begin(),

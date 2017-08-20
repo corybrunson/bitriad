@@ -96,7 +96,7 @@ The value tells us what proportion of the time two coattendees with the same thi
 
 The paper accompanying this package ([Brunson, 2015](https://www.cambridge.org/core/journals/network-science/article/triadic-analysis-of-affiliation-networks/1C626B16E5C3365531B7E9B33BDB9934)) discusses in detail two alternative measures specifically designed for affiliation networks. The first measure of triadic closure specific to affiliation networks, ignoring previous bipartite clustering coefficients that were not based on triples of actors, was proposed by [Opsahl (2013)](http://toreopsahl.com/2011/12/21/article-triadic-closure-in-two-mode-networks-redefining-the-global-and-local-clustering-coefficients/). The second is dubbed the *exclusive clustering coefficient* because it depends only on the exclusive events any triad. Both of these diagnostics are recoverable from the full triad census:[^2]
 
-[^2]: The calculations are wrapped into `triad_closure_from_census()`, which can also handle difference, binary, and simple census input, provided the desired measure of triad closure can be recovered therefrom.
+[^2]: The shell function `triad_closure_from_census()` also passes to implementations that handle difference, binary, and simple census input, provided the desired measure of triad closure can be recovered therefrom.
 
 ```{r}
 (C_vec <- c(
@@ -197,7 +197,7 @@ plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
      xlab = "Degree", ylab = "Mean conditional local clustering coefficient")
 ```
 
-There is also a clear trade-off between the number of a woman's acquaintances and the proportion of them that are also acquainted.
+There is also an inverse relationship between the number of a woman's acquaintances and the proportion of them that are also acquainted.
 
 This distribution can be fruitfully generalized to the two-mode setting. What's needed a suitable analog of degree--that is, a measure of local connectivity on which triad closue can be meaningfully conditioned. As suggested by the discussion above, we can adopt local wedge counts, which the `triad_closure_*()` functions return when neither `type` (local or global) is specified. Here are the wedge-dependent means and distributions using the Opsahl clustering coefficient:
 

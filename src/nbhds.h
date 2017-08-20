@@ -17,6 +17,7 @@ List actor_nbhd_1(IntegerMatrix el, int q) {
       }
     }
   }
+  //std::sort(n1.begin(), n1.end());
   
   return List::create(Named("d0") = q,
                       Named("d1") = n1);
@@ -37,6 +38,7 @@ List event_nbhd_1(IntegerMatrix el, int a) {
       }
     }
   }
+  //std::sort(n1.begin(), n1.end());
   
   return List::create(Named("d0") = a,
                       Named("d1") = n1);
@@ -70,6 +72,8 @@ List actor_nbhd_2(IntegerMatrix el, int q) {
       }
     }
   }
+  //std::sort(n1.begin(), n1.end());
+  //std::sort(n2.begin(), n2.end());
   
   return List::create(Named("d0") = q,
                       Named("d1") = n1,
