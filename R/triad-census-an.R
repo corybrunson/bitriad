@@ -84,6 +84,7 @@ triad_census_full <- function(
     method <- match.arg(method, c("batagelj_mrvar", "projection"))
     triad_census_fun <- get(paste0("triad_census_", method))
     tc <- triad_census_fun(bigraph = bigraph, ...)
+    tc <- fix_empty_triad_overflow(tc, choose(actor_count(bigraph), 3))
   }
   
   # annotation
@@ -194,6 +195,7 @@ triad_census_difference <- function(
     method <- match.arg(method, c("batagelj_mrvar", "projection"))
     triad_census_fun <- get(paste0("triad_census_difference_", method))
     tc <- triad_census_fun(bigraph = bigraph, ...)
+    tc <- fix_empty_triad_overflow(tc, choose(actor_count(bigraph), 3))
   }
   
   # annotation
@@ -300,6 +302,7 @@ triad_census_binary <- function(
     method <- match.arg(method, c("batagelj_mrvar", "projection"))
     triad_census_fun <- get(paste0("triad_census_binary_", method))
     tc <- triad_census_fun(bigraph = bigraph, ...)
+    tc <- fix_empty_triad_overflow(tc, choose(actor_count(bigraph), 3))
   }
   
   # annotation
@@ -377,4 +380,11 @@ str_triad_census <- function(bigraph) {
 structural.triad.census <- function(bigraph) {
   .Deprecated("triad_census_binary")
   triad_census_binary(bigraph)
+}
+
+fix_empty_triad_overflow <- function(census, total) {
+  census_total <- sum(census)
+  if (census_total == total) return(census)
+  census[1, 1] <- census[1, 1] - census_total + total
+  census
 }
