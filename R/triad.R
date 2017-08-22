@@ -12,8 +12,8 @@
 #'   all three actors (*inclusive* events).
 #' @param actor_names,event_names Actor and event names (actor names default to 
 #'   "p", "q", and "r"; event names default to positive integers).
-#' @param bigraph An affiliation network, in some cases must be a triad.
-#' @param actors A vector of three actor nodes in \code{bigraph}.
+#' @param graph An affiliation network, in some cases must be a triad.
+#' @param actors A vector of three actor nodes in \code{graph}.
 #' @param as.partition Whether to sort the exclusive events, versus reporting 
 #'   them in order of the nodes; defaults to \code{TRUE}.
 #' @param format Character matched to "list" or "vector"; whether to return the 
@@ -69,30 +69,30 @@ make_triad <- function(
 
 #' @rdname triad
 #' @export
-is_triad <- function(bigraph) {
-  if (!is_an(bigraph)) {
-    warning("Object 'bigraph' is not an affiliation network.")
+is_triad <- function(graph) {
+  if (!is_an(graph)) {
+    warning("Object 'graph' is not an affiliation network.")
     return(FALSE)
   }
-  if (actor_count(bigraph) != 3) return(FALSE)
-  if (any(degree(bigraph, V(bigraph)$type == TRUE) <= 1)) return(FALSE)
+  if (actor_count(graph) != 3) return(FALSE)
+  if (any(degree(graph, V(graph)$type == TRUE) <= 1)) return(FALSE)
   TRUE
 }
 
 #' @rdname triad
 #' @export
 triad_class <- function(
-  bigraph,
-  actors = V(bigraph)[V(bigraph)$type == FALSE],
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
   as.partition = TRUE,
   format = "list"
 ) {
-  stopifnot(is_an(bigraph))
-  stopifnot(all(V(bigraph)[actors]$type == FALSE))
+  stopifnot(is_an(graph))
+  stopifnot(all(V(graph)[actors]$type == FALSE))
   stopifnot(length(actors) == 3)
   
   # count inclusive and exclusive events
-  actor_events <- neighborhood(bigraph, order = 1, nodes = actors)
+  actor_events <- neighborhood(graph, order = 1, nodes = actors)
   w <- length(which(table(unlist(actor_events)) == 3))
   lambda <- sapply(1:3, function(i) {
     length(which(table(unlist(actor_events[c(i, i %% 3 + 1)])) > 1))

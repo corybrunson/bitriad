@@ -23,62 +23,50 @@
 \alias{excl.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-transitivity_an(bigraph, type = "global", wedgeFun, flavor,
-  vids = which(!V(bigraph)$type), add.names = FALSE)
+transitivity_an(graph, type = "global", wedgeFun, flavor,
+  vids = which(!V(graph)$type), add.names = FALSE)
 
-transitivity_an_triads(bigraph, vids = which(!V(bigraph)$type), flavor)
+transitivity_an_triads(graph, vids = which(!V(graph)$type), flavor)
 
-transitivity_an_wedges(bigraph, vids = which(!V(bigraph)$type), wedgeFun)
+transitivity_an_wedges(graph, vids = which(!V(graph)$type), wedgeFun)
 
-transitivity.an(bigraph, type = "global", wedgeFun, flavor,
-  vids = which(!V(bigraph)$type), add.names = FALSE)
+transitivity.an(graph, type = "global", wedgeFun, flavor,
+  vids = which(!V(graph)$type), add.names = FALSE)
 
-transitivity.an.triads(bigraph, vids = which(!V(bigraph)$type), flavor)
+transitivity.an.triads(graph, vids = which(!V(graph)$type), flavor)
 
-transitivity.an.wedges(bigraph, vids = which(!V(bigraph)$type), wedgeFun)
+transitivity.an.wedges(graph, vids = which(!V(graph)$type), wedgeFun)
 
-indequ_transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+indequ_transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-indequ.transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+indequ.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-indstr_transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+indstr_transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-indstr.transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+indstr.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-injact_transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+injact_transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-injact.transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+injact.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-injequ_transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+injequ_transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-injequ.transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+injequ.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-injstr_transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+injstr_transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-injstr.transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+injstr.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-opsahl_transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+opsahl_transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-opsahl.transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+opsahl.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-excl_transitivity(bigraph, type = "global", vids = which(!V(bigraph)$type))
+excl_transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-excl.transitivity(bigraph, type = "global", vids = which(!V(bigraph)$type))
+excl.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 }
 \arguments{
-\item{bigraph}{An affiliation network; see \code{is_an}.}
+\item{graph}{An affiliation network; see \code{is_an}.}
 
 \item{type}{Character; the type of clustering coefficient (defaults to 
 "global").}

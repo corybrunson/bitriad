@@ -8,24 +8,24 @@
 \alias{dynamic_triad_closure_projection}
 \title{Triadic closure for dynamic affiliation networks}
 \usage{
-dynamic_triad_closure(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+dynamic_triad_closure(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global", ..., measure = NULL)
 
-dynamic_triad_closure_an(bigraph, actors = V(bigraph)[V(bigraph)$type ==
-  FALSE], type = "global", ..., measure = NULL)
-
-dynamic_transitivity_an(bigraph, actors = V(bigraph)[V(bigraph)$type ==
-  FALSE], type = "global", ..., measure = NULL)
-
-dyn.transitivity.an(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+dynamic_triad_closure_an(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global", ..., measure = NULL)
 
-dynamic_triad_closure_projection(bigraph, memory = Inf, type = "global")
+dynamic_transitivity_an(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global", ..., measure = NULL)
+
+dyn.transitivity.an(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global", ..., measure = NULL)
+
+dynamic_triad_closure_projection(graph, memory = Inf, type = "global")
 }
 \arguments{
-\item{bigraph}{An affiliation network with time-stamped events.}
+\item{graph}{An affiliation network with time-stamped events.}
 
-\item{actors}{A vector of actor nodes in \code{bigraph}.}
+\item{actors}{A vector of actor nodes in \code{graph}.}
 
 \item{type}{The type of statistic, matched to \code{"global"}, 
 \code{"local"}, or \code{"raw"}.}

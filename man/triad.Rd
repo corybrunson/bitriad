@@ -18,9 +18,9 @@
 make_triad(lambda, w, actor_names = c("p", "q", "r"), event_names = if
   (sum(c(lambda, w)) == 0) c() else as.character(1:sum(c(lambda, w))))
 
-is_triad(bigraph)
+is_triad(graph)
 
-triad_class(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+triad_class(graph, actors = V(graph)[V(graph)$type == FALSE],
   as.partition = TRUE, format = "list")
 
 layout_triad(triad = NULL, lambda = NULL, w = NULL, scale = 0.3,
@@ -34,9 +34,9 @@ plot_triad(triad = NULL, lambda = NULL, w = NULL, layout = NULL,
 
 an_triad(...)
 
-is.triad(bigraph)
+is.triad(graph)
 
-triad.class(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+triad.class(graph, actors = V(graph)[V(graph)$type == FALSE],
   as.partition = TRUE, format = "list")
 
 an.triad(...)
@@ -61,9 +61,9 @@ all three actors (*inclusive* events).}
 \item{actor_names, event_names}{Actor and event names (actor names default to 
 "p", "q", and "r"; event names default to positive integers).}
 
-\item{bigraph}{An affiliation network, in some cases must be a triad.}
+\item{graph}{An affiliation network, in some cases must be a triad.}
 
-\item{actors}{A vector of three actor nodes in \code{bigraph}.}
+\item{actors}{A vector of three actor nodes in \code{graph}.}
 
 \item{as.partition}{Whether to sort the exclusive events, versus reporting 
 them in order of the nodes; defaults to \code{TRUE}.}

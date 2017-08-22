@@ -7,20 +7,20 @@
 \alias{as_dynamic_an}
 \title{Dynamic affiliation networks}
 \usage{
-is_dynamic_an(bigraph)
+is_dynamic_an(graph)
 
-is.dyn(bigraph)
+is.dyn(graph)
 
-as_dynamic_an(bigraph, add.time.attribute = FALSE)
+as_dynamic_an(graph, add.time.attribute = FALSE)
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 
 \item{add.time.attribute}{Character or logical; if character, the existing 
 attribute to coerce to numeric if necessary and use as the time attribute;
 if logical, whether to introduce an artificial \code{time} attribute
-\code{1:event_count(bigraph)}, reflecting the order of the event node IDs,
-if \code{bigraph} has none.}
+\code{1:event_count(graph)}, reflecting the order of the event node IDs,
+if \code{graph} has none.}
 }
 \description{
 An affiliation network is \emph{dynamic}, for present purposes, 

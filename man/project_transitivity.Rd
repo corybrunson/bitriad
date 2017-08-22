@@ -5,14 +5,12 @@
 \alias{project.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-project_transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+project_transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
-project.transitivity(bigraph, type = "global",
-  vids = which(!V(bigraph)$type))
+project.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 
 \item{type}{The type of clustering coefficient (defaults to "global")}
 

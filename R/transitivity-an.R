@@ -18,7 +18,7 @@
 #' outputting.
 #' 
 #' @name transitivity_an
-#' @param bigraph An affiliation network; see \code{is_an}.
+#' @param graph An affiliation network; see \code{is_an}.
 #' @param type Character; the type of clustering coefficient (defaults to 
 #'   "global").
 #' @param vids A subset of actor node ids at which to evaluate the local 
@@ -34,14 +34,14 @@
 #'   and the number of closed wedges centered at each actor.
 #' @export
 transitivity_an <- function(
-  bigraph,
+  graph,
   type = "global",
   wedgeFun,
   flavor,
-  vids = which(!V(bigraph)$type),
+  vids = which(!V(graph)$type),
   add.names = FALSE
 ) {
-  if(vcount(bigraph) == 0) {
+  if(vcount(graph) == 0) {
     if(type == "global") {
       return(NaN)
     } else if(type == "local") {
@@ -49,20 +49,20 @@ transitivity_an <- function(
     } else return(matrix(NA, nrow = 0, ncol = 2))
   }
   # Check that nodes are actors
-  stopifnot(all(!V(bigraph)$type[vids]))
+  stopifnot(all(!V(graph)$type[vids]))
   # If global or both, need to look at all vertices
-  Qs <- if(type == "global") which(!V(bigraph)$type) else vids
+  Qs <- if(type == "global") which(!V(graph)$type) else vids
   
   if(missing(wedgeFun)) {
     if(missing(flavor)) {
       stop("Need a wedge function or a flavor")
     } else {
-      wedges <- transitivity_an_triads(bigraph, Qs, flavor)
+      wedges <- transitivity_an_triads(graph, Qs, flavor)
     }
   } else {
     if(!missing(flavor))
       warning("Wedge function provided; overriding flavor")
-    wedges <- transitivity_an_wedges(bigraph, Qs, wedgeFun)
+    wedges <- transitivity_an_wedges(graph, Qs, wedgeFun)
   }
   
   # Return appropriate statistics
@@ -77,12 +77,12 @@ transitivity_an <- function(
 #' @rdname transitivity_an
 #' @export
 transitivity_an_triads <- function(
-  bigraph,
-  vids = which(!V(bigraph)$type),
+  graph,
+  vids = which(!V(graph)$type),
   flavor
 ) {
   # Data frame of quadruples (w,x,y,z) of triads centered at Qs
-  triads <- centeredTriads(bigraph = bigraph, vids = vids)
+  triads <- centeredTriads(graph = graph, vids = vids)
   
   # Wedge and closed wedge counts for each triad
   if(length(flavor) == 1) {
@@ -96,14 +96,14 @@ transitivity_an_triads <- function(
 #' @rdname transitivity_an
 #' @export
 transitivity_an_wedges <- function(
-  bigraph,
-  vids = which(!V(bigraph)$type),
+  graph,
+  vids = which(!V(graph)$type),
   wedgeFun
 ) {
   .Deprecated("triad_closure")
   # Wedge and closed wedge counts at each node
   t(matrix(unlist(lapply(vids, function(v) {
-    wedgeFun(bigraph, v)
+    wedgeFun(graph, v)
   })), nrow = 2))
 }
 
@@ -119,15 +119,15 @@ transitivity.an.triads <- transitivity_an_triads
 #' @export
 transitivity.an.wedges <- transitivity_an_wedges
 
-centeredTriads <- function(bigraph, vids) {
+centeredTriads <- function(graph, vids) {
   
   # Require consistent indexing (for interchangeability of actor ids below)
-  if(!is_an(bigraph)) stop("'bigraph' must be an affiliation network")
+  if(!is_an(graph)) stop("'graph' must be an affiliation network")
   # Actor projection
-  graph <- actor_projection(bigraph)
+  proj <- actor_projection(graph)
   
   # Neighborhoods (with starting node removed)
-  n <- lapply(neighborhood(graph, order = 1, nodes = vids), function(x) x[-1])
+  n <- lapply(neighborhood(proj, order = 1, nodes = vids), function(x) x[-1])
   
   # Across all nodes in vids...
   do.call(rbind, lapply(1:length(vids), function(i) {
@@ -135,16 +135,16 @@ centeredTriads <- function(bigraph, vids) {
     v <- vids[i]
     
     # Pairs of v's neighbors
-    # Note: using nodes from bigraph requires consistent indexing
+    # Note: using nodes from graph requires consistent indexing
     # (guaranteed by is_an)
-    #n <- setdiff(neighborhood(graph, order = 1, nodes = v)[[1]], v)
+    #n <- setdiff(neighborhood(proj, order = 1, nodes = v)[[1]], v)
     ns <- utils::combn(n[[i]], m = 2)
     
     # Across all pairs of v's neighbors...
     dat <- cbind(v = v, do.call(rbind, lapply(1:ncol(ns), function(j) {
       
       # Triad class, unsorted, with v at the center
-      triad_class(bigraph,
+      triad_class(graph,
                   c(ns[1, j], v, ns[2, j]),
                   as.partition = FALSE, format = "vector")
     })))
@@ -221,11 +221,11 @@ triadWedges <- function(triads, flavor) {
 #' @rdname transitivity_an
 #' @export
 indequ_transitivity <- function(
-  bigraph, type = "global",
-  vids = which(!V(bigraph)$type)
+  graph, type = "global",
+  vids = which(!V(graph)$type)
 ) {
   transitivity_an(
-    bigraph = bigraph, type = type,
+    graph = graph, type = type,
     wedgeFun = indequ_wedges, vids = vids)
 }
 
@@ -236,11 +236,11 @@ indequ.transitivity <- indequ_transitivity
 #' @rdname transitivity_an
 #' @export
 indstr_transitivity <- function(
-  bigraph, type = "global",
-  vids = which(!V(bigraph)$type)
+  graph, type = "global",
+  vids = which(!V(graph)$type)
 ) {
   transitivity_an(
-    bigraph = bigraph, type = type,
+    graph = graph, type = type,
     wedgeFun = indstr_wedges, vids = vids)
 }
 
@@ -251,11 +251,11 @@ indstr.transitivity <- indstr_transitivity
 #' @rdname transitivity_an
 #' @export
 injact_transitivity <- function(
-  bigraph, type = "global",
-  vids = which(!V(bigraph)$type)
+  graph, type = "global",
+  vids = which(!V(graph)$type)
 ) {
   transitivity_an(
-    bigraph = bigraph, type = type,
+    graph = graph, type = type,
     wedgeFun = injact_wedges, vids = vids)
 }
 
@@ -266,11 +266,11 @@ injact.transitivity <- injact_transitivity
 #' @rdname transitivity_an
 #' @export
 injequ_transitivity <- function(
-  bigraph, type = "global",
-  vids = which(!V(bigraph)$type)
+  graph, type = "global",
+  vids = which(!V(graph)$type)
 ) {
   transitivity_an(
-    bigraph = bigraph, type = type,
+    graph = graph, type = type,
     wedgeFun = injequ_wedges, vids = vids)
 }
 
@@ -281,11 +281,11 @@ injequ.transitivity <- injequ_transitivity
 #' @rdname transitivity_an
 #' @export
 injstr_transitivity <- function(
-  bigraph, type = "global",
-  vids = which(!V(bigraph)$type)
+  graph, type = "global",
+  vids = which(!V(graph)$type)
 ) {
   transitivity_an(
-    bigraph = bigraph, type = type,
+    graph = graph, type = type,
     wedgeFun = injstr_wedges, vids = vids)
 }
 
@@ -296,11 +296,11 @@ injstr.transitivity <- injstr_transitivity
 #' @rdname transitivity_an
 #' @export
 opsahl_transitivity <- function(
-  bigraph, type = "global",
-  vids = which(!V(bigraph)$type)
+  graph, type = "global",
+  vids = which(!V(graph)$type)
 ) {
   transitivity_an(
-    bigraph = bigraph, type = type,
+    graph = graph, type = type,
     wedgeFun = injequ_wedges, vids = vids)
 }
 
@@ -311,11 +311,11 @@ opsahl.transitivity <- opsahl_transitivity
 #' @rdname transitivity_an
 #' @export
 excl_transitivity <- function(
-  bigraph, type = "global",
-  vids = which(!V(bigraph)$type)
+  graph, type = "global",
+  vids = which(!V(graph)$type)
 ) {
   transitivity_an(
-    bigraph = bigraph, type = type,
+    graph = graph, type = type,
     wedgeFun = indstr_wedges, vids = vids)
 }
 

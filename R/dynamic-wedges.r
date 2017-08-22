@@ -17,8 +17,8 @@
 
 #' @name dynamic_wedges
 #' @family wedge functions
-#' @param bigraph A dynamic affiliation network.
-#' @param actor An actor node in \code{bigraph}.
+#' @param graph A dynamic affiliation network.
+#' @param actor An actor node in \code{graph}.
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
 #' @param memory Numeric; minimum delay of wedge formation since would-have-been
@@ -27,17 +27,17 @@
 #' @param close.after,close.before Numeric; minimum and maximum delays after
 #'   both events form a wedge for a third event to close it.
 #' @return A two-element list consisting of (1) a 3- or 5-row integer matrix of 
-#'   (representatives of) all (congruence classes of) wedges in \code{bigraph} 
+#'   (representatives of) all (congruence classes of) wedges in \code{graph} 
 #'   centered at \code{actor}, and (2) a logical vector indicating whether each 
 #'   wedge is closed.
 #' @export
 dynamic_wedges <- function(
-  bigraph, actor,
+  graph, actor,
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
   memory = Inf, wedge.gap = Inf, close.after = 0, close.before = Inf
 ) {
   warning("'dynamic_wedges' is experimental.")
-  stopifnot(V(bigraph)[actor]$type == FALSE)
+  stopifnot(V(graph)[actor]$type == FALSE)
   suffix <- paste0(c(
     "x", alcove,
     "w", wedge,
@@ -46,9 +46,9 @@ dynamic_wedges <- function(
   ), collapse = "")
   wedges_fun <- get(paste0("dynamic_wedges_", suffix))
   wedges_fun(
-    el = as_edgelist(bigraph, names = FALSE),
-    t = V(bigraph)$time,
-    q = as.numeric(V(bigraph)[actor]),
+    el = as_edgelist(graph, names = FALSE),
+    t = V(graph)$time,
+    q = as.numeric(V(graph)[actor]),
     memory = memory,
     wedge_gap = wedge.gap,
     close_after = close.after, close_before = close.before

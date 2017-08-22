@@ -18,8 +18,8 @@
 
 #' @name triad_closure
 #' @family triad closure
-#' @param bigraph An affiliation network.
-#' @param actors A vector of actor nodes in \code{bigraph}.
+#' @param graph An affiliation network.
+#' @param actors A vector of actor nodes in \code{graph}.
 #' @param type The type of statistic, matched to \code{"global"}, 
 #'   \code{"local"}, or \code{"raw"}.
 #' @param ... Measure specifications passed to \code{\link{wedges}}.
@@ -30,13 +30,13 @@
 #'   \code{"completely_connected"} (also \code{"liebig_rao_3"}), or 
 #'   \code{"exclusive"}.
 #' @param wedges.fun A custom wedge census function. It must accept an 
-#'   affiliation network \code{bigraph} and a single actor node ID \code{actor} 
+#'   affiliation network \code{graph} and a single actor node ID \code{actor} 
 #'   and may have any additional parameters. It must return a named list with 
 #'   values \code{wedges} a numeric matrix of node IDs whose columns record the 
 #'   wedges centered at \code{actor} and \code{closed} a logical vector 
 #'   recording whether each wedge is closed. Overrides \code{measure}.
 #' @return If \code{type} is \code{"global"}, the global statistic for 
-#'   \code{bigraph}; if \code{"local"}, the local statistics for \code{actors}; 
+#'   \code{graph}; if \code{"local"}, the local statistics for \code{actors}; 
 #'   if \code{"raw"}, a 2-column matrix, each row of which gives the number of 
 #'   wedges and of closed wedges centered at \code{actors}.
 #' @examples
@@ -44,7 +44,7 @@
 #' mapply(
 #'   triad_closure,
 #'   measure = c("classical", "twomode", "unconnected", "exclusive"),
-#'   MoreArgs = list(bigraph = women_clique, type = "local")
+#'   MoreArgs = list(graph = women_clique, type = "local")
 #' )
 #' data(women_group)
 #' cbind(
@@ -55,18 +55,18 @@
 #' )
 #' @export
 triad_closure <- function(
-  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global",
   ...,
   measure = NULL,
   wedges.fun = NULL
 ) {
-  if (!is_an(bigraph)) {
+  if (!is_an(graph)) {
     stop("Not an affiliation network.")
   }
   type <- match.arg(type, c("global", "local", "raw"))
   if (type == "global" &&
-      !setequal(V(bigraph)[V(bigraph)$type == FALSE], V(bigraph)[actors])) {
+      !setequal(V(graph)[V(graph)$type == FALSE], V(graph)[actors])) {
     warning("Calculating a global statistic on a subset of actors.")
   }
   wedges_fun <- if (!is.null(wedges.fun)) {
@@ -82,7 +82,7 @@ triad_closure <- function(
     wedges
   }
   wedges <- sapply(actors, function(actor) {
-    wc <- wedges_fun(bigraph, actor, ...)$closed
+    wc <- wedges_fun(graph, actor, ...)$closed
     c(length(wc), sum(wc))
   })
   wedgeReturn(wedges = t(wedges), type = type)
@@ -95,9 +95,9 @@ triad_closure_an <- triad_closure
 #' @rdname triad_closure
 #' @export
 triad_closure_watts_strogatz <- function(
-  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
+  graph, actors = V(graph)[V(graph)$type == FALSE], type = "global"
 ) triad_closure(
-  bigraph = bigraph, actors = actors, type = type,
+  graph = graph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 0, congruence = 2
 )
 
@@ -108,9 +108,9 @@ triad_closure_classical <- triad_closure_watts_strogatz
 #' @rdname triad_closure
 #' @export
 triad_closure_opsahl <- function(
-  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
+  graph, actors = V(graph)[V(graph)$type == FALSE], type = "global"
 ) triad_closure(
-  bigraph = bigraph, actors = actors, type = type,
+  graph = graph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 1, congruence = 0
 )
 
@@ -121,9 +121,9 @@ triad_closure_twomode <- triad_closure_opsahl
 #' @rdname triad_closure
 #' @export
 triad_closure_liebig_rao_0 <- function(
-  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
+  graph, actors = V(graph)[V(graph)$type == FALSE], type = "global"
 ) triad_closure(
-  bigraph = bigraph, actors = actors, type = type,
+  graph = graph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 2, congruence = 0
 )
 
@@ -134,9 +134,9 @@ triad_closure_unconnected <- triad_closure_liebig_rao_0
 #' @rdname triad_closure
 #' @export
 triad_closure_liebig_rao_3 <- function(
-  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
+  graph, actors = V(graph)[V(graph)$type == FALSE], type = "global"
 ) triad_closure(
-  bigraph = bigraph, actors = actors, type = type,
+  graph = graph, actors = actors, type = type,
   alcove = 3, wedge = 2, maps = 2, congruence = 0
 )
 
@@ -147,9 +147,9 @@ triad_closure_completely_connected <- triad_closure_liebig_rao_3
 #' @rdname triad_closure
 #' @export
 triad_closure_exclusive <- function(
-  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global"
+  graph, actors = V(graph)[V(graph)$type == FALSE], type = "global"
 ) triad_closure(
-  bigraph = bigraph, actors = actors, type = type,
+  graph = graph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 2, congruence = 1
 )
 
@@ -166,7 +166,7 @@ wedgeReturn <- function(wedges, type, add.names) {
   }
   # otherwise
   #if (add.names) {
-  #  rownames(wedges) <- V(bigraph)$name[vids]
+  #  rownames(wedges) <- V(graph)$name[vids]
   #  colnames(wedges) <- c("Wedges", "Closed")
   #}
   wedges
@@ -175,11 +175,11 @@ wedgeReturn <- function(wedges, type, add.names) {
 #' @rdname triad_closure
 #' @export
 triad_closure_projection <- function(
-  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global"
 ) {
   type <- match.arg(type, c("global", "local", "raw"))
-  if (vcount(bigraph) == 0) {
+  if (vcount(graph) == 0) {
     if (type == "global") {
       return(NaN)
     } else if (type == "local") {
@@ -188,18 +188,18 @@ triad_closure_projection <- function(
       return(matrix(NA, nrow = 0, ncol = 2))
     }
   }
-  stopifnot(all(V(bigraph)$type[actors] == FALSE))
-  graph <- actor_projection(bigraph)
-  proj_actors <- which(which(!V(bigraph)$type) %in% actors)
+  stopifnot(all(V(graph)$type[actors] == FALSE))
+  proj <- actor_projection(graph)
+  proj_actors <- which(which(!V(graph)$type) %in% actors)
   stopifnot(length(proj_actors) == length(actors))
   if (type == "global") {
-    return(transitivity(graph, type = "global"))
+    return(transitivity(proj, type = "global"))
   } else if (type == "local") {
-    return(transitivity(graph, type = "local", vids = proj_actors))
+    return(transitivity(proj, type = "local", vids = proj_actors))
   } else {
-    C <- transitivity(graph, type = "local", vids = proj_actors)
+    C <- transitivity(proj, type = "local", vids = proj_actors)
     C[is.na(C)] <- 0
-    W <- choose(degree(graph)[proj_actors], 2)
+    W <- choose(degree(proj)[proj_actors], 2)
     return(unname(cbind(W, as.integer(W * C))))
   }
 }

@@ -5,7 +5,7 @@
 #'   affiliation network.
 #'   
 #' @name mode_counts
-#' @param bigraph An affiliation network.
+#' @param graph An affiliation network.
 #' @examples
 #' data(chicago1960s)
 #' actor_count(chicago1960s)
@@ -14,18 +14,18 @@ NULL
 
 #' @rdname mode_counts
 #' @export
-actor_count <- function(bigraph) {
-  stopifnot(is_an(bigraph))
-  if (vcount(bigraph) == 0) return(0)
-  length(which(!V(bigraph)$type))
+actor_count <- function(graph) {
+  stopifnot(is_an(graph))
+  if (vcount(graph) == 0) return(0)
+  length(which(!V(graph)$type))
 }
 
 #' @rdname mode_counts
 #' @export
-event_count <- function(bigraph) {
-  stopifnot(is_an(bigraph))
-  if (vcount(bigraph) == 0) return(0)
-  length(which(V(bigraph)$type))
+event_count <- function(graph) {
+  stopifnot(is_an(graph))
+  if (vcount(graph) == 0) return(0)
+  length(which(V(graph)$type))
 }
 
 #' @rdname mode_counts

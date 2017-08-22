@@ -15,46 +15,46 @@
 \alias{triad_closure_projection}
 \title{Triad closure for affiliation networks}
 \usage{
-triad_closure(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+triad_closure(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global", ..., measure = NULL, wedges.fun = NULL)
 
-triad_closure_an(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+triad_closure_an(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global", ..., measure = NULL, wedges.fun = NULL)
 
-triad_closure_watts_strogatz(bigraph, actors = V(bigraph)[V(bigraph)$type ==
-  FALSE], type = "global")
-
-triad_closure_classical(bigraph, actors = V(bigraph)[V(bigraph)$type ==
-  FALSE], type = "global")
-
-triad_closure_opsahl(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+triad_closure_watts_strogatz(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global")
 
-triad_closure_twomode(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+triad_closure_classical(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global")
 
-triad_closure_liebig_rao_0(bigraph, actors = V(bigraph)[V(bigraph)$type ==
+triad_closure_opsahl(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global")
+
+triad_closure_twomode(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global")
+
+triad_closure_liebig_rao_0(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global")
+
+triad_closure_unconnected(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global")
+
+triad_closure_liebig_rao_3(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global")
+
+triad_closure_completely_connected(graph, actors = V(graph)[V(graph)$type ==
   FALSE], type = "global")
 
-triad_closure_unconnected(bigraph, actors = V(bigraph)[V(bigraph)$type ==
-  FALSE], type = "global")
+triad_closure_exclusive(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global")
 
-triad_closure_liebig_rao_3(bigraph, actors = V(bigraph)[V(bigraph)$type ==
-  FALSE], type = "global")
-
-triad_closure_completely_connected(bigraph,
-  actors = V(bigraph)[V(bigraph)$type == FALSE], type = "global")
-
-triad_closure_exclusive(bigraph, actors = V(bigraph)[V(bigraph)$type ==
-  FALSE], type = "global")
-
-triad_closure_projection(bigraph, actors = V(bigraph)[V(bigraph)$type ==
-  FALSE], type = "global")
+triad_closure_projection(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global")
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 
-\item{actors}{A vector of actor nodes in \code{bigraph}.}
+\item{actors}{A vector of actor nodes in \code{graph}.}
 
 \item{type}{The type of statistic, matched to \code{"global"}, 
 \code{"local"}, or \code{"raw"}.}
@@ -69,7 +69,7 @@ triad_closure_projection(bigraph, actors = V(bigraph)[V(bigraph)$type ==
 \code{"exclusive"}.}
 
 \item{wedges.fun}{A custom wedge census function. It must accept an 
-affiliation network \code{bigraph} and a single actor node ID \code{actor} 
+affiliation network \code{graph} and a single actor node ID \code{actor} 
 and may have any additional parameters. It must return a named list with 
 values \code{wedges} a numeric matrix of node IDs whose columns record the 
 wedges centered at \code{actor} and \code{closed} a logical vector 
@@ -77,7 +77,7 @@ recording whether each wedge is closed. Overrides \code{measure}.}
 }
 \value{
 If \code{type} is \code{"global"}, the global statistic for 
-  \code{bigraph}; if \code{"local"}, the local statistics for \code{actors}; 
+  \code{graph}; if \code{"local"}, the local statistics for \code{actors}; 
   if \code{"raw"}, a 2-column matrix, each row of which gives the number of 
   wedges and of closed wedges centered at \code{actors}.
 }
@@ -172,7 +172,7 @@ data(women_clique)
 mapply(
   triad_closure,
   measure = c("classical", "twomode", "unconnected", "exclusive"),
-  MoreArgs = list(bigraph = women_clique, type = "local")
+  MoreArgs = list(graph = women_clique, type = "local")
 )
 data(women_group)
 cbind(

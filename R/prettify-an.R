@@ -5,7 +5,7 @@
 #'   \code{\link[igraph]{plot.igraph}} than the \strong{igraph} defaults.
 #'   
 #' @name prettify
-#' @param bigraph An affiliation network.
+#' @param graph An affiliation network.
 #' @export
 #' @examples
 #' library(igraph)
@@ -15,24 +15,24 @@
 #'     plot(prettify_an(g))
 #' }
 prettify_an <-
-  function(bigraph) {
-    stopifnot(is_an(bigraph))
+  function(graph) {
+    stopifnot(is_an(graph))
     # Use number of vertices to scale down vertex size
-    vertex_scale <- max(1 / log(vcount(bigraph)), .001)
+    vertex_scale <- max(1 / log(vcount(graph)), .001)
     # Vertex style specs
-    V(bigraph)$shape <- ifelse(V(bigraph)$type, "square", "circle")
-    V(bigraph)$size <- ifelse(V(bigraph)$type, 28, 32) * vertex_scale
-    V(bigraph)$color <- ifelse(V(bigraph)$type, "lightcoral", "SkyBlue2")
+    V(graph)$shape <- ifelse(V(graph)$type, "square", "circle")
+    V(graph)$size <- ifelse(V(graph)$type, 28, 32) * vertex_scale
+    V(graph)$color <- ifelse(V(graph)$type, "lightcoral", "SkyBlue2")
     # Labeling specs
-    V(bigraph)$label.family <- "sans"
-    V(bigraph)$label.font <- 2
-    V(bigraph)$label.color <- "black"
-    V(bigraph)$label.cex <- 2 * vertex_scale
+    V(graph)$label.family <- "sans"
+    V(graph)$label.font <- 2
+    V(graph)$label.color <- "black"
+    V(graph)$label.cex <- 2 * vertex_scale
     # Edge specs
-    E(bigraph)$width <- .5 + 2.5 * vertex_scale
-    E(bigraph)$color <- "darkgrey"
+    E(graph)$width <- .5 + 2.5 * vertex_scale
+    E(graph)$color <- "darkgrey"
     # Return graph
-    bigraph
+    graph
   }
 
 #' @rdname prettify

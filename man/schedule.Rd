@@ -4,12 +4,12 @@
 \alias{schedule}
 \title{Actors and their shared events}
 \usage{
-schedule(bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE])
+schedule(graph, actors = V(graph)[V(graph)$type == FALSE])
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 
-\item{actors}{A vector of actor nodes in \code{bigraph}.}
+\item{actors}{A vector of actor nodes in \code{graph}.}
 }
 \description{
 Given an affiliation network and a vector of actor node IDs, 

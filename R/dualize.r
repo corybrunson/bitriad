@@ -6,7 +6,7 @@
 #'   node ids accordingly.
 #'   
 #' @name dualize
-#' @param bigraph An affiliation network.
+#' @param graph An affiliation network.
 #' @import igraph
 #' @examples
 #' data(women_clique)
@@ -14,22 +14,22 @@
 #' proj <- actor_projection(dualize(women_clique))
 #' vcount(proj) == tab[2]
 #' @export
-dualize <- function(bigraph) {
-  stopifnot(is_an(bigraph))
-  V(bigraph)$type <- !V(bigraph)$type
-  permute(bigraph, order(order(V(bigraph)$type)))
+dualize <- function(graph) {
+  stopifnot(is_an(graph))
+  V(graph)$type <- !V(graph)$type
+  permute(graph, order(order(V(graph)$type)))
 }
 
 #' @rdname dualize
 #' @export
-dual_an <- function(bigraph) {
+dual_an <- function(graph) {
   .Deprecated("dualize")
-  dualize(bigraph)
+  dualize(graph)
 }
 
 #' @rdname dualize
 #' @export
-dual.an <- function(bigraph) {
+dual.an <- function(graph) {
   .Deprecated("dualize")
-  dualize(bigraph)
+  dualize(graph)
 }

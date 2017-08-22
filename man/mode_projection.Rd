@@ -8,24 +8,24 @@
 \alias{event.projection}
 \title{Project an affiliation network onto its actors}
 \usage{
-mode_projection(bigraph, mode = "actors", name = "name")
+mode_projection(graph, mode = "actors", name = "name")
 
-actor_projection(bigraph, name = "name")
+actor_projection(graph, name = "name")
 
-event_projection(bigraph, name = "name")
+event_projection(graph, name = "name")
 
-actor.projection(bigraph, name = "name")
+actor.projection(graph, name = "name")
 
-event.projection(bigraph, name = "name")
+event.projection(graph, name = "name")
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 
 \item{mode}{Numeric or character; whether to project onto actors (\code{1} or
 \code{"actors"}) or onto events (\code{2} or \code{"events"}).}
 
 \item{name}{Character; the attribute of the actor or event nodes in 
-\code{bigraph} to use as names for the nodes in the projection.}
+\code{graph} to use as names for the nodes in the projection.}
 }
 \description{
 These functions use \code{\link{bipartite_projection}} to 

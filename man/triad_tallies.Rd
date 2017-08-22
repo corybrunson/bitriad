@@ -17,16 +17,17 @@ twoTiedTriads(graph)
 threeTiedTriads(bigraph, graph = actor_projection(bigraph, name = "id"))
 }
 \arguments{
-\item{bigraph}{The ambient affiliation network from which graph is projected}
+\item{bigraph}{The ambient affiliation network from which \code{graph} is
+projected}
 
 \item{graph}{A one-mode network}
 }
 \description{
-These functions are called by the full triad census to handle triads of
-different types using the projection onto actor nodes. The name of each
-function indicates the number of edges that appear among the three actors of
-the triad in the projection. (Zero-edge triads do not need to be tallied;
-the total number of triads is easily calculated, and the difference between
-this number and the total number of triads with edges gives the number of
-triads without.)
+These functions are called by the full triad census to handle triads of 
+different types using the projection onto actor nodes. The name of each 
+function indicates the number of edges that appear among the three actors of 
+the triad in the projection. (Zero-edge triads do not need to be tallied; the
+total number of triads is easily calculated, and the difference between this
+number and the total number of triads with edges gives the number of triads
+without.)
 }

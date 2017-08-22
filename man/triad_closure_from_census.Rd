@@ -107,9 +107,11 @@ Each global measure of triad closure can be recovered from the full
   positive integer, \eqn{w}, indicating the number of events attended by all 
   three actors. The isomorphism classes are organized into a matrix with rows
   indexed by \eqn{\lambda} and columns indexed by \eqn{w}, with the 
-  partitions \eqn{\lambda} ordered according to the \emph{revolving door
-  ordering} (Kreher & Stinson, 1999). The main function
-  \code{\link{triad_census_an}} defaults to this census.
+  partitions \eqn{\lambda} ordered according to the \emph{revolving door 
+  ordering} (Kreher & Stinson, 1999). The main function 
+  \code{\link{triad_census_an}} (called from \code{triad_census} when the 
+  \code{graph} argument is an \code{affiliation_network}) defaults to this
+  census.
   \item For the analysis of sparse affiliation networks, the full triad 
   census may be less useful than information on whether the extent of 
   connectivity through co-attended events differs between each pair of 
@@ -133,10 +135,12 @@ Each global measure of triad closure can be recovered from the full
   called the \emph{structural triad census}), implemented as 
   \code{\link{triad_census_binary}}, records the number of triads in each 
   congruence class.
-  \item The \emph{simple triad census} is the 4-entry triad census on the
-  netwok projected onto the actor nodes. The function 
-  \code{\link{simple_triad_census}} computes the classical (undirected) triad
-  census for the actor projection of an affiliation network, using 
+  \item The \emph{simple triad census} is the 4-entry triad census on a 
+  traditional (non-affiliation) network indicating the number of triads of 
+  each isomorphism class, namely whether the triad contains zero, one, two, 
+  or three links. The function \code{\link{simple_triad_census}} computes the
+  classical (undirected) triad census for an undirected traditional network, 
+  or for the actor projection of an affiliation network (if provided), using 
   \code{\link[igraph]{triad_census}}; if the result doesn't make sense (i.e.,
   the sum of the entries is not the number of triples of nodes), then it 
   instead uses its own, much slower method.

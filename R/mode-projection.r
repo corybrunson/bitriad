@@ -5,11 +5,11 @@
 #'   nodes.
 #'   
 #' @name mode_projection
-#' @param bigraph An affiliation network.
+#' @param graph An affiliation network.
 #' @param mode Numeric or character; whether to project onto actors (\code{1} or
 #'   \code{"actors"}) or onto events (\code{2} or \code{"events"}).
 #' @param name Character; the attribute of the actor or event nodes in 
-#'   \code{bigraph} to use as names for the nodes in the projection.
+#'   \code{graph} to use as names for the nodes in the projection.
 #' @examples
 #' data(chicago1960s)
 #' tab <- table(V(chicago1960s)$type)
@@ -18,33 +18,33 @@
 #' proj <- event_projection(chicago1960s)
 #' vcount(proj) == tab[2]
 #' @export
-mode_projection <- function(bigraph, mode = "actors", name = "name") {
-  stopifnot(is_an(bigraph))
+mode_projection <- function(graph, mode = "actors", name = "name") {
+  stopifnot(is_an(graph))
   if (is.character(mode)) {
     mode <- match.arg(mode, c("actors", "events"))
     mode <- if (mode == "actors") 1 else 2
   } else {
     mode <- as.numeric(mode)
   }
-  if (vcount(bigraph) == 0) return(make_empty_graph(directed = FALSE))
-  V(bigraph)$name <- if (name == "id") {
-    V(bigraph)
+  if (vcount(graph) == 0) return(make_empty_graph(directed = FALSE))
+  V(graph)$name <- if (name == "id") {
+    V(graph)
   } else {
-    get.vertex.attribute(bigraph, name)
+    get.vertex.attribute(graph, name)
   }
-  bipartite_projection(bigraph, multiplicity = TRUE)[[mode]]
+  bipartite_projection(graph, multiplicity = TRUE)[[mode]]
 }
 
 #' @rdname mode_projection
 #' @export
-actor_projection <- function(bigraph, name = "name") {
-  mode_projection(bigraph = bigraph, name = name, mode = 1)
+actor_projection <- function(graph, name = "name") {
+  mode_projection(graph = graph, name = name, mode = 1)
 }
 
 #' @rdname mode_projection
 #' @export
-event_projection <- function(bigraph, name = "name") {
-  mode_projection(bigraph = bigraph, name = name, mode = 2)
+event_projection <- function(graph, name = "name") {
+  mode_projection(graph = graph, name = name, mode = 2)
 }
 
 #' @rdname mode_projection

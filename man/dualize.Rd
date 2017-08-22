@@ -6,14 +6,14 @@
 \alias{dual.an}
 \title{Take the dual of an affiliation network}
 \usage{
-dualize(bigraph)
+dualize(graph)
 
-dual_an(bigraph)
+dual_an(graph)
 
-dual.an(bigraph)
+dual.an(graph)
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 }
 \description{
 This function obtains the dual of an affiliation network, in

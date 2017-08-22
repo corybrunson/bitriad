@@ -4,14 +4,14 @@
 \alias{dynamic_wedges}
 \title{Wedge censuses and closure indicators for dynamic affiliation networks}
 \usage{
-dynamic_wedges(bigraph, actor, alcove = 0, wedge = 0, maps = 0,
+dynamic_wedges(graph, actor, alcove = 0, wedge = 0, maps = 0,
   congruence = 0, memory = Inf, wedge.gap = Inf, close.after = 0,
   close.before = Inf)
 }
 \arguments{
-\item{bigraph}{A dynamic affiliation network.}
+\item{graph}{A dynamic affiliation network.}
 
-\item{actor}{An actor node in \code{bigraph}.}
+\item{actor}{An actor node in \code{graph}.}
 
 \item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
 congruence (see Details).}
@@ -26,7 +26,7 @@ both events form a wedge for a third event to close it.}
 }
 \value{
 A two-element list consisting of (1) a 3- or 5-row integer matrix of 
-  (representatives of) all (congruence classes of) wedges in \code{bigraph} 
+  (representatives of) all (congruence classes of) wedges in \code{graph} 
   centered at \code{actor}, and (2) a logical vector indicating whether each 
   wedge is closed.
 }

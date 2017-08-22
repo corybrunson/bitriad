@@ -8,16 +8,16 @@
 \alias{event.count}
 \title{Count the actors and events in an affiliation network}
 \usage{
-actor_count(bigraph)
+actor_count(graph)
 
-event_count(bigraph)
+event_count(graph)
 
-actor.count(bigraph)
+actor.count(graph)
 
-event.count(bigraph)
+event.count(graph)
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 }
 \description{
 These functions return the number of actors (nodes with

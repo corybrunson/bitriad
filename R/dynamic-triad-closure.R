@@ -5,8 +5,8 @@
 #' at a later time.
 #' 
 #' @name dynamic_triad_closure
-#' @param bigraph An affiliation network with time-stamped events.
-#' @param actors A vector of actor nodes in \code{bigraph}.
+#' @param graph An affiliation network with time-stamped events.
+#' @param actors A vector of actor nodes in \code{graph}.
 #' @param type The type of statistic, matched to \code{"global"}, 
 #'   \code{"local"}, or \code{"raw"}.
 #' @param ... Additional parameters passed to specific functions.
@@ -30,22 +30,22 @@
 #' )
 #' @export
 dynamic_triad_closure <- function(
-  bigraph, actors = V(bigraph)[V(bigraph)$type == FALSE],
+  graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global",
   ...,
   measure = NULL
 ) {
-  if (!is_dynamic_an(bigraph)) {
+  if (!is_dynamic_an(graph)) {
     stop("Not a dynamic affiliation network.")
   }
   type <- match.arg(type, c("global", "local", "raw"))
   if (type == "global" &&
-      !setequal(V(bigraph)[V(bigraph)$type == FALSE], V(bigraph)[actors])) {
+      !setequal(V(graph)[V(graph)$type == FALSE], V(graph)[actors])) {
     warning("Calculating a global statistic on a subset of actors.")
   }
   if (!is.null(measure)) {
     if (measure == "projection") {
-      return(dynamic_triad_closure_projection(bigraph, ..., type = type))
+      return(dynamic_triad_closure_projection(graph, ..., type = type))
     }
   }
   wedges_fun <- if (!is.null(measure)) {
@@ -54,7 +54,7 @@ dynamic_triad_closure <- function(
     dynamic_wedges
   }
   wedges <- sapply(actors, function(actor) {
-    wc <- wedges_fun(bigraph, actor, ...)$closed
+    wc <- wedges_fun(graph, actor, ...)$closed
     c(length(wc), sum(wc))
   })
   wedgeReturn(wedges = t(wedges), type = type)
@@ -75,12 +75,12 @@ dyn.transitivity.an <- dynamic_triad_closure
 #' @rdname dynamic_triad_closure
 #' @export
 dynamic_triad_closure_projection <- function(
-  bigraph,
+  graph,
   memory = Inf,
   type = "global"
 ) {
   
-  if (vcount(bigraph) == 0) {
+  if (vcount(graph) == 0) {
     # Empty resulting data frame
     wedges_dat <- data.frame(
       wedges = c(),
@@ -98,22 +98,22 @@ dynamic_triad_closure_projection <- function(
   }
   # HOW TO SKIP AHEAD WITHIN A FUNCTION?
   
-  if (!("name" %in% vertex_attr_names(bigraph))) {
+  if (!("name" %in% vertex_attr_names(graph))) {
     stop('Actors need names')
   }
   
   # Make sure events increase with time, and put actors before events
   perm <- order(c(
-    which(!V(bigraph)$type),
-    which(V(bigraph)$type)[order(V(bigraph)$time[which(V(bigraph)$type)])]
+    which(!V(graph)$type),
+    which(V(graph)$type)[order(V(graph)$time[which(V(graph)$type)])]
   ))
-  bigraph <- permute(bigraph, perm)
+  graph <- permute(graph, perm)
   
   # Actor names
-  actors <- V(bigraph)$name[which(!V(bigraph)$type)]
+  actors <- V(graph)$name[which(!V(graph)$type)]
   
   # All values of time, in order
-  span <- sort(unique(V(bigraph)$time))
+  span <- sort(unique(V(graph)$time))
   
   # An empty array of wedges with closure counts (to be incremented)
   wedges <- matrix(NA, nrow = 0, ncol = 4)
@@ -121,33 +121,33 @@ dynamic_triad_closure_projection <- function(
   for (s in span[-1]) {
     
     # Remove events after time t or before time t - memory
-    # from bigraph to get bigraph1
-    bigraph1 <- delete_vertices(bigraph, which(
-      V(bigraph)$type & (V(bigraph)$time > s | V(bigraph)$time < s - memory)
+    # from graph to get graph1
+    graph1 <- delete_vertices(graph, which(
+      V(graph)$type & (V(graph)$time > s | V(graph)$time < s - memory)
     ))
     
-    # Remove events at time t from bigraph1 to get bigraph0
-    bigraph0 <- delete_vertices(bigraph1, which(
-      V(bigraph1)$type & (V(bigraph1)$time == s)
+    # Remove events at time t from graph1 to get graph0
+    graph0 <- delete_vertices(graph1, which(
+      V(graph1)$type & (V(graph1)$time == s)
     ))
     
-    # Remove any actors who did not attend any events in bigraph0
-    # from both bigraph0 and bigraph1
+    # Remove any actors who did not attend any events in graph0
+    # from both graph0 and graph1
     missing_actors <- which(
-      !V(bigraph0)$type & (degree(bigraph0) == 0)
+      !V(graph0)$type & (degree(graph0) == 0)
     )
-    bigraph0 <- delete_vertices(bigraph0, missing_actors)
-    # bigraph0 is the cumulative bigraph from s - memory to s, exclusive
-    bigraph1 <- delete_vertices(bigraph1, missing_actors)
-    # bigraph1 includes any new events at time s (but no new actors)
+    graph0 <- delete_vertices(graph0, missing_actors)
+    # graph0 is the cumulative graph from s - memory to s, exclusive
+    graph1 <- delete_vertices(graph1, missing_actors)
+    # graph1 includes any new events at time s (but no new actors)
     
-    # Check that the actors of bigraph0 and bigraph1 agree
-    stopifnot(all(V(bigraph0)$name[!V(bigraph0)$type] ==
-                    V(bigraph1)$name[!V(bigraph1)$type]))
+    # Check that the actors of graph0 and graph1 agree
+    stopifnot(all(V(graph0)$name[!V(graph0)$type] ==
+                    V(graph1)$name[!V(graph1)$type]))
     
     # Projections
-    proj0 <- actor_projection(bigraph0)
-    proj1 <- actor_projection(bigraph1)
+    proj0 <- actor_projection(graph0)
+    proj1 <- actor_projection(graph1)
     stopifnot(all(V(proj0)$name == V(proj1)$name))
     
     # Local transitivities of proj0
@@ -179,9 +179,9 @@ dynamic_triad_closure_projection <- function(
     }))
     if (nrow(wedges01) == 0) next
     
-    # Convert IDs in wedges01 from those of proj0 to those of bigraph0
+    # Convert IDs in wedges01 from those of proj0 to those of graph0
     wedges01[, 1:3] <-
-      as.numeric(V(bigraph)[V(proj0)$name[wedges01[, 1:3]]])
+      as.numeric(V(graph)[V(proj0)$name[wedges01[, 1:3]]])
     
     # Aggregate these with the existing survey
     wedges <- rbind(wedges, wedges01)

@@ -5,53 +5,53 @@
 #'   \code{"time"} in non-decreasing order.
 #'   
 #' @name dynamic_an
-#' @param bigraph An affiliation network.
+#' @param graph An affiliation network.
 #' @param add.time.attribute Character or logical; if character, the existing 
 #'   attribute to coerce to numeric if necessary and use as the time attribute;
 #'   if logical, whether to introduce an artificial \code{time} attribute
-#'   \code{1:event_count(bigraph)}, reflecting the order of the event node IDs,
-#'   if \code{bigraph} has none.
+#'   \code{1:event_count(graph)}, reflecting the order of the event node IDs,
+#'   if \code{graph} has none.
 #' @export
-is_dynamic_an <- function(bigraph) {
-  if (!is_an(bigraph)) return(FALSE)
-  if (!("time" %in% vertex_attr_names(bigraph))) return(FALSE)
-  if (!is.numeric(vertex_attr(bigraph, "time"))) return(FALSE)
-  !(is.unsorted(vertex_attr(bigraph, "time",
-                            V(bigraph)[V(bigraph)$type == TRUE])))
+is_dynamic_an <- function(graph) {
+  if (!is_an(graph)) return(FALSE)
+  if (!("time" %in% vertex_attr_names(graph))) return(FALSE)
+  if (!is.numeric(vertex_attr(graph, "time"))) return(FALSE)
+  !(is.unsorted(vertex_attr(graph, "time",
+                            V(graph)[V(graph)$type == TRUE])))
 }
 
 #' @rdname dynamic_an
 #' @export
-is.dyn <- function(bigraph) {
+is.dyn <- function(graph) {
   .Deprecated("is_dynamic_an")
-  is_dynamic_an(bigraph)
+  is_dynamic_an(graph)
 }
 
 #' @rdname dynamic_an
 #' @export
-as_dynamic_an <- function(bigraph, add.time.attribute = FALSE) {
-  if (!is_an(bigraph)) stop("Not an affiliation network.")
-  if (!("time" %in% vertex_attr_names(bigraph))) {
+as_dynamic_an <- function(graph, add.time.attribute = FALSE) {
+  if (!is_an(graph)) stop("Not an affiliation network.")
+  if (!("time" %in% vertex_attr_names(graph))) {
     if (is.character(add.time.attribute)) {
-      V(bigraph)$time <- c(
-        rep(NA, actor_count(bigraph)),
-        as.numeric(vertex_attr(bigraph, add.time.attribute,
-                               V(bigraph)[V(bigraph)$type == TRUE]))
+      V(graph)$time <- c(
+        rep(NA, actor_count(graph)),
+        as.numeric(vertex_attr(graph, add.time.attribute,
+                               V(graph)[V(graph)$type == TRUE]))
       )
     } else if (add.time.attribute) {
-      V(bigraph)$time <- c(rep(NA, actor_count(bigraph)),
-                           1:event_count(bigraph))
+      V(graph)$time <- c(rep(NA, actor_count(graph)),
+                           1:event_count(graph))
     } else {
       stop("Needs 'time' attribute.")
     }
   } else {
     if (is.character(add.time.attribute)) {
-      warning("'bigraph' already has a 'time' attribute.")
+      warning("'graph' already has a 'time' attribute.")
     }
   }
-  permute(bigraph, c(
-    1:actor_count(bigraph),
-    actor_count(bigraph) +
-      order(order(V(bigraph)[V(bigraph)$type == TRUE]$time)))
+  permute(graph, c(
+    1:actor_count(graph),
+    actor_count(graph) +
+      order(order(V(graph)[V(graph)$type == TRUE]$time)))
   )
 }

@@ -6,12 +6,12 @@
 \alias{prettify.an}
 \title{Convenient plotting aesthetics for affiliation networks}
 \usage{
-prettify_an(bigraph)
+prettify_an(graph)
 
-prettify.an(bigraph)
+prettify.an(graph)
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 }
 \description{
 Given an affiliation network, assign the node and link

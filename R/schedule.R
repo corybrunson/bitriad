@@ -6,16 +6,16 @@
 #'   \emph{schedule}.
 #'   
 #' @name schedule
-#' @param bigraph An affiliation network.
-#' @param actors A vector of actor nodes in \code{bigraph}.
+#' @param graph An affiliation network.
+#' @param actors A vector of actor nodes in \code{graph}.
 #' @export
 schedule <- function(
-  bigraph,
-  actors = V(bigraph)[V(bigraph)$type == FALSE]
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE]
 ) {
-  stopifnot(all(V(bigraph)$type[actors] == FALSE))
-  actors <- as.numeric(V(bigraph)[actors])
-  events_table <- table(unlist(neighborhood(bigraph, 1, actors)))
+  stopifnot(all(V(graph)$type[actors] == FALSE))
+  actors <- as.numeric(V(graph)[actors])
+  events_table <- table(unlist(neighborhood(graph, 1, actors)))
   coattended <- as.numeric(names(events_table)[events_table > 1])
-  induced_subgraph(bigraph, c(actors, coattended))
+  induced_subgraph(graph, c(actors, coattended))
 }

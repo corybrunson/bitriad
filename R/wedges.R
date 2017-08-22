@@ -17,20 +17,20 @@
 
 #' @name wedges
 #' @family wedge functions
-#' @param bigraph An affiliation network.
-#' @param actor An actor node in \code{bigraph}.
+#' @param graph An affiliation network.
+#' @param actor An actor node in \code{graph}.
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
 #' @return A two-element list consisting of (1) a 3- or 5-row integer matrix of 
-#'   (representatives of) all (congruence classes of) wedges in \code{bigraph} 
+#'   (representatives of) all (congruence classes of) wedges in \code{graph} 
 #'   centered at \code{actor}, and (2) a logical vector indicating whether each 
 #'   wedge is closed.
 #' @export
 wedges <- function(
-  bigraph, actor,
+  graph, actor,
   alcove = 0, wedge = 0, maps = 0, congruence = 0
 ) {
-  stopifnot(V(bigraph)[actor]$type == FALSE)
+  stopifnot(V(graph)[actor]$type == FALSE)
   suffix <- paste0(
     "x", alcove,
     "w", wedge,
@@ -39,8 +39,8 @@ wedges <- function(
   )
   wedges_fun <- get(paste0("wedges_", suffix))
   wedges_fun(
-    el = as_edgelist(bigraph, names = FALSE),
-    q = as.numeric(V(bigraph)[actor])
+    el = as_edgelist(graph, names = FALSE),
+    q = as.numeric(V(graph)[actor])
   )
 }
 
@@ -52,8 +52,8 @@ wedges_x0w0m2c2 <- wedges_x0w0m2c1
 
 #' @rdname wedges
 #' @export
-wedges_watts_strogatz <- function(bigraph, actor) wedges(
-  bigraph = bigraph, actor = actor,
+wedges_watts_strogatz <- function(graph, actor) wedges(
+  graph = graph, actor = actor,
   alcove = 0, wedge = 0, maps = 0, congruence = 2
 )
 
@@ -67,8 +67,8 @@ wedges_projection <- wedges_watts_strogatz
 
 #' @rdname wedges
 #' @export
-wedges_opsahl <- function(bigraph, actor) wedges(
-  bigraph = bigraph, actor = actor,
+wedges_opsahl <- function(graph, actor) wedges(
+  graph = graph, actor = actor,
   alcove = 0, wedge = 0, maps = 1, congruence = 0
 )
 
@@ -78,8 +78,8 @@ wedges_twomode <- wedges_opsahl
 
 #' @rdname wedges
 #' @export
-wedges_liebig_rao_0 <- function(bigraph, actor) wedges(
-  bigraph = bigraph, actor = actor,
+wedges_liebig_rao_0 <- function(graph, actor) wedges(
+  graph = graph, actor = actor,
   alcove = 0, wedge = 0, maps = 2, congruence = 0
 )
 
@@ -89,8 +89,8 @@ wedges_unconnected <- wedges_liebig_rao_0
 
 #' @rdname wedges
 #' @export
-wedges_liebig_rao_3 <- function(bigraph, actor) wedges(
-  bigraph = bigraph, actor = actor,
+wedges_liebig_rao_3 <- function(graph, actor) wedges(
+  graph = graph, actor = actor,
   alcove = 3, wedge = 2, maps = 2, congruence = 0
 )
 
@@ -100,7 +100,7 @@ wedges_completely_connected <- wedges_liebig_rao_3
 
 #' @rdname wedges
 #' @export
-wedges_exclusive <- function(bigraph, actor) wedges(
-  bigraph = bigraph, actor = actor,
+wedges_exclusive <- function(graph, actor) wedges(
+  graph = graph, actor = actor,
   alcove = 0, wedge = 0, maps = 2, congruence = 1
 )

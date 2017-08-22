@@ -25,64 +25,63 @@
 \alias{wedges_exclusive}
 \title{Affiliation network wedges}
 \usage{
-indequ_wedges(bigraph, Q)
+indequ_wedges(graph, Q)
 
-indequ.wedges(bigraph, Q)
+indequ.wedges(graph, Q)
 
-indstr_wedges(bigraph, Q)
+indstr_wedges(graph, Q)
 
-indstr.wedges(bigraph, Q)
+indstr.wedges(graph, Q)
 
-injact_wedges(bigraph, Q)
+injact_wedges(graph, Q)
 
-injact.wedges(bigraph, Q)
+injact.wedges(graph, Q)
 
-injequ_wedges(bigraph, Q)
+injequ_wedges(graph, Q)
 
-injequ.wedges(bigraph, Q)
+injequ.wedges(graph, Q)
 
-injstr_wedges(bigraph, Q)
+injstr_wedges(graph, Q)
 
-injstr.wedges(bigraph, Q)
+injstr.wedges(graph, Q)
 
-wedges(bigraph, actor, alcove = 0, wedge = 0, maps = 0, congruence = 0)
+wedges(graph, actor, alcove = 0, wedge = 0, maps = 0, congruence = 0)
 
-wedges_an(bigraph, actor, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0)
+wedges_an(graph, actor, alcove = 0, wedge = 0, maps = 0, congruence = 0)
 
-wedges_watts_strogatz(bigraph, actor)
+wedges_watts_strogatz(graph, actor)
 
-wedges_classical(bigraph, actor)
+wedges_classical(graph, actor)
 
-wedges_projection(bigraph, actor)
+wedges_projection(graph, actor)
 
-wedges_opsahl(bigraph, actor)
+wedges_opsahl(graph, actor)
 
-wedges_twomode(bigraph, actor)
+wedges_twomode(graph, actor)
 
-wedges_liebig_rao_0(bigraph, actor)
+wedges_liebig_rao_0(graph, actor)
 
-wedges_unconnected(bigraph, actor)
+wedges_unconnected(graph, actor)
 
-wedges_liebig_rao_3(bigraph, actor)
+wedges_liebig_rao_3(graph, actor)
 
-wedges_completely_connected(bigraph, actor)
+wedges_completely_connected(graph, actor)
 
-wedges_exclusive(bigraph, actor)
+wedges_exclusive(graph, actor)
 }
 \arguments{
-\item{bigraph}{An affiliation network.}
+\item{graph}{An affiliation network.}
 
 \item{Q}{An actor node in the network.}
 
-\item{actor}{An actor node in \code{bigraph}.}
+\item{actor}{An actor node in \code{graph}.}
 
 \item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
 congruence (see Details).}
 }
 \value{
 A two-element list consisting of (1) a 3- or 5-row integer matrix of 
-  (representatives of) all (congruence classes of) wedges in \code{bigraph} 
+  (representatives of) all (congruence classes of) wedges in \code{graph} 
   centered at \code{actor}, and (2) a logical vector indicating whether each 
   wedge is closed.
 }
