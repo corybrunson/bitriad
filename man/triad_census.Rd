@@ -61,7 +61,7 @@ simple_triad_census(graph, add.names = FALSE)
 simple.triad.census(graph, add.names = FALSE)
 }
 \arguments{
-\item{graph}{An affiliation network.}
+\item{graph}{An \strong{igraph} object, usually an affiliation network.}
 
 \item{...}{Additional arguments passed to the \code{method} function.}
 
@@ -93,8 +93,12 @@ Given an affiliation network, tally all actor triads by
 The \code{triad_census_*} functions implement the several triad 
   censuses described below. Each census is based on a congruence relation 
   among the triads in an affiliation network, and each function returns a 
-  matrix (or, in the "simple" case, a vector) recording the number of triads
+  matrix (or, in the "simple" case, a vector) recording the number of triads 
   in each congruence class.
+  
+  The function \code{triad_census} supercedes 
+  \code{\link[igraph]{triad_census}} but calls in case \code{graph} is not an
+  affiliation network.
 
 
 }

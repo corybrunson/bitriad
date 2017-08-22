@@ -1279,6 +1279,9 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
       // Inclusive event count w
       w = 0;
       // Increment matrix entry
+      if (INT_MAX - tc(lambda_i, w) < actors.size() - actors_r.size()) {
+        stop("Integer overflow in non-empty triad isomorphism class.");
+      }
       tc(lambda_i, w) += actors.size() - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
@@ -1339,6 +1342,9 @@ IntegerMatrix triad_census_batagelj_mrvar_C(
           tc = cbind(tc, z);
         }
         // Increment matrix entry
+        if (INT_MAX == tc(lambda_i, w)) {
+          stop("Integer overflow in non-empty triad isomorphism class.");
+        }
         tc(lambda_i, w) += 1;
         
       }
@@ -1438,6 +1444,9 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
+      if (INT_MAX - tc(1, 0) < actors.size() - actors_r.size()) {
+        stop("Integer overflow in non-empty triad isomorphism class.");
+      }
       tc(1, 0) += actors.size() - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
@@ -1481,6 +1490,9 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
         yz = (events_b.size() > events_c.size());
         z0 = (events_c.size() > events_d.size());
         w0 = (events_d.size() > 0);
+        if (INT_MAX == tc(1 * xy + 2 * yz + 3 * z0, w0)) {
+          stop("Integer overflow in non-empty triad isomorphism class.");
+        }
         tc(1 * xy + 2 * yz + 3 * z0, w0) += 1;
         
       }
@@ -1563,6 +1575,9 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
+      if (INT_MAX - tc(1, 0) < actors.size() - actors_r.size()) {
+        stop("Integer overflow in non-empty triad isomorphism class.");
+      }
       tc(1, 0) += actors.size() - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
@@ -1606,6 +1621,9 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
         y = (events_b.size() > events_d.size());
         z = (events_c.size() > events_d.size());
         w = (events_d.size() > 0);
+        if (INT_MAX == tc(x + y + z, w)) {
+          stop("Integer overflow in non-empty triad isomorphism class.");
+        }
         tc(x + y + z, w) += 1;
         
       }

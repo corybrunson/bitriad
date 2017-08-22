@@ -6,14 +6,18 @@
 #' @details The \code{triad_census_*} functions implement the several triad 
 #'   censuses described below. Each census is based on a congruence relation 
 #'   among the triads in an affiliation network, and each function returns a 
-#'   matrix (or, in the "simple" case, a vector) recording the number of triads
+#'   matrix (or, in the "simple" case, a vector) recording the number of triads 
 #'   in each congruence class.
+#'   
+#'   The function \code{triad_census} supercedes 
+#'   \code{\link[igraph]{triad_census}} but calls in case \code{graph} is not an
+#'   affiliation network.
 #'   
 #' @template triadcensus
 #'   
 
 #' @name triad_census
-#' @param graph An affiliation network.
+#' @param graph An \strong{igraph} object, usually an affiliation network.
 #' @param scheme Character; the type of triad census to calculate, matched to 
 #'   \code{"full"}, \code{"difference"} (also \code{"uniformity"}), 
 #'   \code{"binary"} (also \code{"structural"}), or \code{"simple"}.
@@ -410,13 +414,6 @@ structural.triad.census <- function(graph) {
   triad_census_binary(graph)
 }
 
-fix_empty_triad_overflow <- function(census, total) {
-  census_total <- sum(census)
-  if (census_total == total) return(census)
-  census[1, 1] <- census[1, 1] - census_total + total
-  census
-}
-
 #' @rdname triad_census
 #' @export
 simple_triad_census <- function(graph, add.names = FALSE) {
@@ -451,3 +448,15 @@ simple_triad_census <- function(graph, add.names = FALSE) {
 #' @rdname triad_census
 #' @export
 simple.triad.census <- simple_triad_census
+
+fix_empty_triad_overflow <- function(census, total) {
+  census_total <- sum(census)
+  if (census_total == total) return(census)
+  census[1, 1] <- if (is.na(suppressWarnings(as.integer(total)))) {
+    # convert to double to avoid introducing NAs
+    as.numeric(census[1, 1]) - as.numeric(census_total) + total
+  } else {
+    census[1, 1] - census_total + total
+  }
+  census
+}
