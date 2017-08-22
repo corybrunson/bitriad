@@ -15,8 +15,8 @@
 #' @name triad_census_an
 #' @param bigraph An affiliation network.
 #' @param scheme Character; the type of triad census to calculate, matched to 
-#'   \code{"full"}, \code{"binary"} (also \code{"structural"}), 
-#'   \code{"difference"} (also \code{"uniformity"}), or \code{"simple"}.
+#'   \code{"full"}, \code{"difference"} (also \code{"uniformity"}), 
+#'   \code{"binary"} (also \code{"structural"}), or \code{"simple"}.
 #' @param method Character; the triad census method to use. Currently only 
 #'   \code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
 #'   inefficient but reliable implementation in R from the first package version

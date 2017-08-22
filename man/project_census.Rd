@@ -52,8 +52,8 @@ respectively, unless otherwise specified by \code{scheme}; otherwise it is
 treated as full.}
 
 \item{scheme}{Character; the type of triad census provided, matched to 
-\code{"full"}, \code{"binary"} (also \code{"structural"}), 
-\code{"difference"} (also \code{"uniformity"}), or \code{"simple"}.}
+\code{"full"}, \code{"difference"} (also \code{"uniformity"}), 
+\code{"binary"} (also \code{"structural"}), or \code{"simple"}.}
 
 \item{add.names}{Logical; whether to label the rows and columns of the output
 matrix.}

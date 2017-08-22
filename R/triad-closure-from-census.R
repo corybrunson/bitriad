@@ -17,8 +17,8 @@
 #'   respectively, unless otherwise specified by \code{scheme}; otherwise it is 
 #'   treated as full.
 #' @param scheme Character; the type of triad census provided, matched to 
-#'   \code{"full"}, \code{"binary"} (also \code{"structural"}), 
-#'   \code{"difference"} (also \code{"uniformity"}), or \code{"simple"}.
+#'   \code{"full"}, \code{"difference"} (also \code{"uniformity"}), 
+#'   \code{"binary"} (also \code{"structural"}), or \code{"simple"}.
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
 #' @param measure Character; the measure of triad closure (matched to 
