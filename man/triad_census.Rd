@@ -5,7 +5,7 @@
 \alias{triad_census_an}
 \alias{triad.census.an}
 \alias{triad_census_full}
-\alias{triad_census_batagelj_mrvar}
+\alias{triad_census_full_batagelj_mrvar}
 \alias{triad_census_projection}
 \alias{triad_census_difference}
 \alias{triad_census_difference_batagelj_mrvar}
@@ -30,7 +30,7 @@ triad.census.an(...)
 
 triad_census_full(graph, method = "batagelj_mrvar", ..., add.names = FALSE)
 
-triad_census_batagelj_mrvar(graph)
+triad_census_full_batagelj_mrvar(graph)
 
 triad_census_projection(graph, verbose = FALSE)
 

@@ -114,7 +114,7 @@ triad_census_full <- function(
   } else {
     # method
     method <- match.arg(method, c("batagelj_mrvar", "projection"))
-    triad_census_fun <- get(paste0("triad_census_", method))
+    triad_census_fun <- get(paste0("triad_census_full_", method))
     tc <- triad_census_fun(graph = graph, ...)
     tc <- fix_empty_triad_overflow(tc, choose(actor_count(graph), 3))
   }
@@ -134,12 +134,30 @@ triad_census_full <- function(
 }
 
 #' @rdname triad_census
-triad_census_batagelj_mrvar <- function(
+triad_census_full_batagelj_mrvar <- function(
   graph
 ) {
-  triad_census_batagelj_mrvar_C(
-    el = as_edgelist(graph, names = FALSE)
-  )
+  triad_count <- choose(actor_count(graph), 3)
+  if (triad_count <= .Machine$integer.max) {
+    return(triad_census_full_batagelj_mrvar_C(
+      el = as_edgelist(graph, names = FALSE)
+    ))
+  } else {
+    tc_long <- triad_census_full_batagelj_mrvar_long_C(
+      el = as_edgelist(graph, names = FALSE)
+    )
+    message("Number of triads is greater than integer storage limit; ",
+            "output will be stored as a double.")
+    for (i in 1:length(tc_long)) {
+      storage.mode(tc_long[[i]]) <- "double"
+    }
+    int_max <- Rcpp::evalCpp("INT_MAX")
+    tc <- Reduce("+", lapply(1:length(tc_long), function(i) {
+      tc_long[[i]] * ((int_max + 1) ^ (i - 1))
+    }))
+    tc[1, 1] <- triad_count - sum(tc)
+    return(tc)
+  }
 }
 
 #' @rdname triad_census
@@ -242,9 +260,27 @@ triad_census_difference <- function(
 triad_census_difference_batagelj_mrvar <- function(
   graph
 ) {
-  triad_census_difference_batagelj_mrvar_C(
-    el = as_edgelist(graph, names = FALSE)
-  )
+  triad_count <- choose(actor_count(graph), 3)
+  if (triad_count <= .Machine$integer.max) {
+    return(triad_census_difference_batagelj_mrvar_C(
+      el = as_edgelist(graph, names = FALSE)
+    ))
+  } else {
+    tc_long <- triad_census_difference_batagelj_mrvar_long_C(
+      el = as_edgelist(graph, names = FALSE)
+    )
+    message("Number of triads is greater than integer storage limit; ",
+            "output will be stored as a double.")
+    for (i in 1:length(tc_long)) {
+      storage.mode(tc_long[[i]]) <- "double"
+    }
+    int_max <- Rcpp::evalCpp("INT_MAX")
+    tc <- Reduce("+", lapply(1:length(tc_long), function(i) {
+      tc_long[[i]] * ((int_max + 1) ^ (i - 1))
+    }))
+    tc[1, 1] <- triad_count - sum(tc)
+    return(tc)
+  }
 }
 
 #' @rdname triad_census
@@ -334,7 +370,6 @@ triad_census_binary <- function(
     method <- match.arg(method, c("batagelj_mrvar", "projection"))
     triad_census_fun <- get(paste0("triad_census_binary_", method))
     tc <- triad_census_fun(graph = graph, ...)
-    tc <- fix_empty_triad_overflow(tc, choose(actor_count(graph), 3))
   }
   
   # annotation
@@ -349,9 +384,27 @@ triad_census_binary <- function(
 triad_census_binary_batagelj_mrvar <- function(
   graph
 ) {
-  triad_census_binary_batagelj_mrvar_C(
-    el = as_edgelist(graph, names = FALSE)
-  )
+  triad_count <- choose(actor_count(graph), 3)
+  if (triad_count <= .Machine$integer.max) {
+    return(triad_census_binary_batagelj_mrvar_C(
+      el = as_edgelist(graph, names = FALSE)
+    ))
+  } else {
+    tc_long <- triad_census_binary_batagelj_mrvar_long_C(
+      el = as_edgelist(graph, names = FALSE)
+    )
+    message("Number of triads is greater than integer storage limit; ",
+            "output will be stored as a double.")
+    for (i in 1:length(tc_long)) {
+      storage.mode(tc_long[[i]]) <- "double"
+    }
+    int_max <- Rcpp::evalCpp("INT_MAX")
+    tc <- Reduce("+", lapply(1:length(tc_long), function(i) {
+      tc_long[[i]] * ((int_max + 1) ^ (i - 1))
+    }))
+    tc[1, 1] <- triad_count - sum(tc)
+    return(tc)
+  }
 }
 
 #' @rdname triad_census
@@ -420,7 +473,7 @@ simple_triad_census <- function(graph, add.names = FALSE) {
   if (is_an(graph)) graph <- actor_projection(graph)
   # Ensure that 'graph' is simple and undirected
   if (!is_simple(graph) | is_directed(graph)) {
-    stop("Provided 'graph' is not simple and directed.")
+    stop("'graph' is not simple and directed.")
   }
   # Use implemented triad census if it makes sense
   tc <- igraph::triad_census(as.directed(graph))
