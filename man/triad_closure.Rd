@@ -15,8 +15,7 @@
 \alias{triad_closure_projection}
 \title{Triad closure for affiliation networks}
 \usage{
-triad_closure(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ..., measure = NULL, wedges.fun = NULL)
+triad_closure(graph, ...)
 
 triad_closure_an(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global", ..., measure = NULL, wedges.fun = NULL)
@@ -54,12 +53,12 @@ triad_closure_projection(graph, actors = V(graph)[V(graph)$type == FALSE],
 \arguments{
 \item{graph}{An affiliation network.}
 
+\item{...}{Measure specifications passed to \code{\link{wedges}}.}
+
 \item{actors}{A vector of actor nodes in \code{graph}.}
 
 \item{type}{The type of statistic, matched to \code{"global"}, 
 \code{"local"}, or \code{"raw"}.}
-
-\item{...}{Measure specifications passed to \code{\link{wedges}}.}
 
 \item{measure}{Character; the measure of triad closure, used as the suffix 
 \code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 

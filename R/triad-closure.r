@@ -54,7 +54,17 @@
 #'   triad_closure_exclusive(women_group, type = "local")
 #' )
 #' @export
-triad_closure <- function(
+triad_closure <- function(graph, ...) {
+  if (is_an(graph)) {
+    return(triad_closure_an(graph, ...))
+  } else {
+    return(transitivity(graph, ...))
+  }
+}
+
+#' @rdname triad_closure
+#' @export
+triad_closure_an <- function(
   graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global",
   ...,
@@ -87,10 +97,6 @@ triad_closure <- function(
   })
   wedgeReturn(wedges = t(wedges), type = type)
 }
-
-#' @rdname triad_closure
-#' @export
-triad_closure_an <- triad_closure
 
 #' @rdname triad_closure
 #' @export

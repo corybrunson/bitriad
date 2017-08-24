@@ -24,3 +24,10 @@ test_that("binary censuses agree", {
     project_census(triad_census_difference(women_group))$binary
   )
 })
+
+test_that("simple censuses agree", {
+  all.equal(
+    simple_triad_census(women_group),
+    triad_census(actor_projection(women_group))
+  )
+})
