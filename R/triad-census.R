@@ -161,7 +161,7 @@ triad_census_full_batagelj_mrvar <- function(
 }
 
 #' @rdname triad_census
-triad_census_projection <- function(
+triad_census_full_projection <- function(
   graph,
   verbose = FALSE
 ) {
@@ -250,7 +250,14 @@ triad_census_difference <- function(
   
   # annotation
   if (add.names) {
-    dimnames(tc) <- list(as.character(0:3), as.character(0:1))
+    dimnames(tc) <- list(
+      paste0(
+        "(",
+        apply(expand.grid(0:1, 0:1, 0:1), 1, paste, collapse = ","),
+        ")"
+      ),
+      0:1
+    )
   }
   
   tc

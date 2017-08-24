@@ -23,9 +23,9 @@
 #'   connectivity through co-attended events differs between each pair of 
 #'   actors. In order to summarize this information, a coarser triad census can 
 #'   be conducted on classes of triads based on the following congruence 
-#'   relation: Using the indices \eqn{\lambda=(x\geq y\geq z)} and \eqn{w} 
+#'   relation: Using the indices \eqn{\lambda=(x\ge y\ge z)} and \eqn{w} 
 #'   above, note that the numbers of shared events for each pair and for the 
-#'   triad are \eqn{x+w\geq y+w\geq z+w\geq w\geq 0}. Consider two triads 
+#'   triad are \eqn{x+w\ge y+w\ge z+w\ge w\ge 0}. Consider two triads 
 #'   congruent if the same subset of these weak inequalities are strictly 
 #'   satisfied. The resulting \emph{difference triad census}, previously called 
 #'   the \emph{uniformity triad census}, implemented as

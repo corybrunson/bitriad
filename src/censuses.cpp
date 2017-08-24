@@ -1315,8 +1315,10 @@ IntegerMatrix triad_census_full_batagelj_mrvar_C(
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
+        std::sort(events_a.begin(), events_a.end());
+        std::sort(events_c.begin(), events_c.end());
         IntegerVector events_d = IntegerVector::create();
-        std::set_intersection(events_b.begin(), events_b.end(),
+        std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
         
@@ -1505,8 +1507,10 @@ List triad_census_full_batagelj_mrvar_long_C(
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
+        std::sort(events_a.begin(), events_a.end());
+        std::sort(events_c.begin(), events_c.end());
         IntegerVector events_d = IntegerVector::create();
-        std::set_intersection(events_b.begin(), events_b.end(),
+        std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
         
@@ -1574,6 +1578,7 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
   int i,j,k;
   // Triad class indices
   bool xy,yz,z0,w0;
+  IntegerVector mu(4);
   
   // Initialize triad census matrix
   IntegerMatrix tc(8, 2);
@@ -1661,20 +1666,27 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
+        std::sort(events_a.begin(), events_a.end());
+        std::sort(events_c.begin(), events_c.end());
         IntegerVector events_d = IntegerVector::create();
-        std::set_intersection(events_b.begin(), events_b.end(),
+        std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
         
         // Tally two- and three-link triads
-        xy = (events_a.size() > events_b.size());
-        yz = (events_b.size() > events_c.size());
-        z0 = (events_c.size() > events_d.size());
-        w0 = (events_d.size() > 0);
-        if (INT_MAX == tc(1 * xy + 2 * yz + 3 * z0, w0)) {
+        mu[0] = events_d.size();
+        mu[1] = events_c.size();
+        mu[2] = events_b.size();
+        mu[3] = events_a.size();
+        std::sort(mu.begin(), mu.end());
+        xy = (mu[3] > mu[2]);
+        yz = (mu[2] > mu[1]);
+        z0 = (mu[1] > mu[0]);
+        w0 = (mu[0] > 0);
+        if (INT_MAX == tc(1 * xy + 2 * yz + 4 * z0, w0)) {
           stop("Integer overflow in non-empty triad isomorphism class.");
         }
-        tc(1 * xy + 2 * yz + 3 * z0, w0) += 1;
+        tc(1 * xy + 2 * yz + 4 * z0, w0) += 1;
         
       }
     }
@@ -1704,6 +1716,7 @@ List triad_census_difference_batagelj_mrvar_long_C(
   int i,j,k;
   // Triad class indices
   bool xy,yz,z0,w0;
+  IntegerVector mu(4);
   
   // Initialize triad census matrix
   IntegerMatrix tc(8, 2);
@@ -1796,23 +1809,30 @@ List triad_census_difference_batagelj_mrvar_long_C(
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
+        std::sort(events_a.begin(), events_a.end());
+        std::sort(events_c.begin(), events_c.end());
         IntegerVector events_d = IntegerVector::create();
-        std::set_intersection(events_b.begin(), events_b.end(),
+        std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
         
         // Tally two- and three-link triads
-        xy = (events_a.size() > events_b.size());
-        yz = (events_b.size() > events_c.size());
-        z0 = (events_c.size() > events_d.size());
-        w0 = (events_d.size() > 0);
-        if (INT_MAX - tc(1 * xy + 2 * yz + 3 * z0, w0) < 1) {
-          if (INT_MAX - tc1(1 * xy + 2 * yz + 3 * z0, w0) < 1) {
+        mu[0] = events_d.size();
+        mu[1] = events_c.size();
+        mu[2] = events_b.size();
+        mu[3] = events_a.size();
+        std::sort(mu.begin(), mu.end());
+        xy = (mu[3] > mu[2]);
+        yz = (mu[2] > mu[1]);
+        z0 = (mu[1] > mu[0]);
+        w0 = (mu[0] > 0);
+        if (INT_MAX - tc(1 * xy + 2 * yz + 4 * z0, w0) < 1) {
+          if (INT_MAX - tc1(1 * xy + 2 * yz + 4 * z0, w0) < 1) {
             stop("Integer overflow in non-empty triad isomorphism class.");
           }
-          tc1(1 * xy + 2 * yz + 3 * z0, w0) += 1;
+          tc1(1 * xy + 2 * yz + 4 * z0, w0) += 1;
         }
-        tc(1 * xy + 2 * yz + 3 * z0, w0) += 1;
+        tc(1 * xy + 2 * yz + 4 * z0, w0) += 1;
         
       }
     }
@@ -1920,8 +1940,10 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
+        std::sort(events_a.begin(), events_a.end());
+        std::sort(events_c.begin(), events_c.end());
         IntegerVector events_d = IntegerVector::create();
-        std::set_intersection(events_b.begin(), events_b.end(),
+        std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
         
@@ -2055,8 +2077,10 @@ List triad_census_binary_batagelj_mrvar_long_C(
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
+        std::sort(events_a.begin(), events_a.end());
+        std::sort(events_c.begin(), events_c.end());
         IntegerVector events_d = IntegerVector::create();
-        std::set_intersection(events_b.begin(), events_b.end(),
+        std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
         
@@ -2081,6 +2105,7 @@ List triad_census_binary_batagelj_mrvar_long_C(
 }
 
 // Wedge censuses from triad censuses
+// INCOMPLETE
 
 // recover a wedge census of given specifications from a binary triad census
 // [[Rcpp::export]]
