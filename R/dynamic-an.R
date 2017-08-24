@@ -17,7 +17,8 @@ is_dynamic_an <- function(graph) {
   if (!("time" %in% vertex_attr_names(graph))) return(FALSE)
   if (!is.numeric(vertex_attr(graph, "time"))) return(FALSE)
   !(is.unsorted(vertex_attr(graph, "time",
-                            V(graph)[V(graph)$type == TRUE])))
+                            V(graph)[V(graph)$type == TRUE]),
+                na.rm = TRUE))
 }
 
 #' @rdname dynamic_an
