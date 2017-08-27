@@ -27,7 +27,7 @@
 // 4-paths p,a,q,b,r (with p,q,r distinct)
 // and whether they are contained in 6-cycles
 // [[Rcpp::export]]
-List wedges_x0w0m0c0(IntegerMatrix el, int q) {
+List wedges_edgelist_x0w0m0c0(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j,k,l;
@@ -127,7 +127,7 @@ List wedges_x0w0m0c0(IntegerMatrix el, int q) {
 // with exclusive or inclusive events shared with q
 // and whether they share an exclusive or inclusive event
 // [[Rcpp::export]]
-List wedges_x0w0m0c1(IntegerMatrix el, int q) {
+List wedges_edgelist_x0w0m0c1(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j;
@@ -246,7 +246,7 @@ List wedges_x0w0m0c1(IntegerMatrix el, int q) {
 // pairs p,r of actor neighbors of q
 // and whether they share an event
 // [[Rcpp::export]]
-List wedges_x0w0m0c2(IntegerMatrix el, int q) {
+List wedges_edgelist_x0w0m0c2(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j;
@@ -315,7 +315,7 @@ List wedges_x0w0m0c2(IntegerMatrix el, int q) {
 // 4-paths p,a,q,b,r (with p,q,r and a,b distinct)
 // and whether they are contained in 6-cycles (with a,b,c distinct)
 // [[Rcpp::export]]
-List wedges_x0w0m1c0(IntegerMatrix el, int q) {
+List wedges_edgelist_x0w0m1c0(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j,k,l;
@@ -421,7 +421,7 @@ List wedges_x0w0m1c0(IntegerMatrix el, int q) {
 // with distinct exclusive or inclusive events shared with q
 // and whether they share an additional event
 // [[Rcpp::export]]
-List wedges_x0w0m1c1(IntegerMatrix el, int q) {
+List wedges_edgelist_x0w0m1c1(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j;
@@ -558,7 +558,7 @@ List wedges_x0w0m1c1(IntegerMatrix el, int q) {
 // with distinct events shared with q
 // and whether they share an additional event
 // [[Rcpp::export]]
-List wedges_x0w0m1c2(IntegerMatrix el, int q) {
+List wedges_edgelist_x0w0m1c2(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j;
@@ -704,7 +704,7 @@ List wedges_x0w0m1c2(IntegerMatrix el, int q) {
 // chordless 4-paths p,a,q,b,r (with p,q,r and a,b distinct)
 // and whether they are contained in chordless 6-cycles (with a,b,c distinct)
 // [[Rcpp::export]]
-List wedges_x0w0m2c0(IntegerMatrix el, int q) {
+List wedges_edgelist_x0w0m2c0(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j,k,l;
@@ -821,7 +821,7 @@ List wedges_x0w0m2c0(IntegerMatrix el, int q) {
 // with mutually exclusive events shared with q
 // and whether they share an event exclusive from q
 // [[Rcpp::export]]
-List wedges_x0w0m2c1(IntegerMatrix el, int q) {
+List wedges_edgelist_x0w0m2c1(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j;

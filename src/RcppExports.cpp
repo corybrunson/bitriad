@@ -5,99 +5,111 @@
 
 using namespace Rcpp;
 
-// wedges_x0w0m0c0
-List wedges_x0w0m0c0(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_x0w0m0c0(SEXP elSEXP, SEXP qSEXP) {
+// wedges_adjlist_x0w0m0c0
+List wedges_adjlist_x0w0m0c0(std::vector<IntegerVector> al, int q);
+RcppExport SEXP _bitriad_wedges_adjlist_x0w0m0c0(SEXP alSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< std::vector<IntegerVector> >::type al(alSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_x0w0m0c0(el, q));
+    rcpp_result_gen = Rcpp::wrap(wedges_adjlist_x0w0m0c0(al, q));
     return rcpp_result_gen;
 END_RCPP
 }
-// wedges_x0w0m0c1
-List wedges_x0w0m0c1(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_x0w0m0c1(SEXP elSEXP, SEXP qSEXP) {
+// wedges_edgelist_x0w0m0c0
+List wedges_edgelist_x0w0m0c0(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_edgelist_x0w0m0c0(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_x0w0m0c1(el, q));
+    rcpp_result_gen = Rcpp::wrap(wedges_edgelist_x0w0m0c0(el, q));
     return rcpp_result_gen;
 END_RCPP
 }
-// wedges_x0w0m0c2
-List wedges_x0w0m0c2(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_x0w0m0c2(SEXP elSEXP, SEXP qSEXP) {
+// wedges_edgelist_x0w0m0c1
+List wedges_edgelist_x0w0m0c1(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_edgelist_x0w0m0c1(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_x0w0m0c2(el, q));
+    rcpp_result_gen = Rcpp::wrap(wedges_edgelist_x0w0m0c1(el, q));
     return rcpp_result_gen;
 END_RCPP
 }
-// wedges_x0w0m1c0
-List wedges_x0w0m1c0(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_x0w0m1c0(SEXP elSEXP, SEXP qSEXP) {
+// wedges_edgelist_x0w0m0c2
+List wedges_edgelist_x0w0m0c2(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_edgelist_x0w0m0c2(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_x0w0m1c0(el, q));
+    rcpp_result_gen = Rcpp::wrap(wedges_edgelist_x0w0m0c2(el, q));
     return rcpp_result_gen;
 END_RCPP
 }
-// wedges_x0w0m1c1
-List wedges_x0w0m1c1(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_x0w0m1c1(SEXP elSEXP, SEXP qSEXP) {
+// wedges_edgelist_x0w0m1c0
+List wedges_edgelist_x0w0m1c0(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_edgelist_x0w0m1c0(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_x0w0m1c1(el, q));
+    rcpp_result_gen = Rcpp::wrap(wedges_edgelist_x0w0m1c0(el, q));
     return rcpp_result_gen;
 END_RCPP
 }
-// wedges_x0w0m1c2
-List wedges_x0w0m1c2(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_x0w0m1c2(SEXP elSEXP, SEXP qSEXP) {
+// wedges_edgelist_x0w0m1c1
+List wedges_edgelist_x0w0m1c1(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_edgelist_x0w0m1c1(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_x0w0m1c2(el, q));
+    rcpp_result_gen = Rcpp::wrap(wedges_edgelist_x0w0m1c1(el, q));
     return rcpp_result_gen;
 END_RCPP
 }
-// wedges_x0w0m2c0
-List wedges_x0w0m2c0(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_x0w0m2c0(SEXP elSEXP, SEXP qSEXP) {
+// wedges_edgelist_x0w0m1c2
+List wedges_edgelist_x0w0m1c2(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_edgelist_x0w0m1c2(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_x0w0m2c0(el, q));
+    rcpp_result_gen = Rcpp::wrap(wedges_edgelist_x0w0m1c2(el, q));
     return rcpp_result_gen;
 END_RCPP
 }
-// wedges_x0w0m2c1
-List wedges_x0w0m2c1(IntegerMatrix el, int q);
-RcppExport SEXP _bitriad_wedges_x0w0m2c1(SEXP elSEXP, SEXP qSEXP) {
+// wedges_edgelist_x0w0m2c0
+List wedges_edgelist_x0w0m2c0(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_edgelist_x0w0m2c0(SEXP elSEXP, SEXP qSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
     Rcpp::traits::input_parameter< int >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(wedges_x0w0m2c1(el, q));
+    rcpp_result_gen = Rcpp::wrap(wedges_edgelist_x0w0m2c0(el, q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// wedges_edgelist_x0w0m2c1
+List wedges_edgelist_x0w0m2c1(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_wedges_edgelist_x0w0m2c1(SEXP elSEXP, SEXP qSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< int >::type q(qSEXP);
+    rcpp_result_gen = Rcpp::wrap(wedges_edgelist_x0w0m2c1(el, q));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -284,14 +296,15 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_bitriad_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_x0w0m0c0, 2},
-    {"_bitriad_wedges_x0w0m0c1", (DL_FUNC) &_bitriad_wedges_x0w0m0c1, 2},
-    {"_bitriad_wedges_x0w0m0c2", (DL_FUNC) &_bitriad_wedges_x0w0m0c2, 2},
-    {"_bitriad_wedges_x0w0m1c0", (DL_FUNC) &_bitriad_wedges_x0w0m1c0, 2},
-    {"_bitriad_wedges_x0w0m1c1", (DL_FUNC) &_bitriad_wedges_x0w0m1c1, 2},
-    {"_bitriad_wedges_x0w0m1c2", (DL_FUNC) &_bitriad_wedges_x0w0m1c2, 2},
-    {"_bitriad_wedges_x0w0m2c0", (DL_FUNC) &_bitriad_wedges_x0w0m2c0, 2},
-    {"_bitriad_wedges_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_x0w0m2c1, 2},
+    {"_bitriad_wedges_adjlist_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_adjlist_x0w0m0c0, 2},
+    {"_bitriad_wedges_edgelist_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_edgelist_x0w0m0c0, 2},
+    {"_bitriad_wedges_edgelist_x0w0m0c1", (DL_FUNC) &_bitriad_wedges_edgelist_x0w0m0c1, 2},
+    {"_bitriad_wedges_edgelist_x0w0m0c2", (DL_FUNC) &_bitriad_wedges_edgelist_x0w0m0c2, 2},
+    {"_bitriad_wedges_edgelist_x0w0m1c0", (DL_FUNC) &_bitriad_wedges_edgelist_x0w0m1c0, 2},
+    {"_bitriad_wedges_edgelist_x0w0m1c1", (DL_FUNC) &_bitriad_wedges_edgelist_x0w0m1c1, 2},
+    {"_bitriad_wedges_edgelist_x0w0m1c2", (DL_FUNC) &_bitriad_wedges_edgelist_x0w0m1c2, 2},
+    {"_bitriad_wedges_edgelist_x0w0m2c0", (DL_FUNC) &_bitriad_wedges_edgelist_x0w0m2c0, 2},
+    {"_bitriad_wedges_edgelist_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_edgelist_x0w0m2c1, 2},
     {"_bitriad_dynamic_wedges_x0w0m20c02", (DL_FUNC) &_bitriad_dynamic_wedges_x0w0m20c02, 7},
     {"_bitriad_dynamic_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_dynamic_wedges_x0w0m0c0, 7},
     {"_bitriad_triad_census_full_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_full_batagelj_mrvar_C, 1},
