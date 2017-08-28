@@ -240,6 +240,7 @@ triad_census_difference <- function(
   # trivial case
   if (max(degree(graph, V(graph)$type)) <= 1) {
     tc <- matrix(0, nrow = 4, ncol = 2)
+    tc[1, 1] <- choose(actor_count(graph), 3)
   } else {
     # method
     method <- match.arg(method, c("batagelj_mrvar", "projection"))
@@ -372,6 +373,7 @@ triad_census_binary <- function(
   # trivial case
   if (max(degree(graph, V(graph)$type)) <= 1) {
     tc <- matrix(0, nrow = 4, ncol = 2)
+    tc[1, 1] <- choose(actor_count(graph), 3)
   } else {
     # method
     method <- match.arg(method, c("batagelj_mrvar", "projection"))

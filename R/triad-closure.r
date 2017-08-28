@@ -91,11 +91,11 @@ triad_closure_an <- function(
   } else {
     wedges
   }
-  wedges <- sapply(actors, function(actor) {
+  wedgelist <- sapply(actors, function(actor) {
     wc <- wedges_fun(graph, actor, ...)$closed
     c(length(wc), sum(wc))
   })
-  wedgeReturn(wedges = t(wedges), type = type)
+  wedgeReturn(wedgelist = t(wedgelist), type = type)
 }
 
 #' @rdname triad_closure
@@ -158,25 +158,6 @@ triad_closure_exclusive <- function(
   graph = graph, actors = actors, type = type,
   alcove = 0, wedge = 0, maps = 2, congruence = 1
 )
-
-# compress a wedgelist into a desired statistic
-wedgeReturn <- function(wedges, type, add.names) {
-  
-  # global
-  if (type == "global") {
-    return(sum(wedges[, 2]) / sum(wedges[, 1]))
-  }
-  # local
-  if (type == "local") {
-    return(as.vector(wedges[, 2] / wedges[, 1]))
-  }
-  # otherwise
-  #if (add.names) {
-  #  rownames(wedges) <- V(graph)$name[vids]
-  #  colnames(wedges) <- c("Wedges", "Closed")
-  #}
-  wedges
-}
 
 #' @rdname triad_closure
 #' @export
