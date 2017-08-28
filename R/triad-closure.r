@@ -22,6 +22,10 @@
 #' @param actors A vector of actor nodes in \code{graph}.
 #' @param type The type of statistic, matched to \code{"global"}, 
 #'   \code{"local"}, or \code{"raw"}.
+#' @param representation Character; the representation of the graph used in
+#'   performing the wedge census. Matched to \code{"edgelist"} or
+#'   \code{"adjlist"}; see \code{\link[igraph]{as_edgelist}} and
+#'   \code{\link[igraph]{as_adj_list}}.
 #' @param ... Measure specifications passed to \code{\link{wedges}}.
 #' @param measure Character; the measure of triad closure, used as the suffix 
 #'   \code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 
@@ -67,14 +71,17 @@ triad_closure <- function(graph, ...) {
 triad_closure_an <- function(
   graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global",
+  representation = "edgelist",
   ...,
   measure = NULL,
   wedges.fun = NULL
 ) {
+  type <- match.arg(type, c("global", "local", "raw"))
+  representation <- match.arg(representation, c("adjlist", "edgelist"))
   if (!is_an(graph)) {
     stop("Not an affiliation network.")
   }
-  type <- match.arg(type, c("global", "local", "raw"))
+  repr <- as_representation(graph, representation)
   if (type == "global" &&
       !setequal(V(graph)[V(graph)$type == FALSE], V(graph)[actors])) {
     warning("Calculating a global statistic on a subset of actors.")
@@ -91,11 +98,11 @@ triad_closure_an <- function(
   } else {
     wedges
   }
-  wedges <- sapply(actors, function(actor) {
-    wc <- wedges_fun(graph, actor, ...)$closed
+  wedgelist <- sapply(actors, function(actor) {
+    wc <- wedges_fun(repr, actor, ...)$closed
     c(length(wc), sum(wc))
   })
-  wedgeReturn(wedges = t(wedges), type = type)
+  wedgeReturn(wedgelist = t(wedgelist), type = type)
 }
 
 #' @rdname triad_closure
@@ -160,22 +167,22 @@ triad_closure_exclusive <- function(
 )
 
 # compress a wedgelist into a desired statistic
-wedgeReturn <- function(wedges, type, add.names) {
+wedgeReturn <- function(wedgelist, type, add.names) {
   
   # global
   if (type == "global") {
-    return(sum(wedges[, 2]) / sum(wedges[, 1]))
+    return(sum(wedgelist[, 2]) / sum(wedgelist[, 1]))
   }
   # local
   if (type == "local") {
-    return(as.vector(wedges[, 2] / wedges[, 1]))
+    return(as.vector(wedgelist[, 2] / wedgelist[, 1]))
   }
   # otherwise
   #if (add.names) {
-  #  rownames(wedges) <- V(graph)$name[vids]
-  #  colnames(wedges) <- c("Wedges", "Closed")
+  #  rownames(wedgelist) <- V(graph)$name[vids]
+  #  colnames(wedgelist) <- c("Wedges", "Closed")
   #}
-  wedges
+  wedgelist
 }
 
 #' @rdname triad_closure

@@ -45,29 +45,31 @@ injstr_wedges(graph, Q)
 
 injstr.wedges(graph, Q)
 
-wedges(graph, actor, alcove = 0, wedge = 0, maps = 0, congruence = 0)
+wedges(graph, actor, representation = "edgelist", alcove = 0, wedge = 0,
+  maps = 0, congruence = 0)
 
-wedges_an(graph, actor, alcove = 0, wedge = 0, maps = 0, congruence = 0)
+wedges_an(graph, actor, representation = "edgelist", alcove = 0,
+  wedge = 0, maps = 0, congruence = 0)
 
-wedges_watts_strogatz(graph, actor)
+wedges_watts_strogatz(graph, actor, representation = "edgelist")
 
-wedges_classical(graph, actor)
+wedges_classical(graph, actor, representation = "edgelist")
 
-wedges_projection(graph, actor)
+wedges_projection(graph, actor, representation = "edgelist")
 
-wedges_opsahl(graph, actor)
+wedges_opsahl(graph, actor, representation = "edgelist")
 
-wedges_twomode(graph, actor)
+wedges_twomode(graph, actor, representation = "edgelist")
 
-wedges_liebig_rao_0(graph, actor)
+wedges_liebig_rao_0(graph, actor, representation = "edgelist")
 
-wedges_unconnected(graph, actor)
+wedges_unconnected(graph, actor, representation = "edgelist")
 
-wedges_liebig_rao_3(graph, actor)
+wedges_liebig_rao_3(graph, actor, representation = "edgelist")
 
-wedges_completely_connected(graph, actor)
+wedges_completely_connected(graph, actor, representation = "edgelist")
 
-wedges_exclusive(graph, actor)
+wedges_exclusive(graph, actor, representation = "edgelist")
 }
 \arguments{
 \item{graph}{An affiliation network.}
@@ -75,6 +77,11 @@ wedges_exclusive(graph, actor)
 \item{Q}{An actor node in the network.}
 
 \item{actor}{An actor node in \code{graph}.}
+
+\item{representation}{Character; the representation of the graph used in
+performing the wedge census. Matched to \code{"edgelist"} or
+\code{"adjlist"}; see \code{\link[igraph]{as_edgelist}} and
+\code{\link[igraph]{as_adj_list}}.}
 
 \item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
 congruence (see Details).}

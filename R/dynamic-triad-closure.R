@@ -57,7 +57,7 @@ dynamic_triad_closure <- function(
     wc <- wedges_fun(graph, actor, ...)$closed
     c(length(wc), sum(wc))
   })
-  wedgeReturn(wedges = t(wedges), type = type)
+  wedgeReturn(wedgelist = t(wedges), type = type)
 }
 
 #' @rdname dynamic_triad_closure

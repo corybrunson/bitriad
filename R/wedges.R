@@ -35,13 +35,12 @@ wedges <- function(
   representation = "edgelist",
   alcove = 0, wedge = 0, maps = 0, congruence = 0
 ) {
-  stopifnot(V(graph)[actor]$type == FALSE)
-  representation <- match.arg(representation, c("adjlist", "edgelist"))
-  repr <- if (representation == "adjlist") {
-    unname(lapply(as_adj_list(graph), as.numeric))
-  } else if (representation == "edgelist") {
-    as_edgelist(graph, names = FALSE)
+  if (is_igraph(graph)) {
+    stopifnot(V(graph)[actor]$type == FALSE)
+    actor <- as.numeric(V(graph)[actor])
   }
+  representation <- match.arg(representation, c("adjlist", "edgelist"))
+  repr <- as_representation(graph, representation)
   suffix <- paste0(
     "x", alcove,
     "w", wedge,
@@ -49,7 +48,7 @@ wedges <- function(
     "c", congruence
   )
   wedges_fun <- get(paste0("wedges_", representation, "_", suffix))
-  wedges_fun(repr, as.numeric(V(graph)[actor]))
+  wedges_fun(repr, actor)
 }
 
 #' @rdname wedges
@@ -132,3 +131,45 @@ wedges_exclusive <- function(
 )
 
 wedges_edgelist_x0w0m2c2 <- wedges_edgelist_x0w0m2c1
+
+as_representation <- function(graph, representation) {
+  if (is_igraph(graph)) {
+    if (representation == "adjlist") {
+      return(unname(lapply(as_adj_list(graph), as.numeric)))
+    } else if (representation == "edgelist") {
+      return(as_edgelist(graph, names = FALSE))
+    }
+  } else {
+    if (representation == "adjlist") {
+      if (is_adjlist(graph)) {
+        return(graph)
+      } else {
+        return(edgelist_to_adjlist(graph))
+      }
+    } else if (representation == "edgelist") {
+      if (is_edgelist(graph)) {
+        return(graph)
+      } else {
+        return(adjlist_to_edgelist(graph))
+      }
+    }
+  }
+}
+
+is_adjlist <- function(x) {
+  is.list(x) && all(sapply(x, is.numeric)) &&
+    (try(max(unlist(x)) <= length(x)) == TRUE)
+}
+
+is_edgelist <- function(x) {
+  is.matrix(x) && is.numeric(x) && (try(ncol(x) == 2) == TRUE)
+}
+
+edgelist_to_adjlist <- function(el) {
+  unname(lapply(as_adj_list(graph_from_edgelist(el, directed = FALSE)),
+                as.numeric))
+}
+
+adjlist_to_edgelist <- function(al) {
+  as_edgelist(graph_from_adj_list(al, mode = "total"), names = FALSE)
+}

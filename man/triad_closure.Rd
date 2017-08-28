@@ -18,7 +18,8 @@
 triad_closure(graph, ...)
 
 triad_closure_an(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ..., measure = NULL, wedges.fun = NULL)
+  type = "global", representation = "edgelist", ..., measure = NULL,
+  wedges.fun = NULL)
 
 triad_closure_watts_strogatz(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global")
@@ -59,6 +60,11 @@ triad_closure_projection(graph, actors = V(graph)[V(graph)$type == FALSE],
 
 \item{type}{The type of statistic, matched to \code{"global"}, 
 \code{"local"}, or \code{"raw"}.}
+
+\item{representation}{Character; the representation of the graph used in
+performing the wedge census. Matched to \code{"edgelist"} or
+\code{"adjlist"}; see \code{\link[igraph]{as_edgelist}} and
+\code{\link[igraph]{as_adj_list}}.}
 
 \item{measure}{Character; the measure of triad closure, used as the suffix 
 \code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 
