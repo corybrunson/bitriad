@@ -166,25 +166,6 @@ triad_closure_exclusive <- function(
   alcove = 0, wedge = 0, maps = 2, congruence = 1
 )
 
-# compress a wedgelist into a desired statistic
-wedgeReturn <- function(wedgelist, type, add.names) {
-  
-  # global
-  if (type == "global") {
-    return(sum(wedgelist[, 2]) / sum(wedgelist[, 1]))
-  }
-  # local
-  if (type == "local") {
-    return(as.vector(wedgelist[, 2] / wedgelist[, 1]))
-  }
-  # otherwise
-  #if (add.names) {
-  #  rownames(wedgelist) <- V(graph)$name[vids]
-  #  colnames(wedgelist) <- c("Wedges", "Closed")
-  #}
-  wedgelist
-}
-
 #' @rdname triad_closure
 #' @export
 triad_closure_projection <- function(
