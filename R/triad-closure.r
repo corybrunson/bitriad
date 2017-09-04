@@ -29,6 +29,14 @@
 #'   \code{"unconnected"} (also \code{"liebig_rao_0"}), 
 #'   \code{"completely_connected"} (also \code{"liebig_rao_3"}), or 
 #'   \code{"exclusive"}.
+#' @param method Character; for a given \code{measure}, whether to use the 
+#'   measure-specific wedge census (\code{"wedges"}) or the measure-specific 
+#'   calculation on the centered triad census (\code{"triads"}).
+#' @param triads.fun A custom triad closure calculation. It must accept a vector
+#'   of \emph{centered} triad isomorphism classes, encoded as vectors \code{w},
+#'   \code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix
+#'   recording the number of wedges of the desired measure centered at the
+#'   second actor, and involving the other two actors, of each triad.
 #' @param wedges.fun A custom wedge census function. It must accept an 
 #'   affiliation network \code{graph} and a single actor node ID \code{actor} 
 #'   and may have any additional parameters. It must return a named list with 
@@ -36,8 +44,8 @@
 #'   wedges centered at \code{actor} and \code{closed} a logical vector 
 #'   recording whether each wedge is closed. Overrides \code{measure}.
 #' @return If \code{type} is \code{"global"}, the global statistic for 
-#'   \code{graph}; if \code{"local"}, the local statistics for \code{actors}; 
-#'   if \code{"raw"}, a 2-column matrix, each row of which gives the number of 
+#'   \code{graph}; if \code{"local"}, the local statistics for \code{actors}; if
+#'   \code{"raw"}, a 2-column matrix, each row of which gives the number of 
 #'   wedges and of closed wedges centered at \code{actors}.
 #' @examples
 #' data(women_clique)
@@ -65,6 +73,69 @@ triad_closure <- function(graph, ...) {
 #' @rdname triad_closure
 #' @export
 triad_closure_an <- function(
+  graph,
+  method = "wedges",
+  ...
+) {
+  method <- match.arg(method, c("triads", "wedges"))
+  triad_closure_fun <- get(paste0("triad_closure_from_", method))
+  triad_closure_fun(graph, ...)
+}
+
+#' @rdname triad_closure
+#' @export
+triad_closure_from_triads <- function(
+  graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global",
+  ...,
+  measure = NULL,
+  triads.fun = NULL
+) {
+  if (!is_an(graph)) {
+    stop("Not an affiliation network.")
+  }
+  type <- match.arg(type, c("global", "local", "raw"))
+  if (type == "global" &&
+      !setequal(V(graph)[V(graph)$type == FALSE], V(graph)[actors])) {
+    warning("Calculating a global statistic on a subset of actors.")
+  }
+  
+  triadtally <- do.call(cbind, lapply(actors, function(actor) {
+    rbind(
+      q = as.numeric(V(graph)[actor]),
+      triads(graph = graph, actor = actor)
+    )
+  }))
+  
+  triads_fun <- if (!is.null(triads.fun)) {
+    triads.fun
+  } else if (!is.null(measure)) {
+    measure <- match.arg(measure, c("classical", "watts_strogatz",
+                                    "twomode", "opsahl",
+                                    "unconnected", "liebig_rao_0",
+                                    "completely_connected", "liebig_rao_3",
+                                    "exclusive"))
+    get(paste0("triad_wedges_", measure))
+  } else {
+    triad_wedges
+  }
+  
+  wedgetally <- triads_fun(w = triadtally["w", ],
+                           x = triadtally["x", ],
+                           y = triadtally["y", ],
+                           z = triadtally["z", ],
+                           ...)
+  wedgelist <- stats::aggregate(
+    wedgetally,
+    by = triadtally["q", ],
+    FUN = sum
+  )[, -1]
+  wedgeReturn(wedgelist = wedgelist, type = type)
+}
+
+#' @rdname triad_closure
+#' @export
+triad_closure_from_wedges <- function(
   graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global",
   ...,

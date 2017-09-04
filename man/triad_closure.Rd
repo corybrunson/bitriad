@@ -3,6 +3,8 @@
 \name{triad_closure}
 \alias{triad_closure}
 \alias{triad_closure_an}
+\alias{triad_closure_from_triads}
+\alias{triad_closure_from_wedges}
 \alias{triad_closure_watts_strogatz}
 \alias{triad_closure_classical}
 \alias{triad_closure_opsahl}
@@ -17,7 +19,12 @@
 \usage{
 triad_closure(graph, ...)
 
-triad_closure_an(graph, actors = V(graph)[V(graph)$type == FALSE],
+triad_closure_an(graph, method = "wedges", ...)
+
+triad_closure_from_triads(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global", ..., measure = NULL, triads.fun = NULL)
+
+triad_closure_from_wedges(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global", ..., measure = NULL, wedges.fun = NULL)
 
 triad_closure_watts_strogatz(graph, actors = V(graph)[V(graph)$type == FALSE],
@@ -55,6 +62,10 @@ triad_closure_projection(graph, actors = V(graph)[V(graph)$type == FALSE],
 
 \item{...}{Measure specifications passed to \code{\link{wedges}}.}
 
+\item{method}{Character; for a given \code{measure}, whether to use the 
+measure-specific wedge census (\code{"wedges"}) or the measure-specific 
+calculation on the centered triad census (\code{"triads"}).}
+
 \item{actors}{A vector of actor nodes in \code{graph}.}
 
 \item{type}{The type of statistic, matched to \code{"global"}, 
@@ -67,6 +78,12 @@ triad_closure_projection(graph, actors = V(graph)[V(graph)$type == FALSE],
 \code{"completely_connected"} (also \code{"liebig_rao_3"}), or 
 \code{"exclusive"}.}
 
+\item{triads.fun}{A custom triad closure calculation. It must accept a vector
+of \emph{centered} triad isomorphism classes, encoded as vectors \code{w},
+\code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix
+recording the number of wedges of the desired measure centered at the
+second actor, and involving the other two actors, of each triad.}
+
 \item{wedges.fun}{A custom wedge census function. It must accept an 
 affiliation network \code{graph} and a single actor node ID \code{actor} 
 and may have any additional parameters. It must return a named list with 
@@ -76,8 +93,8 @@ recording whether each wedge is closed. Overrides \code{measure}.}
 }
 \value{
 If \code{type} is \code{"global"}, the global statistic for 
-  \code{graph}; if \code{"local"}, the local statistics for \code{actors}; 
-  if \code{"raw"}, a 2-column matrix, each row of which gives the number of 
+  \code{graph}; if \code{"local"}, the local statistics for \code{actors}; if
+  \code{"raw"}, a 2-column matrix, each row of which gives the number of 
   wedges and of closed wedges centered at \code{actors}.
 }
 \description{

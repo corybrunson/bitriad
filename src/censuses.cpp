@@ -2,6 +2,94 @@
 #include "nbhds.h"
 #include "combinatorial-bijections.h"
 
+// Centered triad census
+
+// isomorphism classes of all triads centered at q, i.e.
+// schedules of actors p, q, r for which both p and r share an event with q,
+// from which any reasonable measure of triad closure can be recovered
+// [[Rcpp::export]]
+IntegerMatrix centered_triads(IntegerMatrix el, int q) {
+  
+  // Loop indices
+  int i,j;
+  // Actor node IDs
+  int p,r;
+  // Triad class indices
+  int w;
+  
+  // Incident events
+  IntegerVector q_events, q_actors;
+  // Compute event and actor neighborhoods of q
+  List q_ego = actor_nbhd_2(el, q);
+  q_events = q_ego["d1"];
+  std::sort(q_events.begin(), q_events.end());
+  q_actors = q_ego["d2"];
+  
+  // Initialize triad class index storage vectors
+  std::vector<int> w_vec;
+  std::vector<int> x_vec;
+  std::vector<int> y_vec;
+  std::vector<int> z_vec;
+  // Initialize intersections and differences
+  std::vector<int> p_events;
+  std::vector<int> pq_events;
+  std::vector<int> r_events;
+  std::vector<int> qr_events;
+  std::vector<int> pr_events;
+  std::vector<int> pqr_events;
+  
+  // Iterate over triads centered at q
+  for (i = 0; i < (q_actors.size() - 1); i++) {
+    p = q_actors[i];
+    List p_ego = actor_nbhd_1(el, p);
+    p_events = p_ego["d1"];
+    std::sort(p_events.begin(), p_events.end());
+    // Intersect events of q and of p
+    pq_events.clear();
+    std::set_intersection(p_events.begin(), p_events.end(),
+                          q_events.begin(), q_events.end(),
+                          std::back_inserter(pq_events));
+    std::sort(pq_events.begin(), pq_events.end());
+    for (j = i + 1; j < q_actors.size(); j++) {
+      r = q_actors[j];
+      List r_ego = actor_nbhd_1(el, r);
+      r_events = r_ego["d1"];
+      std::sort(r_events.begin(), r_events.end());
+      // Intersect events of q and of r
+      qr_events.clear();
+      std::set_intersection(q_events.begin(), q_events.end(),
+                            r_events.begin(), r_events.end(),
+                            std::back_inserter(qr_events));
+      // Intersect events of p and of r
+      pr_events.clear();
+      std::set_intersection(p_events.begin(), p_events.end(),
+                            r_events.begin(), r_events.end(),
+                            std::back_inserter(pr_events));
+      // Intersect events of p, q, and r
+      pqr_events.clear();
+      std::set_intersection(pq_events.begin(), pq_events.end(),
+                            r_events.begin(), r_events.end(),
+                            std::back_inserter(pqr_events));
+      // Record triad isomorphism class
+      w = pqr_events.size();
+      w_vec.push_back(w);
+      x_vec.push_back(pq_events.size() - w);
+      y_vec.push_back(qr_events.size() - w);
+      z_vec.push_back(pr_events.size() - w);
+    }
+  }
+  
+  // Return isomorphism class matrix
+  IntegerMatrix triads(4, w_vec.size());
+  for (i = 0; i < w_vec.size(); i++) {
+    triads(0, i) = w_vec[i];
+    triads(1, i) = x_vec[i];
+    triads(2, i) = y_vec[i];
+    triads(3, i) = z_vec[i];
+  }
+  return triads;
+}
+
 // alcove x:
 //   0 <-> T_(1,1,1),0
 //   1 <-> T_(1,1,0),1

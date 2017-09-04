@@ -81,6 +81,7 @@ transitivity_an_triads <- function(
   vids = which(!V(graph)$type),
   flavor
 ) {
+  .Deprecated("triad_closure_from_triads")
   # Data frame of quadruples (w,x,y,z) of triads centered at Qs
   triads <- centeredTriads(graph = graph, vids = vids)
   
@@ -100,7 +101,7 @@ transitivity_an_wedges <- function(
   vids = which(!V(graph)$type),
   wedgeFun
 ) {
-  .Deprecated("triad_closure")
+  .Deprecated("triad_closure_from_wedges")
   # Wedge and closed wedge counts at each node
   t(matrix(unlist(lapply(vids, function(v) {
     wedgeFun(graph, v)

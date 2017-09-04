@@ -21,6 +21,11 @@
 #' @param actor An actor node in \code{graph}.
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
+#' @param w,x,y,z Integer vectors of the same length, indicating the number of
+#'   events of each structural equivalence class in a triad of three actors
+#'   \code{p}, \code{q}, \code{r}: \code{w} attended by all three, \code{x}
+#'   attended by \code{p} and \code{q} only, \code{y} attended by \code{q} and
+#'   \code{r} only, and \code{z} attended by \code{p} and \code{r} only.
 #' @return A two-element list consisting of (1) a 3- or 5-row integer matrix of 
 #'   (representatives of) all (congruence classes of) wedges in \code{graph} 
 #'   centered at \code{actor}, and (2) a logical vector indicating whether each 
@@ -104,3 +109,104 @@ wedges_exclusive <- function(graph, actor) wedges(
   graph = graph, actor = actor,
   alcove = 0, wedge = 0, maps = 2, congruence = 1
 )
+
+#' @rdname wedges
+#' @export
+triads <- function(graph, actor) {
+  stopifnot(V(graph)[actor]$type == FALSE)
+  centered_triads(
+    el = as_edgelist(graph, names = FALSE),
+    q = as.numeric(V(graph)[actor])
+  )
+}
+
+#' @rdname wedges
+#' @export
+triad_wedges_watts_strogatz <- function(w, x, y, z) cbind(
+  wedges = (w > 0) | (x > 0 & y > 0),
+  closed = (w > 0) | (x > 0 & y > 0 & z > 0)
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_classical <- triad_wedges_watts_strogatz
+
+#' @rdname wedges
+#' @export
+triad_wedges_projection <- triad_wedges_watts_strogatz
+
+#' @rdname wedges
+#' @export
+triad_wedges_opsahl <- function(w, x, y, z) cbind(
+  wedges = x * y + (x + y) * w,
+  closed = x * y * (w + z > 0) + (x + y) * w * (w - 1 + z > 0)
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_twomode <- triad_wedges_opsahl
+
+#' @rdname wedges
+#' @export
+triad_wedges_liebig_rao_0 <- function(w, x, y, z) cbind(
+  wedges = x * y,
+  closed = x * y * (z > 0)
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_unconnected <- triad_wedges_liebig_rao_0
+
+#' @rdname wedges
+#' @export
+triad_wedges_liebig_rao_1 <- function(w, x, y, z) cbind(
+  wedges = x * y + (x + y) * w,
+  closed = x * y * w + (x + y) * w * z
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_sparsely_connected <- triad_wedges_liebig_rao_1
+
+#' @rdname wedges
+#' @export
+triad_wedges_liebig_rao_2 <- function(w, x, y, z) cbind(
+  wedges = (x + y) * w + w * (w - 1),
+  closed = (x + y) * w * (w - 1) + w * (w - 1) * z
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_highly_connected <- triad_wedges_liebig_rao_2
+
+#' @rdname wedges
+#' @export
+triad_wedges_liebig_rao_3 <- function(w, x, y, z) cbind(
+  wedges = w * (w - 1),
+  closed = w * (w - 1) * (w - 2)
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_completely_connected <- triad_wedges_liebig_rao_3
+
+#' @rdname wedges
+#' @export
+triad_wedges <- function(
+  w, x, y, z,
+  alcove = 0, wedge = 0, maps = 0, congruence = 0
+) {
+  wedgecount <- list(
+    inin = (if (congruence == 0) w * (w - 1) else 1) *
+      (wedge == 2 | maps != 2),
+    inex = (if (congruence == 0) w * y else 1) *
+      (wedge == 1 | (wedge == 0 & maps != 2)),
+    exin = (if (congruence == 0) x * w else 1) *
+      (wedge == 1 | (wedge == 0 & maps != 2)),
+    exex = (if (congruence == 0) x * y else 1) *
+      (wedge == 0)
+  )
+  wedges <- Reduce(if (congruence == 0) `+` else any, wedgecount)
+  stop("Not yet implemented.")
+  #cbind(wedges, closed)
+}

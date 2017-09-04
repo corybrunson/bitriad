@@ -23,6 +23,21 @@
 \alias{wedges_liebig_rao_3}
 \alias{wedges_completely_connected}
 \alias{wedges_exclusive}
+\alias{triads}
+\alias{triad_wedges_watts_strogatz}
+\alias{triad_wedges_classical}
+\alias{triad_wedges_projection}
+\alias{triad_wedges_opsahl}
+\alias{triad_wedges_twomode}
+\alias{triad_wedges_liebig_rao_0}
+\alias{triad_wedges_unconnected}
+\alias{triad_wedges_liebig_rao_1}
+\alias{triad_wedges_sparsely_connected}
+\alias{triad_wedges_liebig_rao_2}
+\alias{triad_wedges_highly_connected}
+\alias{triad_wedges_liebig_rao_3}
+\alias{triad_wedges_completely_connected}
+\alias{triad_wedges}
 \title{Affiliation network wedges}
 \usage{
 indequ_wedges(graph, Q)
@@ -68,6 +83,37 @@ wedges_liebig_rao_3(graph, actor)
 wedges_completely_connected(graph, actor)
 
 wedges_exclusive(graph, actor)
+
+triads(graph, actor)
+
+triad_wedges_watts_strogatz(w, x, y, z)
+
+triad_wedges_classical(w, x, y, z)
+
+triad_wedges_projection(w, x, y, z)
+
+triad_wedges_opsahl(w, x, y, z)
+
+triad_wedges_twomode(w, x, y, z)
+
+triad_wedges_liebig_rao_0(w, x, y, z)
+
+triad_wedges_unconnected(w, x, y, z)
+
+triad_wedges_liebig_rao_1(w, x, y, z)
+
+triad_wedges_sparsely_connected(w, x, y, z)
+
+triad_wedges_liebig_rao_2(w, x, y, z)
+
+triad_wedges_highly_connected(w, x, y, z)
+
+triad_wedges_liebig_rao_3(w, x, y, z)
+
+triad_wedges_completely_connected(w, x, y, z)
+
+triad_wedges(w, x, y, z, alcove = 0, wedge = 0, maps = 0,
+  congruence = 0)
 }
 \arguments{
 \item{graph}{An affiliation network.}
@@ -78,6 +124,12 @@ wedges_exclusive(graph, actor)
 
 \item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
 congruence (see Details).}
+
+\item{w, x, y, z}{Integer vectors of the same length, indicating the number of
+events of each structural equivalence class in a triad of three actors
+\code{p}, \code{q}, \code{r}: \code{w} attended by all three, \code{x}
+attended by \code{p} and \code{q} only, \code{y} attended by \code{q} and
+\code{r} only, and \code{z} attended by \code{p} and \code{r} only.}
 }
 \value{
 A two-element list consisting of (1) a 3- or 5-row integer matrix of 

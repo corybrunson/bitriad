@@ -5,6 +5,18 @@
 
 using namespace Rcpp;
 
+// centered_triads
+IntegerMatrix centered_triads(IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_centered_triads(SEXP elSEXP, SEXP qSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< int >::type q(qSEXP);
+    rcpp_result_gen = Rcpp::wrap(centered_triads(el, q));
+    return rcpp_result_gen;
+END_RCPP
+}
 // wedges_x0w0m0c0
 List wedges_x0w0m0c0(IntegerMatrix el, int q);
 RcppExport SEXP _bitriad_wedges_x0w0m0c0(SEXP elSEXP, SEXP qSEXP) {
@@ -284,6 +296,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_bitriad_centered_triads", (DL_FUNC) &_bitriad_centered_triads, 2},
     {"_bitriad_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_wedges_x0w0m0c0, 2},
     {"_bitriad_wedges_x0w0m0c1", (DL_FUNC) &_bitriad_wedges_x0w0m0c1, 2},
     {"_bitriad_wedges_x0w0m0c2", (DL_FUNC) &_bitriad_wedges_x0w0m0c2, 2},
