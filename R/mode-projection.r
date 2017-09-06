@@ -5,6 +5,8 @@
 #'   nodes.
 #'   
 #' @name mode_projection
+#' @seealso Original \strong{igraph} functions:
+#'   \code{\link[igraph]{bipartite_projection}}
 #' @param graph An affiliation network.
 #' @param mode Numeric or character; whether to project onto actors (\code{1} or
 #'   \code{"actors"}) or onto events (\code{2} or \code{"events"}).

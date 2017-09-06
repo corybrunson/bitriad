@@ -6,7 +6,7 @@
 \alias{is.an}
 \alias{as_an}
 \alias{as.an}
-\title{Affiliation networks}
+\title{Affiliation network structure}
 \usage{
 is_an(graph)
 
@@ -36,11 +36,16 @@ An affiliation network is a bipartite graph whose nodes are
   that actor nodes precede event nodes in their node IDs, which simplifies 
   some other functions. The function \code{as_an} coerces an `igraph` object 
   to an affiliation network by verifying that the object is bipartite and 
-  minimally permuting the node IDs. If \code{igraph} has no \code{type} 
+  minimally permuting the node IDs. If \code{graph} has no \code{type} 
   attribute and \code{add.type.attribute} is \code{FALSE}, then \code{as_an} 
   throws an error; if \code{add.type.attribute} is \code{TRUE}, then 
   \code{as_an} introduces a logical \code{type} attribute that takes the 
   value \code{FALSE} at the first node (by node ID) in each connected 
   component and \code{TRUE} or \code{FALSE} at the remaining nodes according 
   as they are an odd or even number of hops from the first.
+}
+\seealso{
+Original \strong{igraph} functions: \code{\link{is_igraph}}
+
+Other network testing and coercion: \code{\link{dynamic_an}}
 }

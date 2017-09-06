@@ -20,12 +20,20 @@ event.count(graph)
 \item{graph}{An affiliation network.}
 }
 \description{
-These functions return the number of actors (nodes with
-  \code{type} attribute \code{FALSE}) or events (\code{TRUE}) in an
+These functions return the number of actors (nodes with 
+  \code{type} attribute \code{FALSE}) or events (\code{TRUE}) in an 
   affiliation network.
 }
 \examples{
 data(chicago1960s)
 actor_count(chicago1960s)
 event_count(chicago1960s)
+}
+\seealso{
+Original \strong{igraph} functions: \code{\link[igraph]{vcount}},
+  \code{\link[igraph]{ecount}}
+
+Other modal queries and manipulations: \code{\link{dualize}},
+  \code{\link{mode_addition}}, \code{\link{modes}},
+  \code{\link{schedule}}
 }

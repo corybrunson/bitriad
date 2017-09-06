@@ -5,6 +5,7 @@
 #' at a later time.
 #' 
 #' @name dynamic_triad_closure
+#' @family triad closure functions
 #' @param graph An affiliation network with time-stamped events.
 #' @param actors A vector of actor nodes in \code{graph}.
 #' @param type The type of statistic, matched to \code{"global"}, 

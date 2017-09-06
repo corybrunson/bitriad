@@ -107,3 +107,9 @@ wedge function to run over the necessary wedge centers and return a wedge
 count matrix, which is returned back into \code{transitivity_an} for
 outputting.
 }
+\seealso{
+Other triad closure functions: \code{\link{dynamic_triad_closure}},
+  \code{\link{project_transitivity}},
+  \code{\link{triad_closure_from_census}},
+  \code{\link{triad_closure}}
+}

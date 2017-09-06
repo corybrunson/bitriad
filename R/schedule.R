@@ -6,6 +6,7 @@
 #'   \emph{schedule}.
 #'   
 #' @name schedule
+#' @family modal queries and manipulations
 #' @param graph An affiliation network.
 #' @param actors A vector of actor nodes in \code{graph}.
 #' @export

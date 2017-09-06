@@ -245,4 +245,6 @@ Science}, 3(4), 480--508.
 }
 \seealso{
 Other wedge functions: \code{\link{dynamic_wedges}}
+
+Other wedge functions: \code{\link{dynamic_wedges}}
 }

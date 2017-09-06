@@ -79,9 +79,9 @@ calculation on the centered triad census (\code{"triads"}).}
 \code{"exclusive"}.}
 
 \item{triads.fun}{A custom triad closure calculation. It must accept a vector
-of \emph{centered} triad isomorphism classes, encoded as vectors \code{w},
-\code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix
-recording the number of wedges of the desired measure centered at the
+of \emph{centered} triad isomorphism classes, encoded as vectors \code{w}, 
+\code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix 
+recording the number of wedges of the desired measure centered at the 
 second actor, and involving the other two actors, of each triad.}
 
 \item{wedges.fun}{A custom wedge census function. It must accept an 
@@ -213,4 +213,13 @@ technology and internet-based systems}.
 
 Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
+}
+\seealso{
+Original \strong{igraph} functions:
+  \code{\link[igraph]{transitivity}}
+
+Other triad closure functions: \code{\link{dynamic_triad_closure}},
+  \code{\link{project_transitivity}},
+  \code{\link{transitivity_an}},
+  \code{\link{triad_closure_from_census}}
 }

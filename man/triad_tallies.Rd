@@ -31,3 +31,8 @@ total number of triads is easily calculated, and the difference between this
 number and the total number of triads with edges gives the number of triads
 without.)
 }
+\seealso{
+Other triad census functions: \code{\link{project_census}},
+  \code{\link{triad_census}},
+  \code{\link{triad_closure_from_census}}
+}

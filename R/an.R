@@ -1,4 +1,4 @@
-#' @title Affiliation networks
+#' @title Affiliation network structure
 #'   
 #' @description Test \code{igraph} objects for affiliation network structure or
 #'   impose such structure if possible.
@@ -12,7 +12,7 @@
 #'   that actor nodes precede event nodes in their node IDs, which simplifies 
 #'   some other functions. The function \code{as_an} coerces an `igraph` object 
 #'   to an affiliation network by verifying that the object is bipartite and 
-#'   minimally permuting the node IDs. If \code{igraph} has no \code{type} 
+#'   minimally permuting the node IDs. If \code{graph} has no \code{type} 
 #'   attribute and \code{add.type.attribute} is \code{FALSE}, then \code{as_an} 
 #'   throws an error; if \code{add.type.attribute} is \code{TRUE}, then 
 #'   \code{as_an} introduces a logical \code{type} attribute that takes the 
@@ -21,6 +21,8 @@
 #'   as they are an odd or even number of hops from the first.
 #'   
 #' @name affiliation_network
+#' @family network testing and coercion
+#' @seealso Original \strong{igraph} functions: \code{\link{is_igraph}}
 #' @param graph An \code{igraph} object.
 #' @param add.type.attribute Logical; whether to introduce a \code{type} 
 #'   attribute if \code{graph} has none before testing for bipartite structure.

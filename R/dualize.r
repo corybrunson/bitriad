@@ -6,6 +6,7 @@
 #'   node ids accordingly.
 #'   
 #' @name dualize
+#' @family modal queries and manipulations
 #' @param graph An affiliation network.
 #' @import igraph
 #' @examples

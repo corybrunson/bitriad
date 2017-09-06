@@ -6,6 +6,7 @@
 #' node in a given affiliation network.
 #' 
 #' @rdname wedges
+#' @family wedge functions
 #' @param Q An actor node in the network.
 #' @export
 indequ_wedges <-

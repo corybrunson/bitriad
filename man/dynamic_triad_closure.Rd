@@ -58,3 +58,9 @@ cbind(
   dynamic_triad_closure(women_group, type = "local")
 )
 }
+\seealso{
+Other triad closure functions: \code{\link{project_transitivity}},
+  \code{\link{transitivity_an}},
+  \code{\link{triad_closure_from_census}},
+  \code{\link{triad_closure}}
+}

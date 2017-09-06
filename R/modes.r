@@ -3,6 +3,9 @@
 #' @description These functions return actor and event node lists.
 #'   
 #' @name modes
+#' @family modal queries and manipulations
+#' @seealso Original \strong{igraph} functions: \code{\link[igraph]{V}},
+#'   \code{\link[igraph]{set_vertex_attr}}
 #' @param graph An affiliation network.
 #' @param name  The name of the attribute to set.
 #' @param index An optional node sequence to set the attributes of a subset of 
@@ -13,9 +16,11 @@
 #' @return \code{graph}, with the actor or event attribute added or set.
 #' @examples
 #' data(women_clique)
-#' V1(women_clique)
-#' V2(women_clique)
-#' @seealso \code{\link[igraph]{V}}, \code{\link[igraph]{set_vertex_attr}}
+#' print(V1(women_clique))
+#' print(V2(women_clique))
+#' V1(women_clique)$label <- LETTERS[1:5]
+#' V2(women_clique)$label <- 1:5
+#' plot(prettify_an(women_clique))
 NULL
 
 #' @rdname modes

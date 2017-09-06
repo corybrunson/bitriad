@@ -17,6 +17,9 @@
 #'   
 
 #' @name triad_census
+#' @family triad census functions
+#' @seealso Original \strong{igraph} functions:
+#'   \code{\link[igraph]{triad_census}}
 #' @param graph An \strong{igraph} object, usually an affiliation network.
 #' @param scheme Character; the type of triad census to calculate, matched to 
 #'   \code{"full"}, \code{"difference"} (also \code{"uniformity"}), 

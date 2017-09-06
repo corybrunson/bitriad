@@ -18,6 +18,7 @@
 #' outputting.
 #' 
 #' @name transitivity_an
+#' @family triad closure functions
 #' @param graph An affiliation network; see \code{is_an}.
 #' @param type Character; the type of clustering coefficient (defaults to 
 #'   "global").

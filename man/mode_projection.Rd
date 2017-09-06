@@ -40,3 +40,7 @@ vcount(proj) == tab[1]
 proj <- event_projection(chicago1960s)
 vcount(proj) == tab[2]
 }
+\seealso{
+Original \strong{igraph} functions:
+  \code{\link[igraph]{bipartite_projection}}
+}

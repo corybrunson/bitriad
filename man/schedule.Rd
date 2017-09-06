@@ -17,3 +17,8 @@ Given an affiliation network and a vector of actor node IDs,
   nodes incident to at least two of them. This is called the actors'
   \emph{schedule}.
 }
+\seealso{
+Other modal queries and manipulations: \code{\link{dualize}},
+  \code{\link{mode_addition}}, \code{\link{mode_counts}},
+  \code{\link{modes}}
+}

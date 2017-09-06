@@ -9,6 +9,7 @@
 #' with the other variants of `transitivity_an`.)
 #' 
 #' @name project_transitivity
+#' @family triad closure functions
 #' @param graph An affiliation network.
 #' @param type The type of clustering coefficient (defaults to "global")
 #' @param vids A subset of actor node ids at which to evaluate the local

@@ -179,3 +179,11 @@ large sparse networks with small maximum degree. \emph{Social Networks},
 Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
+\seealso{
+Original \strong{igraph} functions:
+  \code{\link[igraph]{triad_census}}
+
+Other triad census functions: \code{\link{project_census}},
+  \code{\link{triad_closure_from_census}},
+  \code{\link{triad_tallies}}
+}

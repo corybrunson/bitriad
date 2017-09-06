@@ -28,4 +28,9 @@ with the other variants of `transitivity_an`.)
 }
 \seealso{
 \code{\link{opsahl_transitivity}}, \code{\link{opsahl_transitivity}}
+
+Other triad closure functions: \code{\link{dynamic_triad_closure}},
+  \code{\link{transitivity_an}},
+  \code{\link{triad_closure_from_census}},
+  \code{\link{triad_closure}}
 }

@@ -4,9 +4,12 @@
 #'   graph while maintaining its (temporal) affiliation network structure.
 #'   
 #' @name mode_addition
+#' @family modal queries and manipulations
+#' @seealso Original \strong{igraph} functions:
+#'   \code{\link[igraph]{add_vertices}}, \code{\link[igraph]{add_edges}}
 #' @param graph An affiliation network.
-#' @param nv,...,attr Arguments passed to \code{\link[igraph]{add_vertices}}.
-#'   Events added to a dynamic affiliation network should be given time
+#' @param nv,...,attr Arguments passed to \code{\link[igraph]{add_vertices}}. 
+#'   Events added to a dynamic affiliation network should be given time 
 #'   attributes.
 #' @param actors A vector of actor nodes in \code{graph}, to be linked to the 
 #'   new event(s).

@@ -17,7 +17,9 @@
 #'   
 
 #' @name triad_closure
-#' @family triad closure
+#' @family triad closure functions
+#' @seealso Original \strong{igraph} functions:
+#'   \code{\link[igraph]{transitivity}}
 #' @param graph An affiliation network.
 #' @param actors A vector of actor nodes in \code{graph}.
 #' @param type The type of statistic, matched to \code{"global"}, 
@@ -33,9 +35,9 @@
 #'   measure-specific wedge census (\code{"wedges"}) or the measure-specific 
 #'   calculation on the centered triad census (\code{"triads"}).
 #' @param triads.fun A custom triad closure calculation. It must accept a vector
-#'   of \emph{centered} triad isomorphism classes, encoded as vectors \code{w},
-#'   \code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix
-#'   recording the number of wedges of the desired measure centered at the
+#'   of \emph{centered} triad isomorphism classes, encoded as vectors \code{w}, 
+#'   \code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix 
+#'   recording the number of wedges of the desired measure centered at the 
 #'   second actor, and involving the other two actors, of each triad.
 #' @param wedges.fun A custom wedge census function. It must accept an 
 #'   affiliation network \code{graph} and a single actor node ID \code{actor} 

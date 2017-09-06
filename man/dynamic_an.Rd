@@ -5,7 +5,7 @@
 \alias{is_dynamic_an}
 \alias{is.dyn}
 \alias{as_dynamic_an}
-\title{Dynamic affiliation networks}
+\title{Dynamic affiliation network structure}
 \usage{
 is_dynamic_an(graph)
 
@@ -26,4 +26,7 @@ if \code{graph} has none.}
 An affiliation network is \emph{dynamic}, for present purposes, 
   if its event nodes have time stamps, recorded as a numeric vertex attribute
   \code{"time"} in non-decreasing order.
+}
+\seealso{
+Other network testing and coercion: \code{\link{affiliation_network}}
 }

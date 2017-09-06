@@ -255,4 +255,12 @@ Science}, 3(4), 480--508.
 \seealso{
 triad census functions at \code{\link{triad_census_an}} and triad 
   closure functions at \code{\link{triad_closure_an}}.
+
+Other triad census functions: \code{\link{project_census}},
+  \code{\link{triad_census}}, \code{\link{triad_tallies}}
+
+Other triad closure functions: \code{\link{dynamic_triad_closure}},
+  \code{\link{project_transitivity}},
+  \code{\link{transitivity_an}},
+  \code{\link{triad_closure}}
 }

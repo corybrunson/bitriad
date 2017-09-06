@@ -48,9 +48,17 @@ value = V1(x) or V2(x) with additional attributes:
 }
 \examples{
 data(women_clique)
-V1(women_clique)
-V2(women_clique)
+print(V1(women_clique))
+print(V2(women_clique))
+V1(women_clique)$label <- LETTERS[1:5]
+V2(women_clique)$label <- 1:5
+plot(prettify_an(women_clique))
 }
 \seealso{
-\code{\link[igraph]{V}}, \code{\link[igraph]{set_vertex_attr}}
+Original \strong{igraph} functions: \code{\link[igraph]{V}},
+  \code{\link[igraph]{set_vertex_attr}}
+
+Other modal queries and manipulations: \code{\link{dualize}},
+  \code{\link{mode_addition}}, \code{\link{mode_counts}},
+  \code{\link{schedule}}
 }

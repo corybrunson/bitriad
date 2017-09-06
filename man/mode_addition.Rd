@@ -13,8 +13,8 @@ add_events(graph, nv, ..., attr = list(), actors = NULL)
 \arguments{
 \item{graph}{An affiliation network.}
 
-\item{nv, ..., attr}{Arguments passed to \code{\link[igraph]{add_vertices}}.
-Events added to a dynamic affiliation network should be given time
+\item{nv, ..., attr}{Arguments passed to \code{\link[igraph]{add_vertices}}. 
+Events added to a dynamic affiliation network should be given time 
 attributes.}
 
 \item{events}{A vector of event nodes in \code{graph}, to be linked to the 
@@ -44,4 +44,12 @@ cbind(
     type = "local"
   )
 )
+}
+\seealso{
+Original \strong{igraph} functions:
+  \code{\link[igraph]{add_vertices}}, \code{\link[igraph]{add_edges}}
+
+Other modal queries and manipulations: \code{\link{dualize}},
+  \code{\link{mode_counts}}, \code{\link{modes}},
+  \code{\link{schedule}}
 }

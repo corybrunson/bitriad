@@ -1,10 +1,13 @@
 #' @title Count the actors and events in an affiliation network
 #'   
-#' @description These functions return the number of actors (nodes with
-#'   \code{type} attribute \code{FALSE}) or events (\code{TRUE}) in an
+#' @description These functions return the number of actors (nodes with 
+#'   \code{type} attribute \code{FALSE}) or events (\code{TRUE}) in an 
 #'   affiliation network.
 #'   
 #' @name mode_counts
+#' @family modal queries and manipulations
+#' @seealso Original \strong{igraph} functions: \code{\link[igraph]{vcount}},
+#'   \code{\link[igraph]{ecount}}
 #' @param graph An affiliation network.
 #' @examples
 #' data(chicago1960s)

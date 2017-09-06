@@ -17,6 +17,7 @@
 #' @template triadcensus
 #'   
 #' @name project_census
+#' @family triad census functions
 #' @param census Numeric matrix or vector; an affiliation network triad census. 
 #'   It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1, 
 #'   respectively, unless otherwise specified by \code{scheme}; otherwise it is 
