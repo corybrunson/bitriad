@@ -31,9 +31,7 @@ is_an <- function(graph) {
   if (!is_igraph(graph)) return(FALSE)
   if (vcount(graph) == 0) return(TRUE)
   if (!is_simple(graph)) return(FALSE)
-  if (is_directed(graph)) {
-    warning("Graph is directed.")
-  }
+  if (is_directed(graph)) return(FALSE)
   if (!("type" %in% vertex_attr_names(graph))) return(FALSE)
   if (is.unsorted(V(graph)$type)) return(FALSE)
   el <- as_edgelist(graph, names = FALSE)
