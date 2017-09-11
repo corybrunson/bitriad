@@ -1344,12 +1344,10 @@ IntegerMatrix triad_census_full_batagelj_mrvar_C(
       
       // Actors r co-incident with either actor p or q
       // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
-      std::vector<int> actors_r(p_actors.size() + q_actors.size());
-      std::vector<int>::iterator it;
-      it = std::set_union(p_actors.begin(), p_actors.end(),
-                          q_actors.begin(), q_actors.end(),
-                          actors_r.begin());
-      actors_r.resize(it - actors_r.begin());
+      std::vector<int> actors_r;
+      std::set_union(p_actors.begin(), p_actors.end(),
+                     q_actors.begin(), q_actors.end(),
+                     std::back_inserter(actors_r));
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
@@ -1532,12 +1530,10 @@ List triad_census_full_batagelj_mrvar_long_C(
       
       // Actors r co-incident with either actor p or q
       // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
-      std::vector<int> actors_r(p_actors.size() + q_actors.size());
-      std::vector<int>::iterator it;
-      it = std::set_union(p_actors.begin(), p_actors.end(),
-                          q_actors.begin(), q_actors.end(),
-                          actors_r.begin());
-      actors_r.resize(it - actors_r.begin());
+      std::vector<int> actors_r;
+      std::set_union(p_actors.begin(), p_actors.end(),
+                     q_actors.begin(), q_actors.end(),
+                     std::back_inserter(actors_r));
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
@@ -1709,12 +1705,10 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
       
       // Actors r co-incident with either actor p or q
       // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
-      std::vector<int> actors_r(p_actors.size() + q_actors.size());
-      std::vector<int>::iterator it;
-      it = std::set_union(p_actors.begin(), p_actors.end(),
-                          q_actors.begin(), q_actors.end(),
-                          actors_r.begin());
-      actors_r.resize(it - actors_r.begin());
+      std::vector<int> actors_r;
+      std::set_union(p_actors.begin(), p_actors.end(),
+                     q_actors.begin(), q_actors.end(),
+                     std::back_inserter(actors_r));
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
@@ -1849,12 +1843,10 @@ List triad_census_difference_batagelj_mrvar_long_C(
       
       // Actors r co-incident with either actor p or q
       // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
-      std::vector<int> actors_r(p_actors.size() + q_actors.size());
-      std::vector<int>::iterator it;
-      it = std::set_union(p_actors.begin(), p_actors.end(),
-                          q_actors.begin(), q_actors.end(),
-                          actors_r.begin());
-      actors_r.resize(it - actors_r.begin());
+      std::vector<int> actors_r;
+      std::set_union(p_actors.begin(), p_actors.end(),
+                     q_actors.begin(), q_actors.end(),
+                     std::back_inserter(actors_r));
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
@@ -1983,7 +1975,6 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
       
       // Actors r co-incident with either actor p or q
       // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
-      // http://en.cppreference.com/w/cpp/algorithm/set_union
       std::vector<int> actors_r;
       std::set_union(p_actors.begin(), p_actors.end(),
                      q_actors.begin(), q_actors.end(),
@@ -2116,12 +2107,10 @@ List triad_census_binary_batagelj_mrvar_long_C(
       
       // Actors r co-incident with either actor p or q
       // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
-      std::vector<int> actors_r(p_actors.size() + q_actors.size());
-      std::vector<int>::iterator it;
-      it = std::set_union(p_actors.begin(), p_actors.end(),
-                          q_actors.begin(), q_actors.end(),
-                          actors_r.begin());
-      actors_r.resize(it - actors_r.begin());
+      std::vector<int> actors_r;
+      std::set_union(p_actors.begin(), p_actors.end(),
+                     q_actors.begin(), q_actors.end(),
+                     std::back_inserter(actors_r));
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
