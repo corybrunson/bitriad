@@ -31,35 +31,35 @@ IntegerVector index_subset(int i) {
   if (i < 0) {
     stop("Index 'i' must be a non-negative integer.");
   }
-  IntegerVector vec(3);
+  IntegerVector v(3);
   int n = i;
   for (int j = 3; j > 0; j--) {
     int c = j - 1;
     while (choose_C(c + 1, j) <= n) {
       c++;
     }
-    vec(3 - j) = c;
+    v(3 - j) = c;
     n = n - choose_C(c, j);
   }
-  return vec;
+  return v;
 }
 
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-int subset_index(IntegerVector vec) {
-  if (vec.size() != 3) {
-    stop("Vector 'vec' must be of length 3.");
+int subset_index(IntegerVector v) {
+  if (v.size() != 3) {
+    stop("Vector 'v' must be of length 3.");
   }
-  if ((vec[0] <= vec[1]) | (vec[0] <= vec[2]) | (vec[1] <= vec[2])) {
-    stop("Vector 'vec' must be strictly decreasing.");
+  if ((v[0] <= v[1]) | (v[0] <= v[2]) | (v[1] <= v[2])) {
+    stop("Vector 'v' must be strictly decreasing.");
   }
-  if (vec[2] < 0) {
-    stop("Vector 'vec' must be non-negative.");
+  if (v[2] < 0) {
+    stop("Vector 'v' must be non-negative.");
   }
   int i = 0;
   for (int j = 0; j < 3; j++) {
-    i += choose_C(vec[j], 3 - j);
+    i += choose_C(v[j], 3 - j);
   }
   return i;
 }
@@ -67,43 +67,43 @@ int subset_index(IntegerVector vec) {
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-IntegerVector subset_partition(IntegerVector vec) {
-  if (vec.size() != 3) {
-    stop("Vector 'vec' must be of length 3.");
+IntegerVector subset_partition(IntegerVector v) {
+  if (v.size() != 3) {
+    stop("Vector 'v' must be of length 3.");
   }
-  if ((vec[0] <= vec[1]) | (vec[0] <= vec[2]) | (vec[1] <= vec[2])) {
-    stop("Vector 'vec' must be strictly decreasing.");
+  if ((v[0] <= v[1]) | (v[0] <= v[2]) | (v[1] <= v[2])) {
+    stop("Vector 'v' must be strictly decreasing.");
   }
-  if (vec[2] < 0) {
-    stop("Vector 'vec' must be non-negative.");
+  if (v[2] < 0) {
+    stop("Vector 'v' must be non-negative.");
   }
-  IntegerVector lambda(3);
+  IntegerVector par(3);
   for (int j = 0; j < 3; j++) {
-    lambda[j] = vec[j] - 2 + j;
+    par[j] = v[j] - 2 + j;
   }
-  return lambda;
+  return par;
 }
 
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-IntegerVector partition_subset(IntegerVector lambda) {
-  if (lambda.size() != 3) {
-    stop("Partition 'lambda' must have 3 parts.");
+IntegerVector partition_subset(IntegerVector par) {
+  if (par.size() != 3) {
+    stop("Partition 'par' must have 3 parts.");
   }
-  if ((lambda[0] < lambda[1]) |
-      (lambda[0] < lambda[2]) |
-      (lambda[1] < lambda[2])) {
-    stop("Partition 'lambda' must be non-increasing.");
+  if ((par[0] < par[1]) |
+      (par[0] < par[2]) |
+      (par[1] < par[2])) {
+    stop("Partition 'par' must be non-increasing.");
   }
-  if (lambda[2] < 0) {
-    stop("Partition 'lambda' must have non-negative parts.");
+  if (par[2] < 0) {
+    stop("Partition 'par' must have non-negative parts.");
   }
-  IntegerVector vec(3);
+  IntegerVector v(3);
   for (int j = 0; j < 3; j++) {
-    vec[j] = lambda[j] + 2 - j;
+    v[j] = par[j] + 2 - j;
   }
-  return vec;
+  return v;
 }
 
 //' @rdname combinatorial_bijections
@@ -116,6 +116,6 @@ IntegerVector index_partition(int i) {
 //' @rdname combinatorial_bijections
 //' @export
 // [[Rcpp::export]]
-int partition_index(IntegerVector lambda) {
-  return subset_index(partition_subset(lambda));
+int partition_index(IntegerVector par) {
+  return subset_index(partition_subset(par));
 }

@@ -81,20 +81,20 @@ index_subset <- function(i) {
 
 #' @rdname combinatorial_bijections
 #' @export
-subset_index <- function(vec) {
-    .Call('_bitriad_subset_index', PACKAGE = 'bitriad', vec)
+subset_index <- function(v) {
+    .Call('_bitriad_subset_index', PACKAGE = 'bitriad', v)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-subset_partition <- function(vec) {
-    .Call('_bitriad_subset_partition', PACKAGE = 'bitriad', vec)
+subset_partition <- function(v) {
+    .Call('_bitriad_subset_partition', PACKAGE = 'bitriad', v)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-partition_subset <- function(lambda) {
-    .Call('_bitriad_partition_subset', PACKAGE = 'bitriad', lambda)
+partition_subset <- function(par) {
+    .Call('_bitriad_partition_subset', PACKAGE = 'bitriad', par)
 }
 
 #' @rdname combinatorial_bijections
@@ -105,7 +105,7 @@ index_partition <- function(i) {
 
 #' @rdname combinatorial_bijections
 #' @export
-partition_index <- function(lambda) {
-    .Call('_bitriad_partition_index', PACKAGE = 'bitriad', lambda)
+partition_index <- function(par) {
+    .Call('_bitriad_partition_index', PACKAGE = 'bitriad', par)
 }
 

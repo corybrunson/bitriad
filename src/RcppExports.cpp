@@ -240,35 +240,35 @@ BEGIN_RCPP
 END_RCPP
 }
 // subset_index
-int subset_index(IntegerVector vec);
-RcppExport SEXP _bitriad_subset_index(SEXP vecSEXP) {
+int subset_index(IntegerVector v);
+RcppExport SEXP _bitriad_subset_index(SEXP vSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type vec(vecSEXP);
-    rcpp_result_gen = Rcpp::wrap(subset_index(vec));
+    Rcpp::traits::input_parameter< IntegerVector >::type v(vSEXP);
+    rcpp_result_gen = Rcpp::wrap(subset_index(v));
     return rcpp_result_gen;
 END_RCPP
 }
 // subset_partition
-IntegerVector subset_partition(IntegerVector vec);
-RcppExport SEXP _bitriad_subset_partition(SEXP vecSEXP) {
+IntegerVector subset_partition(IntegerVector v);
+RcppExport SEXP _bitriad_subset_partition(SEXP vSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type vec(vecSEXP);
-    rcpp_result_gen = Rcpp::wrap(subset_partition(vec));
+    Rcpp::traits::input_parameter< IntegerVector >::type v(vSEXP);
+    rcpp_result_gen = Rcpp::wrap(subset_partition(v));
     return rcpp_result_gen;
 END_RCPP
 }
 // partition_subset
-IntegerVector partition_subset(IntegerVector lambda);
-RcppExport SEXP _bitriad_partition_subset(SEXP lambdaSEXP) {
+IntegerVector partition_subset(IntegerVector par);
+RcppExport SEXP _bitriad_partition_subset(SEXP parSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type lambda(lambdaSEXP);
-    rcpp_result_gen = Rcpp::wrap(partition_subset(lambda));
+    Rcpp::traits::input_parameter< IntegerVector >::type par(parSEXP);
+    rcpp_result_gen = Rcpp::wrap(partition_subset(par));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -284,13 +284,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // partition_index
-int partition_index(IntegerVector lambda);
-RcppExport SEXP _bitriad_partition_index(SEXP lambdaSEXP) {
+int partition_index(IntegerVector par);
+RcppExport SEXP _bitriad_partition_index(SEXP parSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type lambda(lambdaSEXP);
-    rcpp_result_gen = Rcpp::wrap(partition_index(lambda));
+    Rcpp::traits::input_parameter< IntegerVector >::type par(parSEXP);
+    rcpp_result_gen = Rcpp::wrap(partition_index(par));
     return rcpp_result_gen;
 END_RCPP
 }

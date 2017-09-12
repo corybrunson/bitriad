@@ -6,9 +6,9 @@
 #'   
 #' @name combinatorial_bijections
 #' @param i Integer; an index in the total order, starting at 0.
-#' @param vec Integer vector; a set of 3 distinct non-negative integers, in 
+#' @param v Integer vector; a set of 3 distinct non-negative integers, in 
 #'   decreasing order.
-#' @param lambda Integer vector; a partition of at most 3 parts, with parts in 
+#' @param par Integer vector; a partition of at most 3 parts, with parts in 
 #'   non-increasing order.
 #' @examples
 #' index_subset(2)
@@ -35,28 +35,28 @@ indexPartition <- function(i) {
 
 #' @rdname combinatorial_bijections
 #' @export
-subsetIndex <- function(vec) {
+subsetIndex <- function(v) {
   .Deprecated("subset_index")
-  subset_index(vec)
+  subset_index(v)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-subsetPartition <- function(vec) {
+subsetPartition <- function(v) {
   .Deprecated("subset_partition")
-  subset_partition(vec)
+  subset_partition(v)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-partitionIndex <- function(lambda) {
+partitionIndex <- function(par) {
   .Deprecated("partition_index")
-  partition_index(lambda)
+  partition_index(par)
 }
 
 #' @rdname combinatorial_bijections
 #' @export
-partitionSubset <- function(lambda) {
+partitionSubset <- function(par) {
   .Deprecated("partition_subset")
-  partition_subset(lambda)
+  partition_subset(par)
 }

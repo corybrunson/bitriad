@@ -18,35 +18,35 @@
 \usage{
 index_subset(i)
 
-subset_index(vec)
+subset_index(v)
 
-subset_partition(vec)
+subset_partition(v)
 
-partition_subset(lambda)
+partition_subset(par)
 
 index_partition(i)
 
-partition_index(lambda)
+partition_index(par)
 
 indexSubset(i)
 
 indexPartition(i)
 
-subsetIndex(vec)
+subsetIndex(v)
 
-subsetPartition(vec)
+subsetPartition(v)
 
-partitionIndex(lambda)
+partitionIndex(par)
 
-partitionSubset(lambda)
+partitionSubset(par)
 }
 \arguments{
 \item{i}{Integer; an index in the total order, starting at 0.}
 
-\item{vec}{Integer vector; a set of 3 distinct non-negative integers, in 
+\item{v}{Integer vector; a set of 3 distinct non-negative integers, in 
 decreasing order.}
 
-\item{lambda}{Integer vector; a partition of at most 3 parts, with parts in 
+\item{par}{Integer vector; a partition of at most 3 parts, with parts in 
 non-increasing order.}
 }
 \description{
