@@ -109,3 +109,11 @@ partition_index <- function(par) {
     .Call('_bitriad_partition_index', PACKAGE = 'bitriad', par)
 }
 
+actor_nbhd <- function(order, el, q) {
+    .Call('_bitriad_actor_nbhd', PACKAGE = 'bitriad', order, el, q)
+}
+
+event_nbhd <- function(order, el, q) {
+    .Call('_bitriad_event_nbhd', PACKAGE = 'bitriad', order, el, q)
+}
+

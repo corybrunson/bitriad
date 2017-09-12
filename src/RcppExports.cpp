@@ -294,6 +294,32 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// actor_nbhd
+Rcpp::List actor_nbhd(const int order, Rcpp::IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_actor_nbhd(SEXP orderSEXP, SEXP elSEXP, SEXP qSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const int >::type order(orderSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< int >::type q(qSEXP);
+    rcpp_result_gen = Rcpp::wrap(actor_nbhd(order, el, q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// event_nbhd
+Rcpp::List event_nbhd(const int order, Rcpp::IntegerMatrix el, int q);
+RcppExport SEXP _bitriad_event_nbhd(SEXP orderSEXP, SEXP elSEXP, SEXP qSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const int >::type order(orderSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix >::type el(elSEXP);
+    Rcpp::traits::input_parameter< int >::type q(qSEXP);
+    rcpp_result_gen = Rcpp::wrap(event_nbhd(order, el, q));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_centered_triads", (DL_FUNC) &_bitriad_centered_triads, 2},
@@ -320,6 +346,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_partition_subset", (DL_FUNC) &_bitriad_partition_subset, 1},
     {"_bitriad_index_partition", (DL_FUNC) &_bitriad_index_partition, 1},
     {"_bitriad_partition_index", (DL_FUNC) &_bitriad_partition_index, 1},
+    {"_bitriad_actor_nbhd", (DL_FUNC) &_bitriad_actor_nbhd, 3},
+    {"_bitriad_event_nbhd", (DL_FUNC) &_bitriad_event_nbhd, 3},
     {NULL, NULL, 0}
 };
 

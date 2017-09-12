@@ -1,5 +1,7 @@
 #include <Rcpp.h>
 #include "nbhds.h"
+//#include "nbhds-russ.h"
+#include "nbhds-alt.h"
 #include "combinatorial-bijections.h"
 
 // Centered triad census
