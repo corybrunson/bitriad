@@ -10,13 +10,13 @@
 \usage{
 mode_projection(graph, mode = 1, name = "name")
 
-actor_projection(graph, name = "name")
+actor_projection(graph, ...)
 
-event_projection(graph, name = "name")
+event_projection(graph, ...)
 
-actor.projection(graph, name = "name")
+actor.projection(graph, ...)
 
-event.projection(graph, name = "name")
+event.projection(graph, ...)
 }
 \arguments{
 \item{graph}{An affiliation network.}
@@ -28,6 +28,8 @@ event.projection(graph, name = "name")
 \code{graph} to use as names for the nodes in the projection. If \code{NA},
 node IDs are converted to characters and used. If \code{NULL}, no names are
 assigned.}
+
+\item{...}{Arguments passed to \code{mode_projection}.}
 }
 \description{
 These functions use \code{\link{bipartite_projection}} to 
