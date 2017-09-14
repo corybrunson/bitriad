@@ -14,6 +14,7 @@
 #'   \code{graph} to use as names for the nodes in the projection. If \code{NA},
 #'   node IDs are converted to characters and used. If \code{NULL}, no names are
 #'   assigned.
+#' @param ... Arguments passed to \code{mode_projection}.
 #' @examples
 #' data(chicago1960s)
 #' tab <- table(V(chicago1960s)$type)
@@ -31,18 +32,25 @@ mode_projection <- function(graph, mode = 1, name = "name") {
     mode <- as.numeric(mode)
   }
   if (vcount(graph) == 0) return(make_empty_graph(directed = FALSE))
-  if ("name" %in% names(match.call()) & !is.null(name)) {
-    if (!is.na(name) & !(name %in% names(vertex_attr(graph)))) {
-      warning("Attribute '", name, "' not found; ",
-              "using default naming scheme.")
-      name <- NULL
+  call_name <- "name" %in% names(match.call())
+  if (is.null(name)) {
+    V(graph)$name <- NULL
+  } else {
+    if (is.character(name)) {
+      if (name %in% names(vertex_attr(graph))) {
+        if (!(name == "name")) {
+          V(graph)$name <- vertex_attr(graph, name)
+        }
+      } else {
+        if (call_name) {
+          warning("Attribute '", name, "' not found; ",
+                  "using default naming scheme.")
+        }
+        name <- NA
+      }
     }
-  }
-  if (!is.null(name)) {
-    V(graph)$name <- if (is.na(name)) {
-      V(graph)
-    } else {
-      get.vertex.attribute(graph, name)
+    if (is.na(name)) {
+      V(graph)$name <- V(graph)
     }
   }
   bipartite_projection(graph, multiplicity = TRUE)[[mode]]
@@ -50,14 +58,14 @@ mode_projection <- function(graph, mode = 1, name = "name") {
 
 #' @rdname mode_projection
 #' @export
-actor_projection <- function(graph, name = "name") {
-  mode_projection(graph = graph, name = name, mode = 1)
+actor_projection <- function(graph, ...) {
+  mode_projection(graph = graph, mode = 1, ...)
 }
 
 #' @rdname mode_projection
 #' @export
-event_projection <- function(graph, name = "name") {
-  mode_projection(graph = graph, name = name, mode = 2)
+event_projection <- function(graph, ...) {
+  mode_projection(graph = graph, mode = 2, ...)
 }
 
 #' @rdname mode_projection
