@@ -8,7 +8,7 @@
 \alias{event.projection}
 \title{Project an affiliation network onto its actors}
 \usage{
-mode_projection(graph, mode = "actors", name = "name")
+mode_projection(graph, mode = 1, name = "name")
 
 actor_projection(graph, name = "name")
 
@@ -25,7 +25,9 @@ event.projection(graph, name = "name")
 \code{"actors"}) or onto events (\code{2} or \code{"events"}).}
 
 \item{name}{Character; the attribute of the actor or event nodes in 
-\code{graph} to use as names for the nodes in the projection.}
+\code{graph} to use as names for the nodes in the projection. If \code{NA},
+node IDs are converted to characters and used. If \code{NULL}, no names are
+assigned.}
 }
 \description{
 These functions use \code{\link{bipartite_projection}} to 
@@ -41,6 +43,6 @@ proj <- event_projection(chicago1960s)
 vcount(proj) == tab[2]
 }
 \seealso{
-Original \strong{igraph} functions:
+Original \strong{igraph} functions: 
   \code{\link[igraph]{bipartite_projection}}
 }

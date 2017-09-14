@@ -2,10 +2,13 @@
 % Please edit documentation in R/mode-addition.r
 \name{mode_addition}
 \alias{mode_addition}
+\alias{add_modes}
 \alias{add_actors}
 \alias{add_events}
 \title{Add actor and event nodes}
 \usage{
+add_modes(graph, mode = 1, nv, ..., attr = list(), affiliations = NULL)
+
 add_actors(graph, nv, ..., attr = list(), events = NULL)
 
 add_events(graph, nv, ..., attr = list(), actors = NULL)
@@ -13,15 +16,22 @@ add_events(graph, nv, ..., attr = list(), actors = NULL)
 \arguments{
 \item{graph}{An affiliation network.}
 
+\item{mode}{Numeric or character; whether to project onto actors (\code{1} or
+\code{"actors"}) or onto events (\code{2} or \code{"events"}).}
+
 \item{nv, ..., attr}{Arguments passed to \code{\link[igraph]{add_vertices}}. 
 Events added to a dynamic affiliation network should be given time 
 attributes.}
 
-\item{events}{A vector of event nodes in \code{graph}, to be linked to the 
-new actor(s).}
+\item{affiliations}{A vector, or list of length \code{nv} of vectors, of 
+nodes in \code{graph} of mode \emph{not} \code{mode}, to be linked to the
+new node(s).}
 
-\item{actors}{A vector of actor nodes in \code{graph}, to be linked to the 
-new event(s).}
+\item{events}{A vector, or list of length \code{nv} of vectors, of event 
+nodes in \code{graph}, to be linked to the new actor(s).}
+
+\item{actors}{A vector, or list of length \code{nv} of vectors, of actor 
+nodes in \code{graph}, to be linked to the new event(s).}
 }
 \description{
 These functions add actor and event nodes (as desired) to a 
@@ -46,7 +56,7 @@ cbind(
 )
 }
 \seealso{
-Original \strong{igraph} functions:
+Original \strong{igraph} functions: 
   \code{\link[igraph]{add_vertices}}, \code{\link[igraph]{add_edges}}
 
 Other modal queries and manipulations: \code{\link{dualize}},
