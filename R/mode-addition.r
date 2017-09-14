@@ -5,16 +5,21 @@
 #'   
 #' @name mode_addition
 #' @family modal queries and manipulations
-#' @seealso Original \strong{igraph} functions:
+#' @seealso Original \strong{igraph} functions: 
 #'   \code{\link[igraph]{add_vertices}}, \code{\link[igraph]{add_edges}}
 #' @param graph An affiliation network.
+#' @param mode Numeric or character; whether to project onto actors (\code{1} or
+#'   \code{"actors"}) or onto events (\code{2} or \code{"events"}).
 #' @param nv,...,attr Arguments passed to \code{\link[igraph]{add_vertices}}. 
 #'   Events added to a dynamic affiliation network should be given time 
 #'   attributes.
-#' @param actors A vector of actor nodes in \code{graph}, to be linked to the 
-#'   new event(s).
-#' @param events A vector of event nodes in \code{graph}, to be linked to the 
-#'   new actor(s).
+#' @param affiliations A vector, or list of length \code{nv} of vectors, of 
+#'   nodes in \code{graph} of mode \emph{not} \code{mode}, to be linked to the
+#'   new node(s).
+#' @param actors A vector, or list of length \code{nv} of vectors, of actor 
+#'   nodes in \code{graph}, to be linked to the new event(s).
+#' @param events A vector, or list of length \code{nv} of vectors, of event 
+#'   nodes in \code{graph}, to be linked to the new actor(s).
 #' @examples
 #' data(women_clique)
 #' plot(prettify_an(add_actors(women_clique, nv = 1, events = c(7, 9))))
@@ -32,44 +37,70 @@
 #'     type = "local"
 #'   )
 #' )
-NULL
-
-#' @rdname mode_addition
 #' @export
-add_actors <- function(graph, nv, ..., attr = list(), events = NULL) {
-  nvids <- vcount(graph) + 1:nv
-  graph <- add_vertices(graph = graph,
-                        nv = nv, ..., attr = c(list(type = FALSE), attr))
-  if (!is.null(events)) {
-    graph <- add_edges(graph = graph, edges = as.vector(t(expand.grid(
-      nvids,
-      as.numeric(V(graph)[events])
-    ))))
+add_modes <- function(
+  graph, mode = 1,
+  nv, ..., attr = list(),
+  affiliations = NULL
+) {
+  stopifnot(is_an(graph))
+  if (is.character(mode)) {
+    mode <- match.arg(mode, c("actors", "events"))
+    mode <- if (mode == "actors") 1 else 2
+  } else {
+    mode <- as.numeric(mode)
   }
-  as_an(graph)
-}
-
-#' @rdname mode_addition
-#' @export
-add_events <- function(graph, nv, ..., attr = list(), actors = NULL) {
-  nvids <- vcount(graph) + 1:nv
-  is_dyn <- is_dynamic_an(graph)
+  is_dyn <- (mode == 2) & is_dynamic_an(graph)
   if (is_dyn) {
     if (is.null(list(...)[["time"]]) & is.na(match("time", names(attr)))) {
       warning("No 'time' attribute for new event(s) in a dynamic graph.")
     }
   }
-  graph <- add_vertices(graph = graph,
-                        nv = nv, ..., attr = c(list(type = TRUE), attr))
-  if (!is.null(actors)) {
-    graph <- add_edges(graph = graph, edges = as.vector(t(expand.grid(
-      as.numeric(V(graph)[actors]),
-      nvids
-    ))))
+  nvids <- vcount(graph) + 1:nv
+  graph <- add_vertices(
+    graph = graph,
+    nv = nv, ...,
+    attr = c(list(type = as.logical(mode - 1)), attr)
+  )
+  if (!is.null(affiliations)) {
+    stopifnot(all(V(graph)[unlist(affiliations)]$type == as.logical(2 - mode)))
+    edges_to_add <- if (is.list(affiliations)) {
+      stopifnot(length(affiliations) == nv)
+      as.vector(do.call(cbind, lapply(1:nv, function(i) rbind(
+        nvids[i],
+        as.numeric(V(graph)[affiliations[[i]]])
+      ))))
+    } else {
+      as.vector(t(expand.grid(
+        nvids,
+        as.numeric(V(graph)[affiliations])
+      )))
+    }
+    graph <- add_edges(graph = graph, edges = edges_to_add)
   }
   if (is_dyn) {
     return(as_dynamic_an(graph))
   } else {
     return(as_an(graph))
   }
+}
+
+#' @rdname mode_addition
+#' @export
+add_actors <- function(graph, nv, ..., attr = list(), events = NULL) {
+  add_modes(
+    graph = graph, mode = 1,
+    nv = nv, ..., attr = attr,
+    affiliations = events
+  )
+}
+
+#' @rdname mode_addition
+#' @export
+add_events <- function(graph, nv, ..., attr = list(), actors = NULL) {
+  add_modes(
+    graph = graph, mode = 2,
+    nv = nv, ..., attr = attr,
+    affiliations = actors
+  )
 }

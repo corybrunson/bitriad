@@ -172,7 +172,7 @@ triad_census_full_projection <- function(
   # Drop trivial cases
   if (vcount(graph) == 0) return(matrix(0, nrow = 0, ncol = 0))
   # Create projection
-  proj <- actor_projection(graph, name = 'id')
+  proj <- actor_projection(graph, name = NA)
   
   # Find maximum values of x and of w
   max.x <- max(E(proj)$weight)
@@ -310,7 +310,7 @@ triad_census_difference_projection <- function(
   }
   
   # Create one-mode projection
-  proj <- actor_projection(graph, name = 'id')
+  proj <- actor_projection(graph, name = NA)
   # Leverage one-mode triad census for zero- or one-edged triads
   C[1:2, 1] <- simple_triad_census(proj)[1:2]
   if(sum(C) == choose(n, 3)) return(C)
@@ -436,7 +436,7 @@ triad_census_binary_projection <- function(
   }
   
   # Create one-mode projection
-  proj <- actor_projection(graph, name = 'id')
+  proj <- actor_projection(graph, name = NA)
   # Leverage one-mode triad census
   C[1:3, 1] <- simple_triad_census(proj)[1:3]
   if(sum(C) == choose(n, 3)) return(C)
