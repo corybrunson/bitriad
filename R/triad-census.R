@@ -139,9 +139,10 @@ triad_census_full <- function(
 }
 
 #' @rdname triad_census
-triad_census_full_batagelj_mrvar <- function(graph, long = FALSE) {
+triad_census_full_batagelj_mrvar <- function(graph, long = NULL) {
   int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
+  if (is.null(long)) long <- triad_count > int_max
   if (!long) {
     if (triad_count > int_max) {
       warning("Number of triads is greater than integer storage limit.")
@@ -273,7 +274,7 @@ triad_census_difference <- function(
 }
 
 #' @rdname triad_census
-triad_census_difference_batagelj_mrvar <- function(graph, long = FALSE) {
+triad_census_difference_batagelj_mrvar <- function(graph, long = NULL) {
   int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
   if (!long) {
@@ -399,7 +400,7 @@ triad_census_binary <- function(
 }
 
 #' @rdname triad_census
-triad_census_binary_batagelj_mrvar <- function(graph, long = FALSE) {
+triad_census_binary_batagelj_mrvar <- function(graph, long = NULL) {
   int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
   if (!long) {

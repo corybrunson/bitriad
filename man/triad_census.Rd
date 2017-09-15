@@ -30,14 +30,14 @@ triad.census.an(...)
 
 triad_census_full(graph, method = "batagelj_mrvar", ..., add.names = FALSE)
 
-triad_census_full_batagelj_mrvar(graph, long = FALSE)
+triad_census_full_batagelj_mrvar(graph, long = NULL)
 
 triad_census_full_projection(graph, verbose = FALSE)
 
 triad_census_difference(graph, method = "batagelj_mrvar", ...,
   add.names = FALSE)
 
-triad_census_difference_batagelj_mrvar(graph, long = FALSE)
+triad_census_difference_batagelj_mrvar(graph, long = NULL)
 
 triad_census_difference_projection(graph)
 
@@ -48,7 +48,7 @@ unif.triad.census(graph)
 triad_census_binary(graph, method = "batagelj_mrvar", ...,
   add.names = FALSE)
 
-triad_census_binary_batagelj_mrvar(graph, long = FALSE)
+triad_census_binary_batagelj_mrvar(graph, long = NULL)
 
 triad_census_binary_projection(graph, verbose = FALSE)
 
