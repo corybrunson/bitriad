@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // https://stackoverflow.com/a/9331125
-unsigned choose_C(unsigned n, unsigned k) {
+int choose_C(int n, int k) {
   
   if (k > n) return 0;
   if (k * 2 > n) k = n - k;
@@ -16,10 +16,6 @@ unsigned choose_C(unsigned n, unsigned k) {
   }
   
   return res;
-}
-
-unsigned tetrahedral_C(unsigned n) {
-  return choose_C(n + 2, 3);
 }
 
 // Combinatorial bijections for full triad census indexing

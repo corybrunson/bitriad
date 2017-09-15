@@ -18,9 +18,12 @@
 
 #' @name triad_census
 #' @family triad census functions
-#' @seealso Original \strong{igraph} functions:
+#' @seealso Original \strong{igraph} functions: 
 #'   \code{\link[igraph]{triad_census}}
 #' @param graph An \strong{igraph} object, usually an affiliation network.
+#' @param ... Additional arguments passed to the \code{method} function.
+#' @param add.names Logical; whether to label the rows and columns of the output
+#'   matrix.
 #' @param scheme Character; the type of triad census to calculate, matched to 
 #'   \code{"full"}, \code{"difference"} (also \code{"uniformity"}), 
 #'   \code{"binary"} (also \code{"structural"}), or \code{"simple"}.
@@ -29,16 +32,15 @@
 #'   inefficient but reliable implementation in R from the first package version
 #'   that invokes the \code{\link{simple_triad_census}} of the 
 #'   \code{\link{actor_projection}} of \code{graph}.
-#' @param ... Additional arguments passed to the \code{method} function.
-#' @param add.names Logical; whether to label the rows and columns of the output
-#'   matrix.
+#' @param long Logical; whether to double the integer precision of census
+#'   entries \emph{other than empty triads} (using a C++ hack).
 #' @param verbose Logical; whether to display progress bars.
 #' @return A matrix counts of triad congruence classes, with row indices 
 #'   reflecting pairwise exclusive events and column indices reflecting 
 #'   triadwise events.
 #' @examples
 #' data(women_clique)
-#' (tc <- triad_census_an(women_clique, add.names = TRUE))
+#' (tc <- triad_census(women_clique, add.names = TRUE))
 #' sum(tc) == choose(vcount(actor_projection(women_clique)), 3)
 #' @export
 triad_census <- function(graph, ..., add.names = FALSE) {
@@ -137,30 +139,32 @@ triad_census_full <- function(
 }
 
 #' @rdname triad_census
-triad_census_full_batagelj_mrvar <- function(
-  graph
-) {
+triad_census_full_batagelj_mrvar <- function(graph, long = NULL) {
+  int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
-  if (triad_count <= .Machine$integer.max) {
-    return(triad_census_full_batagelj_mrvar_C(
-      el = as_edgelist(graph, names = FALSE)
-    ))
+  if (is.null(long)) long <- triad_count > int_max
+  if (!long) {
+    if (triad_count > int_max) {
+      warning("Number of triads is greater than integer storage limit.")
+    }
+    tc <- triad_census_full_batagelj_mrvar_C(
+      el = as_edgelist(graph, names = FALSE),
+      na = actor_count(graph)
+    )
   } else {
     tc_long <- triad_census_full_batagelj_mrvar_long_C(
-      el = as_edgelist(graph, names = FALSE)
+      el = as_edgelist(graph, names = FALSE),
+      na = actor_count(graph)
     )
-    message("Number of triads is greater than integer storage limit; ",
-            "output will be stored as a double.")
     for (i in 1:length(tc_long)) {
       storage.mode(tc_long[[i]]) <- "double"
     }
-    int_max <- Rcpp::evalCpp("INT_MAX")
     tc <- Reduce("+", lapply(1:length(tc_long), function(i) {
       tc_long[[i]] * ((int_max + 1) ^ (i - 1))
     }))
-    tc[1, 1] <- triad_count - sum(tc)
-    return(tc)
   }
+  tc[1, 1] <- triad_count - sum(tc)
+  return(tc)
 }
 
 #' @rdname triad_census
@@ -229,7 +233,9 @@ triad_census_full_projection <- function(
   stopifnot(sum(C) == choose(vcount(proj), 3))
   # Clear names
   colnames(C) <- NULL
-  as.matrix(C)
+  C <- as.matrix(C)
+  attr(C, "dimnames") <- NULL
+  C
 }
 
 #' @rdname triad_census
@@ -268,30 +274,31 @@ triad_census_difference <- function(
 }
 
 #' @rdname triad_census
-triad_census_difference_batagelj_mrvar <- function(
-  graph
-) {
+triad_census_difference_batagelj_mrvar <- function(graph, long = NULL) {
+  int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
-  if (triad_count <= .Machine$integer.max) {
-    return(triad_census_difference_batagelj_mrvar_C(
-      el = as_edgelist(graph, names = FALSE)
-    ))
+  if (!long) {
+    if (triad_count > int_max) {
+      warning("Number of triads is greater than integer storage limit.")
+    }
+    tc <- triad_census_difference_batagelj_mrvar_C(
+      el = as_edgelist(graph, names = FALSE),
+      na = actor_count(graph)
+    )
   } else {
     tc_long <- triad_census_difference_batagelj_mrvar_long_C(
-      el = as_edgelist(graph, names = FALSE)
+      el = as_edgelist(graph, names = FALSE),
+      na = actor_count(graph)
     )
-    message("Number of triads is greater than integer storage limit; ",
-            "output will be stored as a double.")
     for (i in 1:length(tc_long)) {
       storage.mode(tc_long[[i]]) <- "double"
     }
-    int_max <- Rcpp::evalCpp("INT_MAX")
     tc <- Reduce("+", lapply(1:length(tc_long), function(i) {
       tc_long[[i]] * ((int_max + 1) ^ (i - 1))
     }))
-    tc[1, 1] <- triad_count - sum(tc)
-    return(tc)
   }
+  tc[1, 1] <- triad_count - sum(tc)
+  return(tc)
 }
 
 #' @rdname triad_census
@@ -393,30 +400,31 @@ triad_census_binary <- function(
 }
 
 #' @rdname triad_census
-triad_census_binary_batagelj_mrvar <- function(
-  graph
-) {
+triad_census_binary_batagelj_mrvar <- function(graph, long = NULL) {
+  int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
-  if (triad_count <= .Machine$integer.max) {
-    return(triad_census_binary_batagelj_mrvar_C(
-      el = as_edgelist(graph, names = FALSE)
-    ))
+  if (!long) {
+    if (triad_count > int_max) {
+      warning("Number of triads is greater than integer storage limit.")
+    }
+    tc <- triad_census_binary_batagelj_mrvar_C(
+      el = as_edgelist(graph, names = FALSE),
+      na = actor_count(graph)
+    )
   } else {
     tc_long <- triad_census_binary_batagelj_mrvar_long_C(
-      el = as_edgelist(graph, names = FALSE)
+      el = as_edgelist(graph, names = FALSE),
+      na = actor_count(graph)
     )
-    message("Number of triads is greater than integer storage limit; ",
-            "output will be stored as a double.")
     for (i in 1:length(tc_long)) {
       storage.mode(tc_long[[i]]) <- "double"
     }
-    int_max <- Rcpp::evalCpp("INT_MAX")
     tc <- Reduce("+", lapply(1:length(tc_long), function(i) {
       tc_long[[i]] * ((int_max + 1) ^ (i - 1))
     }))
-    tc[1, 1] <- triad_count - sum(tc)
-    return(tc)
   }
+  tc[1, 1] <- triad_count - sum(tc)
+  return(tc)
 }
 
 #' @rdname triad_census

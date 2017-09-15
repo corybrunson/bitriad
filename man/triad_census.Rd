@@ -30,14 +30,14 @@ triad.census.an(...)
 
 triad_census_full(graph, method = "batagelj_mrvar", ..., add.names = FALSE)
 
-triad_census_full_batagelj_mrvar(graph)
+triad_census_full_batagelj_mrvar(graph, long = NULL)
 
 triad_census_full_projection(graph, verbose = FALSE)
 
 triad_census_difference(graph, method = "batagelj_mrvar", ...,
   add.names = FALSE)
 
-triad_census_difference_batagelj_mrvar(graph)
+triad_census_difference_batagelj_mrvar(graph, long = NULL)
 
 triad_census_difference_projection(graph)
 
@@ -48,7 +48,7 @@ unif.triad.census(graph)
 triad_census_binary(graph, method = "batagelj_mrvar", ...,
   add.names = FALSE)
 
-triad_census_binary_batagelj_mrvar(graph)
+triad_census_binary_batagelj_mrvar(graph, long = NULL)
 
 triad_census_binary_projection(graph, verbose = FALSE)
 
@@ -77,6 +77,9 @@ matrix.}
 inefficient but reliable implementation in R from the first package version
 that invokes the \code{\link{simple_triad_census}} of the 
 \code{\link{actor_projection}} of \code{graph}.}
+
+\item{long}{Logical; whether to double the integer precision of census
+entries \emph{other than empty triads} (using a C++ hack).}
 
 \item{verbose}{Logical; whether to display progress bars.}
 }
@@ -165,7 +168,7 @@ The \code{triad_census_*} functions implement the several triad
 
 \examples{
 data(women_clique)
-(tc <- triad_census_an(women_clique, add.names = TRUE))
+(tc <- triad_census(women_clique, add.names = TRUE))
 sum(tc) == choose(vcount(actor_projection(women_clique)), 3)
 }
 \references{
@@ -180,7 +183,7 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-Original \strong{igraph} functions:
+Original \strong{igraph} functions: 
   \code{\link[igraph]{triad_census}}
 
 Other triad census functions: \code{\link{project_census}},

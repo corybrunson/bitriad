@@ -1291,7 +1291,7 @@ List dynamic_wedges_x0w0m0c0(
 // internally constructs actor list and expands output matrix as needed
 // [[Rcpp::export]]
 IntegerMatrix triad_census_full_batagelj_mrvar_C(
-    IntegerMatrix el
+    IntegerMatrix el, int na
 ) {
   
   // Loop indices
@@ -1367,10 +1367,10 @@ IntegerMatrix triad_census_full_batagelj_mrvar_C(
       // Inclusive event count w
       w = 0;
       // Increment matrix entry
-      if (INT_MAX - tc(lambda_i, w) < actors.size() - actors_r.size()) {
+      if (INT_MAX - tc(lambda_i, w) < na - actors_r.size()) {
         stop("Integer overflow in non-empty triad isomorphism class.");
       }
-      tc(lambda_i, w) += actors.size() - actors_r.size();
+      tc(lambda_i, w) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
         if ((actors_r[k] == actors[i]) |
@@ -1454,7 +1454,7 @@ IntegerMatrix triad_census_full_batagelj_mrvar_C(
     }
   }
   // Increment matrix entry
-  tc(lambda_i, w) += (choose_C(actors.size(), 3) - tot);
+  //tc(lambda_i, w) = choose_C(na, 3) - tot;
   
   // Subset matrix according to 'max_i' and 'max_w'
   IntegerVector max_lambda = index_partition(max_i);
@@ -1475,7 +1475,7 @@ IntegerMatrix triad_census_full_batagelj_mrvar_C(
 // performed on an edgelist
 // [[Rcpp::export]]
 List triad_census_full_batagelj_mrvar_long_C(
-    IntegerMatrix el
+    IntegerMatrix el, int na
 ) {
   
   // Loop indices
@@ -1554,13 +1554,13 @@ List triad_census_full_batagelj_mrvar_long_C(
       // Inclusive event count w
       w = 0;
       // Increment matrix entry
-      if (INT_MAX - tc(lambda_i, w) < actors.size() - actors_r.size()) {
+      if (INT_MAX - tc(lambda_i, w) < na - actors_r.size()) {
         if (INT_MAX - tc1(lambda_i, w) < 1) {
           stop("Integer overflow in non-empty triad isomorphism class.");
         }
         tc1(lambda_i, w) += 1;
       }
-      tc(lambda_i, w) += actors.size() - actors_r.size();
+      tc(lambda_i, w) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
         if ((actors_r[k] == actors[i]) |
@@ -1657,7 +1657,7 @@ List triad_census_full_batagelj_mrvar_long_C(
 // internally constructs actor list
 // [[Rcpp::export]]
 IntegerMatrix triad_census_difference_batagelj_mrvar_C(
-    IntegerMatrix el
+    IntegerMatrix el, int na
 ) {
   
   // Loop indices
@@ -1714,10 +1714,10 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
-      if (INT_MAX - tc(1, 0) < actors.size() - actors_r.size()) {
+      if (INT_MAX - tc(1, 0) < na - actors_r.size()) {
         stop("Integer overflow in non-empty triad isomorphism class.");
       }
-      tc(1, 0) += actors.size() - actors_r.size();
+      tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
         if ((actors_r[k] == actors[i]) |
@@ -1784,7 +1784,7 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
     }
   }
   // Tally zero-link triads
-  tc(0, 0) += (choose_C(actors.size(), 3) - tot);
+  //tc(0, 0) = choose_C(na, 3) - tot;
   
   return tc;
 }
@@ -1793,7 +1793,7 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
 // performed on an edgelist
 // [[Rcpp::export]]
 List triad_census_difference_batagelj_mrvar_long_C(
-    IntegerMatrix el
+    IntegerMatrix el, int na
 ) {
   
   // Loop indices
@@ -1852,13 +1852,13 @@ List triad_census_difference_batagelj_mrvar_long_C(
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
-      if (INT_MAX - tc(1, 0) < actors.size() - actors_r.size()) {
+      if (INT_MAX - tc(1, 0) < na - actors_r.size()) {
         if (INT_MAX - tc1(1, 0) < 1) {
           stop("Integer overflow in non-empty triad isomorphism class.");
         }
         tc1(1, 0) += 1;
       }
-      tc(1, 0) += actors.size() - actors_r.size();
+      tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
         if ((actors_r[k] == actors[i]) |
@@ -1928,7 +1928,7 @@ List triad_census_difference_batagelj_mrvar_long_C(
 // internally constructs actor list
 // [[Rcpp::export]]
 IntegerMatrix triad_census_binary_batagelj_mrvar_C(
-    IntegerMatrix el
+    IntegerMatrix el, int na
 ) {
   
   // Loop indices
@@ -1984,10 +1984,10 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
-      if (INT_MAX - tc(1, 0) < actors.size() - actors_r.size()) {
+      if (INT_MAX - tc(1, 0) < na - actors_r.size()) {
         stop("Integer overflow in non-empty triad isomorphism class.");
       }
-      tc(1, 0) += actors.size() - actors_r.size();
+      tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
         if ((actors_r[k] == actors[i]) |
@@ -2049,7 +2049,7 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
     }
   }
   // Tally zero-link triads
-  tc(0, 0) += (choose_C(actors.size(), 3) - tot);
+  //tc(0, 0) = choose_C(na, 3) - tot;
   
   return tc;
 }
@@ -2058,7 +2058,7 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
 // performed on an edgelist
 // [[Rcpp::export]]
 List triad_census_binary_batagelj_mrvar_long_C(
-    IntegerMatrix el
+    IntegerMatrix el, int na
 ) {
   
   // Loop indices
@@ -2116,13 +2116,13 @@ List triad_census_binary_batagelj_mrvar_long_C(
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
-      if (INT_MAX - tc(1, 0) < actors.size() - actors_r.size()) {
+      if (INT_MAX - tc(1, 0) < na - actors_r.size()) {
         if (INT_MAX - tc1(1, 0) < 1) {
           stop("Integer overflow in non-empty triad isomorphism class.");
         }
         tc1(1, 0) += 1;
       }
-      tc(1, 0) += actors.size() - actors_r.size();
+      tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
         if ((actors_r[k] == actors[i]) |

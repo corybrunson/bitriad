@@ -148,68 +148,74 @@ BEGIN_RCPP
 END_RCPP
 }
 // triad_census_full_batagelj_mrvar_C
-IntegerMatrix triad_census_full_batagelj_mrvar_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_full_batagelj_mrvar_C(SEXP elSEXP) {
+IntegerMatrix triad_census_full_batagelj_mrvar_C(IntegerMatrix el, int na);
+RcppExport SEXP _bitriad_triad_census_full_batagelj_mrvar_C(SEXP elSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_full_batagelj_mrvar_C(el));
+    Rcpp::traits::input_parameter< int >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_full_batagelj_mrvar_C(el, na));
     return rcpp_result_gen;
 END_RCPP
 }
 // triad_census_full_batagelj_mrvar_long_C
-List triad_census_full_batagelj_mrvar_long_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_full_batagelj_mrvar_long_C(SEXP elSEXP) {
+List triad_census_full_batagelj_mrvar_long_C(IntegerMatrix el, int na);
+RcppExport SEXP _bitriad_triad_census_full_batagelj_mrvar_long_C(SEXP elSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_full_batagelj_mrvar_long_C(el));
+    Rcpp::traits::input_parameter< int >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_full_batagelj_mrvar_long_C(el, na));
     return rcpp_result_gen;
 END_RCPP
 }
 // triad_census_difference_batagelj_mrvar_C
-IntegerMatrix triad_census_difference_batagelj_mrvar_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_difference_batagelj_mrvar_C(SEXP elSEXP) {
+IntegerMatrix triad_census_difference_batagelj_mrvar_C(IntegerMatrix el, int na);
+RcppExport SEXP _bitriad_triad_census_difference_batagelj_mrvar_C(SEXP elSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_difference_batagelj_mrvar_C(el));
+    Rcpp::traits::input_parameter< int >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_difference_batagelj_mrvar_C(el, na));
     return rcpp_result_gen;
 END_RCPP
 }
 // triad_census_difference_batagelj_mrvar_long_C
-List triad_census_difference_batagelj_mrvar_long_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_difference_batagelj_mrvar_long_C(SEXP elSEXP) {
+List triad_census_difference_batagelj_mrvar_long_C(IntegerMatrix el, int na);
+RcppExport SEXP _bitriad_triad_census_difference_batagelj_mrvar_long_C(SEXP elSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_difference_batagelj_mrvar_long_C(el));
+    Rcpp::traits::input_parameter< int >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_difference_batagelj_mrvar_long_C(el, na));
     return rcpp_result_gen;
 END_RCPP
 }
 // triad_census_binary_batagelj_mrvar_C
-IntegerMatrix triad_census_binary_batagelj_mrvar_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_binary_batagelj_mrvar_C(SEXP elSEXP) {
+IntegerMatrix triad_census_binary_batagelj_mrvar_C(IntegerMatrix el, int na);
+RcppExport SEXP _bitriad_triad_census_binary_batagelj_mrvar_C(SEXP elSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_binary_batagelj_mrvar_C(el));
+    Rcpp::traits::input_parameter< int >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_binary_batagelj_mrvar_C(el, na));
     return rcpp_result_gen;
 END_RCPP
 }
 // triad_census_binary_batagelj_mrvar_long_C
-List triad_census_binary_batagelj_mrvar_long_C(IntegerMatrix el);
-RcppExport SEXP _bitriad_triad_census_binary_batagelj_mrvar_long_C(SEXP elSEXP) {
+List triad_census_binary_batagelj_mrvar_long_C(IntegerMatrix el, int na);
+RcppExport SEXP _bitriad_triad_census_binary_batagelj_mrvar_long_C(SEXP elSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type el(elSEXP);
-    rcpp_result_gen = Rcpp::wrap(triad_census_binary_batagelj_mrvar_long_C(el));
+    Rcpp::traits::input_parameter< int >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(triad_census_binary_batagelj_mrvar_long_C(el, na));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -333,12 +339,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_bitriad_wedges_x0w0m2c1", (DL_FUNC) &_bitriad_wedges_x0w0m2c1, 2},
     {"_bitriad_dynamic_wedges_x0w0m20c02", (DL_FUNC) &_bitriad_dynamic_wedges_x0w0m20c02, 7},
     {"_bitriad_dynamic_wedges_x0w0m0c0", (DL_FUNC) &_bitriad_dynamic_wedges_x0w0m0c0, 7},
-    {"_bitriad_triad_census_full_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_full_batagelj_mrvar_C, 1},
-    {"_bitriad_triad_census_full_batagelj_mrvar_long_C", (DL_FUNC) &_bitriad_triad_census_full_batagelj_mrvar_long_C, 1},
-    {"_bitriad_triad_census_difference_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_difference_batagelj_mrvar_C, 1},
-    {"_bitriad_triad_census_difference_batagelj_mrvar_long_C", (DL_FUNC) &_bitriad_triad_census_difference_batagelj_mrvar_long_C, 1},
-    {"_bitriad_triad_census_binary_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_C, 1},
-    {"_bitriad_triad_census_binary_batagelj_mrvar_long_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_long_C, 1},
+    {"_bitriad_triad_census_full_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_full_batagelj_mrvar_C, 2},
+    {"_bitriad_triad_census_full_batagelj_mrvar_long_C", (DL_FUNC) &_bitriad_triad_census_full_batagelj_mrvar_long_C, 2},
+    {"_bitriad_triad_census_difference_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_difference_batagelj_mrvar_C, 2},
+    {"_bitriad_triad_census_difference_batagelj_mrvar_long_C", (DL_FUNC) &_bitriad_triad_census_difference_batagelj_mrvar_long_C, 2},
+    {"_bitriad_triad_census_binary_batagelj_mrvar_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_C, 2},
+    {"_bitriad_triad_census_binary_batagelj_mrvar_long_C", (DL_FUNC) &_bitriad_triad_census_binary_batagelj_mrvar_long_C, 2},
     {"_bitriad_wedges_from_binary_census_C", (DL_FUNC) &_bitriad_wedges_from_binary_census_C, 5},
     {"_bitriad_index_subset", (DL_FUNC) &_bitriad_index_subset, 1},
     {"_bitriad_subset_index", (DL_FUNC) &_bitriad_subset_index, 1},
