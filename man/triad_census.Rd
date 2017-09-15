@@ -63,7 +63,8 @@ simple.triad.census(graph, add.names = FALSE)
 \arguments{
 \item{graph}{An \strong{igraph} object, usually an affiliation network.}
 
-\item{...}{Additional arguments passed to the \code{method} function.}
+\item{...}{Additional arguments (currently \code{long} or \code{verbose})
+passed to the \code{method} function.}
 
 \item{add.names}{Logical; whether to label the rows and columns of the output
 matrix.}
@@ -78,7 +79,7 @@ inefficient but reliable implementation in R from the first package version
 that invokes the \code{\link{simple_triad_census}} of the 
 \code{\link{actor_projection}} of \code{graph}.}
 
-\item{long}{Logical; whether to double the integer precision of census
+\item{long}{Logical; whether to double the integer precision of census 
 entries \emph{other than empty triads} (using a C++ hack).}
 
 \item{verbose}{Logical; whether to display progress bars.}

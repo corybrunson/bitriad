@@ -21,7 +21,8 @@
 #' @seealso Original \strong{igraph} functions: 
 #'   \code{\link[igraph]{triad_census}}
 #' @param graph An \strong{igraph} object, usually an affiliation network.
-#' @param ... Additional arguments passed to the \code{method} function.
+#' @param ... Additional arguments (currently \code{long} or \code{verbose})
+#'   passed to the \code{method} function.
 #' @param add.names Logical; whether to label the rows and columns of the output
 #'   matrix.
 #' @param scheme Character; the type of triad census to calculate, matched to 
@@ -32,7 +33,7 @@
 #'   inefficient but reliable implementation in R from the first package version
 #'   that invokes the \code{\link{simple_triad_census}} of the 
 #'   \code{\link{actor_projection}} of \code{graph}.
-#' @param long Logical; whether to double the integer precision of census
+#' @param long Logical; whether to double the integer precision of census 
 #'   entries \emph{other than empty triads} (using a C++ hack).
 #' @param verbose Logical; whether to display progress bars.
 #' @return A matrix counts of triad congruence classes, with row indices 
@@ -277,6 +278,7 @@ triad_census_difference <- function(
 triad_census_difference_batagelj_mrvar <- function(graph, long = NULL) {
   int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
+  if (is.null(long)) long <- triad_count > int_max
   if (!long) {
     if (triad_count > int_max) {
       warning("Number of triads is greater than integer storage limit.")
@@ -403,6 +405,7 @@ triad_census_binary <- function(
 triad_census_binary_batagelj_mrvar <- function(graph, long = NULL) {
   int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
+  if (is.null(long)) long <- triad_count > int_max
   if (!long) {
     if (triad_count > int_max) {
       warning("Number of triads is greater than integer storage limit.")
@@ -459,15 +462,20 @@ triad_census_binary_projection <- function(
   C[4, 1] <- length(w0)
   
   # Restrict to triads with 3-actor events
-  t <- t[, -w0]
-  w <- w[-w0]
+  if (length(w0) > 0) {
+    t <- t[, -w0]
+    w <- w[-w0]
+  }
   # Compute the number of actor pairs with exclusive events in each
-  l <- sapply(1:ncol(t), function(j) sum(c(
-    edgeWeight(proj, c(t[1, j], t[2, j])),
-    edgeWeight(proj, c(t[2, j], t[3, j])),
-    edgeWeight(proj, c(t[1, j], t[3, j]))) > w[j]))
+  if (ncol(t) > 0) {
+    l <- sapply(1:ncol(t), function(j) sum(c(
+      edgeWeight(proj, c(t[1, j], t[2, j])),
+      edgeWeight(proj, c(t[2, j], t[3, j])),
+      edgeWeight(proj, c(t[1, j], t[3, j]))) > w[j]))
+  }
   C[, 2] <- tabulate(l + 1, nbins = 4)
-  
+  print(C)
+  print(n)
   # Return the matrix
   stopifnot(sum(C) == choose(n, 3))
   C
