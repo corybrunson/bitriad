@@ -21,7 +21,8 @@
 #' @seealso Original \strong{igraph} functions: 
 #'   \code{\link[igraph]{triad_census}}
 #' @param graph An \strong{igraph} object, usually an affiliation network.
-#' @param ... Additional arguments passed to the \code{method} function.
+#' @param ... Additional arguments (currently \code{long} or \code{verbose})
+#'   passed to the \code{method} function.
 #' @param add.names Logical; whether to label the rows and columns of the output
 #'   matrix.
 #' @param scheme Character; the type of triad census to calculate, matched to 
@@ -32,7 +33,7 @@
 #'   inefficient but reliable implementation in R from the first package version
 #'   that invokes the \code{\link{simple_triad_census}} of the 
 #'   \code{\link{actor_projection}} of \code{graph}.
-#' @param long Logical; whether to double the integer precision of census
+#' @param long Logical; whether to double the integer precision of census 
 #'   entries \emph{other than empty triads} (using a C++ hack).
 #' @param verbose Logical; whether to display progress bars.
 #' @return A matrix counts of triad congruence classes, with row indices 
@@ -277,6 +278,7 @@ triad_census_difference <- function(
 triad_census_difference_batagelj_mrvar <- function(graph, long = NULL) {
   int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
+  if (is.null(long)) long <- triad_count > int_max
   if (!long) {
     if (triad_count > int_max) {
       warning("Number of triads is greater than integer storage limit.")
@@ -403,6 +405,7 @@ triad_census_binary <- function(
 triad_census_binary_batagelj_mrvar <- function(graph, long = NULL) {
   int_max <- Rcpp::evalCpp("INT_MAX")
   triad_count <- choose(actor_count(graph), 3)
+  if (is.null(long)) long <- triad_count > int_max
   if (!long) {
     if (triad_count > int_max) {
       warning("Number of triads is greater than integer storage limit.")
