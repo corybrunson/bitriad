@@ -462,15 +462,20 @@ triad_census_binary_projection <- function(
   C[4, 1] <- length(w0)
   
   # Restrict to triads with 3-actor events
-  t <- t[, -w0]
-  w <- w[-w0]
+  if (length(w0) > 0) {
+    t <- t[, -w0]
+    w <- w[-w0]
+  }
   # Compute the number of actor pairs with exclusive events in each
-  l <- sapply(1:ncol(t), function(j) sum(c(
-    edgeWeight(proj, c(t[1, j], t[2, j])),
-    edgeWeight(proj, c(t[2, j], t[3, j])),
-    edgeWeight(proj, c(t[1, j], t[3, j]))) > w[j]))
+  if (ncol(t) > 0) {
+    l <- sapply(1:ncol(t), function(j) sum(c(
+      edgeWeight(proj, c(t[1, j], t[2, j])),
+      edgeWeight(proj, c(t[2, j], t[3, j])),
+      edgeWeight(proj, c(t[1, j], t[3, j]))) > w[j]))
+  }
   C[, 2] <- tabulate(l + 1, nbins = 4)
-  
+  print(C)
+  print(n)
   # Return the matrix
   stopifnot(sum(C) == choose(n, 3))
   C
