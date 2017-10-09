@@ -115,6 +115,8 @@ triad_closure_from_triads <- function(
     measure <- match.arg(measure, c("classical", "watts_strogatz",
                                     "twomode", "opsahl",
                                     "unconnected", "liebig_rao_0",
+                                    "sparsely_connected", "liebig_rao_1",
+                                    "highly_connected", "liebig_rao_2",
                                     "completely_connected", "liebig_rao_3",
                                     "exclusive"))
     get(paste0("triad_wedges_", measure))
@@ -129,7 +131,7 @@ triad_closure_from_triads <- function(
                            ...)
   wedgelist <- stats::aggregate(
     wedgetally,
-    by = triadtally["q", ],
+    by = list(q = triadtally["q", ]),
     FUN = sum
   )[, -1]
   wedgeReturn(wedgelist = wedgelist, type = type)

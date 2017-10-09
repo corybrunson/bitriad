@@ -114,10 +114,12 @@ wedges_exclusive <- function(graph, actor) wedges(
 #' @export
 triads <- function(graph, actor) {
   stopifnot(V(graph)[actor]$type == FALSE)
-  centered_triads(
+  ct <- centered_triads(
     el = as_edgelist(graph, names = FALSE),
     q = as.numeric(V(graph)[actor])
   )
+  rownames(ct) <- c("w", "x", "y", "z")
+  ct
 }
 
 #' @rdname wedges
@@ -161,7 +163,7 @@ triad_wedges_unconnected <- triad_wedges_liebig_rao_0
 #' @export
 triad_wedges_liebig_rao_1 <- function(w, x, y, z) cbind(
   wedges = x * y + (x + y) * w,
-  closed = x * y * w + (x + y) * w * z
+  closed = x * y * (w > 0) + (x + y) * w * (z > 0)
 )
 
 #' @rdname wedges
@@ -172,7 +174,7 @@ triad_wedges_sparsely_connected <- triad_wedges_liebig_rao_1
 #' @export
 triad_wedges_liebig_rao_2 <- function(w, x, y, z) cbind(
   wedges = (x + y) * w + w * (w - 1),
-  closed = (x + y) * w * (w - 1) + w * (w - 1) * z
+  closed = (x + y) * w * (w > 1) + w * (w - 1) * (z > 0)
 )
 
 #' @rdname wedges
@@ -183,7 +185,7 @@ triad_wedges_highly_connected <- triad_wedges_liebig_rao_2
 #' @export
 triad_wedges_liebig_rao_3 <- function(w, x, y, z) cbind(
   wedges = w * (w - 1),
-  closed = w * (w - 1) * (w - 2)
+  closed = w * (w - 1) * (w > 2)
 )
 
 #' @rdname wedges
