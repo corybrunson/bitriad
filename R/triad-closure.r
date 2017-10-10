@@ -157,11 +157,13 @@ triad_closure_from_wedges <- function(
   wedges_fun <- if (!is.null(wedges.fun)) {
     wedges.fun
   } else if (!is.null(measure)) {
-    measure <- match.arg(measure, c("classical", "watts_strogatz",
-                                    "twomode", "opsahl",
-                                    "unconnected", "liebig_rao_0",
-                                    "completely_connected", "liebig_rao_3",
-                                    "exclusive"))
+    measure <- match.arg(measure, c(
+      "classical", "watts_strogatz",
+      "twomode", "opsahl",
+      "unconnected", "liebig_rao_0",
+      "completely_connected", "liebig_rao_3",
+      "exclusive"
+    ))
     get(paste0("wedges_", measure))
   } else {
     wedges

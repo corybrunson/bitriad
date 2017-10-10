@@ -47,6 +47,20 @@ census_scheme <- function(census, scheme) {
   scheme
 }
 
+# alcove, wedge, maps, and congruence codes associated with named measures
+measure_codes <- list(
+  classical = c(0, 0, 0, 2),
+  projection = c(0, 0, 0, 2),
+  watts_strogatz = c(0, 0, 0, 2),
+  twomode = c(0, 0, 1, 0),
+  opsahl = c(0, 0, 1, 0),
+  unconnected = c(0, 0, 2, 0),
+  liebig_rao_0 = c(0, 0, 2, 0),
+  completely_connected = c(3, 2, 2, 0),
+  liebig_rao_3 = c(3, 2, 2, 0),
+  exclusive = c(0, 0, 2, 1)
+)
+
 # compress a wedgelist into a desired statistic
 wedgeReturn <- function(wedgelist, type, add.names) {
   

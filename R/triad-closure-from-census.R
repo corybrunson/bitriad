@@ -24,110 +24,301 @@
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
 #' @param measure Character; the measure of triad closure (matched to 
-#'   "classical", "watts_strogatz", "twomode", "opsahl", "unconnected",
-#'   "liebig_rao_0", "completely_connected", "liebig_rao_3", "exclusive",
-#'   "allact", "indequ", "indstr", "injact", "injequ", or "injstr"). Overrides
+#'   "classical", "watts_strogatz", "twomode", "opsahl", "unconnected", 
+#'   "liebig_rao_0", "completely_connected", "liebig_rao_3", "exclusive", 
+#'   "allact", "indequ", "indstr", "injact", "injequ", or "injstr"). Overrides 
 #'   \code{alcove}, \code{wedge}, \code{maps}, and \code{congruence}.
-#' @param open_fun,closed_fun Functions to calculate the open and closed wedge 
-#'   count for a triad, in order to calculate a custom measure of triad closure.
-#'   Override \code{measure}.
+#' @param open.fun,closed.fun Functions to calculate the open and closed 
+#'   wedge count for a triad (when \code{scheme} is \code{"full"}) or a triad
+#'   census (otherwise), in order to calculate a custom measure of triad 
+#'   closure. Override \code{measure}.
 #' @param counts Logical; whether to return open and closed wedge counts 
-#'   \eqn{w_o} and \eqn{w_c} instead of the quotient \eqn{\frac{w_c}{w_o+w_c}}.
-#' @seealso triad census functions at \code{\link{triad_census_an}} and triad 
-#'   closure functions at \code{\link{triad_closure_an}}.
+#'   instead of the quotient.
 #' @export
-triad_closure_from_census_bottomup <- function(
+triad_closure_from_census <- function(
   census, scheme = NULL,
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
   measure = NULL,
-  open_fun, closed_fun,
+  open.fun = NULL, closed.fun = NULL,
   counts = FALSE
 ) {
-  warning("'triad_closure_from_census_bottomup' is experimental.")
+  #warning("'triad_closure_from_census' is experimental.")
   
   # put into matrix form (single column if vector)
   census <- as.matrix(census)
   # identify the census scheme
   scheme <- census_scheme(census = census, scheme = scheme)
   
-  # use 'open_fun' and 'closed_fun' if provided
-  if (!missing(open_fun) & !missing(closed_fun)) {
-    if (!is.null(measure)) {
-      warning("'open_fun' and 'closed_fun' are provided, ",
-              "so 'measure' will be ignored.")
-    }
-    wedgecount <- wedges_from_census(
-      census, closed_fun = closed_fun, open_fun = open_fun
-    )
-    if (counts) {
-      return(wedgecount)
-    } else {
-      return(unname(wedgecount[2] / (wedgecount[1] + wedgecount[2])))
-    }
-  }
   # replace a named measure with the corresponding specifications
   if (!is.null(measure)) {
-    mc <- measure_codes[[measure]]
-    return(triad_closure_from_census_bottomup(
+    if (!is.null(open.fun) | !is.null(closed.fun)) {
+      stop("Provide either 'measure' or both 'open.fun' and 'closed.fun', ",
+           "but not both.")
+    }
+    measure <- match.arg(measure, c(
+      "classical", "watts_strogatz", "allact",
+      "twomode", "opsahl", "injequ",
+      "unconnected", "liebig_rao_0", "indequ",
+      #"sparsely_connected", "liebig_rao_1",
+      #"highly_connected", "liebig_rao_2",
+      "completely_connected", "liebig_rao_3",
+      "exclusive", "indstr",
+      "injstr",
+      "injact"
+    ))
+    #mc <- measure_codes[[measure]]
+    funs <- get(paste0("wedges_", measure, "_from_", scheme, "_census"))
+    return(triad_closure_from_census(
       census = census, scheme = scheme,
-      alcove = mc[1], wedge = mc[2], maps = mc[3], congruence = mc[4],
+      #alcove = mc[1], wedge = mc[2], maps = mc[3], congruence = mc[4],
+      measure = NULL,
+      open.fun = funs$open, closed.fun = funs$closed,
       counts = counts
     ))
   }
   
-  # calculate wedges from triads using C++ function
-  wedges_from_census_fun <- get(paste0("wedges_from_", scheme, "_census"))
-  wedges_from_census_fun(
+  # calculate wedges from specific census scheme
+  triad_closure_from_census_fun <-
+    get(paste0("triad_closure_from_", scheme, "_census"))
+  triad_closure_from_census_fun(
     census = census,
     alcove = alcove, wedge = wedge, maps = maps, congruence = congruence,
+    open.fun = open.fun, closed.fun = closed.fun,
     counts = counts
   )
 }
 
 #' @rdname triad_closure_from_census
 #' @export
-wedges_from_simple_census <- function(
+triad_closure_from_simple_census <- function(
   census,
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
+  open.fun = NULL, closed.fun = NULL,
   counts = FALSE
 ) {
-  if (alcove != 0 | wedge != 0 | maps != 0 | congruence != 2) {
-    stop("Specified wedges cannot be recovered from a simple census.")
+  if (!is.null(open.fun) & !is.null(closed.fun)) {
+    wedgecount <- c(wedges = open.fun(census), closed = closed.fun(census))
+  } else {
+    if (!is.null(open.fun)) warning("Ignoring 'open.fun'.")
+    if (!is.null(closed.fun)) warning("Ignoring 'closed.fun'.")
+    if (alcove != 0 | wedge != 0 | maps != 0 | congruence != 2) {
+      stop("Specified wedges cannot be recovered from a simple census.")
+    }
+    wedgecount <- as.vector(census)[c(3, 4), 1]
   }
-  wedgecount <- as.vector(census)[c(3, 4), 1]
   if (counts) {
     return(wedgecount)
   } else {
-    return(unname(wedgecount[2] / (wedgecount[1] + wedgecount[2])))
+    return(unname(wedgecount$closed / sum(wedgecount)))
   }
 }
 
 #' @rdname triad_closure_from_census
 #' @export
-wedges_from_binary_census <- function(
+triad_closure_from_binary_census <- function(
   census,
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
+  open.fun = NULL, closed.fun = NULL,
   counts = FALSE
 ) {
-  wedgecount <- wedges_from_binary_census_C(
-    census,
-    alcove = alcove, wedge = wedge, maps = maps, congruence = congruence
-  )
+  if (!is.null(open.fun) & !is.null(closed.fun)) {
+    wedgecount <- c(wedges = open.fun(census), closed = closed.fun(census))
+  } else {
+    stop("Parameterized functions have not yet been implemented.")
+    if (!is.null(open.fun)) warning("Ignoring 'open.fun'.")
+    if (!is.null(closed.fun)) warning("Ignoring 'closed.fun'.")
+    wedgecount <- wedges_from_binary_census_C(
+      census,
+      alcove = alcove, wedge = wedge, maps = maps, congruence = congruence
+    )
+  }
   if (counts) {
     return(wedgecount)
   } else {
-    return(unname(wedgecount[2] / (wedgecount[1] + wedgecount[2])))
+    return(unname(wedgecount$closed / sum(wedgecount)))
   }
 }
 
 #' @rdname triad_closure_from_census
 #' @export
-triad_closure_from_census <- function(
+triad_closure_from_difference_census <- function(
+  census,
+  alcove = 0, wedge = 0, maps = 0, congruence = 0,
+  open.fun = NULL, closed.fun = NULL,
+  counts = FALSE
+) {
+  if (!is.null(open.fun) & !is.null(closed.fun)) {
+    wedgecount <- c(wedges = open.fun(census), closed = closed.fun(census))
+  } else {
+    stop("Parameterized functions have not yet been implemented.")
+  }
+  if (counts) {
+    return(wedgecount)
+  } else {
+    return(unname(wedgecount$closed / sum(wedgecount)))
+  }
+}
+
+#' @rdname triad_closure_from_census
+#' @export
+triad_closure_from_full_census <- function(
+  census,
+  alcove = 0, wedge = 0, maps = 0, congruence = 0,
+  open.fun = NULL, closed.fun = NULL,
+  counts = FALSE
+) {
+  if (is.null(open.fun) | is.null(closed.fun)) {
+    if (!is.null(open.fun)) warning("Ignoring 'open.fun'.")
+    if (!is.null(closed.fun)) warning("Ignoring 'closed.fun'.")
+    suffix <- paste0(
+      "x", alcove,
+      "w", wedge,
+      "m", maps,
+      "c", congruence
+    )
+    funs <- get(paste0("wedges_", suffix, "_from_full_census"))
+    open.fun <- funs$open
+    closed.fun <- funs$closed
+  }
+  wedgecount <- wedges_from_full_census(census, open.fun, closed.fun)
+  if (counts) {
+    return(wedgecount)
+  } else {
+    return(unname(wedgecount$closed / sum(wedgecount)))
+  }
+}
+
+#' @rdname triad_closure_from_census
+#' @export
+wedges_from_full_census <- function(
+  census, open.fun, closed.fun
+) {
+  if (prod(dim(census)) == 0) return(NaN)
+  opencount <- sum(sapply(1:ncol(census) - 1, function(w) {
+    apply(sapply(1:nrow(census) - 1, index_partition), 2, function(lambda) {
+      open.fun(lambda, w)
+    })
+  }))
+  closedcount <- sum(sapply(1:ncol(census) - 1, function(w) {
+    apply(sapply(1:nrow(census) - 1, index_partition), 2, function(lambda) {
+      closed.fun(lambda, w)
+    })
+  }))
+  #opencount <- sum(outer(1:nrow(census), 1:ncol(census), function(i, j) {
+  #  open.fun(sapply(i - 1, index_partition), j - 1)
+  #}) * census)
+  #closedcount <- sum(outer(1:nrow(census), 1:ncol(census), function(i, j) {
+  #  closed.fun(sapply(i - 1, index_partition), j - 1)
+  #}) * census)
+  c(open = opencount, closed = closedcount)
+}
+
+#' @rdname triad_closure_from_census
+#' @export
+wedges_from_census <- function(...) {
+  .Deprecated("wedges_from_full_census")
+  wedges_from_full_census(...)
+}
+
+#' @rdname triad_closure_from_census
+#' @export
+wedgecount_census <- function(...) {
+  .Deprecated("wedges_from_full_census")
+  wedges_from_full_census(...)
+}
+
+#' @rdname triad_closure_from_census
+#' @export
+wedgecount.census <- function(...) {
+  .Deprecated("wedges_from_full_census")
+  wedges_from_full_census(...)
+}
+
+wedges_x0w0m0c2_from_full_census <- list(
+  open = function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0)),
+  closed = function(L, w) 3 * ((L[3] > 0) | (w > 0))
+)
+
+wedges_watts_strogatz_from_full_census <- wedges_x0w0m0c2_from_full_census
+wedges_classical_from_full_census <- wedges_x0w0m0c2_from_full_census
+wedges_allact_from_full_census <- wedges_x0w0m0c2_from_full_census
+
+wedges_x0w0m1c0_from_full_census <- list(
+  open = function(L, w) {
+    L[1] * L[2] * (L[3] + w == 0) +
+      L[1] * (L[2] == 0 & w == 1) + L[1] * (L[3] == 0 & w == 1) +
+      L[2] * (L[3] == 0 & w == 1) +
+      2 * choose(w, 2) * min(3 * (w == 2), length(which(L == 0)))
+  },
+  closed = function(L, w) {
+    L[1] * L[2] * (L[3] + w > 0) + L[1] * L[3] + L[2] * L[3] +
+      L[1] * w * (L[2] > 0 | w > 1) + L[1] * w * (L[3] > 0 | w > 1) +
+      L[2] * w + L[2] * w * (L[3] > 0 | w > 1) +
+      2 * L[3] * w +
+      2 * choose(w, 2) * max(3 * (w > 2), length(which(L > 0)))
+  }
+)
+
+wedges_opsahl_from_full_census <- wedges_x0w0m1c0_from_full_census
+wedges_twomode_from_full_census <- wedges_x0w0m1c0_from_full_census
+wedges_injequ_from_full_census <- wedges_x0w0m1c0_from_full_census
+
+wedges_x0w0m1c1_from_full_census <- list(
+  open = function(L, w) {
+    (L[3] == 0) * ((L[2] > 0) * (w == 0) +
+                     (sum(L[1:2] > 0) * (w == 1)) +
+                     (w == 2)) +
+      (L[2] == 0) * ((L[1] > 0) * (w == 1) + (w == 2)) +
+      (L[1] == 0) * (w == 2)
+  },
+  closed = function(L, w) {
+    (w == 0) * (3 * (L[3] > 0)) +
+      (w == 1) * (3 * (L[2] > 0) + 6 * (L[3] > 0)) +
+      (w == 2) * (3 * (L[1] > 0) + 4 * (L[2] > 0) + 5 * (L[3] > 0)) +
+      (w >= 3) * (3 + 2 * (L[1] > 0) + 3 * (L[2] > 0) +
+                    4 * (L[3] > 0))
+  }
+)
+
+wedges_injstr_from_full_census <- wedges_x0w0m1c1_from_full_census
+
+wedges_x0w0m1c2_from_full_census <- list(
+  open = function(L, w) (L[2] > 0 & L[3] == 0 & w == 0) +
+    2 * (L[1] > 0 & L[2] == 0 & w == 1) +
+    3 * (L[1] == 0 & w == 2),
+  closed = function(L, w) 3 * (length(which(L > 0)) + w > 2)
+)
+
+wedges_injact_from_full_census <- wedges_x0w0m1c2_from_full_census
+
+wedges_x0w0m2c0_from_full_census <- list(
+  open = function(L, w) L[1] * L[2] * (L[3] == 0),
+  closed = function(L, w) if (L[3] == 0) 0 else
+    L[1] * L[2] + L[2] * L[3] + L[1] * L[3]
+)
+
+wedges_liebig_rao_0_from_full_census <- wedges_x0w0m2c0_from_full_census
+wedges_unconnected_from_full_census <- wedges_x0w0m2c0_from_full_census
+wedges_indequ_from_full_census <- wedges_x0w0m2c0_from_full_census
+
+wedges_x0w0m2c1_from_full_census <- list(
+  open = function(L, w) ((L[2] > 0) & (L[3] == 0)),
+  closed = function(L, w) 3 * (L[3] > 0)
+)
+
+wedges_exclusive_from_full_census <- wedges_x0w0m2c1_from_full_census
+wedges_indstr_from_full_census <- wedges_x0w0m2c1_from_full_census
+
+
+
+#' @rdname triad_closure_from_census
+#' @export
+triad_closure_from_census_original <- function(
   census,
   scheme = NULL,
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
   measure,
-  open_fun, closed_fun,
+  open.fun, closed.fun,
   counts = FALSE
 ) {
   # put into matrix form (single column if vector)
@@ -144,14 +335,16 @@ triad_closure_from_census <- function(
   
   # standard names for measures of triad closure
   if (!is.null(measure)) {
-    measure <- match.arg(measure, c("classical", "watts_strogatz",
-                                    "twomode", "opsahl",
-                                    "unconnected", "liebig_rao_0",
-                                    "completely_connected", "liebig_rao_3",
-                                    "exclusive",
-                                    "allact",
-                                    "injequ", "injstr", "injact",
-                                    "indequ", "indstr", "indact"))
+    measure <- match.arg(measure, c(
+      "classical", "watts_strogatz",
+      "twomode", "opsahl",
+      "unconnected", "liebig_rao_0",
+      "completely_connected", "liebig_rao_3",
+      "exclusive",
+      "allact",
+      "injequ", "injstr", "injact",
+      "indequ", "indstr", "indact"
+    ))
   }
   if (measure %in% c("classical", "watts_strogatz")) measure <- "allact"
   if (measure %in% c("twomode", "opsahl")) measure <- "injequ"
@@ -168,17 +361,17 @@ triad_closure_from_census <- function(
   } else if (scheme == "binary") {
     if (measure == "allact") {
       wedgecount <- c(open = census[3, 1],
-                   closed = 3 * (census[4, 1] + sum(census[, 2])))
+                      closed = 3 * (census[4, 1] + sum(census[, 2])))
     } else if (measure == "indstr") {
       wedgecount <- c(open = sum(census[3, ]),
-                   closed = 3 * sum(census[4, ]))
+                      closed = 3 * sum(census[4, ]))
     } else {
       stop("Specified measure cannot be recovered from a binary census.")
     }
   } else {
     if (is.null(measure)) {
-      wedgecount <- wedges_from_census(
-        census, closed_fun = closed_fun, open_fun = open_fun
+      wedgecount <- wedges_from_full_census(
+        census, open.fun = open.fun, closed.fun = closed.fun
       )
     } else {
       ftcFun <- if (measure == "allact") {
@@ -202,126 +395,82 @@ triad_closure_from_census <- function(
   if (counts) {
     wedgecount
   } else {
-    unname(wedgecount[2] / (wedgecount[1] + wedgecount[2]))
+      unname(wedgecount$closed / sum(wedgecount))
   }
 }
 
 #' @rdname triad_closure_from_census
 #' @export
-transitivity_from_census <- triad_closure_from_census
+transitivity_from_census <- function(...) {
+  .Deprecated("triad_closure_from_census")
+  triad_closure_from_census_original(...)
+}
 
 #' @rdname triad_closure_from_census
 #' @export
-transitivity.census <- triad_closure_from_census
+transitivity.census <- function(...) {
+  .Deprecated("triad_closure_from_census")
+  triad_closure_from_census_original(...)
+}
 
-#' @rdname triad_closure_from_census
-ftc2indequ <- function(census) wedges_from_census(
+ftc2indequ <- function(census) wedges_from_full_census(
   census,
+  function(L, w) L[1] * L[2] * (L[3] == 0),
   function(L, w) if (L[3] == 0) 0 else
-    L[1] * L[2] + L[2] * L[3] + L[1] * L[3],
-  function(L, w) L[1] * L[2] * (L[3] == 0)
+    L[1] * L[2] + L[2] * L[3] + L[1] * L[3]
 )
 
-#' @rdname triad_closure_from_census
-ftc2allact <- function(census) wedges_from_census(
+ftc2allact <- function(census) wedges_from_full_census(
   census,
-  function(L, w) 3 * ((L[3] > 0) | (w > 0)),
-  function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0))
+  function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0)),
+  function(L, w) 3 * ((L[3] > 0) | (w > 0))
 )
 
-#' @rdname triad_closure_from_census
-ftc2injequ <- function(census) wedges_from_census(
+ftc2injequ <- function(census) wedges_from_full_census(
   census,
+  function(L, w) {
+    L[1] * L[2] * (L[3] + w == 0) +
+      L[1] * (L[2] == 0 & w == 1) + L[1] * (L[3] == 0 & w == 1) +
+      L[2] * (L[3] == 0 & w == 1) +
+      2 * choose(w, 2) * min(3 * (w == 2), length(which(L == 0)))
+  },
   function(L, w) {
     L[1] * L[2] * (L[3] + w > 0) + L[1] * L[3] + L[2] * L[3] +
       L[1] * w * (L[2] > 0 | w > 1) + L[1] * w * (L[3] > 0 | w > 1) +
       L[2] * w + L[2] * w * (L[3] > 0 | w > 1) +
       2 * L[3] * w +
       2 * choose(w, 2) * max(3 * (w > 2), length(which(L > 0)))
-  },
-  function(L, w) {
-    L[1] * L[2] * (L[3] + w == 0) +
-      L[1] * (L[2] == 0 & w == 1) + L[1] * (L[3] == 0 & w == 1) +
-      L[2] * (L[3] == 0 & w == 1) +
-      2 * choose(w, 2) * min(3 * (w == 2), length(which(L == 0)))
   }
 )
 
-#' @rdname triad_closure_from_census
-ftc2indstr <- function(census) wedges_from_census(
+ftc2indstr <- function(census) wedges_from_full_census(
   census,
-  function(L, w) 3 * (L[3] > 0),
-  function(L, w) ((L[2] > 0) & (L[3] == 0))
+  function(L, w) ((L[2] > 0) & (L[3] == 0)),
+  function(L, w) 3 * (L[3] > 0)
 )
 
-#' @rdname triad_closure_from_census
-ftc2injact <- function(census) wedges_from_census(
+ftc2injact <- function(census) wedges_from_full_census(
   census,
-  function(L, w) 3 * (length(which(L > 0)) + w > 2),
   function(L, w) (L[2] > 0 & L[3] == 0 & w == 0) +
     2 * (L[1] > 0 & L[2] == 0 & w == 1) +
-    3 * (L[1] == 0 & w == 2)
+    3 * (L[1] == 0 & w == 2),
+  function(L, w) 3 * (length(which(L > 0)) + w > 2)
 )
 
-#' @rdname triad_closure_from_census
-ftc2injstr <- function(census) wedges_from_census(
+ftc2injstr <- function(census) wedges_from_full_census(
   census,
-  function(L, w) {
-    (w == 0) * (3 * (L[3] > 0)) +
-      (w == 1) * (3 * (L[2] > 0) + 6 * (L[3] > 0)) +
-      (w == 2) * (3 * (L[1] > 0) + 4 * (L[2] > 0) + 5 * (L[3] > 0)) +
-      (w >= 3) * (3 + 2 * (L[1] > 0) + 3 * (L[2] > 0) +
-                    4 * (L[3] > 0))
-  },
   function(L, w) {
     (L[3] == 0) * ((L[2] > 0) * (w == 0) +
                      (sum(L[1:2] > 0) * (w == 1)) +
                      (w == 2)) +
       (L[2] == 0) * ((L[1] > 0) * (w == 1) + (w == 2)) +
       (L[1] == 0) * (w == 2)
+  },
+  function(L, w) {
+    (w == 0) * (3 * (L[3] > 0)) +
+      (w == 1) * (3 * (L[2] > 0) + 6 * (L[3] > 0)) +
+      (w == 2) * (3 * (L[1] > 0) + 4 * (L[2] > 0) + 5 * (L[3] > 0)) +
+      (w >= 3) * (3 + 2 * (L[1] > 0) + 3 * (L[2] > 0) +
+                    4 * (L[3] > 0))
   }
-)
-
-#' @rdname triad_closure_from_census
-#' @export
-wedges_from_census <- function(census, closed_fun, open_fun) {
-  if (dim(census)[1] * dim(census)[2] == 0) return(NaN)
-  closedcount <- sum(sapply(1:dim(census)[2], function(j) sapply(
-    1:dim(census)[1], function(i) {
-      if (census[i, j] == 0) {
-        0
-      } else {
-        closed_fun(index_partition(i - 1), j - 1) * census[i, j]
-      }
-    })))
-  opencount <- sum(sapply(1:dim(census)[2], function(j) sapply(
-    1:dim(census)[1], function(i) {
-      if (census[i, j] == 0) {
-        0
-      } else {
-        open_fun(index_partition(i - 1), j - 1) * census[i, j]
-      }
-    })))
-  c(open = opencount, closed = closedcount)
-}
-
-#' @rdname triad_closure_from_census
-#' @export
-wedgecount_census <- wedges_from_census
-
-#' @rdname triad_closure_from_census
-#' @export
-wedgecount.census <- wedges_from_census
-
-measure_codes <- list(
-  classical = c(0, 0, 0, 2),
-  projection = c(0, 0, 0, 2),
-  watts_strogatz = c(0, 0, 0, 2),
-  twomode = c(0, 0, 1, 0),
-  opsahl = c(0, 0, 1, 0),
-  unconnected = c(0, 0, 2, 0),
-  liebig_rao_0 = c(0, 0, 2, 0),
-  completely_connected = c(3, 2, 2, 0),
-  liebig_rao_3 = c(3, 2, 2, 0),
-  exclusive = c(0, 0, 2, 1)
 )

@@ -2,59 +2,51 @@
 % Please edit documentation in R/triad-closure-from-census.R
 \name{triad_closure_from_census}
 \alias{triad_closure_from_census}
-\alias{triad_closure_from_census_bottomup}
-\alias{wedges_from_simple_census}
-\alias{wedges_from_binary_census}
-\alias{triad_closure_from_census}
-\alias{transitivity_from_census}
-\alias{transitivity.census}
-\alias{ftc2indequ}
-\alias{ftc2allact}
-\alias{ftc2injequ}
-\alias{ftc2indstr}
-\alias{ftc2injact}
-\alias{ftc2injstr}
+\alias{triad_closure_from_simple_census}
+\alias{triad_closure_from_binary_census}
+\alias{triad_closure_from_difference_census}
+\alias{triad_closure_from_full_census}
+\alias{wedges_from_full_census}
 \alias{wedges_from_census}
 \alias{wedgecount_census}
 \alias{wedgecount.census}
+\alias{triad_closure_from_census_original}
+\alias{transitivity_from_census}
+\alias{transitivity.census}
 \title{Global triad closure from a triad census}
 \usage{
-triad_closure_from_census_bottomup(census, scheme = NULL, alcove = 0,
-  wedge = 0, maps = 0, congruence = 0, measure = NULL, open_fun,
-  closed_fun, counts = FALSE)
-
-wedges_from_simple_census(census, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0, counts = FALSE)
-
-wedges_from_binary_census(census, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0, counts = FALSE)
-
 triad_closure_from_census(census, scheme = NULL, alcove = 0, wedge = 0,
-  maps = 0, congruence = 0, measure, open_fun, closed_fun, counts = FALSE)
+  maps = 0, congruence = 0, measure = NULL, open.fun = NULL,
+  closed.fun = NULL, counts = FALSE)
 
-transitivity_from_census(census, scheme = NULL, alcove = 0, wedge = 0,
-  maps = 0, congruence = 0, measure, open_fun, closed_fun, counts = FALSE)
+triad_closure_from_simple_census(census, alcove = 0, wedge = 0, maps = 0,
+  congruence = 0, open.fun = NULL, closed.fun = NULL, counts = FALSE)
 
-transitivity.census(census, scheme = NULL, alcove = 0, wedge = 0,
-  maps = 0, congruence = 0, measure, open_fun, closed_fun, counts = FALSE)
+triad_closure_from_binary_census(census, alcove = 0, wedge = 0, maps = 0,
+  congruence = 0, open.fun = NULL, closed.fun = NULL, counts = FALSE)
 
-ftc2indequ(census)
+triad_closure_from_difference_census(census, alcove = 0, wedge = 0,
+  maps = 0, congruence = 0, open.fun = NULL, closed.fun = NULL,
+  counts = FALSE)
 
-ftc2allact(census)
+triad_closure_from_full_census(census, alcove = 0, wedge = 0, maps = 0,
+  congruence = 0, open.fun = NULL, closed.fun = NULL, counts = FALSE)
 
-ftc2injequ(census)
+wedges_from_full_census(census, open.fun, closed.fun)
 
-ftc2indstr(census)
+wedges_from_census(...)
 
-ftc2injact(census)
+wedgecount_census(...)
 
-ftc2injstr(census)
+wedgecount.census(...)
 
-wedges_from_census(census, closed_fun, open_fun)
+triad_closure_from_census_original(census, scheme = NULL, alcove = 0,
+  wedge = 0, maps = 0, congruence = 0, measure, open.fun, closed.fun,
+  counts = FALSE)
 
-wedgecount_census(census, closed_fun, open_fun)
+transitivity_from_census(...)
 
-wedgecount.census(census, closed_fun, open_fun)
+transitivity.census(...)
 }
 \arguments{
 \item{census}{Numeric matrix or vector; an affiliation network triad census. 
@@ -70,17 +62,18 @@ treated as full.}
 congruence (see Details).}
 
 \item{measure}{Character; the measure of triad closure (matched to 
-"classical", "watts_strogatz", "twomode", "opsahl", "unconnected",
-"liebig_rao_0", "completely_connected", "liebig_rao_3", "exclusive",
-"allact", "indequ", "indstr", "injact", "injequ", or "injstr"). Overrides
+"classical", "watts_strogatz", "twomode", "opsahl", "unconnected", 
+"liebig_rao_0", "completely_connected", "liebig_rao_3", "exclusive", 
+"allact", "indequ", "indstr", "injact", "injequ", or "injstr"). Overrides 
 \code{alcove}, \code{wedge}, \code{maps}, and \code{congruence}.}
 
-\item{open_fun, closed_fun}{Functions to calculate the open and closed wedge 
-count for a triad, in order to calculate a custom measure of triad closure.
-Override \code{measure}.}
+\item{open.fun, closed.fun}{Functions to calculate the open and closed 
+wedge count for a triad (when \code{scheme} is \code{"full"}) or a triad
+census (otherwise), in order to calculate a custom measure of triad 
+closure. Override \code{measure}.}
 
 \item{counts}{Logical; whether to return open and closed wedge counts 
-\eqn{w_o} and \eqn{w_c} instead of the quotient \eqn{\frac{w_c}{w_o+w_c}}.}
+instead of the quotient.}
 }
 \description{
 Given a triad census of a suitable scheme, calculate a global 
@@ -253,9 +246,6 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-triad census functions at \code{\link{triad_census_an}} and triad 
-  closure functions at \code{\link{triad_closure_an}}.
-
 Other triad census functions: \code{\link{project_census}},
   \code{\link{triad_census}}, \code{\link{triad_tallies}}
 
