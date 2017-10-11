@@ -74,6 +74,8 @@ closure. Override \code{measure}.}
 
 \item{counts}{Logical; whether to return open and closed wedge counts 
 instead of the quotient.}
+
+\item{...}{Arguments passed from deprecated functions to their replacements.}
 }
 \description{
 Given a triad census of a suitable scheme, calculate a global 

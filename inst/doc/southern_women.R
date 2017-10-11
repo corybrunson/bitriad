@@ -2,9 +2,9 @@
 library(knitr)
 opts_knit$set(progress = FALSE)
 opts_chunk$set(
-    echo = TRUE, message = FALSE, tidy = TRUE, warning = FALSE,
-    fig.path = "figure/", fig.keep = "high", fig.width = 8,
-    fig.height = 6, fig.align = "center"
+  echo = TRUE, message = FALSE, tidy = TRUE, warning = FALSE,
+  fig.path = "figure/", fig.keep = "high", fig.width = 8,
+  fig.height = 6, fig.align = "center"
 )
 
 ## ------------------------------------------------------------------------
@@ -43,9 +43,9 @@ cbind(tc,
 
 ## ------------------------------------------------------------------------
 (C_vec <- c(
-    C = triad_closure_from_census(antc, scheme = "full", measure = "classical"),
-    OpsahlC = triad_closure_from_census(antc, scheme = "full", measure = "opsahl"),
-    exclC = triad_closure_from_census(antc, scheme = "full", measure = "exclusive")
+  C = triad_closure_from_census(antc, scheme = "full", measure = "classical"),
+  OpsahlC = triad_closure_from_census(antc, scheme = "full", measure = "opsahl"),
+  exclC = triad_closure_from_census(antc, scheme = "full", measure = "exclusive")
 ))
 
 ## ------------------------------------------------------------------------
@@ -66,9 +66,9 @@ exclWedges[, 2] / exclWedges[, 1]            # local
 
 ## ------------------------------------------------------------------------
 C_local_dat <- cbind(
-    C = C_local,
-    OpsahlC = triad_closure_opsahl(women_clique, type = "local"),
-    exclC = triad_closure_exclusive(women_clique, type = "local")
+  C = C_local,
+  OpsahlC = triad_closure_opsahl(women_clique, type = "local"),
+  exclC = triad_closure_exclusive(women_clique, type = "local")
 )
 rownames(C_local_dat) <- V(women_clique_proj)$name
 C_local_dat
@@ -93,8 +93,8 @@ plot(women_group, layout = layout_as_bipartite(women_group))
 ## ---- fig.height=5-------------------------------------------------------
 women_group_proj <- actor_projection(women_group)
 (ddc2 <- data.frame(
-    k = degree(women_group_proj),
-    C = transitivity(women_group_proj, type = "local")
+  k = degree(women_group_proj),
+  C = transitivity(women_group_proj, type = "local")
 ))
 plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
      pch = 19, type = "b",
@@ -104,8 +104,8 @@ plot(aggregate(ddc2$C, by = list(k = ddc2$k), FUN = mean),
 ## ---- fig.height=5-------------------------------------------------------
 women_group_wedges <- triad_closure_opsahl(women_group, type = "raw")
 women_group_wedges <- cbind(
-    women_group_wedges,
-    women_group_wedges[, 2] / women_group_wedges[, 1]
+  women_group_wedges,
+  women_group_wedges[, 2] / women_group_wedges[, 1]
 )
 plot(aggregate(women_group_wedges[, 3],
                by = list(women_group_wedges[, 1]), FUN = mean),
@@ -116,8 +116,8 @@ plot(aggregate(women_group_wedges[, 3],
 ## ---- fig.height=5-------------------------------------------------------
 women_group_wedges <- triad_closure_exclusive(women_group, type = "raw")
 women_group_wedges <- cbind(
-    women_group_wedges,
-    C = women_group_wedges[, 2] / women_group_wedges[, 1]
+  women_group_wedges,
+  C = women_group_wedges[, 2] / women_group_wedges[, 1]
 )
 plot(aggregate(women_group_wedges[, 3],
                by = list(women_group_wedges[, 1]), FUN = mean),

@@ -34,6 +34,7 @@
 #'   closure. Override \code{measure}.
 #' @param counts Logical; whether to return open and closed wedge counts 
 #'   instead of the quotient.
+#' @param ... Arguments passed from deprecated functions to their replacements.
 #' @export
 triad_closure_from_census <- function(
   census, scheme = NULL,
@@ -42,8 +43,6 @@ triad_closure_from_census <- function(
   open.fun = NULL, closed.fun = NULL,
   counts = FALSE
 ) {
-  #warning("'triad_closure_from_census' is experimental.")
-  
   # put into matrix form (single column if vector)
   census <- as.matrix(census)
   # identify the census scheme
@@ -56,15 +55,16 @@ triad_closure_from_census <- function(
            "but not both.")
     }
     measure <- match.arg(measure, c(
-      "classical", "watts_strogatz", "allact",
-      "twomode", "opsahl", "injequ",
-      "unconnected", "liebig_rao_0", "indequ",
+      "classical", "watts_strogatz",
+      "twomode", "opsahl",
+      "unconnected", "liebig_rao_0",
       #"sparsely_connected", "liebig_rao_1",
       #"highly_connected", "liebig_rao_2",
       "completely_connected", "liebig_rao_3",
-      "exclusive", "indstr",
-      "injstr",
-      "injact"
+      "exclusive",
+      "allequ", "allstr", "allact",
+      "injequ", "injstr", "injact",
+      "indequ", "indstr", "indequ"
     ))
     #mc <- measure_codes[[measure]]
     funs <- get(paste0("wedges_", measure, "_from_", scheme, "_census"))
@@ -109,7 +109,7 @@ triad_closure_from_simple_census <- function(
   if (counts) {
     return(wedgecount)
   } else {
-    return(unname(wedgecount$closed / sum(wedgecount)))
+    return(unname(wedgecount[["closed"]] / sum(wedgecount)))
   }
 }
 
@@ -135,7 +135,7 @@ triad_closure_from_binary_census <- function(
   if (counts) {
     return(wedgecount)
   } else {
-    return(unname(wedgecount$closed / sum(wedgecount)))
+    return(unname(wedgecount[["closed"]] / sum(wedgecount)))
   }
 }
 
@@ -155,7 +155,7 @@ triad_closure_from_difference_census <- function(
   if (counts) {
     return(wedgecount)
   } else {
-    return(unname(wedgecount$closed / sum(wedgecount)))
+    return(unname(wedgecount[["closed"]] / sum(wedgecount)))
   }
 }
 
@@ -184,7 +184,7 @@ triad_closure_from_full_census <- function(
   if (counts) {
     return(wedgecount)
   } else {
-    return(unname(wedgecount$closed / sum(wedgecount)))
+    return(unname(wedgecount[["closed"]] / sum(wedgecount)))
   }
 }
 
@@ -198,12 +198,12 @@ wedges_from_full_census <- function(
     apply(sapply(1:nrow(census) - 1, index_partition), 2, function(lambda) {
       open.fun(lambda, w)
     })
-  }))
+  }) * census)
   closedcount <- sum(sapply(1:ncol(census) - 1, function(w) {
     apply(sapply(1:nrow(census) - 1, index_partition), 2, function(lambda) {
       closed.fun(lambda, w)
     })
-  }))
+  }) * census)
   #opencount <- sum(outer(1:nrow(census), 1:ncol(census), function(i, j) {
   #  open.fun(sapply(i - 1, index_partition), j - 1)
   #}) * census)
@@ -234,11 +234,31 @@ wedgecount.census <- function(...) {
   wedges_from_full_census(...)
 }
 
+wedges_x0w0m0c0_from_full_census <- list(
+  open = function(L, w) L[1] * L[2] * (L[3] == 0 & w == 0),
+  closed = function(L, w)
+    L[1] * L[2] * (L[3] > 0 | w > 0) +  # p,x,q,y,r;z|w
+    L[2] * L[3] +                       # q,y,r,z,p;x
+    L[1] * L[3] +                       # r,z,p,x,q;y
+    2 * sum(L) * w +                    # p1,x1,p2,w,p3 & p1,w,p2,x2,p3
+    3 * w ^ 2                           # p1,w1,p2,w2,p3
+)
+wedges_allequ_from_full_census <- wedges_x0w0m0c0_from_full_census
+
+wedges_x0w0m0c1_from_full_census <- list(
+  open = function(L, w) (L[2] > 0) * (L[3] == 0 & w == 0),
+  closed = function(L, w)
+    (L[2] > 0) * (L[3] > 0 | w > 0) +  # x,y;z|w
+    2 * (L[3] > 0) +                   # x,z;y & y,z;x
+    2 * sum(L > 0) * (w > 0) +         # x1,w;w & w,x1;w
+    3 * (w > 0)                        # w,w;w
+)
+wedges_allstr_from_full_census <- wedges_x0w0m0c1_from_full_census
+
 wedges_x0w0m0c2_from_full_census <- list(
   open = function(L, w) ((L[2] > 0) & (L[3] == 0) & (w == 0)),
   closed = function(L, w) 3 * ((L[3] > 0) | (w > 0))
 )
-
 wedges_watts_strogatz_from_full_census <- wedges_x0w0m0c2_from_full_census
 wedges_classical_from_full_census <- wedges_x0w0m0c2_from_full_census
 wedges_allact_from_full_census <- wedges_x0w0m0c2_from_full_census
@@ -258,7 +278,6 @@ wedges_x0w0m1c0_from_full_census <- list(
       2 * choose(w, 2) * max(3 * (w > 2), length(which(L > 0)))
   }
 )
-
 wedges_opsahl_from_full_census <- wedges_x0w0m1c0_from_full_census
 wedges_twomode_from_full_census <- wedges_x0w0m1c0_from_full_census
 wedges_injequ_from_full_census <- wedges_x0w0m1c0_from_full_census
@@ -279,7 +298,6 @@ wedges_x0w0m1c1_from_full_census <- list(
                     4 * (L[3] > 0))
   }
 )
-
 wedges_injstr_from_full_census <- wedges_x0w0m1c1_from_full_census
 
 wedges_x0w0m1c2_from_full_census <- list(
@@ -288,7 +306,6 @@ wedges_x0w0m1c2_from_full_census <- list(
     3 * (L[1] == 0 & w == 2),
   closed = function(L, w) 3 * (length(which(L > 0)) + w > 2)
 )
-
 wedges_injact_from_full_census <- wedges_x0w0m1c2_from_full_census
 
 wedges_x0w0m2c0_from_full_census <- list(
@@ -296,7 +313,6 @@ wedges_x0w0m2c0_from_full_census <- list(
   closed = function(L, w) if (L[3] == 0) 0 else
     L[1] * L[2] + L[2] * L[3] + L[1] * L[3]
 )
-
 wedges_liebig_rao_0_from_full_census <- wedges_x0w0m2c0_from_full_census
 wedges_unconnected_from_full_census <- wedges_x0w0m2c0_from_full_census
 wedges_indequ_from_full_census <- wedges_x0w0m2c0_from_full_census
@@ -305,11 +321,11 @@ wedges_x0w0m2c1_from_full_census <- list(
   open = function(L, w) ((L[2] > 0) & (L[3] == 0)),
   closed = function(L, w) 3 * (L[3] > 0)
 )
-
 wedges_exclusive_from_full_census <- wedges_x0w0m2c1_from_full_census
 wedges_indstr_from_full_census <- wedges_x0w0m2c1_from_full_census
 
-
+wedges_x0w0m2c2_from_full_census <- wedges_x0w0m2c1_from_full_census
+wedges_indact_from_full_census <- wedges_x0w0m2c2_from_full_census
 
 #' @rdname triad_closure_from_census
 #' @export
@@ -321,6 +337,7 @@ triad_closure_from_census_original <- function(
   open.fun, closed.fun,
   counts = FALSE
 ) {
+  .Deprecated("triad_closure_from_census")
   # put into matrix form (single column if vector)
   census <- as.matrix(census)
   # identify the census scheme
@@ -395,7 +412,7 @@ triad_closure_from_census_original <- function(
   if (counts) {
     wedgecount
   } else {
-      unname(wedgecount$closed / sum(wedgecount))
+    unname(wedgecount[["closed"]] / sum(wedgecount))
   }
 }
 
