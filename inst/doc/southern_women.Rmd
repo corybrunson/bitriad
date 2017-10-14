@@ -58,13 +58,13 @@ This social network is just large enough to contain a diversity of triads and ju
 
 ```{r}
 women_clique_proj <- actor_projection(women_clique)
-(tc <- triad_census(women_clique_proj, add.names = TRUE))
+(tc <- triad_census(women_clique_proj))
 ```
 
 There are no null (no edges) or disconnected (one edge) triples among the women, only three partially connected (two edges) and seven fully connected (three edges). But these categories, especially the last, ignore higher-order structure in the original affiliation network. The higher-order structure of interest consists of three actors at a time and any events from which connections among them; this is the basis for the **(full) affiliation network triad census**. Given an affiliation network, this census tallies all triples of actors by the number of "inclusive" events they all three attended and the distribution among them of "exclusive" events only attended by two.
 
 ```{r}
-(antc <- triad_census(women_clique, add.names = TRUE))
+(antc <- triad_census(women_clique))
 ```
 
 The arrangement is not so intuitive. The rows reflect the distribution of exclusive events, and the columns indicate the number of inclusive events; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. The exclusive events thus form the sequence $(2,1,0)$ (in decreasing order), so the triad $(A,B,C)$ is counted in the sixth row and first column (zero inclusive events) of the matrix. (The appropriate row is the index of $(2\leq 1\leq 0)$ in the enumeration scheme provided by the [*revolving door algorithm*](https://books.google.com/books?hl=en&lr=&id=0ArDOdcWNQcC).)
@@ -72,7 +72,7 @@ The arrangement is not so intuitive. The rows reflect the distribution of exclus
 As networks grow, this scheme quickly becomes ridiculous. There are, however, intermediate schemes that capture valuable information that is lost to the simple census. Consider the **binary triad census**, which collapses duplicate events and replaces the counts above with binary indicators of the existence of each type of event:
 
 ```{r}
-antc_proj <- project_census(antc, add.names = TRUE)
+antc_proj <- project_census(antc)
 antc_proj$binary
 ```
 

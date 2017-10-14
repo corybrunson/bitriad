@@ -30,7 +30,7 @@
 #' @export
 project_census <- function(
   census, scheme = NULL,
-  add.names = FALSE
+  add.names = TRUE
 ) {
   # put into matrix form (single column if vector)
   census <- as.matrix(census)

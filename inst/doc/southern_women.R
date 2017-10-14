@@ -24,13 +24,13 @@ plot(women_clique,
 
 ## ------------------------------------------------------------------------
 women_clique_proj <- actor_projection(women_clique)
-(tc <- triad_census(women_clique_proj, add.names = TRUE))
+(tc <- triad_census(women_clique_proj))
 
 ## ------------------------------------------------------------------------
-(antc <- triad_census(women_clique, add.names = TRUE))
+(antc <- triad_census(women_clique))
 
 ## ------------------------------------------------------------------------
-antc_proj <- project_census(antc, add.names = TRUE)
+antc_proj <- project_census(antc)
 antc_proj$binary
 
 ## ------------------------------------------------------------------------

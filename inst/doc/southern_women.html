@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jason Cory Brunson" />
 
-<meta name="date" content="2017-10-10" />
+<meta name="date" content="2017-10-14" />
 
 <title>Triadic analysis of the southern women datasets</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Triadic analysis of the southern women datasets</h1>
 <h4 class="author"><em>Jason Cory Brunson</em></h4>
-<h4 class="date"><em>2017-10-10</em></h4>
+<h4 class="date"><em>2017-10-14</em></h4>
 
 
 
@@ -99,11 +99,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3>Triad census</h3>
 <p>This social network is just large enough to contain a diversity of triads and just small enough for us to examine them all in detail. Classically, the <em>triad census</em> of <a href="https://eric.ed.gov/?id=ED024086">Davis and Leinhardt (1972)</a> refers to the distribution of triads of 16 isomorphism classes throughout a <em>directed, unipartite</em> network. The women’s clique is neither, but we can view a simplified (undirected) version of the triad census on its <em>projection</em>–the network of five women with acquaintanceship ties inferred from their shared activities. There are only four isomorphism classes of undirected triads, indexed by the number of edges (0 through 3) among the three nodes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">women_clique_proj &lt;-<span class="st"> </span><span class="kw">actor_projection</span>(women_clique)
-(tc &lt;-<span class="st"> </span><span class="kw">triad_census</span>(women_clique_proj, <span class="dt">add.names =</span> <span class="ot">TRUE</span>))</code></pre></div>
+(tc &lt;-<span class="st"> </span><span class="kw">triad_census</span>(women_clique_proj))</code></pre></div>
 <pre><code>## 0 1 2 3 
 ## 0 0 3 7</code></pre>
 <p>There are no null (no edges) or disconnected (one edge) triples among the women, only three partially connected (two edges) and seven fully connected (three edges). But these categories, especially the last, ignore higher-order structure in the original affiliation network. The higher-order structure of interest consists of three actors at a time and any events from which connections among them; this is the basis for the <strong>(full) affiliation network triad census</strong>. Given an affiliation network, this census tallies all triples of actors by the number of “inclusive” events they all three attended and the distribution among them of “exclusive” events only attended by two.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(antc &lt;-<span class="st"> </span><span class="kw">triad_census</span>(women_clique, <span class="dt">add.names =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(antc &lt;-<span class="st"> </span><span class="kw">triad_census</span>(women_clique))</code></pre></div>
 <pre><code>##         0 1
 ## (0,0,0) 0 0
 ## (1,0,0) 0 1
@@ -117,7 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## (2,2,2) 0 0</code></pre>
 <p>The arrangement is not so intuitive. The rows reflect the distribution of exclusive events, and the columns indicate the number of inclusive events; for instance, Miss A and Miss B attended two events (movies and dance) without Miss C, and Miss A and Miss C attended one event (bridge) without Miss B, while Miss B and Miss C attended no events together. The exclusive events thus form the sequence <span class="math inline">\((2,1,0)\)</span> (in decreasing order), so the triad <span class="math inline">\((A,B,C)\)</span> is counted in the sixth row and first column (zero inclusive events) of the matrix. (The appropriate row is the index of <span class="math inline">\((2\leq 1\leq 0)\)</span> in the enumeration scheme provided by the <a href="https://books.google.com/books?hl=en&amp;lr=&amp;id=0ArDOdcWNQcC"><em>revolving door algorithm</em></a>.)</p>
 <p>As networks grow, this scheme quickly becomes ridiculous. There are, however, intermediate schemes that capture valuable information that is lost to the simple census. Consider the <strong>binary triad census</strong>, which collapses duplicate events and replaces the counts above with binary indicators of the existence of each type of event:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">antc_proj &lt;-<span class="st"> </span><span class="kw">project_census</span>(antc, <span class="dt">add.names =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">antc_proj &lt;-<span class="st"> </span><span class="kw">project_census</span>(antc)
 antc_proj$binary</code></pre></div>
 <pre><code>##   0 1
 ## 0 0 0

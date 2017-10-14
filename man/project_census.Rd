@@ -17,9 +17,9 @@
 \alias{stc2tc}
 \title{Project a higher-resolution triad census to a lower-resolution one}
 \usage{
-project_census(census, scheme = NULL, add.names = FALSE)
+project_census(census, scheme = NULL, add.names = TRUE)
 
-project.census(census, scheme = NULL, add.names = FALSE)
+project.census(census, scheme = NULL, add.names = TRUE)
 
 difference_from_full_census(census)
 

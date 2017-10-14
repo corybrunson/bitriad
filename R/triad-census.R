@@ -44,7 +44,7 @@
 #' (tc <- triad_census(women_clique, add.names = TRUE))
 #' sum(tc) == choose(vcount(actor_projection(women_clique)), 3)
 #' @export
-triad_census <- function(graph, ..., add.names = FALSE) {
+triad_census <- function(graph, ..., add.names = TRUE) {
   if (!is_an(graph)) {
     if (is_simple(graph) & !is_directed(graph)) {
       return(simple_triad_census(graph = graph, add.names = add.names))
@@ -73,7 +73,7 @@ triad_census_an <- function(
   graph,
   scheme = "full",
   method = "batagelj_mrvar", ...,
-  add.names = FALSE
+  add.names = TRUE
 ) {
   stopifnot(is_an(graph))
   
@@ -111,7 +111,7 @@ triad.census.an <- function(...) {
 triad_census_full <- function(
   graph,
   method = "batagelj_mrvar", ...,
-  add.names = FALSE
+  add.names = TRUE
 ) {
   
   # trivial case
@@ -141,7 +141,7 @@ triad_census_full <- function(
 
 #' @rdname triad_census
 triad_census_full_batagelj_mrvar <- function(graph, long = NULL) {
-  int_max <- Rcpp::evalCpp("INT_MAX")
+  int_max <- .Machine$integer.max
   triad_count <- choose(actor_count(graph), 3)
   if (is.null(long)) long <- triad_count > int_max
   if (!long) {
@@ -244,7 +244,7 @@ triad_census_full_projection <- function(
 triad_census_difference <- function(
   graph,
   method = "batagelj_mrvar", ...,
-  add.names = FALSE
+  add.names = TRUE
 ) {
   
   # trivial case
@@ -276,7 +276,7 @@ triad_census_difference <- function(
 
 #' @rdname triad_census
 triad_census_difference_batagelj_mrvar <- function(graph, long = NULL) {
-  int_max <- Rcpp::evalCpp("INT_MAX")
+  int_max <- .Machine$integer.max
   triad_count <- choose(actor_count(graph), 3)
   if (is.null(long)) long <- triad_count > int_max
   if (!long) {
@@ -379,7 +379,7 @@ unif.triad.census <- function(graph) {
 triad_census_binary <- function(
   graph,
   method = "batagelj_mrvar", ...,
-  add.names = FALSE
+  add.names = TRUE
 ) {
   
   # trivial case
@@ -403,7 +403,7 @@ triad_census_binary <- function(
 
 #' @rdname triad_census
 triad_census_binary_batagelj_mrvar <- function(graph, long = NULL) {
-  int_max <- Rcpp::evalCpp("INT_MAX")
+  int_max <- .Machine$integer.max
   triad_count <- choose(actor_count(graph), 3)
   if (is.null(long)) long <- triad_count > int_max
   if (!long) {
@@ -497,7 +497,7 @@ structural.triad.census <- function(graph) {
 
 #' @rdname triad_census
 #' @export
-simple_triad_census <- function(graph, add.names = FALSE) {
+simple_triad_census <- function(graph, add.names = TRUE) {
   if (is_an(graph)) graph <- actor_projection(graph)
   # Ensure that 'graph' is simple and undirected
   if (!is_simple(graph) | is_directed(graph)) {

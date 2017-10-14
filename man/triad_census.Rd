@@ -21,21 +21,21 @@
 \alias{simple.triad.census}
 \title{Triad census for affiliation networks}
 \usage{
-triad_census(graph, ..., add.names = FALSE)
+triad_census(graph, ..., add.names = TRUE)
 
 triad_census_an(graph, scheme = "full", method = "batagelj_mrvar", ...,
-  add.names = FALSE)
+  add.names = TRUE)
 
 triad.census.an(...)
 
-triad_census_full(graph, method = "batagelj_mrvar", ..., add.names = FALSE)
+triad_census_full(graph, method = "batagelj_mrvar", ..., add.names = TRUE)
 
 triad_census_full_batagelj_mrvar(graph, long = NULL)
 
 triad_census_full_projection(graph, verbose = FALSE)
 
 triad_census_difference(graph, method = "batagelj_mrvar", ...,
-  add.names = FALSE)
+  add.names = TRUE)
 
 triad_census_difference_batagelj_mrvar(graph, long = NULL)
 
@@ -45,8 +45,7 @@ unif_triad_census(graph)
 
 unif.triad.census(graph)
 
-triad_census_binary(graph, method = "batagelj_mrvar", ...,
-  add.names = FALSE)
+triad_census_binary(graph, method = "batagelj_mrvar", ..., add.names = TRUE)
 
 triad_census_binary_batagelj_mrvar(graph, long = NULL)
 
@@ -56,9 +55,9 @@ str_triad_census(graph)
 
 structural.triad.census(graph)
 
-simple_triad_census(graph, add.names = FALSE)
+simple_triad_census(graph, add.names = TRUE)
 
-simple.triad.census(graph, add.names = FALSE)
+simple.triad.census(graph, add.names = TRUE)
 }
 \arguments{
 \item{graph}{An \strong{igraph} object, usually an affiliation network.}
