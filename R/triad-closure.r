@@ -103,9 +103,11 @@ triad_closure_from_triads <- function(
   }
   
   triadtally <- do.call(cbind, lapply(actors, function(actor) {
+    q_triads <- triads(graph = graph, actor = actor)
+    if (ncol(q_triads) == 0) q_triads <- cbind(q_triads, 0)
     rbind(
       q = as.numeric(V(graph)[actor]),
-      triads(graph = graph, actor = actor)
+      q_triads
     )
   }))
   
@@ -134,6 +136,7 @@ triad_closure_from_triads <- function(
     by = list(q = triadtally["q", ]),
     FUN = sum
   )[, -1]
+  rownames(wedgelist) <- V(graph)[actors]$name
   wedgeReturn(wedgelist = wedgelist, type = type)
 }
 
@@ -172,6 +175,7 @@ triad_closure_from_wedges <- function(
     wc <- wedges_fun(graph, actor, ...)$closed
     c(length(wc), sum(wc))
   })
+  rownames(wedgelist) <- c("wedges", "closed")
   wedgeReturn(wedgelist = t(wedgelist), type = type)
 }
 

@@ -161,12 +161,12 @@ C_local</code></pre></div>
 ## 0.8333333 1.0000000 1.0000000 0.8333333 0.8333333</code></pre>
 <p>Our higher-order measures (Opsahl and exclusive) are implemented using <code>triad_closure()</code>, a shell for the required “wedge” function that counts the open and closed wedges at an actor node. It is this function that determines the measure of triadic closure to be calculated. Once the wedges are tallied, <code>triad_closure()</code>, and the <code>triad_closure_*()</code> functions that pass arguments to it, compute from them the desired summary statistic. For example, here are the “exclusive” wedges among the five women:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(exclWedges &lt;-<span class="st"> </span><span class="kw">triad_closure_exclusive</span>(women_clique, <span class="dt">type =</span> <span class="st">&quot;raw&quot;</span>))</code></pre></div>
-<pre><code>##        [,1] [,2]
-## Miss A    4    2
-## Miss B    1    1
-## Miss C    2    1
-## Miss D    4    2
-## Miss E    4    3</code></pre>
+<pre><code>##        wedges closed
+## Miss A      4      2
+## Miss B      1      1
+## Miss C      2      1
+## Miss D      4      2
+## Miss E      4      3</code></pre>
 <p>From these, the global and local exclusive clustering coefficiencs may be recovered:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(exclWedges[, <span class="dv">2</span>])/<span class="kw">sum</span>(exclWedges[, <span class="dv">1</span>])  <span class="co"># global</span></code></pre></div>
 <pre><code>## [1] 0.6</code></pre>

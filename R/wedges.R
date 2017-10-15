@@ -140,8 +140,10 @@ triad_wedges_projection <- triad_wedges_watts_strogatz
 #' @rdname wedges
 #' @export
 triad_wedges_opsahl <- function(w, x, y, z) cbind(
-  wedges = x * y + (x + y) * w,
-  closed = x * y * (w + z > 0) + (x + y) * w * (w - 1 + z > 0)
+  wedges = x * y + (x + y) * w + w * (w - 1),
+  closed = x * y * (w + z > 0) +
+    (x + y) * w * (w - 1 + z > 0) +
+    w * (w - 1) * (w - 2 + z > 0)
 )
 
 #' @rdname wedges
@@ -191,6 +193,13 @@ triad_wedges_liebig_rao_3 <- function(w, x, y, z) cbind(
 #' @rdname wedges
 #' @export
 triad_wedges_completely_connected <- triad_wedges_liebig_rao_3
+
+#' @rdname wedges
+#' @export
+triad_wedges_exclusive <- function(w, x, y, z) cbind(
+  wedges = (x > 0) * (y > 0),
+  closed = (x > 0) * (y > 0) * (z > 0)
+)
 
 #' @rdname wedges
 #' @export

@@ -37,6 +37,7 @@
 \alias{triad_wedges_highly_connected}
 \alias{triad_wedges_liebig_rao_3}
 \alias{triad_wedges_completely_connected}
+\alias{triad_wedges_exclusive}
 \alias{triad_wedges}
 \title{Affiliation network wedges}
 \usage{
@@ -111,6 +112,8 @@ triad_wedges_highly_connected(w, x, y, z)
 triad_wedges_liebig_rao_3(w, x, y, z)
 
 triad_wedges_completely_connected(w, x, y, z)
+
+triad_wedges_exclusive(w, x, y, z)
 
 triad_wedges(w, x, y, z, alcove = 0, wedge = 0, maps = 0,
   congruence = 0)
