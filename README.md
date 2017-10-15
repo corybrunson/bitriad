@@ -20,8 +20,10 @@ If you experience any problems with the installation process (that aren't resolv
 ## Functionality
 
 The package implements several tools from the paper, most importantly
+
 * `triad_census()`, which surveys the *triads* of an affiliation network and returns the census in a specified *scheme*; and
 * `triad_closure()`, which surveys the *wedges* of an affiliation network and returns either global or local proportions of wedges that are *closed*.
+
 The parameters for these functions, in particular the census schemes and the definitions of wedge and closure, are thoroughly documented in `help(triad_census)` and `help(triad_closure)`. Both functions pass to their corresponding functions in **igraph** when the input graph is not an affiliation network.
 
 ## Datasets
