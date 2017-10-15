@@ -30,14 +30,14 @@ triad.census.an(...)
 
 triad_census_full(graph, method = "batagelj_mrvar", ..., add.names = TRUE)
 
-triad_census_full_batagelj_mrvar(graph, long = NULL)
+triad_census_full_batagelj_mrvar(graph, use.integer = FALSE)
 
 triad_census_full_projection(graph, verbose = FALSE)
 
 triad_census_difference(graph, method = "batagelj_mrvar", ...,
   add.names = TRUE)
 
-triad_census_difference_batagelj_mrvar(graph, long = NULL)
+triad_census_difference_batagelj_mrvar(graph, use.integer = FALSE)
 
 triad_census_difference_projection(graph)
 
@@ -47,7 +47,7 @@ unif.triad.census(graph)
 
 triad_census_binary(graph, method = "batagelj_mrvar", ..., add.names = TRUE)
 
-triad_census_binary_batagelj_mrvar(graph, long = NULL)
+triad_census_binary_batagelj_mrvar(graph, use.integer = FALSE)
 
 triad_census_binary_projection(graph, verbose = FALSE)
 
@@ -62,8 +62,8 @@ simple.triad.census(graph, add.names = TRUE)
 \arguments{
 \item{graph}{An \strong{igraph} object, usually an affiliation network.}
 
-\item{...}{Additional arguments (currently \code{long} or \code{verbose})
-passed to the \code{method} function.}
+\item{...}{Additional arguments (currently \code{use.integer} and
+\code{verbose}) passed to the \code{method} function.}
 
 \item{add.names}{Logical; whether to label the rows and columns of the output
 matrix.}
@@ -78,8 +78,8 @@ inefficient but reliable implementation in R from the first package version
 that invokes the \code{\link{simple_triad_census}} of the 
 \code{\link{actor_projection}} of \code{graph}.}
 
-\item{long}{Logical; whether to double the integer precision of census 
-entries \emph{other than empty triads} (using a C++ hack).}
+\item{use.integer}{Logical; whether to use the \code{IntegerMatrix} class in
+\strong{Rcpp} rather than the default \code{NumericMatrix}.}
 
 \item{verbose}{Logical; whether to display progress bars.}
 }

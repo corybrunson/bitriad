@@ -45,28 +45,28 @@ dynamic_wedges_x0w0m0c0 <- function(el, t, q, memory, wedge_gap, close_after, cl
     .Call('_bitriad_dynamic_wedges_x0w0m0c0', PACKAGE = 'bitriad', el, t, q, memory, wedge_gap, close_after, close_before)
 }
 
-triad_census_full_batagelj_mrvar_C <- function(el, na) {
-    .Call('_bitriad_triad_census_full_batagelj_mrvar_C', PACKAGE = 'bitriad', el, na)
+triad_census_full_batagelj_mrvar_numeric_C <- function(el, na) {
+    .Call('_bitriad_triad_census_full_batagelj_mrvar_numeric_C', PACKAGE = 'bitriad', el, na)
 }
 
-triad_census_full_batagelj_mrvar_long_C <- function(el, na) {
-    .Call('_bitriad_triad_census_full_batagelj_mrvar_long_C', PACKAGE = 'bitriad', el, na)
+triad_census_full_batagelj_mrvar_integer_C <- function(el, na) {
+    .Call('_bitriad_triad_census_full_batagelj_mrvar_integer_C', PACKAGE = 'bitriad', el, na)
 }
 
-triad_census_difference_batagelj_mrvar_C <- function(el, na) {
-    .Call('_bitriad_triad_census_difference_batagelj_mrvar_C', PACKAGE = 'bitriad', el, na)
+triad_census_difference_batagelj_mrvar_numeric_C <- function(el, na) {
+    .Call('_bitriad_triad_census_difference_batagelj_mrvar_numeric_C', PACKAGE = 'bitriad', el, na)
 }
 
-triad_census_difference_batagelj_mrvar_long_C <- function(el, na) {
-    .Call('_bitriad_triad_census_difference_batagelj_mrvar_long_C', PACKAGE = 'bitriad', el, na)
+triad_census_difference_batagelj_mrvar_integer_C <- function(el, na) {
+    .Call('_bitriad_triad_census_difference_batagelj_mrvar_integer_C', PACKAGE = 'bitriad', el, na)
 }
 
-triad_census_binary_batagelj_mrvar_C <- function(el, na) {
-    .Call('_bitriad_triad_census_binary_batagelj_mrvar_C', PACKAGE = 'bitriad', el, na)
+triad_census_binary_batagelj_mrvar_numeric_C <- function(el, na) {
+    .Call('_bitriad_triad_census_binary_batagelj_mrvar_numeric_C', PACKAGE = 'bitriad', el, na)
 }
 
-triad_census_binary_batagelj_mrvar_long_C <- function(el, na) {
-    .Call('_bitriad_triad_census_binary_batagelj_mrvar_long_C', PACKAGE = 'bitriad', el, na)
+triad_census_binary_batagelj_mrvar_integer_C <- function(el, na) {
+    .Call('_bitriad_triad_census_binary_batagelj_mrvar_integer_C', PACKAGE = 'bitriad', el, na)
 }
 
 wedges_from_binary_census_C <- function(census, alcove, wedge, maps, congruence) {

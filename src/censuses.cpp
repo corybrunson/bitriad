@@ -1283,12 +1283,187 @@ List dynamic_wedges_x0w0m0c0(
 }
 
 // Triad census for affiliation networks
-
 // algorithm adapted from Batagelj and Mrvar (2001)
 // performed on an edgelist
 // internally constructs actor list and expands output matrix as needed
+
 // [[Rcpp::export]]
-IntegerMatrix triad_census_full_batagelj_mrvar_C(
+NumericMatrix triad_census_full_batagelj_mrvar_numeric_C(
+    IntegerMatrix el, int na
+) {
+  
+  // Loop indices
+  int i,j,k;
+  // Triad class indices
+  IntegerVector lambda(3);
+  int w;
+  // Limits
+  int lambda_i = 0;
+  int max_i = 0;
+  int max_w = 0;
+  
+  NumericMatrix z(1, 1);
+  // Initialize triad census matrix
+  NumericMatrix tc(1, 1);
+  
+  // Make vector of actor node IDs
+  IntegerVector attendees(el.nrow());
+  for (i = 0; i < el.nrow(); i++) {
+    attendees(i) = el(i, 0);
+  }
+  IntegerVector actors = sort_unique(attendees);
+  
+  // Loop over actors p
+  for (i = 0; i < actors.size(); i++) {
+    
+    List p_ego = actor_nbhd_2(el, actors[i]);
+    IntegerVector p_events = p_ego["d1"];
+    std::sort(p_events.begin(), p_events.end());
+    IntegerVector p_actors = p_ego["d2"];
+    std::sort(p_actors.begin(), p_actors.end());
+    
+    // Actors q co-incident with actor p
+    IntegerVector actors_q = p_actors;
+    
+    for (j = 0; j < actors_q.size(); j++) {
+      if (actors_q[j] <= actors[i]) {
+        continue;
+      }
+      
+      List q_ego = actor_nbhd_2(el, actors_q[j]);
+      IntegerVector q_events = q_ego["d1"];
+      std::sort(q_events.begin(), q_events.end());
+      IntegerVector q_actors = q_ego["d2"];
+      std::sort(q_actors.begin(), q_actors.end());
+      
+      // Events a attended by actors p and q
+      IntegerVector events_a = IntegerVector::create();
+      std::set_intersection(p_events.begin(), p_events.end(),
+                            q_events.begin(), q_events.end(),
+                            std::back_inserter(events_a));
+      
+      // Actors r co-incident with either actor p or q
+      // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
+      std::vector<int> actors_r;
+      std::set_union(p_actors.begin(), p_actors.end(),
+                     q_actors.begin(), q_actors.end(),
+                     std::back_inserter(actors_r));
+      std::sort(actors_r.begin(), actors_r.end());
+      
+      // Tally one-link triads
+      // Partition of exclusive event counts lambda
+      lambda[0] = events_a.size();
+      lambda[1] = 0;
+      lambda[2] = 0;
+      lambda_i = partition_index(lambda);
+      max_i = std::max(max_i, lambda_i);
+      // Expand triad census dimensions if necessary
+      if (max_i + 1 > tc.nrow()) {
+        NumericMatrix z(tc.ncol(), max_i + 1 - tc.nrow());
+        tc = transpose(cbind(transpose(tc), z));
+      }
+      // Inclusive event count w
+      w = 0;
+      // Increment matrix entry
+      tc(lambda_i, w) += na - actors_r.size();
+      
+      for (k = 0; k < actors_r.size(); k++) {
+        if ((actors_r[k] == actors[i]) |
+            (actors_r[k] == actors_q[j])) {
+          continue;
+        }
+        
+        List r_ego = actor_nbhd_2(el, actors_r[k]);
+        IntegerVector r_events = r_ego["d1"];
+        std::sort(r_events.begin(), r_events.end());
+        IntegerVector r_actors = r_ego["d2"];
+        std::sort(r_actors.begin(), r_actors.end());
+        
+        // Events c attended by actors p and r
+        IntegerVector events_c = IntegerVector::create();
+        std::set_intersection(p_events.begin(), p_events.end(),
+                              r_events.begin(), r_events.end(),
+                              std::back_inserter(events_c));
+        
+        if ((actors_q[j] >= actors_r[k]) &
+            ((actors[i] >= actors_r[k]) |
+            (actors_r[k] >= actors_q[j]) |
+            (events_c.size() > 0))) {
+          continue;
+        }
+        
+        // Events b attended by actors q and r
+        IntegerVector events_b = IntegerVector::create();
+        std::set_intersection(q_events.begin(), q_events.end(),
+                              r_events.begin(), r_events.end(),
+                              std::back_inserter(events_b));
+        // Events d attended by actors p, q, and r
+        std::sort(events_a.begin(), events_a.end());
+        std::sort(events_c.begin(), events_c.end());
+        IntegerVector events_d = IntegerVector::create();
+        std::set_intersection(events_a.begin(), events_a.end(),
+                              events_c.begin(), events_c.end(),
+                              std::back_inserter(events_d));
+        
+        // Tally two- and three-link triads
+        // Partition of exclusive event counts lambda
+        lambda[0] = events_a.size() - events_d.size();
+        lambda[1] = events_b.size() - events_d.size();
+        lambda[2] = events_c.size() - events_d.size();
+        std::sort(lambda.begin(), lambda.end());
+        std::reverse(lambda.begin(), lambda.end());
+        lambda_i = partition_index(lambda);
+        max_i = std::max(max_i, lambda_i);
+        // Inclusive event count w
+        w = events_d.size();
+        max_w = std::max(max_w, w);
+        // Expand triad census dimensions if necessary
+        if (max_i + 1 > tc.nrow()) {
+          NumericMatrix z(tc.ncol(), max_i + 1 - tc.nrow());
+          tc = transpose(cbind(transpose(tc), z));
+        }
+        if (max_w + 1 > tc.ncol()) {
+          NumericMatrix z(tc.nrow(), max_w + 1 - tc.ncol());
+          tc = cbind(tc, z);
+        }
+        // Increment matrix entry
+        tc(lambda_i, w) += 1;
+      }
+    }
+  }
+  
+  // Tally zero-link triads
+  // Partition of exclusive event counts lambda
+  lambda_i = 0;
+  // Inclusive event count w
+  w = 0;
+  // Count non-zero triads
+  int tot = 0;
+  for (i = 0; i < max_i + 1; i++) {
+    for (j = 0; j < max_w + 1; j++) {
+      tot += tc(i, j);
+    }
+  }
+  // Increment matrix entry
+  //tc(lambda_i, w) = choose_C(na, 3) - tot;
+  
+  // Subset matrix according to 'max_i' and 'max_w'
+  IntegerVector max_lambda = index_partition(max_i);
+  max_lambda[0] += 1;
+  max_lambda[1] = 0;
+  max_lambda[2] = 0;
+  max_i = partition_index(max_lambda) - 1;
+  // Expand triad census dimensions if necessary
+  if (max_i + 1 > tc.nrow()) {
+    NumericMatrix z(tc.ncol(), max_i + 1 - tc.nrow());
+    tc = transpose(cbind(transpose(tc), z));
+  }
+  
+  return tc;
+}
+
+// [[Rcpp::export]]
+IntegerMatrix triad_census_full_batagelj_mrvar_integer_C(
     IntegerMatrix el, int na
 ) {
   
@@ -1471,26 +1646,21 @@ IntegerMatrix triad_census_full_batagelj_mrvar_C(
 
 // algorithm adapted from Batagelj and Mrvar (2001)
 // performed on an edgelist
+// internally constructs actor list
+
 // [[Rcpp::export]]
-List triad_census_full_batagelj_mrvar_long_C(
+NumericMatrix triad_census_difference_batagelj_mrvar_numeric_C(
     IntegerMatrix el, int na
 ) {
   
   // Loop indices
   int i,j,k;
   // Triad class indices
-  IntegerVector lambda(3);
-  int w;
-  // Limits
-  int lambda_i = 0;
-  int max_i = 0;
-  int max_w = 0;
+  bool xy,yz,z0,w0;
+  IntegerVector mu(4);
   
-  IntegerMatrix z(1, 1);
   // Initialize triad census matrix
-  IntegerMatrix tc(1, 1);
-  // Initialize overflow matrix
-  IntegerMatrix tc1(1, 1);
+  NumericMatrix tc(8, 2);
   
   // Make vector of actor node IDs
   IntegerVector attendees(el.nrow());
@@ -1537,28 +1707,7 @@ List triad_census_full_batagelj_mrvar_long_C(
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
-      // Partition of exclusive event counts lambda
-      lambda[0] = events_a.size();
-      lambda[1] = 0;
-      lambda[2] = 0;
-      lambda_i = partition_index(lambda);
-      max_i = std::max(max_i, lambda_i);
-      // Expand triad census dimensions if necessary
-      if (max_i + 1 > tc.nrow()) {
-        IntegerMatrix z(tc.ncol(), max_i + 1 - tc.nrow());
-        tc = transpose(cbind(transpose(tc), z));
-        tc1 = transpose(cbind(transpose(tc1), z));
-      }
-      // Inclusive event count w
-      w = 0;
-      // Increment matrix entry
-      if (INT_MAX - tc(lambda_i, w) < na - actors_r.size()) {
-        if (INT_MAX - tc1(lambda_i, w) < 1) {
-          stop("Integer overflow in non-empty triad isomorphism class.");
-        }
-        tc1(lambda_i, w) += 1;
-      }
-      tc(lambda_i, w) += na - actors_r.size();
+      tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
         if ((actors_r[k] == actors[i]) |
@@ -1599,62 +1748,35 @@ List triad_census_full_batagelj_mrvar_long_C(
                               std::back_inserter(events_d));
         
         // Tally two- and three-link triads
-        // Partition of exclusive event counts lambda
-        lambda[0] = events_a.size() - events_d.size();
-        lambda[1] = events_b.size() - events_d.size();
-        lambda[2] = events_c.size() - events_d.size();
-        std::sort(lambda.begin(), lambda.end());
-        std::reverse(lambda.begin(), lambda.end());
-        lambda_i = partition_index(lambda);
-        max_i = std::max(max_i, lambda_i);
-        // Inclusive event count w
-        w = events_d.size();
-        max_w = std::max(max_w, w);
-        // Expand triad census dimensions if necessary
-        if (max_i + 1 > tc.nrow()) {
-          IntegerMatrix z(tc.ncol(), max_i + 1 - tc.nrow());
-          tc = transpose(cbind(transpose(tc), z));
-          tc1 = transpose(cbind(transpose(tc1), z));
-        }
-        if (max_w + 1 > tc.ncol()) {
-          IntegerMatrix z(tc.nrow(), max_w + 1 - tc.ncol());
-          tc = cbind(tc, z);
-          tc1 = cbind(tc1, z);
-        }
-        // Increment matrix entry
-        if (INT_MAX - tc(lambda_i, w) < 1) {
-          if (INT_MAX - tc1(lambda_i, w) < 1) {
-            stop("Integer overflow in non-empty triad isomorphism class.");
-          }
-          tc1(lambda_i, w) += 1;
-        }
-        tc(lambda_i, w) += 1;
-        
+        mu[0] = events_d.size();
+        mu[1] = events_c.size();
+        mu[2] = events_b.size();
+        mu[3] = events_a.size();
+        std::sort(mu.begin(), mu.end());
+        xy = (mu[3] > mu[2]);
+        yz = (mu[2] > mu[1]);
+        z0 = (mu[1] > mu[0]);
+        w0 = (mu[0] > 0);
+        tc(1 * xy + 2 * yz + 4 * z0, w0) += 1;
       }
     }
   }
   
-  // Subset matrix according to 'max_i' and 'max_w'
-  IntegerVector max_lambda = index_partition(max_i);
-  max_lambda[0] += 1;
-  max_lambda[1] = 0;
-  max_lambda[2] = 0;
-  max_i = partition_index(max_lambda) - 1;
-  // Expand triad census dimensions if necessary
-  if (max_i + 1 > tc.nrow()) {
-    IntegerMatrix z(tc.ncol(), max_i + 1 - tc.nrow());
-    tc = transpose(cbind(transpose(tc), z));
-    tc1 = transpose(cbind(transpose(tc1), z));
+  // Count non-zero triads
+  int tot = 0;
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 2; j++) {
+      tot += tc(i, j);
+    }
   }
+  // Tally zero-link triads
+  //tc(0, 0) = choose_C(na, 3) - tot;
   
-  return List::create(tc, tc1);
+  return tc;
 }
 
-// algorithm adapted from Batagelj and Mrvar (2001)
-// performed on an edgelist
-// internally constructs actor list
 // [[Rcpp::export]]
-IntegerMatrix triad_census_difference_batagelj_mrvar_C(
+IntegerMatrix triad_census_difference_batagelj_mrvar_integer_C(
     IntegerMatrix el, int na
 ) {
   
@@ -1789,21 +1911,20 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_C(
 
 // algorithm adapted from Batagelj and Mrvar (2001)
 // performed on an edgelist
+// internally constructs actor list
+
 // [[Rcpp::export]]
-List triad_census_difference_batagelj_mrvar_long_C(
+NumericMatrix triad_census_binary_batagelj_mrvar_numeric_C(
     IntegerMatrix el, int na
 ) {
   
   // Loop indices
   int i,j,k;
   // Triad class indices
-  bool xy,yz,z0,w0;
-  IntegerVector mu(4);
+  bool x,y,z,w;
   
   // Initialize triad census matrix
-  IntegerMatrix tc(8, 2);
-  // Initialize overflow matrix
-  IntegerMatrix tc1(8, 2);
+  NumericMatrix tc(4, 2);
   
   // Make vector of actor node IDs
   IntegerVector attendees(el.nrow());
@@ -1850,12 +1971,6 @@ List triad_census_difference_batagelj_mrvar_long_C(
       std::sort(actors_r.begin(), actors_r.end());
       
       // Tally one-link triads
-      if (INT_MAX - tc(1, 0) < na - actors_r.size()) {
-        if (INT_MAX - tc1(1, 0) < 1) {
-          stop("Integer overflow in non-empty triad isomorphism class.");
-        }
-        tc1(1, 0) += 1;
-      }
       tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
@@ -1897,35 +2012,30 @@ List triad_census_difference_batagelj_mrvar_long_C(
                               std::back_inserter(events_d));
         
         // Tally two- and three-link triads
-        mu[0] = events_d.size();
-        mu[1] = events_c.size();
-        mu[2] = events_b.size();
-        mu[3] = events_a.size();
-        std::sort(mu.begin(), mu.end());
-        xy = (mu[3] > mu[2]);
-        yz = (mu[2] > mu[1]);
-        z0 = (mu[1] > mu[0]);
-        w0 = (mu[0] > 0);
-        if (INT_MAX - tc(1 * xy + 2 * yz + 4 * z0, w0) < 1) {
-          if (INT_MAX - tc1(1 * xy + 2 * yz + 4 * z0, w0) < 1) {
-            stop("Integer overflow in non-empty triad isomorphism class.");
-          }
-          tc1(1 * xy + 2 * yz + 4 * z0, w0) += 1;
-        }
-        tc(1 * xy + 2 * yz + 4 * z0, w0) += 1;
-        
+        x = (events_a.size() > events_d.size());
+        y = (events_b.size() > events_d.size());
+        z = (events_c.size() > events_d.size());
+        w = (events_d.size() > 0);
+        tc(x + y + z, w) += 1;
       }
     }
   }
   
-  return List::create(tc, tc1);
+  // Count non-zero triads
+  int tot = 0;
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 2; j++) {
+      tot += tc(i, j);
+    }
+  }
+  // Tally zero-link triads
+  //tc(0, 0) = choose_C(na, 3) - tot;
+  
+  return tc;
 }
 
-// algorithm adapted from Batagelj and Mrvar (2001)
-// performed on an edgelist
-// internally constructs actor list
 // [[Rcpp::export]]
-IntegerMatrix triad_census_binary_batagelj_mrvar_C(
+IntegerMatrix triad_census_binary_batagelj_mrvar_integer_C(
     IntegerMatrix el, int na
 ) {
   
@@ -2050,134 +2160,6 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_C(
   //tc(0, 0) = choose_C(na, 3) - tot;
   
   return tc;
-}
-
-// algorithm adapted from Batagelj and Mrvar (2001)
-// performed on an edgelist
-// [[Rcpp::export]]
-List triad_census_binary_batagelj_mrvar_long_C(
-    IntegerMatrix el, int na
-) {
-  
-  // Loop indices
-  int i,j,k;
-  // Triad class indices
-  bool x,y,z,w;
-  
-  // Initialize triad census matrix
-  IntegerMatrix tc(4, 2);
-  // Initialize overflow matrix
-  IntegerMatrix tc1(4, 2);
-  
-  // Make vector of actor node IDs
-  IntegerVector attendees(el.nrow());
-  for (i = 0; i < el.nrow(); i++) {
-    attendees(i) = el(i, 0);
-  }
-  IntegerVector actors = sort_unique(attendees);
-  
-  // Loop over actors p
-  for (i = 0; i < actors.size(); i++) {
-    
-    List p_ego = actor_nbhd_2(el, actors[i]);
-    IntegerVector p_events = p_ego["d1"];
-    std::sort(p_events.begin(), p_events.end());
-    IntegerVector p_actors = p_ego["d2"];
-    std::sort(p_actors.begin(), p_actors.end());
-    
-    // Actors q co-incident with actor p
-    IntegerVector actors_q = p_actors;
-    
-    for (j = 0; j < actors_q.size(); j++) {
-      if (actors_q[j] <= actors[i]) {
-        continue;
-      }
-      
-      List q_ego = actor_nbhd_2(el, actors_q[j]);
-      IntegerVector q_events = q_ego["d1"];
-      std::sort(q_events.begin(), q_events.end());
-      IntegerVector q_actors = q_ego["d2"];
-      std::sort(q_actors.begin(), q_actors.end());
-      
-      // Events a attended by actors p and q
-      IntegerVector events_a = IntegerVector::create();
-      std::set_intersection(p_events.begin(), p_events.end(),
-                            q_events.begin(), q_events.end(),
-                            std::back_inserter(events_a));
-      
-      // Actors r co-incident with either actor p or q
-      // (correspond to set S in Batagelj-Mrvar, without excluding p and q)
-      std::vector<int> actors_r;
-      std::set_union(p_actors.begin(), p_actors.end(),
-                     q_actors.begin(), q_actors.end(),
-                     std::back_inserter(actors_r));
-      std::sort(actors_r.begin(), actors_r.end());
-      
-      // Tally one-link triads
-      if (INT_MAX - tc(1, 0) < na - actors_r.size()) {
-        if (INT_MAX - tc1(1, 0) < 1) {
-          stop("Integer overflow in non-empty triad isomorphism class.");
-        }
-        tc1(1, 0) += 1;
-      }
-      tc(1, 0) += na - actors_r.size();
-      
-      for (k = 0; k < actors_r.size(); k++) {
-        if ((actors_r[k] == actors[i]) |
-            (actors_r[k] == actors_q[j])) {
-          continue;
-        }
-        
-        List r_ego = actor_nbhd_2(el, actors_r[k]);
-        IntegerVector r_events = r_ego["d1"];
-        std::sort(r_events.begin(), r_events.end());
-        IntegerVector r_actors = r_ego["d2"];
-        std::sort(r_actors.begin(), r_actors.end());
-        
-        // Events c attended by actors p and r
-        IntegerVector events_c = IntegerVector::create();
-        std::set_intersection(p_events.begin(), p_events.end(),
-                              r_events.begin(), r_events.end(),
-                              std::back_inserter(events_c));
-        
-        if ((actors_q[j] >= actors_r[k]) &
-            ((actors[i] >= actors_r[k]) |
-            (actors_r[k] >= actors_q[j]) |
-            (events_c.size() > 0))) {
-          continue;
-        }
-        
-        // Events b attended by actors q and r
-        IntegerVector events_b = IntegerVector::create();
-        std::set_intersection(q_events.begin(), q_events.end(),
-                              r_events.begin(), r_events.end(),
-                              std::back_inserter(events_b));
-        // Events d attended by actors p, q, and r
-        std::sort(events_a.begin(), events_a.end());
-        std::sort(events_c.begin(), events_c.end());
-        IntegerVector events_d = IntegerVector::create();
-        std::set_intersection(events_a.begin(), events_a.end(),
-                              events_c.begin(), events_c.end(),
-                              std::back_inserter(events_d));
-        
-        // Tally two- and three-link triads
-        x = (events_a.size() > events_d.size());
-        y = (events_b.size() > events_d.size());
-        z = (events_c.size() > events_d.size());
-        w = (events_d.size() > 0);
-        if (INT_MAX - tc(x + y + z, w) < 1) {
-          if (INT_MAX - tc1(x + y + z, w) < 1) {
-            stop("Integer overflow in non-empty triad isomorphism class.");
-          }
-          tc1(x + y + z, w) += 1;
-        }
-        tc(x + y + z, w) += 1;
-        
-      }
-    }
-  }
-  
-  return List::create(tc, tc1);
 }
 
 // Wedge censuses from triad censuses
