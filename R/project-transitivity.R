@@ -14,9 +14,8 @@
 #' @param type The type of clustering coefficient (defaults to "global")
 #' @param vids A subset of actor node ids at which to evaluate the local
 #' clustering coefficient.
-#' @export
 #' @family clustering coefficients
-#' @seealso \code{\link{opsahl_transitivity}}, \code{\link{opsahl_transitivity}}
+#' @export
 project_transitivity <- function(
   graph, type = "global",
   vids = which(!V(graph)$type)

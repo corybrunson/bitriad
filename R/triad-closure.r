@@ -63,6 +63,8 @@
 #'   triad_closure_liebig_rao_0(women_group, type = "local"),
 #'   triad_closure_exclusive(women_group, type = "local")
 #' )
+
+#' @rdname triad_closure
 #' @export
 triad_closure <- function(graph, ...) {
   if (is_an(graph)) {

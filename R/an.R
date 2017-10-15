@@ -26,6 +26,9 @@
 #' @param graph An \code{igraph} object.
 #' @param add.type.attribute Logical; whether to introduce a \code{type} 
 #'   attribute if \code{graph} has none before testing for bipartite structure.
+NULL
+
+#' @rdname affiliation_network
 #' @export
 is_an <- function(graph) {
   if (!is_igraph(graph)) return(FALSE)

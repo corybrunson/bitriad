@@ -12,6 +12,9 @@
 #'   if logical, whether to introduce an artificial \code{time} attribute
 #'   \code{1:event_count(graph)}, reflecting the order of the event node IDs,
 #'   if \code{graph} has none.
+NULL
+
+#' @rdname dynamic_an
 #' @export
 is_dynamic_an <- function(graph) {
   if (!is_an(graph)) return(FALSE)

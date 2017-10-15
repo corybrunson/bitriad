@@ -13,6 +13,9 @@
 #' @param graph A one-mode network
 #' @param bigraph The ambient affiliation network from which \code{graph} is
 #'   projected
+NULL
+
+#' @name triad_tallies
 connectedTriples <- function(
   bigraph,
   # Construct the one-mode projection if it's not already prepared

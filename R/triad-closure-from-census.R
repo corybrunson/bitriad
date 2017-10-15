@@ -330,8 +330,7 @@ wedges_indact_from_full_census <- wedges_x0w0m2c2_from_full_census
 #' @rdname triad_closure_from_census
 #' @export
 triad_closure_from_census_original <- function(
-  census,
-  scheme = NULL,
+  census, scheme = NULL,
   alcove = 0, wedge = 0, maps = 0, congruence = 0,
   measure,
   open.fun, closed.fun,

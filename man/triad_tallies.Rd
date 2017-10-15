@@ -2,6 +2,7 @@
 % Please edit documentation in R/triad-tallies.R
 \name{triad_tallies}
 \alias{triad_tallies}
+\alias{triad_tallies}
 \alias{connectedTriples}
 \alias{oneTiedTriads}
 \alias{twoTiedTriads}
