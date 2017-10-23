@@ -186,7 +186,7 @@ triad_census_full_projection <- function(
   if (length(ot) > 0) C[sapply(ot$x, function(x) {
     partition_index(c(x, 0, 0))
   }) + 1, 1] <- ot$n
-  if (verbose) print('One-tied triads tallied')
+  if (verbose) message('One-tied triads tallied')
   
   # Tally two-tied triads
   tt <- twoTiedTriads(proj)
@@ -195,7 +195,7 @@ triad_census_full_projection <- function(
   if (!is.null(tt)) C[sapply(1:dim(tt)[1], function(i) {
     partition_index(c(tt[i, 1], tt[i, 2], 0))
   }) + 1, 1] <- tt$n
-  if (verbose) print('Two-tied triads tallied')
+  if (verbose) message('Two-tied triads tallied')
   
   # Tally triangles
   tht <- threeTiedTriads(graph, graph = proj)
@@ -215,7 +215,7 @@ triad_census_full_projection <- function(
       }), w + 1] <- tht$n[rs]
     }
   }
-  if (verbose) print('Three-tied triads tallied')
+  if (verbose) message('Three-tied triads tallied')
   
   # The remaining triads share no secondary nodes; count them as empty
   # (No triads should have yet been counted as empty)
@@ -453,8 +453,6 @@ triad_census_binary_projection <- function(
       edgeWeight(proj, c(t[1, j], t[3, j]))) > w[j]))
   }
   C[, 2] <- tabulate(l + 1, nbins = 4)
-  print(C)
-  print(n)
   # Return the matrix
   stopifnot(sum(C) == choose(n, 3))
   C
