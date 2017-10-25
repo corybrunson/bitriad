@@ -1,13 +1,16 @@
 ## Files to ignore when building the package
 
-# alternate and test unctions
+# alternate and experimental C++ functions
 ^src-alt$
 
-# data generation
+# data generation (devtools)
 ^data-raw$
 
-# documentation templates
-man-roxygen
+# documentation templates (roxygen)
+^man-roxygen$
 
 # experimentation
-sandbox
+^sandbox$
+
+# website (pkgdown)
+^docs$
