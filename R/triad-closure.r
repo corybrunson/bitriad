@@ -22,6 +22,8 @@
 #'   \code{\link[igraph]{transitivity}}
 #' @param graph An affiliation network.
 #' @param actors A vector of actor nodes in \code{graph}.
+#' @param triad_list A list of triad isomorphism classes in matrix format, as
+#'   produced by \code{\link{centered_triads}}.
 #' @param type The type of statistic, matched to \code{"global"}, 
 #'   \code{"local"}, or \code{"raw"}.
 #' @param ... Measure specifications passed to \code{\link{wedges}}.
@@ -82,18 +84,16 @@ triad_closure_an <- function(
   ...
 ) {
   method <- match.arg(method, c("triads", "wedges"))
-  triad_closure_fun <- get(paste0("triad_closure_from_", method))
+  triad_closure_fun <- get(paste0("triad_closure_via_", method))
   triad_closure_fun(graph, ...)
 }
 
 #' @rdname triad_closure
 #' @export
-triad_closure_from_triads <- function(
+triad_closure_via_triads <- function(
   graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global",
-  ...,
-  measure = NULL,
-  triads.fun = NULL
+  ...
 ) {
   if (!is_an(graph)) {
     stop("Not an affiliation network.")
@@ -104,47 +104,61 @@ triad_closure_from_triads <- function(
     warning("Calculating a global statistic on a subset of actors.")
   }
   
-  triadtally <- do.call(cbind, lapply(actors, function(actor) {
-    q_triads <- centered_triads(graph = graph, actor = actor)
-    if (ncol(q_triads) == 0) q_triads <- cbind(q_triads, 0)
-    rbind(
-      q = as.numeric(V(graph)[actor]),
-      q_triads
-    )
+  triad_list <- lapply(actors, centered_triads, graph = graph)
+  
+  triad_closure_from_centered_triads(triad_list, type = type, ...)
+}
+
+#' @rdname triad_closure
+#' @export
+triad_closure_from_centered_triads <- function(
+  triad_list,
+  type = "global",
+  ...,
+  measure = NULL,
+  triads.fun = NULL
+) {
+  triad_matrix <- do.call(cbind, lapply(seq_along(triad_list), function(i) {
+    ct <- triad_list[[i]]
+    if (ncol(ct) == 0) ct <- cbind(ct, 0)
+    rbind(q = i, ct)
   }))
   
   triads_fun <- if (!is.null(triads.fun)) {
     triads.fun
   } else if (!is.null(measure)) {
-    measure <- match.arg(measure, c("classical", "watts_strogatz",
-                                    "twomode", "opsahl",
-                                    "unconnected", "liebig_rao_0",
-                                    "sparsely_connected", "liebig_rao_1",
-                                    "highly_connected", "liebig_rao_2",
-                                    "completely_connected", "liebig_rao_3",
-                                    "exclusive"))
+    measure <- match.arg(measure, c(
+      "homact", "classical", "watts_strogatz",
+      "injequ", "twomode", "opsahl",
+      "indequ", "unconnected", "liebig_rao_0",
+      "sparsely_connected", "liebig_rao_1",
+      "highly_connected", "liebig_rao_2",
+      "completely_connected", "liebig_rao_3",
+      "indstr", "exclusive",
+      "homequ", "homstr", "injstr", "injact"
+    ))
     get(paste0("triad_wedges_", measure))
   } else {
     triad_wedges
   }
   
-  wedgetally <- triads_fun(w = triadtally["w", ],
-                           x = triadtally["x", ],
-                           y = triadtally["y", ],
-                           z = triadtally["z", ],
+  wedge_tally <- triads_fun(w = triad_matrix["w", ],
+                           x = triad_matrix["x", ],
+                           y = triad_matrix["y", ],
+                           z = triad_matrix["z", ],
                            ...)
   wedgelist <- stats::aggregate(
-    wedgetally,
-    by = list(q = triadtally["q", ]),
+    wedge_tally,
+    by = list(q = triad_matrix["q", ]),
     FUN = sum
   )[, -1]
-  rownames(wedgelist) <- V(graph)[actors]$name
+  rownames(wedgelist) <- names(triad_list)
   wedgeReturn(wedgelist = wedgelist, type = type)
 }
 
 #' @rdname triad_closure
 #' @export
-triad_closure_from_wedges <- function(
+triad_closure_via_wedges <- function(
   graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global",
   ...,
