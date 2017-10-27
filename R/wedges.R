@@ -112,9 +112,9 @@ wedges_exclusive <- function(graph, actor) wedges(
 
 #' @rdname wedges
 #' @export
-triads <- function(graph, actor) {
+centered_triads <- function(graph, actor) {
   stopifnot(V(graph)[actor]$type == FALSE)
-  ct <- centered_triads(
+  ct <- centered_triads_C(
     el = as_edgelist(graph, names = FALSE),
     q = as.numeric(V(graph)[actor])
   )

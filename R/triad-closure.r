@@ -105,7 +105,7 @@ triad_closure_from_triads <- function(
   }
   
   triadtally <- do.call(cbind, lapply(actors, function(actor) {
-    q_triads <- triads(graph = graph, actor = actor)
+    q_triads <- centered_triads(graph = graph, actor = actor)
     if (ncol(q_triads) == 0) q_triads <- cbind(q_triads, 0)
     rbind(
       q = as.numeric(V(graph)[actor]),

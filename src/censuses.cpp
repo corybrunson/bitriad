@@ -8,7 +8,7 @@
 // schedules of actors p, q, r for which both p and r share an event with q,
 // from which any reasonable measure of triad closure can be recovered
 // [[Rcpp::export]]
-IntegerMatrix centered_triads(IntegerMatrix el, int q) {
+IntegerMatrix centered_triads_C(IntegerMatrix el, int q) {
   
   // Loop indices
   int i,j;
