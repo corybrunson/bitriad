@@ -23,7 +23,7 @@
 \alias{wedges_liebig_rao_3}
 \alias{wedges_completely_connected}
 \alias{wedges_exclusive}
-\alias{triads}
+\alias{centered_triads}
 \alias{triad_wedges_watts_strogatz}
 \alias{triad_wedges_classical}
 \alias{triad_wedges_projection}
@@ -85,7 +85,7 @@ wedges_completely_connected(graph, actor)
 
 wedges_exclusive(graph, actor)
 
-triads(graph, actor)
+centered_triads(graph, actor)
 
 triad_wedges_watts_strogatz(w, x, y, z)
 
