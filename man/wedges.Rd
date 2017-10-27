@@ -27,10 +27,13 @@
 \alias{triad_wedges_watts_strogatz}
 \alias{triad_wedges_classical}
 \alias{triad_wedges_projection}
+\alias{triad_wedges_homact}
 \alias{triad_wedges_opsahl}
 \alias{triad_wedges_twomode}
+\alias{triad_wedges_injequ}
 \alias{triad_wedges_liebig_rao_0}
 \alias{triad_wedges_unconnected}
+\alias{triad_wedges_indequ}
 \alias{triad_wedges_liebig_rao_1}
 \alias{triad_wedges_sparsely_connected}
 \alias{triad_wedges_liebig_rao_2}
@@ -38,6 +41,12 @@
 \alias{triad_wedges_liebig_rao_3}
 \alias{triad_wedges_completely_connected}
 \alias{triad_wedges_exclusive}
+\alias{triad_wedges_indstr}
+\alias{triad_wedges_indact}
+\alias{triad_wedges_homequ}
+\alias{triad_wedges_homstr}
+\alias{triad_wedges_injstr}
+\alias{triad_wedges_injact}
 \alias{triad_wedges}
 \title{Affiliation network wedges}
 \usage{
@@ -93,13 +102,19 @@ triad_wedges_classical(w, x, y, z)
 
 triad_wedges_projection(w, x, y, z)
 
+triad_wedges_homact(w, x, y, z)
+
 triad_wedges_opsahl(w, x, y, z)
 
 triad_wedges_twomode(w, x, y, z)
 
+triad_wedges_injequ(w, x, y, z)
+
 triad_wedges_liebig_rao_0(w, x, y, z)
 
 triad_wedges_unconnected(w, x, y, z)
+
+triad_wedges_indequ(w, x, y, z)
 
 triad_wedges_liebig_rao_1(w, x, y, z)
 
@@ -114,6 +129,18 @@ triad_wedges_liebig_rao_3(w, x, y, z)
 triad_wedges_completely_connected(w, x, y, z)
 
 triad_wedges_exclusive(w, x, y, z)
+
+triad_wedges_indstr(w, x, y, z)
+
+triad_wedges_indact(w, x, y, z)
+
+triad_wedges_homequ(w, x, y, z)
+
+triad_wedges_homstr(w, x, y, z)
+
+triad_wedges_injstr(w, x, y, z)
+
+triad_wedges_injact(w, x, y, z)
 
 triad_wedges(w, x, y, z, alcove = 0, wedge = 0, maps = 0,
   congruence = 0)

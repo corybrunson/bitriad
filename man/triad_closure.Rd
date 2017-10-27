@@ -3,8 +3,9 @@
 \name{triad_closure}
 \alias{triad_closure}
 \alias{triad_closure_an}
-\alias{triad_closure_from_triads}
-\alias{triad_closure_from_wedges}
+\alias{triad_closure_via_triads}
+\alias{triad_closure_from_centered_triads}
+\alias{triad_closure_via_wedges}
 \alias{triad_closure_watts_strogatz}
 \alias{triad_closure_classical}
 \alias{triad_closure_opsahl}
@@ -21,10 +22,13 @@ triad_closure(graph, ...)
 
 triad_closure_an(graph, method = "wedges", ...)
 
-triad_closure_from_triads(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ..., measure = NULL, triads.fun = NULL)
+triad_closure_via_triads(graph, actors = V(graph)[V(graph)$type == FALSE],
+  type = "global", ...)
 
-triad_closure_from_wedges(graph, actors = V(graph)[V(graph)$type == FALSE],
+triad_closure_from_centered_triads(triad_list, type = "global", ...,
+  measure = NULL, triads.fun = NULL)
+
+triad_closure_via_wedges(graph, actors = V(graph)[V(graph)$type == FALSE],
   type = "global", ..., measure = NULL, wedges.fun = NULL)
 
 triad_closure_watts_strogatz(graph, actors = V(graph)[V(graph)$type == FALSE],
@@ -70,6 +74,9 @@ calculation on the centered triad census (\code{"triads"}).}
 
 \item{type}{The type of statistic, matched to \code{"global"}, 
 \code{"local"}, or \code{"raw"}.}
+
+\item{triad_list}{A list of triad isomorphism classes in matrix format, as
+produced by \code{\link{centered_triads}}.}
 
 \item{measure}{Character; the measure of triad closure, used as the suffix 
 \code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 

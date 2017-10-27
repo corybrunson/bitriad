@@ -139,16 +139,24 @@ triad_wedges_projection <- triad_wedges_watts_strogatz
 
 #' @rdname wedges
 #' @export
+triad_wedges_homact <- triad_wedges_watts_strogatz
+
+#' @rdname wedges
+#' @export
 triad_wedges_opsahl <- function(w, x, y, z) cbind(
-  wedges = x * y + (x + y) * w + w * (w - 1),
+  wedges = x * y + (x + y) * w + w * (w - 1L),
   closed = x * y * (w + z > 0) +
-    (x + y) * w * (w - 1 + z > 0) +
-    w * (w - 1) * (w - 2 + z > 0)
+    (x + y) * w * (w - 1L + z > 0) +
+    w * (w - 1L) * (w - 2L + z > 0)
 )
 
 #' @rdname wedges
 #' @export
 triad_wedges_twomode <- triad_wedges_opsahl
+
+#' @rdname wedges
+#' @export
+triad_wedges_injequ <- triad_wedges_opsahl
 
 #' @rdname wedges
 #' @export
@@ -160,6 +168,10 @@ triad_wedges_liebig_rao_0 <- function(w, x, y, z) cbind(
 #' @rdname wedges
 #' @export
 triad_wedges_unconnected <- triad_wedges_liebig_rao_0
+
+#' @rdname wedges
+#' @export
+triad_wedges_indequ <- triad_wedges_liebig_rao_0
 
 #' @rdname wedges
 #' @export
@@ -175,8 +187,8 @@ triad_wedges_sparsely_connected <- triad_wedges_liebig_rao_1
 #' @rdname wedges
 #' @export
 triad_wedges_liebig_rao_2 <- function(w, x, y, z) cbind(
-  wedges = (x + y) * w + w * (w - 1),
-  closed = (x + y) * w * (w > 1) + w * (w - 1) * (z > 0)
+  wedges = (x + y) * w + w * (w - 1L),
+  closed = (x + y) * w * (w > 1) + w * (w - 1L) * (z > 0)
 )
 
 #' @rdname wedges
@@ -186,8 +198,8 @@ triad_wedges_highly_connected <- triad_wedges_liebig_rao_2
 #' @rdname wedges
 #' @export
 triad_wedges_liebig_rao_3 <- function(w, x, y, z) cbind(
-  wedges = w * (w - 1),
-  closed = w * (w - 1) * (w > 2)
+  wedges = w * (w - 1L),
+  closed = w * (w - 1L) * (w > 2)
 )
 
 #' @rdname wedges
@@ -199,6 +211,46 @@ triad_wedges_completely_connected <- triad_wedges_liebig_rao_3
 triad_wedges_exclusive <- function(w, x, y, z) cbind(
   wedges = (x > 0) * (y > 0),
   closed = (x > 0) * (y > 0) * (z > 0)
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_indstr <- triad_wedges_exclusive
+
+#' @rdname wedges
+#' @export
+triad_wedges_indact <- triad_wedges_exclusive
+
+#' @rdname wedges
+#' @export
+triad_wedges_homequ <- function(w, x, y, z) cbind(
+  wedges = x * y + (x + y) * w + as.integer(w ^ 2),
+  closed = x * y * (w + z > 0) + (x + y) * w * (w + z > 0) + as.integer(w ^ 2)
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_homstr <- function(w, x, y, z) cbind(
+  wedges = (x>0)*(y>0) + ((x>0) + (y>0))*(w>0) + (w>0),
+  closed = (x>0)*(y>0)*(w+z>0) + ((x>0) + (y>0))*(w>0) + (w>0)
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_injstr <- function(w, x, y, z) cbind(
+  wedges = (x>0)*(y>0) + ((x>0) + (y>0))*(w>0) + (w>1),
+  closed = (x>0)*(y>0)*(w+z>0) +
+    ((x>0) + (y>0))*(w>0)*(z>0|w>1) +
+    (w>1)*(z>0|w>2)
+)
+
+#' @rdname wedges
+#' @export
+triad_wedges_injact <- function(w, x, y, z) cbind(
+  wedges = (x > 0 & y > 0) | ((x > 0 | y > 0) & w > 0) | (w > 1),
+  closed = (x > 0 & y > 0) * (w + z > 0) |
+    ((x > 0 | y > 0) & w > 0) * (w > 1 | z > 0) |
+    (w > 1) * (w > 2 | z > 0)
 )
 
 #' @rdname wedges
