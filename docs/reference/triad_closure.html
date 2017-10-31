@@ -99,10 +99,13 @@
 
 <span class='fu'>triad_closure_an</span>(<span class='no'>graph</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"wedges"</span>, <span class='no'>...</span>)
 
-<span class='fu'>triad_closure_from_triads</span>(<span class='no'>graph</span>, <span class='kw'>actors</span> <span class='kw'>=</span> <span class='fu'>V</span>(<span class='no'>graph</span>)[<span class='fu'>V</span>(<span class='no'>graph</span>)$<span class='no'>type</span> <span class='kw'>==</span> <span class='fl'>FALSE</span>],
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"global"</span>, <span class='no'>...</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>triads.fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>triad_closure_via_triads</span>(<span class='no'>graph</span>, <span class='kw'>actors</span> <span class='kw'>=</span> <span class='fu'>V</span>(<span class='no'>graph</span>)[<span class='fu'>V</span>(<span class='no'>graph</span>)$<span class='no'>type</span> <span class='kw'>==</span> <span class='fl'>FALSE</span>],
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"global"</span>, <span class='no'>...</span>)
 
-<span class='fu'>triad_closure_from_wedges</span>(<span class='no'>graph</span>, <span class='kw'>actors</span> <span class='kw'>=</span> <span class='fu'>V</span>(<span class='no'>graph</span>)[<span class='fu'>V</span>(<span class='no'>graph</span>)$<span class='no'>type</span> <span class='kw'>==</span> <span class='fl'>FALSE</span>],
+<span class='fu'>triad_closure_from_centered_triads</span>(<span class='no'>triad_list</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"global"</span>, <span class='no'>...</span>,
+  <span class='kw'>measure</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>triads.fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>triad_closure_via_wedges</span>(<span class='no'>graph</span>, <span class='kw'>actors</span> <span class='kw'>=</span> <span class='fu'>V</span>(<span class='no'>graph</span>)[<span class='fu'>V</span>(<span class='no'>graph</span>)$<span class='no'>type</span> <span class='kw'>==</span> <span class='fl'>FALSE</span>],
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"global"</span>, <span class='no'>...</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wedges.fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>triad_closure_watts_strogatz</span>(<span class='no'>graph</span>, <span class='kw'>actors</span> <span class='kw'>=</span> <span class='fu'>V</span>(<span class='no'>graph</span>)[<span class='fu'>V</span>(<span class='no'>graph</span>)$<span class='no'>type</span> <span class='kw'>==</span> <span class='fl'>FALSE</span>],
@@ -160,6 +163,11 @@ calculation on the centered triad census (<code>"triads"</code>).</p></td>
       <th>type</th>
       <td><p>The type of statistic, matched to <code>"global"</code>, 
 <code>"local"</code>, or <code>"raw"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>triad_list</th>
+      <td><p>A list of triad isomorphism classes in matrix format, as
+produced by <code><a href='wedges.html'>centered_triads</a></code>.</p></td>
     </tr>
     <tr>
       <th>measure</th>

@@ -1,25 +1,24 @@
 Package: bitriad
 Type: Package
 Title: Triadic Analysis of Affiliation Networks
-Version: 0.2
-Date: 2017-07-15
+Version: 0.3
+Date: 2017-10-31
 Authors@R: person('Jason Cory', 'Brunson', email = 'jabrunso@vt.edu',
     role = c('aut', 'cre'))
 Maintainer: Jason Cory Brunson <jabrunso@vt.edu>
-Description: The package contains two principal tools for the triadic analysis
-    of affiliation networks: the triad census and the clustering coefficient.
-    The former includes several variations; the latter involves a shell that
-    uses any of several notions of wedge and wedge closure. Assorted additional
-    functions, including a measure of dynamic triadic closure, are available for
-    affiliation network manipulation. The package is built on top of the igraph
-    package but includes new graph-theoretic calculations written using the Rcpp
-    package.
+Description: This package implements two principal tools for the triadic
+    analysis of affiliation networks: triad census and triadic closure.
+    The package includes several variations on both classical tools, tailored
+    to affiliation network structure. Assorted additional functions are
+    included for affiliation network manipulation. The package is built on the
+    igraph package but includes new graph-theoretic calculations written using
+    the Rcpp package.
 Depends:
     R (>= 3.3.2),
-    igraph (>= 1.0.1)
+    igraph (>= 1.1.2)
 Imports:
     MASS,
-    Rcpp (>= 0.12.11)
+    Rcpp (>= 0.12.13)
 LinkingTo: Rcpp
 Suggests:
     knitr,

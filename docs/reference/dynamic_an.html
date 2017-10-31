@@ -100,7 +100,8 @@
 
 <span class='fu'>is.dyn</span>(<span class='no'>graph</span>)
 
-<span class='fu'>as_dynamic_an</span>(<span class='no'>graph</span>, <span class='kw'>add.time.attribute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>as_dynamic_an</span>(<span class='no'>graph</span>, <span class='kw'>use.time.attribute</span> <span class='kw'>=</span> <span class='st'>"time"</span>,
+  <span class='kw'>add.time.attribute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -110,12 +111,16 @@
       <td><p>An affiliation network.</p></td>
     </tr>
     <tr>
+      <th>use.time.attribute</th>
+      <td><p>Character; the vertex attribute to coerce to 
+numeric if necessary and use as the <code>"time"</code> attribute.</p></td>
+    </tr>
+    <tr>
       <th>add.time.attribute</th>
-      <td><p>Character or logical; if character, the existing 
-attribute to coerce to numeric if necessary and use as the time attribute;
-if logical, whether to introduce an artificial <code>time</code> attribute
-<code>1:event_count(graph)</code>, reflecting the order of the event node IDs,
-if <code>graph</code> has none.</p></td>
+      <td><p>Logical; whether, if <code>graph</code> has no attribute
+<code>use.time.attribute</code>, to introduce an artificial <code>"time"</code>
+attribute taking the values <code>1:event_count(graph)</code>, reflecting the
+order of the event node IDs.</p></td>
     </tr>
     </table>
     
