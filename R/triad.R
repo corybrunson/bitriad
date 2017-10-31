@@ -61,7 +61,9 @@ make_triad <- function(
   ))
   
   # make affiliation network
-  tr <- graph_from_edgelist(el = el, directed = FALSE)
+  tr <- make_empty_graph(n = max(c(el, 3)), directed = FALSE)
+  tr <- add_edges(tr, t(el))
+  #tr <- graph_from_edgelist(el = el, directed = FALSE)
   V(tr)$name <- c(actor_names, event_names)
   V(tr)$type <- c(rep(FALSE, 3), rep(TRUE, sum(c(lambda, w))))
   as_an(tr)
