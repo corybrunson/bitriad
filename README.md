@@ -5,7 +5,7 @@ This repo constitutes an R package, and contains data and tools for the triadic 
 
 ## Description
 
-The paper [*Triadic analysis of affiliation networks*](http://arxiv.org/abs/1502.07016) makes a case for adopting a batch of triad-based tools for the study of (bipartite) affiliation networks. Most of the tools used therein are included in this package, which is built mostly on the [**igraph** package](http://igraph.org/r/). No new classes have been defined yet, and all functions are written in R (rather than the more natural C/C++ used by **igraph**). Any suggestions would be welcome.
+The paper [*Triadic analysis of affiliation networks*](http://arxiv.org/abs/1502.07016) makes a case for adopting a batch of triad-based tools for the study of (bipartite) affiliation networks. Most of the tools used therein are included in this package, which is built mostly on the [**igraph** package](http://igraph.org/r/). No new classes have been defined yet, but several back-end functions are written in C++ without reference to the **igraph** library. Any suggestions would be welcome.
 
 ## Installation
 
@@ -14,8 +14,6 @@ The package is not yet on CRAN; it can be installed using the [devtools](https:/
 ```r
 devtools::install_github("corybrunson/bitriad")
 ```
-
-If you experience any problems with the installation process (that aren't resolved by `help()` or by searching [StackExchange](http://stackexchange.com/), please let me know. I may well have left some silly error in a recent commit.
 
 ## Functionality
 

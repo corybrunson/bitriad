@@ -68,14 +68,13 @@
 <div id="description" class="section level2">
 <h2 class="hasAnchor">
 <a href="#description" class="anchor"></a>Description</h2>
-<p>The paper <a href="http://arxiv.org/abs/1502.07016"><em>Triadic analysis of affiliation networks</em></a> makes a case for adopting a batch of triad-based tools for the study of (bipartite) affiliation networks. Most of the tools used therein are included in this package, which is built mostly on the <a href="http://igraph.org/r/"><strong>igraph</strong> package</a>. No new classes have been defined yet, and all functions are written in R (rather than the more natural C/C++ used by <strong>igraph</strong>). Any suggestions would be welcome.</p>
+<p>The paper <a href="http://arxiv.org/abs/1502.07016"><em>Triadic analysis of affiliation networks</em></a> makes a case for adopting a batch of triad-based tools for the study of (bipartite) affiliation networks. Most of the tools used therein are included in this package, which is built mostly on the <a href="http://igraph.org/r/"><strong>igraph</strong> package</a>. No new classes have been defined yet, but several back-end functions are written in C++ without reference to the <strong>igraph</strong> library. Any suggestions would be welcome.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The package is not yet on CRAN; it can be installed using the <a href="https://github.com/hadley/devtools">devtools</a> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"corybrunson/bitriad"</span>)</code></pre></div>
-<p>If you experience any problems with the installation process (that aren’t resolved by <code>help()</code> or by searching <a href="http://stackexchange.com/">StackExchange</a>, please let me know. I may well have left some silly error in a recent commit.</p>
 </div>
 <div id="functionality" class="section level2">
 <h2 class="hasAnchor">
