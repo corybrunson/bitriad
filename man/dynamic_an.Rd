@@ -11,16 +11,19 @@ is_dynamic_an(graph)
 
 is.dyn(graph)
 
-as_dynamic_an(graph, add.time.attribute = FALSE)
+as_dynamic_an(graph, use.time.attribute = "time",
+  add.time.attribute = FALSE)
 }
 \arguments{
 \item{graph}{An affiliation network.}
 
-\item{add.time.attribute}{Character or logical; if character, the existing 
-attribute to coerce to numeric if necessary and use as the time attribute;
-if logical, whether to introduce an artificial \code{time} attribute
-\code{1:event_count(graph)}, reflecting the order of the event node IDs,
-if \code{graph} has none.}
+\item{use.time.attribute}{Character; the vertex attribute to coerce to 
+numeric if necessary and use as the \code{"time"} attribute.}
+
+\item{add.time.attribute}{Logical; whether, if \code{graph} has no attribute
+\code{use.time.attribute}, to introduce an artificial \code{"time"}
+attribute taking the values \code{1:event_count(graph)}, reflecting the
+order of the event node IDs.}
 }
 \description{
 An affiliation network is \emph{dynamic}, for present purposes, 
