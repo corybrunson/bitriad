@@ -32,7 +32,6 @@ NULL
 #' @export
 is_an <- function(graph) {
   if (!is_igraph(graph)) return(FALSE)
-  #if (vcount(graph) == 0) return(TRUE)
   if (!is_simple(graph)) return(FALSE)
   if (is_directed(graph)) return(FALSE)
   if (!("type" %in% vertex_attr_names(graph))) return(FALSE)
@@ -50,7 +49,6 @@ is.an <- is_an
 #' @export
 as_an <- function(graph, add.type.attribute = FALSE) {
   if (!is_igraph(graph)) stop("Not an igraph object.")
-  #if (vcount(graph) == 0) return(graph)
   if (!is_simple(graph)) {
     graph <- simplify(graph)
   }
@@ -83,7 +81,6 @@ try_type <- function(graph) {
   dist_mat <- distances(graph, v = start_nodes, weights = NA)
   dist_mat[is.infinite(dist_mat)] <- NA
   dists <- apply(dist_mat, 2, sum, na.rm = TRUE)
-  #V(graph)$type <- as.logical(dists %% 2)
   vertex_attr(graph) <- c(vertex_attr(graph), list("type" = logical(0)))
   graph
 }

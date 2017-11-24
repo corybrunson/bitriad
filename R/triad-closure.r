@@ -118,11 +118,16 @@ triad_closure_from_centered_triads <- function(
   measure = NULL,
   triads.fun = NULL
 ) {
-  triad_matrix <- do.call(cbind, lapply(seq_along(triad_list), function(i) {
-    ct <- triad_list[[i]]
-    if (ncol(ct) == 0) ct <- cbind(ct, 0)
-    rbind(q = i, ct)
-  }))
+  if (length(triad_list) == 0) {
+    triad_matrix <- matrix(NA, nrow = 5, ncol = 0)
+    rownames(triad_matrix) <- c("q", "w", "x", "y", "z")
+  } else {
+    triad_matrix <- do.call(cbind, lapply(seq_along(triad_list), function(i) {
+      ct <- triad_list[[i]]
+      if (ncol(ct) == 0) ct <- cbind(ct, 0)
+      rbind(q = i, ct)
+    }))
+  }
   
   triads_fun <- if (!is.null(triads.fun)) {
     triads.fun
@@ -143,16 +148,20 @@ triad_closure_from_centered_triads <- function(
   }
   
   wedge_tally <- triads_fun(w = triad_matrix["w", ],
-                           x = triad_matrix["x", ],
-                           y = triad_matrix["y", ],
-                           z = triad_matrix["z", ],
-                           ...)
-  wedgelist <- stats::aggregate(
-    wedge_tally,
-    by = list(q = triad_matrix["q", ]),
-    FUN = sum
-  )[, -1]
-  rownames(wedgelist) <- names(triad_list)
+                            x = triad_matrix["x", ],
+                            y = triad_matrix["y", ],
+                            z = triad_matrix["z", ],
+                            ...)
+  if (nrow(wedge_tally) == 0) {
+    wedgelist <- wedge_tally
+  } else {
+    wedgelist <- stats::aggregate(
+      wedge_tally,
+      by = list(q = triad_matrix["q", ]),
+      FUN = sum
+    )[, -1]
+    rownames(wedgelist) <- names(triad_list)
+  }
   wedgeReturn(wedgelist = wedgelist, type = type)
 }
 
@@ -187,10 +196,14 @@ triad_closure_via_wedges <- function(
   } else {
     wedges
   }
-  wedgelist <- sapply(actors, function(actor) {
-    wc <- wedges_fun(graph, actor, ...)$closed
-    c(length(wc), sum(wc))
-  })
+  if (length(actors) == 0) {
+    wedgelist <- matrix(NA, nrow = 2, ncol = 0)
+  } else {
+    wedgelist <- sapply(actors, function(actor) {
+      wc <- wedges_fun(graph, actor, ...)$closed
+      c(length(wc), sum(wc))
+    })
+  }
   rownames(wedgelist) <- c("wedges", "closed")
   wedgeReturn(wedgelist = t(wedgelist), type = type)
 }
