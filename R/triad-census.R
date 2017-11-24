@@ -114,8 +114,8 @@ triad_census_full <- function(
   add.names = TRUE
 ) {
   
-  # trivial case
-  if (max(degree(graph, V(graph)$type)) <= 1) {
+  # trivial cases
+  if (vcount(graph) == 0 || max(degree(graph, V(graph)$type)) <= 1) {
     tc <- matrix(choose(actor_count(graph), 3), nrow = 1, ncol = 1)
   } else {
     # method
@@ -240,9 +240,9 @@ triad_census_difference <- function(
   add.names = TRUE
 ) {
   
-  # trivial case
-  if (max(degree(graph, V(graph)$type)) <= 1) {
-    tc <- matrix(0, nrow = 4, ncol = 2)
+  # trivial cases
+  if (vcount(graph) == 0 || max(degree(graph, V(graph)$type)) <= 1) {
+    tc <- matrix(0, nrow = 8, ncol = 2)
     tc[1, 1] <- choose(actor_count(graph), 3)
   } else {
     # method
@@ -296,7 +296,7 @@ triad_census_difference_projection <- function(
   # Initialize the matrix and define the number of actors
   C <- matrix(0, nrow = 8, ncol = 2)
   n <- length(which(!V(graph)$type))
-  # Trivial casess (not enough actors)
+  # Trivial cases (not enough actors)
   if(n < 3) return(C)
   # Trivial case (no events)
   if((vcount(graph) - n) == 0) {
@@ -368,8 +368,8 @@ triad_census_binary <- function(
   add.names = TRUE
 ) {
   
-  # trivial case
-  if (max(degree(graph, V(graph)$type)) <= 1) {
+  # trivial cases
+  if (vcount(graph) == 0 || max(degree(graph, V(graph)$type)) <= 1) {
     tc <- matrix(0, nrow = 4, ncol = 2)
     tc[1, 1] <- choose(actor_count(graph), 3)
   } else {

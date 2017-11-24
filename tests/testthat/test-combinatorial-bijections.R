@@ -1,4 +1,4 @@
-context("combinatorial-bijections")
+context("combinatorial bijections")
 
 test_that("zeros are handled properly", {
   expect_equal(index_subset(0), c(2, 1, 0))
