@@ -21,3 +21,6 @@
 # R project
 ^.*\.Rproj$
 ^\.Rproj\.user$
+
+# CRAN
+^cran-comments\.md$
