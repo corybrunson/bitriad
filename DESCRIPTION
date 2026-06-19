@@ -12,9 +12,8 @@ Description: Two principal tools are provided for the triadic analysis of
     Opsahl (2013) <doi:10.1016/j.socnet.2011.07.001>,
     Liebig and Rao (2014) <doi:10.1109/SITIS.2014.15>, and
     Brunson (2015) <doi:10.1017/nws.2015.38>.
-    Additional functions support manipulation ofaffiliation networks.
-    'bitriad' is built on the 'igraph' package and includes
-    new graph-theoretic calculations written using the {Rcpp} package.
+    Additional functions support manipulation of affiliation networks.
+    Built on 'igraph' with new C++ calculations exposed via 'Rcpp'.
 Depends:
     R (>= 3.5.0),
     igraph (>= 1.1.2)
