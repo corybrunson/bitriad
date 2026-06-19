@@ -4,11 +4,11 @@
 #'   wedges for a specified measure centered at the node and indicate whether 
 #'   each is closed.
 #'   
-#' @details The \code{wedges_*} functions implement wedge censuses underlying 
+#' @details The `wedges_*` functions implement wedge censuses underlying 
 #'   the several measures of triad closure described below. Each function 
 #'   returns a transversal of wedges from the congruence classes of wedges 
 #'   centered at the index actor and indicators of whether each class is closed.
-#'   The shell function \code{wedges} determines a unique measure from several 
+#'   The shell function `wedges` determines a unique measure from several 
 #'   coded arguments (see below) and passes the input affiliation network to 
 #'   that measure.
 #'   
@@ -18,17 +18,17 @@
 #' @name wedges
 #' @family wedge functions
 #' @param graph An affiliation network.
-#' @param actor An actor node in \code{graph}.
+#' @param actor An actor node in `graph`.
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
 #' @param w,x,y,z Integer vectors of the same length, indicating the number of
 #'   events of each structural equivalence class in a triad of three actors
-#'   \code{p}, \code{q}, \code{r}: \code{w} attended by all three, \code{x}
-#'   attended by \code{p} and \code{q} only, \code{y} attended by \code{q} and
-#'   \code{r} only, and \code{z} attended by \code{p} and \code{r} only.
+#'   `p`, `q`, `r`: `w` attended by all three, `x`
+#'   attended by `p` and `q` only, `y` attended by `q` and
+#'   `r` only, and `z` attended by `p` and `r` only.
 #' @return A two-element list consisting of (1) a 3- or 5-row integer matrix of 
-#'   (representatives of) all (congruence classes of) wedges in \code{graph} 
-#'   centered at \code{actor}, and (2) a logical vector indicating whether each 
+#'   (representatives of) all (congruence classes of) wedges in `graph` 
+#'   centered at `actor`, and (2) a logical vector indicating whether each 
 #'   wedge is closed.
 #' @export
 wedges <- function(

@@ -43,16 +43,16 @@ partitionSubset(lambda)
 \arguments{
 \item{i}{Integer; an index in the total order, starting at 0.}
 
-\item{vec}{Integer vector; a set of 3 distinct non-negative integers, in 
+\item{vec}{Integer vector; a set of 3 distinct non-negative integers, in
 decreasing order.}
 
-\item{lambda}{Integer vector; a partition of at most 3 parts, with parts in 
+\item{lambda}{Integer vector; a partition of at most 3 parts, with parts in
 non-increasing order.}
 }
 \description{
-These functions biject among partitions of at most 3 parts, 
-  3-subsets of natural numbers, and indices for the lexicographic total 
-  orders on them.
+These functions biject among partitions of at most 3 parts,
+3-subsets of natural numbers, and indices for the lexicographic total
+orders on them.
 }
 \examples{
 index_subset(2)

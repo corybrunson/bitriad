@@ -3,12 +3,12 @@
 #' @description Given an affiliation network and a vector of actor node IDs, 
 #'   produce the induced subgraph on the actor nodes together with all event 
 #'   nodes incident to at least two of them. This is called the actors'
-#'   \emph{schedule}.
+#'   *schedule*.
 #'   
 #' @name schedule
 #' @family modal queries and manipulations
 #' @param graph An affiliation network.
-#' @param actors A vector of actor nodes in \code{graph}.
+#' @param actors A vector of actor nodes in `graph`.
 #' @export
 schedule <- function(
   graph,

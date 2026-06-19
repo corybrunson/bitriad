@@ -2,7 +2,7 @@
 #'   
 #' @description Given an affiliation network, assign the node and link
 #'   aesthetics to values that produce a neater visualization through
-#'   \code{\link[igraph]{plot.igraph}} than the \strong{igraph} defaults.
+#'   [plot.igraph] than the **igraph** defaults.
 #'   
 #' @name prettify
 #' @param graph An affiliation network.

@@ -1,17 +1,17 @@
 #' @title Dynamic affiliation network structure
 #'   
-#' @description An affiliation network is \emph{dynamic}, for present purposes, 
+#' @description An affiliation network is *dynamic*, for present purposes, 
 #'   if its event nodes have time stamps, recorded as a numeric vertex attribute
-#'   \code{"time"} in non-decreasing order.
+#'   `"time"` in non-decreasing order.
 #'   
 #' @name dynamic_an
 #' @family network testing and coercion
 #' @param graph An affiliation network.
 #' @param use.time.attribute Character; the vertex attribute to coerce to 
-#'   numeric if necessary and use as the \code{"time"} attribute.
-#' @param add.time.attribute Logical; whether, if \code{graph} has no attribute
-#'   \code{use.time.attribute}, to introduce an artificial \code{"time"}
-#'   attribute taking the values \code{1:event_count(graph)}, reflecting the
+#'   numeric if necessary and use as the `"time"` attribute.
+#' @param add.time.attribute Logical; whether, if `graph` has no attribute
+#'   `use.time.attribute`, to introduce an artificial `"time"`
+#'   attribute taking the values `1:event_count(graph)`, reflecting the
 #'   order of the event node IDs.
 NULL
 

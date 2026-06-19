@@ -109,125 +109,125 @@ triad_closure_projection(
 \arguments{
 \item{graph}{An affiliation network.}
 
-\item{...}{Measure specifications passed to \code{\link{wedges}}.}
+\item{...}{Measure specifications passed to \link{wedges}.}
 
-\item{method}{Character; for a given \code{measure}, whether to use the 
-measure-specific wedge census (\code{"wedges"}) or the measure-specific 
+\item{method}{Character; for a given \code{measure}, whether to use the
+measure-specific wedge census (\code{"wedges"}) or the measure-specific
 calculation on the centered triad census (\code{"triads"}).}
 
 \item{actors}{A vector of actor nodes in \code{graph}.}
 
-\item{type}{The type of statistic, matched to \code{"global"}, 
+\item{type}{The type of statistic, matched to \code{"global"},
 \code{"local"}, or \code{"raw"}.}
 
 \item{triad_list}{A list of triad isomorphism classes in matrix format, as
-produced by \code{\link{centered_triads}}.}
+produced by \link{centered_triads}.}
 
-\item{measure}{Character; the measure of triad closure, used as the suffix 
-\code{*} to \code{triad_closure_*} Matched to \code{"classical"} (also 
-\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), 
-\code{"unconnected"} (also \code{"liebig_rao_0"}), 
-\code{"completely_connected"} (also \code{"liebig_rao_3"}), or 
+\item{measure}{Character; the measure of triad closure, used as the suffix
+\code{*} to \verb{triad_closure_*} Matched to \code{"classical"} (also
+\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}),
+\code{"unconnected"} (also \code{"liebig_rao_0"}),
+\code{"completely_connected"} (also \code{"liebig_rao_3"}), or
 \code{"exclusive"}.}
 
 \item{triads.fun}{A custom triad closure calculation. It must accept a vector
-of \emph{centered} triad isomorphism classes, encoded as vectors \code{w}, 
-\code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix 
-recording the number of wedges of the desired measure centered at the 
+of \emph{centered} triad isomorphism classes, encoded as vectors \code{w},
+\code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix
+recording the number of wedges of the desired measure centered at the
 second actor, and involving the other two actors, of each triad.}
 
-\item{wedges.fun}{A custom wedge census function. It must accept an 
-affiliation network \code{graph} and a single actor node ID \code{actor} 
-and may have any additional parameters. It must return a named list with 
-values \code{wedges} a numeric matrix of node IDs whose columns record the 
-wedges centered at \code{actor} and \code{closed} a logical vector 
+\item{wedges.fun}{A custom wedge census function. It must accept an
+affiliation network \code{graph} and a single actor node ID \code{actor}
+and may have any additional parameters. It must return a named list with
+values \code{wedges} a numeric matrix of node IDs whose columns record the
+wedges centered at \code{actor} and \code{closed} a logical vector
 recording whether each wedge is closed. Overrides \code{measure}.}
 }
 \value{
-If \code{type} is \code{"global"}, the global statistic for 
-  \code{graph}; if \code{"local"}, the local statistics for \code{actors}; if
-  \code{"raw"}, a 2-column matrix, each row of which gives the number of 
-  wedges and of closed wedges centered at \code{actors}.
+If \code{type} is \code{"global"}, the global statistic for
+\code{graph}; if \code{"local"}, the local statistics for \code{actors}; if
+\code{"raw"}, a 2-column matrix, each row of which gives the number of
+wedges and of closed wedges centered at \code{actors}.
 }
 \description{
-Given an affiliation network and a vector of actor node IDs, 
-  calculate a specified measure of triad closure centered at the nodes.
+Given an affiliation network and a vector of actor node IDs,
+calculate a specified measure of triad closure centered at the nodes.
 }
 \details{
-The \code{triad_closure_*} functions implement the several measures 
-  of triad closure described below. Each function returns a single global 
-  statistic, a vector of local statistics, or a matrix of local denominators 
-  and numerators from which the global and local statistics can be recovered.
-  
-  The function \code{triad_closure_projection} recapitulates 
-  \code{\link{triad_closure_watts_strogatz}} by invoking the 
-  \code{\link[igraph]{bipartite_projection}} and 
-  \code{\link[igraph]{transitivity}} functions in \strong{igraph}.
+The \verb{triad_closure_*} functions implement the several measures
+of triad closure described below. Each function returns a single global
+statistic, a vector of local statistics, or a matrix of local denominators
+and numerators from which the global and local statistics can be recovered.
+
+The function \code{triad_closure_projection} recapitulates
+\link{triad_closure_watts_strogatz} by invoking the
+\link[igraph:bipartite_projection]{bipartite_projection} and
+\link[igraph:transitivity]{transitivity} functions in \strong{igraph}.
 }
 \section{Measures of triad closure}{
- Each measure of triad closure is defined 
-  as the proportion of wedges that are closed, where a \emph{wedge} is the 
-  image of a specified two-event triad \eqn{W} under a specified subcategory 
-  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~}, 
-  and where a wedge is \emph{closed} if it is the image of such a map that 
-  factors through a canonical inclusion of \eqn{W} to a specified self-dual 
-  three-event triad \eqn{X}.
-  
+ Each measure of triad closure is defined
+as the proportion of wedges that are closed, where a \emph{wedge} is the
+image of a specified two-event triad \eqn{W} under a specified subcategory
+of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
+and where a wedge is \emph{closed} if it is the image of such a map that
+factors through a canonical inclusion of \eqn{W} to a specified self-dual
+three-event triad \eqn{X}.
+
 The alcove, wedge, maps, and congruence can be specified by numerical codes
 as follows (no plans exist to implement more measures than these):
 \itemize{
- \item{\code{alcove}:
-  \itemize{
-   \item{\code{0}: \eqn{T_{(1,1,1),0}}}
-   \item{\code{1}: \eqn{T_{(1,1,0),1}}} (\strong{not yet implemented})
-   \item{\code{2}: \eqn{T_{(1,0,0),2}}} (\strong{not yet implemented})
-   \item{\code{3}: \eqn{T_{(0,0,0),3}}} (\strong{not yet implemented})
-  }
- }
- \item{\code{wedge}:
-  \itemize{
-   \item{\code{0}: \eqn{T_{(1,1,0),0}}}
-   \item{\code{1}: \eqn{T_{(1,0,0),1}}} (\strong{not yet implemented})
-   \item{\code{2}: \eqn{T_{(0,0,0),2}}} (\strong{not yet implemented})
-  }
- }
- \item{\code{maps}:
-  \itemize{
-   \item{\code{0}: all graph maps (injective on actors)}
-   \item{\code{1}: injective graph maps}
-   \item{\code{2}: induced injective graph maps}
-  }
- }
- \item{\code{congruence}:
-  \itemize{
-   \item{\code{0}: same actor and event images (equivalence)}
-   \item{\code{1}: same actor images, structurally equivalent event images}
-   \item{\code{2}: same actor images}
-  }
- }
+\item{\code{alcove}:
+\itemize{
+\item{\code{0}: \eqn{T_{(1,1,1),0}}}
+\item{\code{1}: \eqn{T_{(1,1,0),1}}} (\strong{not yet implemented})
+\item{\code{2}: \eqn{T_{(1,0,0),2}}} (\strong{not yet implemented})
+\item{\code{3}: \eqn{T_{(0,0,0),3}}} (\strong{not yet implemented})
+}
+}
+\item{\code{wedge}:
+\itemize{
+\item{\code{0}: \eqn{T_{(1,1,0),0}}}
+\item{\code{1}: \eqn{T_{(1,0,0),1}}} (\strong{not yet implemented})
+\item{\code{2}: \eqn{T_{(0,0,0),2}}} (\strong{not yet implemented})
+}
+}
+\item{\code{maps}:
+\itemize{
+\item{\code{0}: all graph maps (injective on actors)}
+\item{\code{1}: injective graph maps}
+\item{\code{2}: induced injective graph maps}
+}
+}
+\item{\code{congruence}:
+\itemize{
+\item{\code{0}: same actor and event images (equivalence)}
+\item{\code{1}: same actor images, structurally equivalent event images}
+\item{\code{2}: same actor images}
+}
+}
 }
 Some specifications correspond to statistics of especial interest:
 \itemize{
- \item{\code{0,0,0,2}:
-  the classical clustering coefficient (Watts & Strogatz, 1998),
-  evaluated on the unipartite actor projection
- }
- \item{\code{0,0,1,0}:
-  the two-mode clustering coefficient (Opsahl, 2013)
- }
- \item{\code{0,0,2,0}:
-  the unconnected clustering coefficient (Liebig & Rao, 2014)
- }
- \item{\code{3,2,2,0}:
-  the completely connected clustering coefficient (Liebig & Rao, 2014)
-  (\strong{not yet implemented})
- }
- \item{\code{0,0,2,1}:
-  the exclusive clustering coefficient (Brunson, 2015)
- }
- \item{\code{0,0,2,2}:
-  the exclusive clustering coefficient
- }
+\item{\verb{0,0,0,2}:
+the classical clustering coefficient (Watts & Strogatz, 1998),
+evaluated on the unipartite actor projection
+}
+\item{\verb{0,0,1,0}:
+the two-mode clustering coefficient (Opsahl, 2013)
+}
+\item{\verb{0,0,2,0}:
+the unconnected clustering coefficient (Liebig & Rao, 2014)
+}
+\item{\verb{3,2,2,0}:
+the completely connected clustering coefficient (Liebig & Rao, 2014)
+(\strong{not yet implemented})
+}
+\item{\verb{0,0,2,1}:
+the exclusive clustering coefficient (Brunson, 2015)
+}
+\item{\verb{0,0,2,2}:
+the exclusive clustering coefficient
+}
 }
 See Brunson (2015) for a general definition and the aforecited references for
 discussions of each statistic.
@@ -249,14 +249,14 @@ cbind(
 )
 }
 \references{
-Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world" 
+Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world"
 networks. \emph{Nature}, 393(6684), 440--442.
 
-Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the 
+Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the
 global and local clustering coefficients. \emph{Social Networks}, 35(2),
 159--167. Special Issue on Advances in Two-mode Social Networks.
 
-Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite 
+Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite
 networks using the clustering coefficient. Pages 323--330 of:
 \emph{Proceedings of the tenth international conference on signal-image
 technology and internet-based systems}.
@@ -266,7 +266,7 @@ Science}, 3(4), 480--508.
 }
 \seealso{
 Original \strong{igraph} functions:
-  \code{\link[igraph]{transitivity}}
+\link[igraph:transitivity]{transitivity}
 
 Other triad closure functions:
 \code{\link[=dynamic_triad_closure]{dynamic_triad_closure()}},

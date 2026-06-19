@@ -47,16 +47,16 @@ dynamic_triad_closure_projection(graph, memory = Inf, type = "global")
 
 \item{actors}{A vector of actor nodes in \code{graph}.}
 
-\item{type}{The type of statistic, matched to \code{"global"}, 
+\item{type}{The type of statistic, matched to \code{"global"},
 \code{"local"}, or \code{"raw"}.}
 
 \item{...}{Additional parameters passed to specific functions.}
 
-\item{measure}{Character; the measure of triad closure, used as the suffix 
-\code{*} to \code{triad_closure_*}. Matched to \code{"classical"} (also 
-\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), 
-\code{"unconnected"} (also \code{"liebig_rao_0"}), 
-\code{"completely_connected"} (also \code{"liebig_rao_3"}), 
+\item{measure}{Character; the measure of triad closure, used as the suffix
+\code{*} to \verb{triad_closure_*}. Matched to \code{"classical"} (also
+\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}),
+\code{"unconnected"} (also \code{"liebig_rao_0"}),
+\code{"completely_connected"} (also \code{"liebig_rao_3"}),
 \code{"exclusive"}, or \code{"projection"}.}
 
 \item{memory}{Numeric; minimum delay of wedge formation since would-have-been

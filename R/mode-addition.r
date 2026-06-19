@@ -5,21 +5,21 @@
 #'   
 #' @name mode_addition
 #' @family modal queries and manipulations
-#' @seealso Original \strong{igraph} functions: 
-#'   \code{\link[igraph]{add_vertices}}, \code{\link[igraph]{add_edges}}
+#' @seealso Original **igraph** functions: 
+#'   [add_vertices], [add_edges]
 #' @param graph An affiliation network.
-#' @param mode Numeric or character; whether to project onto actors (\code{1} or
-#'   \code{"actors"}) or onto events (\code{2} or \code{"events"}).
-#' @param nv,...,attr Arguments passed to \code{\link[igraph]{add_vertices}}. 
+#' @param mode Numeric or character; whether to project onto actors (`1` or
+#'   `"actors"`) or onto events (`2` or `"events"`).
+#' @param nv,...,attr Arguments passed to [add_vertices]. 
 #'   Events added to a dynamic affiliation network should be given time 
 #'   attributes.
-#' @param affiliations A vector, or list of length \code{nv} of vectors, of 
-#'   nodes in \code{graph} of mode \emph{not} \code{mode}, to be linked to the
+#' @param affiliations A vector, or list of length `nv` of vectors, of 
+#'   nodes in `graph` of mode *not* `mode`, to be linked to the
 #'   new node(s).
-#' @param actors A vector, or list of length \code{nv} of vectors, of actor 
-#'   nodes in \code{graph}, to be linked to the new event(s).
-#' @param events A vector, or list of length \code{nv} of vectors, of event 
-#'   nodes in \code{graph}, to be linked to the new actor(s).
+#' @param actors A vector, or list of length `nv` of vectors, of actor 
+#'   nodes in `graph`, to be linked to the new event(s).
+#' @param events A vector, or list of length `nv` of vectors, of event 
+#'   nodes in `graph`, to be linked to the new actor(s).
 #' @examples
 #' data(women_clique)
 #' plot(prettify_an(add_actors(women_clique, nv = 1, events = c(7, 9))))

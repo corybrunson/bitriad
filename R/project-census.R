@@ -5,13 +5,13 @@
 #'   
 #' @details This function inputes an affiliation network triad census of any 
 #'   scheme and returns a list of triad censuses projected from it (not icluding
-#'   itself). The schemes are, in order of resolution, \emph{full} (also called 
-#'   the \emph{affiliation network triad census} without qualification), 
-#'   \emph{difference}, \emph{binary}, and \emph{simple}. A final element of the
+#'   itself). The schemes are, in order of resolution, *full* (also called 
+#'   the *affiliation network triad census* without qualification), 
+#'   *difference*, *binary*, and *simple*. A final element of the
 #'   output list is the total number of triads in the affiliation network. Each
 #'   summary can be recovered from those before it, specifically by aggregating
 #'   certain matrix entries to form a smaller matrix. The helper functions
-#'   \code{*_from_*_census()} project a census of each scheme to one of each
+#'   `*_from_*_census()` project a census of each scheme to one of each
 #'   coarser scheme.
 #'   
 #' @template triadcensus
@@ -20,11 +20,11 @@
 #' @family triad census functions
 #' @param census Numeric matrix or vector; an affiliation network triad census. 
 #'   It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1, 
-#'   respectively, unless otherwise specified by \code{scheme}; otherwise it is 
+#'   respectively, unless otherwise specified by `scheme`; otherwise it is 
 #'   treated as full.
 #' @param scheme Character; the type of triad census provided, matched to 
-#'   \code{"full"}, \code{"difference"} (also \code{"uniformity"}), 
-#'   \code{"binary"} (also \code{"structural"}), or \code{"simple"}.
+#'   `"full"`, `"difference"` (also `"uniformity"`), 
+#'   `"binary"` (also `"structural"`), or `"simple"`.
 #' @param add.names Logical; whether to label the rows and columns of the output
 #'   matrix.
 #' @export

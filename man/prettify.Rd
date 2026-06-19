@@ -15,8 +15,8 @@ prettify.an(graph)
 }
 \description{
 Given an affiliation network, assign the node and link
-  aesthetics to values that produce a neater visualization through
-  \code{\link[igraph]{plot.igraph}} than the \strong{igraph} defaults.
+aesthetics to values that produce a neater visualization through
+\link[igraph:plot.igraph]{plot.igraph} than the \strong{igraph} defaults.
 }
 \examples{
 library(igraph)

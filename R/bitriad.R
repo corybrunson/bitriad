@@ -1,4 +1,4 @@
-#' @title \code{bitriad}: Triadic analysis of affiliation networks
+#' @title `bitriad`: Triadic analysis of affiliation networks
 #'   
 #' @description Calculate triad censuses and triad closure statistics designed 
 #'   for affiliation networks.

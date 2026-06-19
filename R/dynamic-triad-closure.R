@@ -7,16 +7,16 @@
 #' @name dynamic_triad_closure
 #' @family triad closure functions
 #' @param graph An affiliation network with time-stamped events.
-#' @param actors A vector of actor nodes in \code{graph}.
-#' @param type The type of statistic, matched to \code{"global"}, 
-#'   \code{"local"}, or \code{"raw"}.
+#' @param actors A vector of actor nodes in `graph`.
+#' @param type The type of statistic, matched to `"global"`, 
+#'   `"local"`, or `"raw"`.
 #' @param ... Additional parameters passed to specific functions.
 #' @param measure Character; the measure of triad closure, used as the suffix 
-#'   \code{*} to \code{triad_closure_*}. Matched to \code{"classical"} (also 
-#'   \code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), 
-#'   \code{"unconnected"} (also \code{"liebig_rao_0"}), 
-#'   \code{"completely_connected"} (also \code{"liebig_rao_3"}), 
-#'   \code{"exclusive"}, or \code{"projection"}.
+#'   `*` to `triad_closure_*`. Matched to `"classical"` (also 
+#'   `"watts_strogatz"`), `"twomode"` (also `"opsahl"`), 
+#'   `"unconnected"` (also `"liebig_rao_0"`), 
+#'   `"completely_connected"` (also `"liebig_rao_3"`), 
+#'   `"exclusive"`, or `"projection"`.
 #' @param memory Numeric; minimum delay of wedge formation since would-have-been
 #'   closing events.
 #' @examples

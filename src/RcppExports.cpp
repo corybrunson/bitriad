@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // centered_triads_C
 IntegerMatrix centered_triads_C(IntegerMatrix el, int q);
 RcppExport SEXP _bitriad_centered_triads_C(SEXP elSEXP, SEXP qSEXP) {

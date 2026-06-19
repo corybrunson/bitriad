@@ -11,7 +11,7 @@
 #' @name triad_tallies
 #' @family triad census functions
 #' @param graph A one-mode network
-#' @param bigraph The ambient affiliation network from which \code{graph} is
+#' @param bigraph The ambient affiliation network from which `graph` is
 #'   projected
 NULL
 

@@ -27,10 +27,10 @@ V2(x) <- value
 
 \item{name}{The name of the attribute to set.}
 
-\item{index}{An optional node sequence to set the attributes of a subset of 
+\item{index}{An optional node sequence to set the attributes of a subset of
 actor or event nodes.}
 
-\item{value}{The new value of the attribute for all (or \code{index}) actor 
+\item{value}{The new value of the attribute for all (or \code{index}) actor
 or event nodes.}
 
 \item{x}{An affiliation network.}
@@ -50,8 +50,8 @@ V2(women_clique)$label <- 1:5
 plot(prettify_an(women_clique))
 }
 \seealso{
-Original \strong{igraph} functions: \code{\link[igraph]{V}},
-  \code{\link[igraph]{set_vertex_attr}}
+Original \strong{igraph} functions: \link[igraph:V]{V},
+\link[igraph:set_vertex_attr]{set_vertex_attr}
 
 Other modal queries and manipulations:
 \code{\link[=dualize]{dualize()}},

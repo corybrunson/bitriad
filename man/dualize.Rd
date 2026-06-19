@@ -17,9 +17,9 @@ dual.an(graph)
 }
 \description{
 This function obtains the dual of an affiliation network, in
-  which the actors and events have swapped roles. To do this, it negates
-  the logical values of the node \code{type} attribute and reorders the
-  node ids accordingly.
+which the actors and events have swapped roles. To do this, it negates
+the logical values of the node \code{type} attribute and reorders the
+node ids accordingly.
 }
 \examples{
 data(women_clique)

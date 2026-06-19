@@ -105,24 +105,24 @@ plotTriad(
 )
 }
 \arguments{
-\item{lambda}{A non-negative integer vector of length three indicating the 
-number of events attended by each pair of actors and not by the third 
-(*exclusive* events).}
+\item{lambda}{A non-negative integer vector of length three indicating the
+number of events attended by each pair of actors and not by the third
+(\emph{exclusive} events).}
 
-\item{w}{A non-negative integer indicating the number of events attended by 
-all three actors (*inclusive* events).}
+\item{w}{A non-negative integer indicating the number of events attended by
+all three actors (\emph{inclusive} events).}
 
-\item{actor_names, event_names}{Actor and event names (actor names default to 
+\item{actor_names, event_names}{Actor and event names (actor names default to
 "p", "q", and "r"; event names default to positive integers).}
 
 \item{graph}{An affiliation network, in some cases must be a triad.}
 
 \item{actors}{A vector of three actor nodes in \code{graph}.}
 
-\item{as.partition}{Whether to sort the exclusive events, versus reporting 
+\item{as.partition}{Whether to sort the exclusive events, versus reporting
 them in order of the nodes; defaults to \code{TRUE}.}
 
-\item{format}{Character matched to "list" or "vector"; whether to return the 
+\item{format}{Character matched to "list" or "vector"; whether to return the
 triad class as a list of \eqn{\lambda=(x,y,z)} and \eqn{w} or as a vector
 of \eqn{w}, \eqn{x=\lambda_1}, \eqn{y=\lambda_2}, and \eqn{z=\lambda_3}.}
 
@@ -130,27 +130,27 @@ of \eqn{w}, \eqn{x=\lambda_1}, \eqn{y=\lambda_2}, and \eqn{z=\lambda_3}.}
 
 \item{scale}{A scaling parameter for the entire plot.}
 
-\item{angdir}{A rotation direction parameter (\code{-1} for clockwise, 
+\item{angdir}{A rotation direction parameter (\code{-1} for clockwise,
 \code{1} for counter-clockwise).}
 
-\item{rot, rot_lambda, rot_w}{Angular orientation parameters for the entire 
+\item{rot, rot_lambda, rot_w}{Angular orientation parameters for the entire
 triad, for the exclusive events of two actors, and for the inclusive events
 of all three actors.}
 
-\item{layout}{A two-column numeric matrix interpretable as a 
-\code{\link[igraph]{layout}}.}
+\item{layout}{A two-column numeric matrix interpretable as a
+\link{layout}.}
 
-\item{prettify}{Logical; whether to use \code{prettify_an} to adjust the 
+\item{prettify}{Logical; whether to use \code{prettify_an} to adjust the
 aesthetics of a triad before plotting it.}
 
 \item{cex}{Node size scaling parameter.}
 
 \item{xlim, ylim}{Custom bounds on the horizontal and vertical axes.}
 
-\item{...}{Additional arguments passed to \code{\link[igraph]{plot.igraph}}.}
+\item{...}{Additional arguments passed to \link[igraph:plot.igraph]{plot.igraph}.}
 }
 \description{
-These functions create and operate on triads in affiliation 
-  networks. In this context, a *triad* is the \code{\link{schedule}} of a 
-  subset of three distinct actors.
+These functions create and operate on triads in affiliation
+networks. In this context, a \emph{triad} is the \link{schedule} of a
+subset of three distinct actors.
 }

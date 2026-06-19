@@ -6,164 +6,164 @@
 \alias{bitriad}
 \title{\code{bitriad}: Triadic analysis of affiliation networks}
 \description{
-Calculate triad censuses and triad closure statistics designed 
-  for affiliation networks.
+Calculate triad censuses and triad closure statistics designed
+for affiliation networks.
 }
 \details{
 The package contains two principal tools for the triadic analysis of
-  affiliation networks: triad censuses and measures of triad closure.
-  Assorted additional functions, including a measure of dynamic triad
-  closure, are also included.
+affiliation networks: triad censuses and measures of triad closure.
+Assorted additional functions, including a measure of dynamic triad
+closure, are also included.
 }
 \section{Triad censuses}{
- Three triad censuses are implemented for affiliation 
-  networks:
-  \itemize{
-  \item The \emph{full triad census} (Brunson, 2015) records the number of 
-  triads of each isomorphism class. The classes are indexed by a partition, 
-  \eqn{\lambda=(\lambda_1\leq\lambda_2\leq\lambda_3)}, indicating the number 
-  of events attended by both actors in each pair but not the third, and a 
-  positive integer, \eqn{w}, indicating the number of events attended by all 
-  three actors. The isomorphism classes are organized into a matrix with rows
-  indexed by \eqn{\lambda} and columns indexed by \eqn{w}, with the 
-  partitions \eqn{\lambda} ordered according to the \emph{revolving door 
-  ordering} (Kreher & Stinson, 1999). The main function 
-  \code{\link{triad_census_an}} (called from \code{triad_census} when the 
-  \code{graph} argument is an \code{affiliation_network}) defaults to this
-  census.
-  \item For the analysis of sparse affiliation networks, the full triad 
-  census may be less useful than information on whether the extent of 
-  connectivity through co-attended events differs between each pair of 
-  actors. In order to summarize this information, a coarser triad census can 
-  be conducted on classes of triads based on the following congruence 
-  relation: Using the indices \eqn{\lambda=(x\ge y\ge z)} and \eqn{w} 
-  above, note that the numbers of shared events for each pair and for the 
-  triad are \eqn{x+w\ge y+w\ge z+w\ge w\ge 0}. Consider two triads 
-  congruent if the same subset of these weak inequalities are strictly 
-  satisfied. The resulting \emph{difference triad census}, previously called 
-  the \emph{uniformity triad census}, implemented as
-  \code{\link{triad_census_difference}}, is organized into a \eqn{8\times 2} 
-  matrix with the strictness of the first three inequalities determining the 
-  row and that of the last inequality determining the column.
-  \item A still coarser congruence relation can be used to tally how many are
-  connected by at least one event in each distinct way. This relation 
-  considers two triads congruent if each corresponding pair of actors both 
-  attended or did not attend at least one event not attended by the third, 
-  and if the corresponding triads both attended or did not attend at least 
-  one event together. The \emph{binary triad census} (Brunson, 2015; therein 
-  called the \emph{structural triad census}), implemented as 
-  \code{\link{triad_census_binary}}, records the number of triads in each 
-  congruence class.
-  \item The \emph{simple triad census} is the 4-entry triad census on a 
-  traditional (non-affiliation) network indicating the number of triads of 
-  each isomorphism class, namely whether the triad contains zero, one, two, 
-  or three links. The function \code{\link{simple_triad_census}} computes the
-  classical (undirected) triad census for an undirected traditional network, 
-  or for the actor projection of an affiliation network (if provided), using 
-  \code{\link[igraph]{triad_census}}; if the result doesn't make sense (i.e.,
-  the sum of the entries is not the number of triples of nodes), then it 
-  instead uses its own, much slower method.
-  }
-  Each of these censuses can be projected from the previous using the 
-  function \code{\link{project_census}}. A fourth census, called the 
-  \emph{uniformity triad census} and implemented as 
-  \code{\link{unif_triad_census}}, is deprecated. Three-actor triad 
-  affiliation networks can be constructed and plotted using the 
-  \code{\link{triad}} functions.
-  
-  The default method for the two affiliation network--specific triad censuses
-  is adapted from the algorithm of Batagelj and Mrvar (2001) for calculating
-  the classical triad census for a directed graph.
+ Three triad censuses are implemented for affiliation
+networks:
+\itemize{
+\item The \emph{full triad census} (Brunson, 2015) records the number of
+triads of each isomorphism class. The classes are indexed by a partition,
+\eqn{\lambda=(\lambda_1\leq\lambda_2\leq\lambda_3)}, indicating the number
+of events attended by both actors in each pair but not the third, and a
+positive integer, \eqn{w}, indicating the number of events attended by all
+three actors. The isomorphism classes are organized into a matrix with rows
+indexed by \eqn{\lambda} and columns indexed by \eqn{w}, with the
+partitions \eqn{\lambda} ordered according to the \emph{revolving door
+ordering} (Kreher & Stinson, 1999). The main function
+\link{triad_census_an} (called from \code{triad_census} when the
+\code{graph} argument is an \code{affiliation_network}) defaults to this
+census.
+\item For the analysis of sparse affiliation networks, the full triad
+census may be less useful than information on whether the extent of
+connectivity through co-attended events differs between each pair of
+actors. In order to summarize this information, a coarser triad census can
+be conducted on classes of triads based on the following congruence
+relation: Using the indices \eqn{\lambda=(x\ge y\ge z)} and \eqn{w}
+above, note that the numbers of shared events for each pair and for the
+triad are \eqn{x+w\ge y+w\ge z+w\ge w\ge 0}. Consider two triads
+congruent if the same subset of these weak inequalities are strictly
+satisfied. The resulting \emph{difference triad census}, previously called
+the \emph{uniformity triad census}, implemented as
+\link{triad_census_difference}, is organized into a \eqn{8\times 2}
+matrix with the strictness of the first three inequalities determining the
+row and that of the last inequality determining the column.
+\item A still coarser congruence relation can be used to tally how many are
+connected by at least one event in each distinct way. This relation
+considers two triads congruent if each corresponding pair of actors both
+attended or did not attend at least one event not attended by the third,
+and if the corresponding triads both attended or did not attend at least
+one event together. The \emph{binary triad census} (Brunson, 2015; therein
+called the \emph{structural triad census}), implemented as
+\link{triad_census_binary}, records the number of triads in each
+congruence class.
+\item The \emph{simple triad census} is the 4-entry triad census on a
+traditional (non-affiliation) network indicating the number of triads of
+each isomorphism class, namely whether the triad contains zero, one, two,
+or three links. The function \link{simple_triad_census} computes the
+classical (undirected) triad census for an undirected traditional network,
+or for the actor projection of an affiliation network (if provided), using
+\link{triad_census}; if the result doesn't make sense (i.e.,
+the sum of the entries is not the number of triples of nodes), then it
+instead uses its own, much slower method.
+}
+Each of these censuses can be projected from the previous using the
+function \link{project_census}. A fourth census, called the
+\emph{uniformity triad census} and implemented as
+\link{unif_triad_census}, is deprecated. Three-actor triad
+affiliation networks can be constructed and plotted using the
+\link{triad} functions.
+
+The default method for the two affiliation network--specific triad censuses
+is adapted from the algorithm of Batagelj and Mrvar (2001) for calculating
+the classical triad census for a directed graph.
 }
 
 \section{Measures of triad closure}{
- Each measure of triad closure is defined 
-  as the proportion of wedges that are closed, where a \emph{wedge} is the 
-  image of a specified two-event triad \eqn{W} under a specified subcategory 
-  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~}, 
-  and where a wedge is \emph{closed} if it is the image of such a map that 
-  factors through a canonical inclusion of \eqn{W} to a specified self-dual 
-  three-event triad \eqn{X}.
-  
+ Each measure of triad closure is defined
+as the proportion of wedges that are closed, where a \emph{wedge} is the
+image of a specified two-event triad \eqn{W} under a specified subcategory
+of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
+and where a wedge is \emph{closed} if it is the image of such a map that
+factors through a canonical inclusion of \eqn{W} to a specified self-dual
+three-event triad \eqn{X}.
+
 The alcove, wedge, maps, and congruence can be specified by numerical codes
 as follows (no plans exist to implement more measures than these):
 \itemize{
- \item{\code{alcove}:
-  \itemize{
-   \item{\code{0}: \eqn{T_{(1,1,1),0}}}
-   \item{\code{1}: \eqn{T_{(1,1,0),1}}} (\strong{not yet implemented})
-   \item{\code{2}: \eqn{T_{(1,0,0),2}}} (\strong{not yet implemented})
-   \item{\code{3}: \eqn{T_{(0,0,0),3}}} (\strong{not yet implemented})
-  }
- }
- \item{\code{wedge}:
-  \itemize{
-   \item{\code{0}: \eqn{T_{(1,1,0),0}}}
-   \item{\code{1}: \eqn{T_{(1,0,0),1}}} (\strong{not yet implemented})
-   \item{\code{2}: \eqn{T_{(0,0,0),2}}} (\strong{not yet implemented})
-  }
- }
- \item{\code{maps}:
-  \itemize{
-   \item{\code{0}: all graph maps (injective on actors)}
-   \item{\code{1}: injective graph maps}
-   \item{\code{2}: induced injective graph maps}
-  }
- }
- \item{\code{congruence}:
-  \itemize{
-   \item{\code{0}: same actor and event images (equivalence)}
-   \item{\code{1}: same actor images, structurally equivalent event images}
-   \item{\code{2}: same actor images}
-  }
- }
+\item{\code{alcove}:
+\itemize{
+\item{\code{0}: \eqn{T_{(1,1,1),0}}}
+\item{\code{1}: \eqn{T_{(1,1,0),1}}} (\strong{not yet implemented})
+\item{\code{2}: \eqn{T_{(1,0,0),2}}} (\strong{not yet implemented})
+\item{\code{3}: \eqn{T_{(0,0,0),3}}} (\strong{not yet implemented})
+}
+}
+\item{\code{wedge}:
+\itemize{
+\item{\code{0}: \eqn{T_{(1,1,0),0}}}
+\item{\code{1}: \eqn{T_{(1,0,0),1}}} (\strong{not yet implemented})
+\item{\code{2}: \eqn{T_{(0,0,0),2}}} (\strong{not yet implemented})
+}
+}
+\item{\code{maps}:
+\itemize{
+\item{\code{0}: all graph maps (injective on actors)}
+\item{\code{1}: injective graph maps}
+\item{\code{2}: induced injective graph maps}
+}
+}
+\item{\code{congruence}:
+\itemize{
+\item{\code{0}: same actor and event images (equivalence)}
+\item{\code{1}: same actor images, structurally equivalent event images}
+\item{\code{2}: same actor images}
+}
+}
 }
 Some specifications correspond to statistics of especial interest:
 \itemize{
- \item{\code{0,0,0,2}:
-  the classical clustering coefficient (Watts & Strogatz, 1998),
-  evaluated on the unipartite actor projection
- }
- \item{\code{0,0,1,0}:
-  the two-mode clustering coefficient (Opsahl, 2013)
- }
- \item{\code{0,0,2,0}:
-  the unconnected clustering coefficient (Liebig & Rao, 2014)
- }
- \item{\code{3,2,2,0}:
-  the completely connected clustering coefficient (Liebig & Rao, 2014)
-  (\strong{not yet implemented})
- }
- \item{\code{0,0,2,1}:
-  the exclusive clustering coefficient (Brunson, 2015)
- }
- \item{\code{0,0,2,2}:
-  the exclusive clustering coefficient
- }
+\item{\verb{0,0,0,2}:
+the classical clustering coefficient (Watts & Strogatz, 1998),
+evaluated on the unipartite actor projection
+}
+\item{\verb{0,0,1,0}:
+the two-mode clustering coefficient (Opsahl, 2013)
+}
+\item{\verb{0,0,2,0}:
+the unconnected clustering coefficient (Liebig & Rao, 2014)
+}
+\item{\verb{3,2,2,0}:
+the completely connected clustering coefficient (Liebig & Rao, 2014)
+(\strong{not yet implemented})
+}
+\item{\verb{0,0,2,1}:
+the exclusive clustering coefficient (Brunson, 2015)
+}
+\item{\verb{0,0,2,2}:
+the exclusive clustering coefficient
+}
 }
 See Brunson (2015) for a general definition and the aforecited references for
 discussions of each statistic.
 }
 
 \references{
-Kreher, D.L., & Stinson, D.R. (1999). Combinatorial algorithms: generation, 
+Kreher, D.L., & Stinson, D.R. (1999). Combinatorial algorithms: generation,
 enumeration, and search. \emph{SIGACT News}, 30(1), 33--35.
 
-Batagelj, V., & Mrvar, A. (2001). A subquadratic triad census algorithm for 
+Batagelj, V., & Mrvar, A. (2001). A subquadratic triad census algorithm for
 large sparse networks with small maximum degree. \emph{Social Networks},
 23(3), 237--243.
 
 Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 
-Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world" 
+Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world"
 networks. \emph{Nature}, 393(6684), 440--442.
 
-Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the 
+Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the
 global and local clustering coefficients. \emph{Social Networks}, 35(2),
 159--167. Special Issue on Advances in Two-mode Social Networks.
 
-Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite 
+Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite
 networks using the clustering coefficient. Pages 323--330 of:
 \emph{Proceedings of the tenth international conference on signal-image
 technology and internet-based systems}.

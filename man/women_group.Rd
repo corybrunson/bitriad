@@ -4,15 +4,14 @@
 \alias{women_group}
 \title{Group of women connected by event coattendance in Old City.}
 \format{
-An affiliation network; see \code{\link{is_an}}. Events carry a 
-  \code{time} attribute equal to the number of days since the previous 31 
-  December.
+An affiliation network; see \link{is_an}. Events carry a
+\code{time} attribute equal to the number of days since the previous 31
+December.
 }
 \source{
-Davis, A., Gardner, B.B., & Gardner, M.R. (1941). \emph{Deep South: A
-  Social Anthropological Study of Caste and Class}. Columbia, SC: University
-  of South Carolina Press. 
-  \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
+Davis, A., Gardner, B.B., & Gardner, M.R. (1941). \emph{Deep South: A Social Anthropological Study of Caste and Class}. Columbia, SC: University
+of South Carolina Press.
+\url{http://books.google.com/books?id=HGIdAAAAIAAJ}
 }
 \description{
 These data record the attendance of 18 white women at 14 social events over a

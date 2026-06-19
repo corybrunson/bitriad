@@ -12,10 +12,10 @@ schedule(graph, actors = V(graph)[V(graph)$type == FALSE])
 \item{actors}{A vector of actor nodes in \code{graph}.}
 }
 \description{
-Given an affiliation network and a vector of actor node IDs, 
-  produce the induced subgraph on the actor nodes together with all event 
-  nodes incident to at least two of them. This is called the actors'
-  \emph{schedule}.
+Given an affiliation network and a vector of actor node IDs,
+produce the induced subgraph on the actor nodes together with all event
+nodes incident to at least two of them. This is called the actors'
+\emph{schedule}.
 }
 \seealso{
 Other modal queries and manipulations:

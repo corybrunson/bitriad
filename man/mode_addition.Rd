@@ -19,23 +19,23 @@ add_events(graph, nv, ..., attr = list(), actors = NULL)
 \item{mode}{Numeric or character; whether to project onto actors (\code{1} or
 \code{"actors"}) or onto events (\code{2} or \code{"events"}).}
 
-\item{nv, ..., attr}{Arguments passed to \code{\link[igraph]{add_vertices}}. 
-Events added to a dynamic affiliation network should be given time 
+\item{nv, ..., attr}{Arguments passed to \link[igraph:add_vertices]{add_vertices}.
+Events added to a dynamic affiliation network should be given time
 attributes.}
 
-\item{affiliations}{A vector, or list of length \code{nv} of vectors, of 
+\item{affiliations}{A vector, or list of length \code{nv} of vectors, of
 nodes in \code{graph} of mode \emph{not} \code{mode}, to be linked to the
 new node(s).}
 
-\item{events}{A vector, or list of length \code{nv} of vectors, of event 
+\item{events}{A vector, or list of length \code{nv} of vectors, of event
 nodes in \code{graph}, to be linked to the new actor(s).}
 
-\item{actors}{A vector, or list of length \code{nv} of vectors, of actor 
+\item{actors}{A vector, or list of length \code{nv} of vectors, of actor
 nodes in \code{graph}, to be linked to the new event(s).}
 }
 \description{
-These functions add actor and event nodes (as desired) to a 
-  graph while maintaining its (temporal) affiliation network structure.
+These functions add actor and event nodes (as desired) to a
+graph while maintaining its (temporal) affiliation network structure.
 }
 \examples{
 data(women_clique)
@@ -56,8 +56,8 @@ cbind(
 )
 }
 \seealso{
-Original \strong{igraph} functions: 
-  \code{\link[igraph]{add_vertices}}, \code{\link[igraph]{add_edges}}
+Original \strong{igraph} functions:
+\link[igraph:add_vertices]{add_vertices}, \link[igraph:add_edges]{add_edges}
 
 Other modal queries and manipulations:
 \code{\link[=dualize]{dualize()}},

@@ -16,7 +16,7 @@ as_dynamic_an(graph, use.time.attribute = "time", add.time.attribute = FALSE)
 \arguments{
 \item{graph}{An affiliation network.}
 
-\item{use.time.attribute}{Character; the vertex attribute to coerce to 
+\item{use.time.attribute}{Character; the vertex attribute to coerce to
 numeric if necessary and use as the \code{"time"} attribute.}
 
 \item{add.time.attribute}{Logical; whether, if \code{graph} has no attribute
@@ -25,9 +25,9 @@ attribute taking the values \code{1:event_count(graph)}, reflecting the
 order of the event node IDs.}
 }
 \description{
-An affiliation network is \emph{dynamic}, for present purposes, 
-  if its event nodes have time stamps, recorded as a numeric vertex attribute
-  \code{"time"} in non-decreasing order.
+An affiliation network is \emph{dynamic}, for present purposes,
+if its event nodes have time stamps, recorded as a numeric vertex attribute
+\code{"time"} in non-decreasing order.
 }
 \seealso{
 Other network testing and coercion:

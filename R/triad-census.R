@@ -3,14 +3,14 @@
 #' @description Given an affiliation network, tally all actor triads by 
 #'   isomorphism or other congruence class.
 #'   
-#' @details The \code{triad_census_*} functions implement the several triad 
+#' @details The `triad_census_*` functions implement the several triad 
 #'   censuses described below. Each census is based on a congruence relation 
 #'   among the triads in an affiliation network, and each function returns a 
 #'   matrix (or, in the "simple" case, a vector) recording the number of triads 
 #'   in each congruence class.
 #'   
-#'   The function \code{triad_census} supercedes 
-#'   \code{\link[igraph]{triad_census}} but calls in case \code{graph} is not an
+#'   The function `triad_census` supercedes 
+#'   [triad_census] but calls in case `graph` is not an
 #'   affiliation network.
 #'   
 #' @template triadcensus
@@ -18,23 +18,23 @@
 
 #' @name triad_census
 #' @family triad census functions
-#' @seealso Original \strong{igraph} functions: 
-#'   \code{\link[igraph]{triad_census}}
-#' @param graph An \strong{igraph} object, usually an affiliation network.
-#' @param ... Additional arguments (currently \code{use.integer} and
-#'   \code{verbose}) passed to the \code{method} function.
+#' @seealso Original **igraph** functions: 
+#'   [triad_census]
+#' @param graph An **igraph** object, usually an affiliation network.
+#' @param ... Additional arguments (currently `use.integer` and
+#'   `verbose`) passed to the `method` function.
 #' @param add.names Logical; whether to label the rows and columns of the output
 #'   matrix.
 #' @param scheme Character; the type of triad census to calculate, matched to 
-#'   \code{"full"}, \code{"difference"} (also \code{"uniformity"}), 
-#'   \code{"binary"} (also \code{"structural"}), or \code{"simple"}.
+#'   `"full"`, `"difference"` (also `"uniformity"`), 
+#'   `"binary"` (also `"structural"`), or `"simple"`.
 #' @param method Character; the triad census method to use. Currently only 
-#'   \code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an 
+#'   `"batagelj_mrvar"` is implemented. `"projection"` calls an 
 #'   inefficient but reliable implementation in R from the first package version
-#'   that invokes the \code{\link{simple_triad_census}} of the 
-#'   \code{\link{actor_projection}} of \code{graph}.
-#' @param use.integer Logical; whether to use the \code{IntegerMatrix} class in
-#'   \strong{Rcpp} rather than the default \code{NumericMatrix}.
+#'   that invokes the [simple_triad_census] of the 
+#'   [actor_projection] of `graph`.
+#' @param use.integer Logical; whether to use the `IntegerMatrix` class in
+#'   **Rcpp** rather than the default `NumericMatrix`.
 #' @param verbose Logical; whether to display progress bars.
 #' @return A matrix counts of triad congruence classes, with row indices 
 #'   reflecting pairwise exclusive events and column indices reflecting 

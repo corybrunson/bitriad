@@ -24,7 +24,7 @@ event.projection(graph, ...)
 \item{mode}{Numeric or character; whether to project onto actors (\code{1} or
 \code{"actors"}) or onto events (\code{2} or \code{"events"}).}
 
-\item{name}{Character; the attribute of the actor or event nodes in 
+\item{name}{Character; the attribute of the actor or event nodes in
 \code{graph} to use as names for the nodes in the projection. If \code{NA},
 node IDs are converted to characters and used. If \code{NULL}, no names are
 assigned.}
@@ -32,9 +32,9 @@ assigned.}
 \item{...}{Arguments passed to \code{mode_projection}.}
 }
 \description{
-These functions use \code{\link{bipartite_projection}} to 
-  compute the projections of an affiliation network onto the actor or event 
-  nodes.
+These functions use \link[igraph:bipartite_projection]{bipartite_projection} to
+compute the projections of an affiliation network onto the actor or event
+nodes.
 }
 \examples{
 data(chicago1960s)
@@ -45,6 +45,6 @@ proj <- event_projection(chicago1960s)
 vcount(proj) == tab[2]
 }
 \seealso{
-Original \strong{igraph} functions: 
-  \code{\link[igraph]{bipartite_projection}}
+Original \strong{igraph} functions:
+\link[igraph:bipartite_projection]{bipartite_projection}
 }

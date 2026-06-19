@@ -22,9 +22,9 @@ Each clustering coefficient can be defined as the proportion of "wedges" that
 are "closed", for suitable definitions of both terms. The main function,
 transitivity_an, calls one of the wedge functions and computes the
 global or local clustering coefficient of the given affiliation network,
-and if the local, then at the given nodes. (`project_transitivity`
-cheats by using the native `transitivity` but produces output consistent
-with the other variants of `transitivity_an`.)
+and if the local, then at the given nodes. (\code{project_transitivity}
+cheats by using the native \code{transitivity} but produces output consistent
+with the other variants of \code{transitivity_an}.)
 }
 \seealso{
 Other triad closure functions:
