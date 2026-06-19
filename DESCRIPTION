@@ -16,7 +16,7 @@ Description: Two principal tools are provided for the triadic analysis of
     'bitriad' is built on the 'igraph' package and includes
     new graph-theoretic calculations written using the {Rcpp} package.
 Depends:
-    R (>= 3.3.2),
+    R (>= 3.5.0),
     igraph (>= 1.1.2)
 Imports:
     MASS,

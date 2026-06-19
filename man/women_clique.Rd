@@ -7,7 +7,8 @@
 An affiliation network; see \link{is_an}.
 }
 \source{
-Davis, A., Gardner, B.B., & Gardner, M.R. (1941). \emph{Deep South: A Social Anthropological Study of Caste and Class}. Columbia, SC: University
+Davis, A., Gardner, B.B., & Gardner, M.R. (1941). \emph{Deep South: A
+Social Anthropological Study of Caste and Class}. Columbia, SC: University
 of South Carolina Press.
 \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
 }

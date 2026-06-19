@@ -1,27 +1,31 @@
 # Create graph objects for affiliation network data sets
 
 # Setup
-library(devtools)  # for install_github()
+library(devtools)  # for install_github() and load_all()
 library(igraph)    # for functions
 library(latentnet) # for Davis data
-#install_github("corybrunson/scottish.capital")
+# install_github("corybrunson/scottish.capital")
 library(scottish.capital)
 # http://bioconductor.wustl.edu/data/experiment/html/SNAData.html
-#source("http://bioconductor.org/biocLite.R")
-#biocLite("SNAData", ask = FALSE)
+# source("http://bioconductor.org/biocLite.R")
+# biocLite("SNAData", ask = FALSE)
+# install.packages("BiocManager")
+# BiocManager::install("SNAData")
 library(SNAData)
+load_all()
 
 # Davis Southern Women
 data(davis)
-women_group <- graph_from_incidence_matrix(davis)
-V(women_group)$type <- !(substr(V(women_group)$name, 2, 2) %in% LETTERS)
+davis_adj <- as.matrix(davis, matrix.type = "adjacency")
+women_group <- graph_from_incidence_matrix(davis_adj)
 # Fix the names
 V(women_group)$name[which(V(women_group)$name == "MYRNA")] <- "MYRA"
 V(women_group)$name[!V(women_group)$type] <- paste(
   substr(V(women_group)$name[V(women_group)$type == 0], 1, 1),
   tolower(substr(V(women_group)$name[V(women_group)$type == 0], 2,
                  nchar(V(women_group)$name[V(women_group)$type == 0]))),
-  sep = "")
+  sep = ""
+)
 V(women_group)$name[V(women_group)$type] <- c(
   "6/27", "3/2", "4/12", "9/26", "2/25", "5/19", "3/15",
   "9/16", "4/8", "6/10", "2/23", "4/7", "11/21", "8/3"
@@ -41,30 +45,31 @@ women_group <- permute(women_group, c(
 # "Deep South" > "Social Cliques in Colored Society" > Fig. 11: Clique A
 # Read data directly into bipartite incidence matrix
 women_clique <- graph_from_incidence_matrix(as.matrix(read.csv(
-  "DGG_Clique_A.csv",
-  row.names = 1)))
+  "data-raw/DGG_Clique_A.csv", row.names = 1)))
 
 # Scott and Hughes, *The Anatomy of Scottish Capital*
 # https://github.com/corybrunson/scottish.capital
 data(scottish.capital)
-scotland1920s <- permute(scottish.capital[[2]],
-                         order(order(V(scottish.capital[[2]])$type)))
+scotland1920s <- permute(
+  scottish.capital[[2]],
+  order(order(V(scottish.capital[[2]])$type))
+)
 
 # Galaskiewicz, "Social organization of an urban grants economy"
 library(SNAData)
 data(CEOclubsAM)
-minneapolis1970s <- graph_from_incidence_matrix(CEOclubsAM)
+minneapolis1970s <- graph_from_incidence_matrix(as.matrix(CEOclubsAM))
 
 # Barnes-Burkett corporate board affiliations
 # Read data directly into bipartite incidence matrix
 chicago1960s <- graph_from_incidence_matrix(as.matrix(read.csv(
-  "Barnes-Burkett-Table1.csv", row.names = 1)))
+  "data-raw/Barnes-Burkett-Table1.csv", row.names = 1)))
 
 # Noordin Top Terrorist Network Data
 # http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp
 # SPSS data were (a) copied into a csv and (b) their names put into a string
 # Read data into a data frame
-data <- read.csv("Noordin-network.csv", header = FALSE)
+data <- read.csv("data-raw/Noordin-network.csv", header = FALSE)
 rownames(data) <- data[, 1]
 data <- data[, 2:dim(data)[2]]
 colnames(data) <- c(
@@ -96,7 +101,7 @@ nmt_organizations <- graph_from_incidence_matrix(as.matrix(data2))
 # http://www.sscnet.ucla.edu/polisci/faculty/chwe/ps269/han.pdf
 # https://github.com/kjhealy/revere
 # Read data into a data frame
-data <- read.csv("PaulRevereAppD.csv", row.names = 1)
+data <- read.csv("data-raw/PaulRevereAppD.csv", row.names = 1)
 # Remove non-group affiliations (Tea Party and London Enemies)
 # and any participants who don't feature elsewhere
 data <- data[!(names(data) %in% c("TeaParty", "LondonEnemies"))]
@@ -109,25 +114,24 @@ V(whigs)$name[V(whigs)$type == 0] <- sapply(
   })
 
 # Save graphs to package data folder (with comments as to why)
-if (file.exists("../data")) {
-  for(name in c(
-    # widely used; dynamic; triad closure example
-    "women_group",
-    # triad census example
-    "women_clique",
-    # multiple components; interlocking directorates
-    "scotland1920s",
-    # widely used, triad closure example; interlocking directorates
-    "minneapolis1970s",
-    # actor and event nodes example; interlocking directorates
-    "chicago1960s",
-    # partial; subversive groups
-    "nmt_meetings",
-    # partial; subversive groups
-    "nmt_organizations",
-    # high actor-event ratio; subversive groups
-    "whigs"
-  )) {
-    save(list = name, file = paste0("../data/", name, ".rda"))
-  }
-} else warning("Directory 'data' is not where it should be.")
+dir.create("data")
+for(name in c(
+  # widely used; dynamic; triad closure example
+  "women_group",
+  # triad census example
+  "women_clique",
+  # multiple components; interlocking directorates
+  "scotland1920s",
+  # widely used, triad closure example; interlocking directorates
+  "minneapolis1970s",
+  # actor and event nodes example; interlocking directorates
+  "chicago1960s",
+  # partial; subversive groups
+  "nmt_meetings",
+  # partial; subversive groups
+  "nmt_organizations",
+  # high actor-event ratio; subversive groups
+  "whigs"
+)) {
+  save(list = name, file = file.path("data", paste0(name, ".rda")))
+}

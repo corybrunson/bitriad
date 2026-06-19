@@ -7,7 +7,8 @@
 An affiliation network; see \link{is_an}.
 }
 \source{
-Wasserman, S. & Faust, K. (1994). \emph{Social Network Analysis: Methods and Applications}. Cambridge University Press.
+Wasserman, S. & Faust, K. (1994). \emph{Social Network Analysis: Methods
+and Applications}. Cambridge University Press.
 \url{http://books.google.com/books?id=CAm2DpIqRUIC}
 }
 \description{

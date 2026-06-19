@@ -1,13 +1,13 @@
 #' Group of women connected by event coattendance in Old City.
-#' 
+#'
 #' These data record the attendance of 18 white women at 14 social events over a
 #' 9-month period.
-#' 
-#' @format An affiliation network; see [is_an]. Events carry a 
-#'   `time` attribute equal to the number of days since the previous 31 
-#'   December.
-#' @source Davis, A., Gardner, B.B., & Gardner, M.R. (1941). *Deep South: A Social Anthropological Study of Caste and Class*. Columbia, SC: University
-#'   of South Carolina Press. 
+#'
+#' @format An affiliation network; see [is_an]. Events carry a `time` attribute
+#'   equal to the number of days since the previous 31 December.
+#' @source Davis, A., Gardner, B.B., & Gardner, M.R. (1941). *Deep South: A
+#'   Social Anthropological Study of Caste and Class*. Columbia, SC: University
+#'   of South Carolina Press.
 #'   \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
 #' @name women_group
 NULL
@@ -18,8 +18,9 @@ NULL
 #' activities.
 #'
 #' @format An affiliation network; see [is_an].
-#' @source Davis, A., Gardner, B.B., & Gardner, M.R. (1941). *Deep South: A Social Anthropological Study of Caste and Class*. Columbia, SC: University
-#'   of South Carolina Press. 
+#' @source Davis, A., Gardner, B.B., & Gardner, M.R. (1941). *Deep South: A
+#'   Social Anthropological Study of Caste and Class*. Columbia, SC: University
+#'   of South Carolina Press.
 #'   \url{http://books.google.com/books?id=HGIdAAAAIAAJ}
 #' @name women_clique
 NULL
@@ -31,19 +32,20 @@ NULL
 #' 1974.
 #'
 #' @format An affiliation network; see [is_an].
-#' @source Scott, J., & Hughes, M. (1980). *The Anatomy of Scottish Capital*. Croom Helm. 
-#' \url{http://books.google.com/books?id=59mvAwAAQBAJ}
+#' @source Scott, J., & Hughes, M. (1980). *The Anatomy of Scottish Capital*.
+#'   Croom Helm. \url{http://books.google.com/books?id=59mvAwAAQBAJ}
 #' @name scotland1920s
 NULL
 
 #' Interlocks among corporate philanthropists in Minneapolis-St. Paul.
-#' 
-#' These data record the memberships of 26 directors on the boards of 15 
-#' companies. They are a subset of a larger dataset that is not publicly 
+#'
+#' These data record the memberships of 26 directors on the boards of 15
+#' companies. They are a subset of a larger dataset that is not publicly
 #' available.
-#' 
+#'
 #' @format An affiliation network; see [is_an].
-#' @source Wasserman, S. & Faust, K. (1994). *Social Network Analysis: Methods and Applications*. Cambridge University Press. 
+#' @source Wasserman, S. & Faust, K. (1994). *Social Network Analysis: Methods
+#'   and Applications*. Cambridge University Press.
 #'   \url{http://books.google.com/books?id=CAm2DpIqRUIC}
 #' @name minneapolis1970s
 NULL
