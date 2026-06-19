@@ -11,7 +11,10 @@ test_that("full censuses agree", {
 test_that("difference censuses agree", {
   expect_equal(
     triad_census_difference(women_group, method = "proj"),
-    triad_census_difference(women_group),
+    triad_census_difference(women_group)
+  )
+  expect_equal(
+    triad_census_difference(women_group, method = "proj"),
     project_census(triad_census(women_group))$difference
   )
 })
@@ -19,8 +22,14 @@ test_that("difference censuses agree", {
 test_that("binary censuses agree", {
   expect_equal(
     triad_census_binary(women_group, method = "proj"),
-    triad_census_binary(women_group),
-    project_census(triad_census(women_group))$binary,
+    triad_census_binary(women_group)
+  )
+  expect_equal(
+    triad_census_binary(women_group, method = "proj"),
+    project_census(triad_census(women_group))$binary
+  )
+  expect_equal(
+    triad_census_binary(women_group, method = "proj"),
     project_census(triad_census_difference(women_group))$binary
   )
 })

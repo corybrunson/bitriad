@@ -4,9 +4,18 @@
 \alias{dynamic_wedges}
 \title{Wedge censuses and closure indicators for dynamic affiliation networks}
 \usage{
-dynamic_wedges(graph, actor, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0, memory = Inf, wedge.gap = Inf, close.after = 0,
-  close.before = Inf)
+dynamic_wedges(
+  graph,
+  actor,
+  alcove = 0,
+  wedge = 0,
+  maps = 0,
+  congruence = 0,
+  memory = Inf,
+  wedge.gap = Inf,
+  close.after = 0,
+  close.before = Inf
+)
 }
 \arguments{
 \item{graph}{A dynamic affiliation network.}
@@ -43,8 +52,6 @@ The \code{dynamic_wedges_*} functions implement wedge censuses
   closed. The shell function \code{dynamic_wedges} determines a unique
   measure from several coded arguments (see below) and passes the input
   affiliation network to that measure.
-
-
 }
 \section{Measures of triad closure}{
  Each measure of triad closure is defined 
@@ -132,5 +139,7 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-Other wedge functions: \code{\link{indequ_wedges}}
+Other wedge functions:
+\code{\link[=indequ_wedges]{indequ_wedges()}}
 }
+\concept{wedge functions}

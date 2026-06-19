@@ -54,7 +54,7 @@ as_an <- function(graph, add.type.attribute = FALSE) {
   }
   if (is_directed(graph)) {
     warning("Graph is directed; collapsing directed links.")
-    graph <- as.undirected(graph, mode = "collapse")
+    graph <- as_undirected(graph, mode = "collapse")
   }
   if (!("type" %in% vertex_attr_names(graph))) {
     if (add.type.attribute) {

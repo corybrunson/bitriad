@@ -3,19 +3,15 @@ context("empty graphs")
 g <- make_empty_graph(directed = FALSE)
 
 test_that("empty graphs are not all recognized as ANs", {
-  expect_false(
-    is_an(g),
-    is_dynamic_an(g)
-  )
+  expect_false(is_an(g))
+  expect_false(is_dynamic_an(g))
 })
 
 g <- as_an(g, add.type.attribute = TRUE)
 
 test_that("empty graphs with 'type' attributes are recognized as ANs", {
-  expect_true(
-    is_an(g),
-    is_dynamic_an(g)
-  )
+  expect_true(is_an(g))
+  expect_true(is_dynamic_an(g))
 })
 
 test_that("triad census functions can handle empty graphs", {
@@ -35,12 +31,9 @@ test_that("triad census functions can handle empty graphs", {
 })
 
 test_that("global triad closure functions can handle empty graphs", {
-  expect_equal(
-    triad_closure_watts_strogatz(g),
-    triad_closure_opsahl(g),
-    triad_closure_liebig_rao_0(g),
-    triad_closure_liebig_rao_3(g),
-    triad_closure_exclusive(g),
-    NaN
-  )
+  expect_true(is.nan(triad_closure_watts_strogatz(g)))
+  expect_true(is.nan(triad_closure_opsahl(g)))
+  expect_true(is.nan(triad_closure_liebig_rao_0(g)))
+  expect_true(is.nan(triad_closure_liebig_rao_3(g)))
+  expect_true(is.nan(triad_closure_exclusive(g)))
 })

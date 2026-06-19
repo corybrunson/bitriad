@@ -2,8 +2,8 @@
 % Please edit documentation in R/bitriad.R
 \docType{package}
 \name{bitriad}
-\alias{bitriad}
 \alias{bitriad-package}
+\alias{bitriad}
 \title{\code{bitriad}: Triadic analysis of affiliation networks}
 \description{
 Calculate triad censuses and triad closure statistics designed 
@@ -14,10 +14,6 @@ The package contains two principal tools for the triadic analysis of
   affiliation networks: triad censuses and measures of triad closure.
   Assorted additional functions, including a measure of dynamic triad
   closure, are also included.
-
-
-
-
 }
 \section{Triad censuses}{
  Three triad censuses are implemented for affiliation 

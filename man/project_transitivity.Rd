@@ -27,8 +27,11 @@ cheats by using the native `transitivity` but produces output consistent
 with the other variants of `transitivity_an`.)
 }
 \seealso{
-Other triad closure functions: \code{\link{dynamic_triad_closure}},
-  \code{\link{transitivity_an}},
-  \code{\link{triad_closure_from_census}},
-  \code{\link{triad_closure}}
+Other triad closure functions:
+\code{\link[=dynamic_triad_closure]{dynamic_triad_closure()}},
+\code{\link[=transitivity_an]{transitivity_an()}},
+\code{\link[=triad_closure]{triad_closure()}},
+\code{\link[=triad_closure_from_census]{triad_closure_from_census()}}
 }
+\concept{clustering coefficients}
+\concept{triad closure functions}

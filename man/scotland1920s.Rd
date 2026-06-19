@@ -3,7 +3,9 @@
 \name{scotland1920s}
 \alias{scotland1920s}
 \title{Networks of interlocking directorates}
-\format{An affiliation network; see \code{\link{is_an}}.}
+\format{
+An affiliation network; see \code{\link{is_an}}.
+}
 \source{
 Scott, J., & Hughes, M. (1980). \emph{The Anatomy of Scottish
 Capital}. Croom Helm. 

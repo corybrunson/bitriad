@@ -142,8 +142,7 @@ triad_wedges_injstr(w, x, y, z)
 
 triad_wedges_injact(w, x, y, z)
 
-triad_wedges(w, x, y, z, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0)
+triad_wedges(w, x, y, z, alcove = 0, wedge = 0, maps = 0, congruence = 0)
 }
 \arguments{
 \item{graph}{An affiliation network.}
@@ -185,8 +184,6 @@ The \code{wedges_*} functions implement wedge censuses underlying
   The shell function \code{wedges} determines a unique measure from several 
   coded arguments (see below) and passes the input affiliation network to 
   that measure.
-
-
 }
 \section{Measures of triad closure}{
  Each measure of triad closure is defined 
@@ -274,7 +271,7 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-Other wedge functions: \code{\link{dynamic_wedges}}
-
-Other wedge functions: \code{\link{dynamic_wedges}}
+Other wedge functions:
+\code{\link[=dynamic_wedges]{dynamic_wedges()}}
 }
+\concept{wedge functions}

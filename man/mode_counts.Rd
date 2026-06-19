@@ -33,7 +33,10 @@ event_count(chicago1960s)
 Original \strong{igraph} functions: \code{\link[igraph]{vcount}},
   \code{\link[igraph]{ecount}}
 
-Other modal queries and manipulations: \code{\link{dualize}},
-  \code{\link{mode_addition}}, \code{\link{modes}},
-  \code{\link{schedule}}
+Other modal queries and manipulations:
+\code{\link[=dualize]{dualize()}},
+\code{\link{mode_addition}},
+\code{\link{modes}},
+\code{\link[=schedule]{schedule()}}
 }
+\concept{modal queries and manipulations}

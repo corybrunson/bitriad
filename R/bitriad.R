@@ -11,10 +11,9 @@
 #' @template triadcensus
 #' @template triadclosure
 #'   
-#' @docType package
 #' @author Jason Cory Brunson
 #' @import MASS igraph Rcpp
 #' @importFrom Rcpp evalCpp
 #' @useDynLib bitriad
 #' @name bitriad
-NULL
+"_PACKAGE"

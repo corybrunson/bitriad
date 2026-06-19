@@ -23,8 +23,13 @@
 \usage{
 triad_census(graph, ..., add.names = TRUE)
 
-triad_census_an(graph, scheme = "full", method = "batagelj_mrvar", ...,
-  add.names = TRUE)
+triad_census_an(
+  graph,
+  scheme = "full",
+  method = "batagelj_mrvar",
+  ...,
+  add.names = TRUE
+)
 
 triad.census.an(...)
 
@@ -34,8 +39,12 @@ triad_census_full_batagelj_mrvar(graph, use.integer = FALSE)
 
 triad_census_full_projection(graph, verbose = FALSE)
 
-triad_census_difference(graph, method = "batagelj_mrvar", ...,
-  add.names = TRUE)
+triad_census_difference(
+  graph,
+  method = "batagelj_mrvar",
+  ...,
+  add.names = TRUE
+)
 
 triad_census_difference_batagelj_mrvar(graph, use.integer = FALSE)
 
@@ -102,8 +111,6 @@ The \code{triad_census_*} functions implement the several triad
   The function \code{triad_census} supercedes 
   \code{\link[igraph]{triad_census}} but calls in case \code{graph} is not an
   affiliation network.
-
-
 }
 \section{Triad censuses}{
  Three triad censuses are implemented for affiliation 
@@ -186,7 +193,9 @@ Science}, 3(4), 480--508.
 Original \strong{igraph} functions: 
   \code{\link[igraph]{triad_census}}
 
-Other triad census functions: \code{\link{project_census}},
-  \code{\link{triad_closure_from_census}},
-  \code{\link{triad_tallies}}
+Other triad census functions:
+\code{\link[=project_census]{project_census()}},
+\code{\link[=triad_closure_from_census]{triad_closure_from_census()}},
+\code{\link{triad_tallies}}
 }
+\concept{triad census functions}

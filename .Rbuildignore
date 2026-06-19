@@ -14,3 +14,7 @@
 
 # website (pkgdown)
 ^docs$
+
+# R project
+^.*\.Rproj$
+^\.Rproj\.user$

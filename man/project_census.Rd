@@ -73,8 +73,6 @@ This function inputes an affiliation network triad census of any
   certain matrix entries to form a smaller matrix. The helper functions
   \code{*_from_*_census()} project a census of each scheme to one of each
   coarser scheme.
-
-
 }
 \section{Triad censuses}{
  Three triad censuses are implemented for affiliation 
@@ -149,7 +147,9 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-Other triad census functions: \code{\link{triad_census}},
-  \code{\link{triad_closure_from_census}},
-  \code{\link{triad_tallies}}
+Other triad census functions:
+\code{\link[=triad_census]{triad_census()}},
+\code{\link[=triad_closure_from_census]{triad_closure_from_census()}},
+\code{\link{triad_tallies}}
 }
+\concept{triad census functions}

@@ -31,7 +31,8 @@
 #' )
 #' @export
 dynamic_triad_closure <- function(
-  graph, actors = V(graph)[V(graph)$type == FALSE],
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
   type = "global",
   ...,
   measure = NULL
@@ -117,7 +118,7 @@ dynamic_triad_closure_projection <- function(
   span <- sort(unique(V(graph)$time))
   
   # An empty array of wedges with closure counts (to be incremented)
-  wedges <- matrix(NA, nrow = 0, ncol = 4)
+  wedges <- matrix(NA_integer_, nrow = 0, ncol = 4)
   
   for (s in span[-1]) {
     
@@ -143,8 +144,9 @@ dynamic_triad_closure_projection <- function(
     # graph1 includes any new events at time s (but no new actors)
     
     # Check that the actors of graph0 and graph1 agree
-    stopifnot(all(V(graph0)$name[!V(graph0)$type] ==
-                    V(graph1)$name[!V(graph1)$type]))
+    stopifnot(
+      all(V(graph0)$name[!V(graph0)$type] == V(graph1)$name[!V(graph1)$type])
+    )
     
     # Projections
     proj0 <- actor_projection(graph0)
@@ -162,20 +164,20 @@ dynamic_triad_closure_projection <- function(
     wedges01 <- do.call(rbind, lapply(wh.tr0, function(v) {
       # Actor's neighbors
       nbhd <- sort(
-        setdiff(neighborhood(proj0, order = 1, nodes = v)[[1]], v)
+        setdiff(as.integer(ego(proj0, order = 1, nodes = v)[[1]]), v)
       )
       # Pairs of neighbors
       pairs <- t(matrix(utils::combn(nbhd, 2), nrow = 2))
       # Those that are not connected form wedges...
       pairs <- matrix(pairs[-which(apply(pairs, 1, function(x) {
-        are.connected(proj0, v1 = x[1], v2 = x[2])
+        are_adjacent(proj0, v1 = x[1], v2 = x[2])
       })), ], ncol = 2)
-      if (nrow(pairs) == 0) return(matrix(NA, ncol = 4, nrow = 0))
+      if (nrow(pairs) == 0) return(matrix(NA_integer_, ncol = 4, nrow = 0))
       # ...with v at the corner...
       pairs <- cbind(pairs[, 1], unname(v), pairs[, 2])
       # ...that are closed if the end nodes are tied in proj1
       pairs <- cbind(pairs, apply(pairs, 1, function(x) {
-        are.connected(proj1, v1 = x[1], v2 = x[3])
+        are_adjacent(proj1, v1 = x[1], v2 = x[3])
       }))
     }))
     if (nrow(wedges01) == 0) next

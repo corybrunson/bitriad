@@ -16,7 +16,7 @@ schedule <- function(
 ) {
   stopifnot(all(V(graph)$type[actors] == FALSE))
   actors <- as.numeric(V(graph)[actors])
-  events_table <- table(unlist(neighborhood(graph, 1, actors)))
+  events_table <- table(unlist(lapply(ego(graph, 1, actors), as_ids)))
   coattended <- as.numeric(names(events_table)[events_table > 1])
   induced_subgraph(graph, c(actors, coattended))
 }

@@ -11,12 +11,9 @@ vignette: >
 ---
 
 ```{r, echo=FALSE, results="hide", message=FALSE, warning=FALSE}
-library(knitr)
-opts_knit$set(progress = FALSE)
-opts_chunk$set(
+knitr::opts_chunk$set(
   echo = TRUE, message = FALSE, tidy = TRUE, warning = FALSE,
-  fig.path = "figure/", fig.keep = "high", fig.width = 8,
-  fig.height = 6, fig.align = "center"
+  fig.width = 8, fig.height = 6, fig.align = "center"
 )
 ```
 
@@ -47,7 +44,7 @@ V(women_clique)$label <- c(LETTERS[1:5], 1:5)
 V(women_clique)$label.color <- "white"
 set.seed(77)
 plot(women_clique,
-     layout = layout.fruchterman.reingold(women_clique, niter = 100))
+     layout = layout_with_fr(women_clique, niter = 100))
 ```
 
 The layout reveals a symmetry between the actors and the events: Exchanging Miss A and Event 2, Miss B and Event 5, and so on yields a graph automorphism (an isomorphism with itself). Thus any structural information we learn about the actors in this network can be flipped into equivalent information about the events. Such symmetry is not necessarily meaningful, but the *duality* between actors and events, which allows us to use actor-centric tools in the study of events (and vice-versa), is [of central importance](https://academic.oup.com/sf/article-abstract/53/2/181/2229911) to the study of affiliation networks.

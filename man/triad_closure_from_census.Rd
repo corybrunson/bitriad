@@ -15,22 +15,62 @@
 \alias{transitivity.census}
 \title{Global triad closure from a triad census}
 \usage{
-triad_closure_from_census(census, scheme = NULL, alcove = 0, wedge = 0,
-  maps = 0, congruence = 0, measure = NULL, open.fun = NULL,
-  closed.fun = NULL, counts = FALSE)
+triad_closure_from_census(
+  census,
+  scheme = NULL,
+  alcove = 0,
+  wedge = 0,
+  maps = 0,
+  congruence = 0,
+  measure = NULL,
+  open.fun = NULL,
+  closed.fun = NULL,
+  counts = FALSE
+)
 
-triad_closure_from_simple_census(census, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0, open.fun = NULL, closed.fun = NULL, counts = FALSE)
+triad_closure_from_simple_census(
+  census,
+  alcove = 0,
+  wedge = 0,
+  maps = 0,
+  congruence = 0,
+  open.fun = NULL,
+  closed.fun = NULL,
+  counts = FALSE
+)
 
-triad_closure_from_binary_census(census, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0, open.fun = NULL, closed.fun = NULL, counts = FALSE)
+triad_closure_from_binary_census(
+  census,
+  alcove = 0,
+  wedge = 0,
+  maps = 0,
+  congruence = 0,
+  open.fun = NULL,
+  closed.fun = NULL,
+  counts = FALSE
+)
 
-triad_closure_from_difference_census(census, alcove = 0, wedge = 0,
-  maps = 0, congruence = 0, open.fun = NULL, closed.fun = NULL,
-  counts = FALSE)
+triad_closure_from_difference_census(
+  census,
+  alcove = 0,
+  wedge = 0,
+  maps = 0,
+  congruence = 0,
+  open.fun = NULL,
+  closed.fun = NULL,
+  counts = FALSE
+)
 
-triad_closure_from_full_census(census, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0, open.fun = NULL, closed.fun = NULL, counts = FALSE)
+triad_closure_from_full_census(
+  census,
+  alcove = 0,
+  wedge = 0,
+  maps = 0,
+  congruence = 0,
+  open.fun = NULL,
+  closed.fun = NULL,
+  counts = FALSE
+)
 
 wedges_from_full_census(census, open.fun, closed.fun)
 
@@ -40,9 +80,18 @@ wedgecount_census(...)
 
 wedgecount.census(...)
 
-triad_closure_from_census_original(census, scheme = NULL, alcove = 0,
-  wedge = 0, maps = 0, congruence = 0, measure, open.fun, closed.fun,
-  counts = FALSE)
+triad_closure_from_census_original(
+  census,
+  scheme = NULL,
+  alcove = 0,
+  wedge = 0,
+  maps = 0,
+  congruence = 0,
+  measure,
+  open.fun,
+  closed.fun,
+  counts = FALSE
+)
 
 transitivity_from_census(...)
 
@@ -86,10 +135,6 @@ Each global measure of triad closure can be recovered from the full
   triad census, and some can be recovered from smaller censuses. This 
   function verifies that a given census is sufficient to recover a given 
   measure of triad closure and, if it is, returns its value.
-
-
-
-
 }
 \section{Triad censuses}{
  Three triad censuses are implemented for affiliation 
@@ -248,11 +293,16 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-Other triad census functions: \code{\link{project_census}},
-  \code{\link{triad_census}}, \code{\link{triad_tallies}}
+Other triad census functions:
+\code{\link[=project_census]{project_census()}},
+\code{\link[=triad_census]{triad_census()}},
+\code{\link{triad_tallies}}
 
-Other triad closure functions: \code{\link{dynamic_triad_closure}},
-  \code{\link{project_transitivity}},
-  \code{\link{transitivity_an}},
-  \code{\link{triad_closure}}
+Other triad closure functions:
+\code{\link[=dynamic_triad_closure]{dynamic_triad_closure()}},
+\code{\link[=project_transitivity]{project_transitivity()}},
+\code{\link[=transitivity_an]{transitivity_an()}},
+\code{\link[=triad_closure]{triad_closure()}}
 }
+\concept{triad census functions}
+\concept{triad closure functions}

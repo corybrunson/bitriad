@@ -47,5 +47,7 @@ An affiliation network is a bipartite graph whose nodes are
 \seealso{
 Original \strong{igraph} functions: \code{\link{is_igraph}}
 
-Other network testing and coercion: \code{\link{dynamic_an}}
+Other network testing and coercion:
+\code{\link{dynamic_an}}
 }
+\concept{network testing and coercion}

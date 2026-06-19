@@ -77,7 +77,7 @@ is_triad <- function(graph) {
     return(FALSE)
   }
   if (actor_count(graph) != 3) return(FALSE)
-  if (any(degree(graph, V(graph)$type == TRUE) <= 1)) return(FALSE)
+  if (any(degree(graph, V(graph)[V(graph)$type == TRUE]) <= 1)) return(FALSE)
   TRUE
 }
 
@@ -94,7 +94,7 @@ triad_class <- function(
   stopifnot(length(actors) == 3)
   
   # count inclusive and exclusive events
-  actor_events <- neighborhood(graph, order = 1, nodes = actors)
+  actor_events <- lapply(ego(graph, order = 1, nodes = actors), as_ids)
   w <- length(which(table(unlist(actor_events)) == 3))
   lambda <- sapply(1:3, function(i) {
     length(which(table(unlist(actor_events[c(i, i %% 3 + 1)])) > 1))

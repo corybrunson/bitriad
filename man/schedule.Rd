@@ -18,7 +18,10 @@ Given an affiliation network and a vector of actor node IDs,
   \emph{schedule}.
 }
 \seealso{
-Other modal queries and manipulations: \code{\link{dualize}},
-  \code{\link{mode_addition}}, \code{\link{mode_counts}},
-  \code{\link{modes}}
+Other modal queries and manipulations:
+\code{\link[=dualize]{dualize()}},
+\code{\link{mode_addition}},
+\code{\link{mode_counts}},
+\code{\link{modes}}
 }
+\concept{modal queries and manipulations}

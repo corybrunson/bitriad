@@ -129,7 +129,7 @@ centeredTriads <- function(graph, vids) {
   proj <- actor_projection(graph)
   
   # Neighborhoods (with starting node removed)
-  n <- lapply(neighborhood(proj, order = 1, nodes = vids), function(x) x[-1])
+  n <- lapply(lapply(ego(proj, order = 1, nodes = vids), as_ids), function(x) x[-1])
   
   # Across all nodes in vids...
   do.call(rbind, lapply(1:length(vids), function(i) {
@@ -139,7 +139,7 @@ centeredTriads <- function(graph, vids) {
     # Pairs of v's neighbors
     # Note: using nodes from graph requires consistent indexing
     # (guaranteed by is_an)
-    #n <- setdiff(neighborhood(proj, order = 1, nodes = v)[[1]], v)
+    #n <- setdiff(as_ids(ego(proj, order = 1, nodes = v)[[1]]), v)
     ns <- utils::combn(n[[i]], m = 2)
     
     # Across all pairs of v's neighbors...

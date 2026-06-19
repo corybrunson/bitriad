@@ -3,7 +3,9 @@
 \name{nmt_meetings}
 \alias{nmt_meetings}
 \title{Noordin Top meeting attendance network.}
-\format{An affiliation network; see \code{\link{is_an}}.}
+\format{
+An affiliation network; see \code{\link{is_an}}.
+}
 \source{
 Noordin Top Terrorist Network Data. (2011). The Association of
   Religious Data Archives. 

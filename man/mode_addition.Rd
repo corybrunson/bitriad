@@ -59,7 +59,10 @@ cbind(
 Original \strong{igraph} functions: 
   \code{\link[igraph]{add_vertices}}, \code{\link[igraph]{add_edges}}
 
-Other modal queries and manipulations: \code{\link{dualize}},
-  \code{\link{mode_counts}}, \code{\link{modes}},
-  \code{\link{schedule}}
+Other modal queries and manipulations:
+\code{\link[=dualize]{dualize()}},
+\code{\link{mode_counts}},
+\code{\link{modes}},
+\code{\link[=schedule]{schedule()}}
 }
+\concept{modal queries and manipulations}

@@ -481,7 +481,7 @@ simple_triad_census <- function(graph, add.names = TRUE) {
     stop("'graph' is not simple and directed.")
   }
   # Use implemented triad census if it makes sense
-  tc <- igraph::triad_census(as.directed(graph))
+  tc <- igraph::triad_census(as_directed(graph))
   if (sum(tc) == choose(vcount(graph), 3) & all(tc >= 0) & !is.nan(tc[1])) {
     tc <- tc[c(1, 3, 11, 16)]
     if (add.names) names(tc) <- 0:3
@@ -491,7 +491,7 @@ simple_triad_census <- function(graph, add.names = TRUE) {
   n <- vcount(graph)
   # Across edges, tally nodes adjacent to 0, 1, or 2 of the endpoints
   edge_plus <- apply(as_edgelist(graph), 1, function(pair) {
-    nbhd <- neighborhood(graph, 1, pair)
+    nbhd <- lapply(ego(graph, 1, pair), as_ids)
     cons <- length(unique(unlist(nbhd))) - 2
     tris <- length(do.call(intersect, nbhd)) - 2
     c(n - cons - 2, cons - tris, tris)

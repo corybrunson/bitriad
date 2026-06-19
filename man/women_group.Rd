@@ -3,9 +3,11 @@
 \name{women_group}
 \alias{women_group}
 \title{Group of women connected by event coattendance in Old City.}
-\format{An affiliation network; see \code{\link{is_an}}. Events carry a 
+\format{
+An affiliation network; see \code{\link{is_an}}. Events carry a 
   \code{time} attribute equal to the number of days since the previous 31 
-  December.}
+  December.
+}
 \source{
 Davis, A., Gardner, B.B., & Gardner, M.R. (1941). \emph{Deep South: A
   Social Anthropological Study of Caste and Class}. Columbia, SC: University

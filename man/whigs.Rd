@@ -3,7 +3,9 @@
 \name{whigs}
 \alias{whigs}
 \title{Membership network of American Whigs.}
-\format{An affiliation network; see \code{\link{is_an}}.}
+\format{
+An affiliation network; see \code{\link{is_an}}.
+}
 \source{
 Fischer, D.H. (1994). \emph{Paul Revere's Ride}. Oxford University
   Press. \url{https://books.google.com/books?id=knC-kTFI9_gC}

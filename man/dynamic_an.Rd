@@ -11,8 +11,7 @@ is_dynamic_an(graph)
 
 is.dyn(graph)
 
-as_dynamic_an(graph, use.time.attribute = "time",
-  add.time.attribute = FALSE)
+as_dynamic_an(graph, use.time.attribute = "time", add.time.attribute = FALSE)
 }
 \arguments{
 \item{graph}{An affiliation network.}
@@ -31,5 +30,7 @@ An affiliation network is \emph{dynamic}, for present purposes,
   \code{"time"} in non-decreasing order.
 }
 \seealso{
-Other network testing and coercion: \code{\link{affiliation_network}}
+Other network testing and coercion:
+\code{\link{affiliation_network}}
 }
+\concept{network testing and coercion}

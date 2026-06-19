@@ -47,7 +47,7 @@ int subset_index(IntegerVector vec) {
   if (vec.size() != 3) {
     stop("Vector 'vec' must be of length 3.");
   }
-  if ((vec[0] <= vec[1]) | (vec[0] <= vec[2]) | (vec[1] <= vec[2])) {
+  if ((vec[0] <= vec[1]) || (vec[0] <= vec[2]) || (vec[1] <= vec[2])) {
     stop("Vector 'vec' must be strictly decreasing.");
   }
   if (vec[2] < 0) {
@@ -67,7 +67,7 @@ IntegerVector subset_partition(IntegerVector vec) {
   if (vec.size() != 3) {
     stop("Vector 'vec' must be of length 3.");
   }
-  if ((vec[0] <= vec[1]) | (vec[0] <= vec[2]) | (vec[1] <= vec[2])) {
+  if ((vec[0] <= vec[1]) || (vec[0] <= vec[2]) || (vec[1] <= vec[2])) {
     stop("Vector 'vec' must be strictly decreasing.");
   }
   if (vec[2] < 0) {
@@ -87,8 +87,8 @@ IntegerVector partition_subset(IntegerVector lambda) {
   if (lambda.size() != 3) {
     stop("Partition 'lambda' must have 3 parts.");
   }
-  if ((lambda[0] < lambda[1]) |
-      (lambda[0] < lambda[2]) |
+  if ((lambda[0] < lambda[1]) ||
+      (lambda[0] < lambda[2]) ||
       (lambda[1] < lambda[2])) {
     stop("Partition 'lambda' must be non-increasing.");
   }

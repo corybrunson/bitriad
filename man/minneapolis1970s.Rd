@@ -3,7 +3,9 @@
 \name{minneapolis1970s}
 \alias{minneapolis1970s}
 \title{Interlocks among corporate philanthropists in Minneapolis-St. Paul.}
-\format{An affiliation network; see \code{\link{is_an}}.}
+\format{
+An affiliation network; see \code{\link{is_an}}.
+}
 \source{
 Wasserman, S. & Faust, K. (1994). \emph{Social Network Analysis:
   Methods and Applications}. Cambridge University Press. 

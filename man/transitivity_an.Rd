@@ -23,15 +23,27 @@
 \alias{excl.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-transitivity_an(graph, type = "global", wedgeFun, flavor,
-  vids = which(!V(graph)$type), add.names = FALSE)
+transitivity_an(
+  graph,
+  type = "global",
+  wedgeFun,
+  flavor,
+  vids = which(!V(graph)$type),
+  add.names = FALSE
+)
 
 transitivity_an_triads(graph, vids = which(!V(graph)$type), flavor)
 
 transitivity_an_wedges(graph, vids = which(!V(graph)$type), wedgeFun)
 
-transitivity.an(graph, type = "global", wedgeFun, flavor,
-  vids = which(!V(graph)$type), add.names = FALSE)
+transitivity.an(
+  graph,
+  type = "global",
+  wedgeFun,
+  flavor,
+  vids = which(!V(graph)$type),
+  add.names = FALSE
+)
 
 transitivity.an.triads(graph, vids = which(!V(graph)$type), flavor)
 
@@ -108,8 +120,10 @@ count matrix, which is returned back into \code{transitivity_an} for
 outputting.
 }
 \seealso{
-Other triad closure functions: \code{\link{dynamic_triad_closure}},
-  \code{\link{project_transitivity}},
-  \code{\link{triad_closure_from_census}},
-  \code{\link{triad_closure}}
+Other triad closure functions:
+\code{\link[=dynamic_triad_closure]{dynamic_triad_closure()}},
+\code{\link[=project_transitivity]{project_transitivity()}},
+\code{\link[=triad_closure]{triad_closure()}},
+\code{\link[=triad_closure_from_census]{triad_closure_from_census()}}
 }
+\concept{triad closure functions}

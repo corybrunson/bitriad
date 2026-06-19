@@ -15,40 +15,94 @@
 \alias{plotTriad}
 \title{Affiliation network triads}
 \usage{
-make_triad(lambda, w, actor_names = c("p", "q", "r"), event_names = if
-  (sum(c(lambda, w)) == 0) c() else as.character(1:sum(c(lambda, w))))
+make_triad(
+  lambda,
+  w,
+  actor_names = c("p", "q", "r"),
+  event_names = if (sum(c(lambda, w)) == 0) c() else as.character(1:sum(c(lambda, w)))
+)
 
 is_triad(graph)
 
-triad_class(graph, actors = V(graph)[V(graph)$type == FALSE],
-  as.partition = TRUE, format = "list")
+triad_class(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  as.partition = TRUE,
+  format = "list"
+)
 
-layout_triad(triad = NULL, lambda = NULL, w = NULL, scale = 0.3,
-  angdir = -1, rot = -pi/2, rot_lambda = c(0, 0, 0), rot_w = pi/12)
+layout_triad(
+  triad = NULL,
+  lambda = NULL,
+  w = NULL,
+  scale = 0.3,
+  angdir = -1,
+  rot = -pi/2,
+  rot_lambda = c(0, 0, 0),
+  rot_w = pi/12
+)
 
-plot_triad(triad = NULL, lambda = NULL, w = NULL, layout = NULL,
-  prettify = TRUE, cex = 1, scale = 0.3, angdir = -1, rot = -pi/2,
-  rot_lambda = c(0, 0, 0), rot_w = pi/12, actor_names = c("p", "q", "r"),
-  event_names = if (sum(c(lambda, w)) == 0) c() else
-  as.character(1:sum(c(lambda, w))), xlim = NULL, ylim = NULL, ...)
+plot_triad(
+  triad = NULL,
+  lambda = NULL,
+  w = NULL,
+  layout = NULL,
+  prettify = TRUE,
+  cex = 1,
+  scale = 0.3,
+  angdir = -1,
+  rot = -pi/2,
+  rot_lambda = c(0, 0, 0),
+  rot_w = pi/12,
+  actor_names = c("p", "q", "r"),
+  event_names = if (sum(c(lambda, w)) == 0) c() else as.character(1:sum(c(lambda, w))),
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 
 an_triad(...)
 
 is.triad(graph)
 
-triad.class(graph, actors = V(graph)[V(graph)$type == FALSE],
-  as.partition = TRUE, format = "list")
+triad.class(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  as.partition = TRUE,
+  format = "list"
+)
 
 an.triad(...)
 
-layout.triad(triad = NULL, lambda = NULL, w = NULL, scale = 0.3,
-  angdir = -1, rot = -pi/2, rot_lambda = c(0, 0, 0), rot_w = pi/12)
+layout.triad(
+  triad = NULL,
+  lambda = NULL,
+  w = NULL,
+  scale = 0.3,
+  angdir = -1,
+  rot = -pi/2,
+  rot_lambda = c(0, 0, 0),
+  rot_w = pi/12
+)
 
-plotTriad(triad = NULL, lambda = NULL, w = NULL, layout = NULL,
-  prettify = TRUE, cex = 1, scale = 0.3, angdir = -1, rot = -pi/2,
-  rot_lambda = c(0, 0, 0), rot_w = pi/12, actor_names = c("p", "q", "r"),
-  event_names = if (sum(c(lambda, w)) == 0) c() else
-  as.character(1:sum(c(lambda, w))), xlim = NULL, ylim = NULL, ...)
+plotTriad(
+  triad = NULL,
+  lambda = NULL,
+  w = NULL,
+  layout = NULL,
+  prettify = TRUE,
+  cex = 1,
+  scale = 0.3,
+  angdir = -1,
+  rot = -pi/2,
+  rot_lambda = c(0, 0, 0),
+  rot_w = pi/12,
+  actor_names = c("p", "q", "r"),
+  event_names = if (sum(c(lambda, w)) == 0) c() else as.character(1:sum(c(lambda, w))),
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{lambda}{A non-negative integer vector of length three indicating the 

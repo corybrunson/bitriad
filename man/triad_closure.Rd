@@ -22,44 +22,89 @@ triad_closure(graph, ...)
 
 triad_closure_an(graph, method = "wedges", ...)
 
-triad_closure_via_triads(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ...)
+triad_closure_via_triads(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global",
+  ...
+)
 
-triad_closure_from_centered_triads(triad_list, type = "global", ...,
-  measure = NULL, triads.fun = NULL)
+triad_closure_from_centered_triads(
+  triad_list,
+  type = "global",
+  ...,
+  measure = NULL,
+  triads.fun = NULL
+)
 
-triad_closure_via_wedges(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ..., measure = NULL, wedges.fun = NULL)
+triad_closure_via_wedges(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global",
+  ...,
+  measure = NULL,
+  wedges.fun = NULL
+)
 
-triad_closure_watts_strogatz(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_watts_strogatz(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_classical(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_classical(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_opsahl(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_opsahl(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_twomode(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_twomode(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_liebig_rao_0(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_liebig_rao_0(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_unconnected(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_unconnected(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_liebig_rao_3(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_liebig_rao_3(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_completely_connected(graph, actors = V(graph)[V(graph)$type ==
-  FALSE], type = "global")
+triad_closure_completely_connected(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_exclusive(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_exclusive(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 
-triad_closure_projection(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global")
+triad_closure_projection(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global"
+)
 }
 \arguments{
 \item{graph}{An affiliation network.}
@@ -118,8 +163,6 @@ The \code{triad_closure_*} functions implement the several measures
   \code{\link{triad_closure_watts_strogatz}} by invoking the 
   \code{\link[igraph]{bipartite_projection}} and 
   \code{\link[igraph]{transitivity}} functions in \strong{igraph}.
-
-
 }
 \section{Measures of triad closure}{
  Each measure of triad closure is defined 
@@ -225,8 +268,10 @@ Science}, 3(4), 480--508.
 Original \strong{igraph} functions:
   \code{\link[igraph]{transitivity}}
 
-Other triad closure functions: \code{\link{dynamic_triad_closure}},
-  \code{\link{project_transitivity}},
-  \code{\link{transitivity_an}},
-  \code{\link{triad_closure_from_census}}
+Other triad closure functions:
+\code{\link[=dynamic_triad_closure]{dynamic_triad_closure()}},
+\code{\link[=project_transitivity]{project_transitivity()}},
+\code{\link[=transitivity_an]{transitivity_an()}},
+\code{\link[=triad_closure_from_census]{triad_closure_from_census()}}
 }
+\concept{triad closure functions}
