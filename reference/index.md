@@ -1,0 +1,268 @@
+# Package index
+
+## All functions
+
+- [`is_an()`](http://corybrunson.github.io/bitriad/reference/affiliation_network.md)
+  [`is.an()`](http://corybrunson.github.io/bitriad/reference/affiliation_network.md)
+  [`as_an()`](http://corybrunson.github.io/bitriad/reference/affiliation_network.md)
+  [`as.an()`](http://corybrunson.github.io/bitriad/reference/affiliation_network.md)
+  : Affiliation network structure
+
+- [`bitriad-package`](http://corybrunson.github.io/bitriad/reference/bitriad.md)
+  [`bitriad`](http://corybrunson.github.io/bitriad/reference/bitriad.md)
+  :
+
+  `bitriad`: Triadic analysis of affiliation networks
+
+- [`chicago1960s`](http://corybrunson.github.io/bitriad/reference/chicago1960s.md)
+  : Corporate interlocks among directors in Chicago.
+
+- [`index_subset()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`subset_index()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`subset_partition()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`partition_subset()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`index_partition()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`partition_index()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`indexSubset()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`indexPartition()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`subsetIndex()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`subsetPartition()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`partitionIndex()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  [`partitionSubset()`](http://corybrunson.github.io/bitriad/reference/combinatorial_bijections.md)
+  : Combinatorial bijections for affiliation network triad indexing
+
+- [`dualize()`](http://corybrunson.github.io/bitriad/reference/dualize.md)
+  [`dual_an()`](http://corybrunson.github.io/bitriad/reference/dualize.md)
+  [`dual.an()`](http://corybrunson.github.io/bitriad/reference/dualize.md)
+  : Take the dual of an affiliation network
+
+- [`is_dynamic_an()`](http://corybrunson.github.io/bitriad/reference/dynamic_an.md)
+  [`is.dyn()`](http://corybrunson.github.io/bitriad/reference/dynamic_an.md)
+  [`as_dynamic_an()`](http://corybrunson.github.io/bitriad/reference/dynamic_an.md)
+  : Dynamic affiliation network structure
+
+- [`dynamic_triad_closure()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md)
+  [`dynamic_triad_closure_an()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md)
+  [`dynamic_transitivity_an()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md)
+  [`dyn.transitivity.an()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md)
+  [`dynamic_triad_closure_projection()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md)
+  : Triadic closure for dynamic affiliation networks
+
+- [`dynamic_wedges()`](http://corybrunson.github.io/bitriad/reference/dynamic_wedges.md)
+  : Wedge censuses and closure indicators for dynamic affiliation
+  networks
+
+- [`minneapolis1970s`](http://corybrunson.github.io/bitriad/reference/minneapolis1970s.md)
+  : Interlocks among corporate philanthropists in Minneapolis-St. Paul.
+
+- [`add_modes()`](http://corybrunson.github.io/bitriad/reference/mode_addition.md)
+  [`add_actors()`](http://corybrunson.github.io/bitriad/reference/mode_addition.md)
+  [`add_events()`](http://corybrunson.github.io/bitriad/reference/mode_addition.md)
+  : Add actor and event nodes
+
+- [`actor_count()`](http://corybrunson.github.io/bitriad/reference/mode_counts.md)
+  [`event_count()`](http://corybrunson.github.io/bitriad/reference/mode_counts.md)
+  [`actor.count()`](http://corybrunson.github.io/bitriad/reference/mode_counts.md)
+  [`event.count()`](http://corybrunson.github.io/bitriad/reference/mode_counts.md)
+  : Count the actors and events in an affiliation network
+
+- [`mode_projection()`](http://corybrunson.github.io/bitriad/reference/mode_projection.md)
+  [`actor_projection()`](http://corybrunson.github.io/bitriad/reference/mode_projection.md)
+  [`event_projection()`](http://corybrunson.github.io/bitriad/reference/mode_projection.md)
+  [`actor.projection()`](http://corybrunson.github.io/bitriad/reference/mode_projection.md)
+  [`event.projection()`](http://corybrunson.github.io/bitriad/reference/mode_projection.md)
+  : Project an affiliation network onto its actors
+
+- [`V1()`](http://corybrunson.github.io/bitriad/reference/modes.md)
+  [`V2()`](http://corybrunson.github.io/bitriad/reference/modes.md)
+  [`set_actor_attr()`](http://corybrunson.github.io/bitriad/reference/modes.md)
+  [`set_event_attr()`](http://corybrunson.github.io/bitriad/reference/modes.md)
+  [`` `V1<-`() ``](http://corybrunson.github.io/bitriad/reference/modes.md)
+  [`` `V2<-`() ``](http://corybrunson.github.io/bitriad/reference/modes.md)
+  : Actor and event node iteration and attribute querying and assignment
+
+- [`nmt_meetings`](http://corybrunson.github.io/bitriad/reference/nmt_meetings.md)
+  : Noordin Top meeting attendance network.
+
+- [`nmt_organizations`](http://corybrunson.github.io/bitriad/reference/nmt_organizations.md)
+  : Noordin Top organization membership network.
+
+- [`prettify_an()`](http://corybrunson.github.io/bitriad/reference/prettify.md)
+  [`prettify.an()`](http://corybrunson.github.io/bitriad/reference/prettify.md)
+  : Convenient plotting aesthetics for affiliation networks
+
+- [`project_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`project.census()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`difference_from_full_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`ftc2utc()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`binary_from_full_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`ftc2stc()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`simple_from_full_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`ftc2tc()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`binary_from_difference_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`utc2stc()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`simple_from_difference_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`utc2tc()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`simple_from_binary_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  [`stc2tc()`](http://corybrunson.github.io/bitriad/reference/project_census.md)
+  : Project a higher-resolution triad census to a lower-resolution one
+
+- [`project_transitivity()`](http://corybrunson.github.io/bitriad/reference/project_transitivity.md)
+  [`project.transitivity()`](http://corybrunson.github.io/bitriad/reference/project_transitivity.md)
+  : Affiliation network clustering coefficients
+
+- [`schedule()`](http://corybrunson.github.io/bitriad/reference/schedule.md)
+  : Actors and their shared events
+
+- [`scotland1920s`](http://corybrunson.github.io/bitriad/reference/scotland1920s.md)
+  : Networks of interlocking directorates
+
+- [`transitivity_an()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`transitivity_an_triads()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`transitivity_an_wedges()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`transitivity.an()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`transitivity.an.triads()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`transitivity.an.wedges()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`indequ_transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`indequ.transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`indstr_transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`indstr.transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`injact_transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`injact.transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`injequ_transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`injequ.transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`injstr_transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`injstr.transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`opsahl_transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`opsahl.transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`excl_transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  [`excl.transitivity()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md)
+  : Affiliation network clustering coefficients
+
+- [`make_triad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`is_triad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`triad_class()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`layout_triad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`plot_triad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`an_triad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`is.triad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`triad.class()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`an.triad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`layout.triad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  [`plotTriad()`](http://corybrunson.github.io/bitriad/reference/triad.md)
+  : Affiliation network triads
+
+- [`triad_census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_an()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad.census.an()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_full()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_full_batagelj_mrvar()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_full_projection()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_difference()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_difference_batagelj_mrvar()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_difference_projection()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`unif_triad_census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`unif.triad.census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_binary()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_binary_batagelj_mrvar()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`triad_census_binary_projection()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`str_triad_census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`structural.triad.census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`simple_triad_census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [`simple.triad.census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  : Triad census for affiliation networks
+
+- [`triad_closure()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_an()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_via_triads()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_from_centered_triads()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_via_wedges()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_watts_strogatz()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_classical()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_opsahl()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_twomode()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_liebig_rao_0()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_unconnected()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_liebig_rao_3()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_completely_connected()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_exclusive()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  [`triad_closure_projection()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+  : Triad closure for affiliation networks
+
+- [`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`triad_closure_from_simple_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`triad_closure_from_binary_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`triad_closure_from_difference_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`triad_closure_from_full_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`wedges_from_full_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`wedges_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`wedgecount_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`wedgecount.census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`triad_closure_from_census_original()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`transitivity_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  [`transitivity.census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+  : Global triad closure from a triad census
+
+- [`connectedTriples()`](http://corybrunson.github.io/bitriad/reference/triad_tallies.md)
+  [`oneTiedTriads()`](http://corybrunson.github.io/bitriad/reference/triad_tallies.md)
+  [`twoTiedTriads()`](http://corybrunson.github.io/bitriad/reference/triad_tallies.md)
+  [`threeTiedTriads()`](http://corybrunson.github.io/bitriad/reference/triad_tallies.md)
+  : Triad tallies
+
+- [`indequ_wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`indequ.wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`indstr_wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`indstr.wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`injact_wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`injact.wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`injequ_wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`injequ.wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`injstr_wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`injstr.wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_an()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_watts_strogatz()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_classical()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_projection()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_opsahl()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_twomode()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_liebig_rao_0()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_unconnected()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_liebig_rao_3()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_completely_connected()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`wedges_exclusive()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`centered_triads()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_watts_strogatz()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_classical()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_projection()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_homact()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_opsahl()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_twomode()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_injequ()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_liebig_rao_0()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_unconnected()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_indequ()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_liebig_rao_1()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_sparsely_connected()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_liebig_rao_2()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_highly_connected()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_liebig_rao_3()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_completely_connected()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_exclusive()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_indstr()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_indact()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_homequ()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_homstr()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_injstr()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges_injact()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  [`triad_wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+  : Affiliation network wedges
+
+- [`whigs`](http://corybrunson.github.io/bitriad/reference/whigs.md) :
+  Membership network of American Whigs.
+
+- [`women_clique`](http://corybrunson.github.io/bitriad/reference/women_clique.md)
+  : Clique of women connected by event coattendance in Old City.
+
+- [`women_group`](http://corybrunson.github.io/bitriad/reference/women_group.md)
+  : Group of women connected by event coattendance in Old City.
