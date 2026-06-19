@@ -30,3 +30,4 @@ VignetteBuilder: knitr
 Classification/MSC: 05C82, 91D30
 Config/roxygen2/version: 8.0.0
 Config/roxygen2/markdown: TRUE
+URL: http://corybrunson.github.io/bitriad/
