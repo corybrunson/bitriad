@@ -38,9 +38,6 @@ Other modal queries and manipulations:
 ``` r
 data(chicago1960s)
 actor_count(chicago1960s)
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 #> [1] 20
 event_count(chicago1960s)
 #> [1] 24

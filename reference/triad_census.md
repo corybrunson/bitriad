@@ -200,9 +200,6 @@ Other triad census functions:
 ``` r
 data(women_clique)
 (tc <- triad_census(women_clique, add.names = TRUE))
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 #>         0 1
 #> (0,0,0) 0 0
 #> (1,0,0) 0 1

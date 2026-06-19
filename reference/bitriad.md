@@ -172,6 +172,12 @@ technology and internet-based systems*.
 Brunson, J.C. (2015). Triadic analysis of affiliation networks. *Network
 Science*, 3(4), 480–508.
 
+## See also
+
+Useful links:
+
+- <http://corybrunson.github.io/bitriad/>
+
 ## Author
 
 Jason Cory Brunson

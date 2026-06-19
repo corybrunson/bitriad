@@ -63,15 +63,9 @@ Other modal queries and manipulations:
 ``` r
 data(women_clique)
 plot(prettify_an(add_actors(women_clique, nv = 1, events = c(7, 9))))
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 
 data(women_group)
 plot(prettify_an(women_group))
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 
 actor_names <- c("Frances", "Dorothy")
 cbind(

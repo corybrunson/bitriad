@@ -34,9 +34,6 @@ Other modal queries and manipulations:
 ``` r
 data(women_clique)
 tab <- table(V(women_clique)$type)
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 proj <- actor_projection(dualize(women_clique))
 vcount(proj) == tab[2]
 #> TRUE 

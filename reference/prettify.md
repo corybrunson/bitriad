@@ -28,11 +28,5 @@ data(whigs)
 for (g in list(women_clique, whigs)) {
     plot(prettify_an(g))
 }
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 ```

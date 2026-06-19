@@ -48,7 +48,7 @@ the input graph is not an affiliation network.
 Empirical affiliation networks from the following sources are included
 as datasets: \* Davis(, Davis), Gardner, Gardner(, and St Clair Drake)‘s
 [*Deep South: A Social Anthropological Study of Caste and
-Class*](https://www.amazon.com/Deep-South-Anthropological-Southern-Classics/dp/1570038155),
+Class*](https://press.uchicago.edu/ucp/books/book/chicago/D/bo177425440.html),
 p. 148 (`women_group`) and p. 209 (`women_clique`); \* Scott and Hughes’
 [*The Anatomy of Scottish
 Capital*](http://books.google.com/books?id=59mvAwAAQBAJ), specifically

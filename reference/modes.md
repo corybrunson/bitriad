@@ -63,13 +63,10 @@ Other modal queries and manipulations:
 ``` r
 data(women_clique)
 print(V1(women_clique))
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
-#> + 5/10 vertices, named, from 490393e:
+#> + 5/10 vertices, named, from bb1857e:
 #> [1] Miss A Miss B Miss C Miss D Miss E
 print(V2(women_clique))
-#> + 5/10 vertices, named, from 490393e:
+#> + 5/10 vertices, named, from bb1857e:
 #> [1] Bridge   Dinner   Movies   Dance    Visiting
 V1(women_clique)$label <- LETTERS[1:5]
 V2(women_clique)$label <- 1:5

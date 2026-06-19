@@ -273,9 +273,6 @@ mapply(
   measure = c("classical", "twomode", "unconnected", "exclusive"),
   MoreArgs = list(graph = women_clique, type = "local")
 )
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 #>      classical   twomode unconnected exclusive
 #> [1,] 0.8333333 0.5000000   0.5000000      0.50
 #> [2,] 1.0000000 0.6666667   1.0000000      1.00
@@ -289,9 +286,6 @@ cbind(
   triad_closure_liebig_rao_0(women_group, type = "local"),
   triad_closure_exclusive(women_group, type = "local")
 )
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 #>            [,1]      [,2]       [,3]      [,4]
 #>  [1,] 0.8970588 0.7666667 0.39574468 0.4477612
 #>  [2,] 0.9619048 0.8421751 0.44680851 0.4871795

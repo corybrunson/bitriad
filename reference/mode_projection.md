@@ -50,9 +50,6 @@ Original **igraph** functions:
 ``` r
 data(chicago1960s)
 tab <- table(V(chicago1960s)$type)
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 proj <- actor_projection(chicago1960s)
 vcount(proj) == tab[1]
 #> FALSE 

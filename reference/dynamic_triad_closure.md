@@ -86,9 +86,6 @@ Other triad closure functions:
 ``` r
 data(women_group)
 dynamic_triad_closure(women_group)
-#> This graph was created by an old(er) igraph version.
-#> ℹ Call `igraph::upgrade_graph()` on it to use with the current igraph version.
-#> For now we convert it on the fly...
 #> Warning: 'dynamic_wedges' is experimental.
 #> Warning: 'dynamic_wedges' is experimental.
 #> Warning: 'dynamic_wedges' is experimental.
