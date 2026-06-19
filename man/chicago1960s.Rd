@@ -9,7 +9,7 @@ An affiliation network; see \link{is_an}.
 \source{
 Barnes, R. & Burkett, T. (2010). Structural Redundancy and
 Multiplicity in Corporate Networks. \emph{Connections}, 30(2), p. 4--20.
-\url{http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf}
+\url{https://www.insna.org/connections-archives-2000-2015}
 }
 \description{
 An affiliation network of 20 directors of 24 corporations and social clubs.

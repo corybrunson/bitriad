@@ -5,11 +5,11 @@ This repo constitutes an R package, and contains data and tools for the triadic 
 
 ## Description
 
-The paper [*Triadic analysis of affiliation networks*](http://arxiv.org/abs/1502.07016) makes a case for adopting a batch of triad-based tools for the study of (bipartite) affiliation networks. Most of the tools used therein are included in this package, which is built mostly on the [**igraph** package](http://igraph.org/r/). No new classes have been defined yet, but several back-end functions are written in C++ without reference to the **igraph** library. Any suggestions would be welcome.
+The paper [*Triadic analysis of affiliation networks*](https://arxiv.org/abs/1502.07016) makes a case for adopting a batch of triad-based tools for the study of (bipartite) affiliation networks. Most of the tools used therein are included in this package, which is built mostly on the [**igraph** package](https://igraph.org/r/). No new classes have been defined yet, but several back-end functions are written in C++ without reference to the **igraph** library. Any suggestions would be welcome.
 
 ## Installation
 
-The package is not yet on CRAN; it can be installed using the [devtools](https://github.com/hadley/devtools) package:
+The package is not yet on CRAN; it can be installed using the [devtools](https://github.com/r-lib/devtools) package:
 
 ```r
 devtools::install_github("corybrunson/bitriad")
@@ -27,15 +27,15 @@ The parameters for these functions, in particular the census schemes and the def
 ## Datasets
 
 Empirical affiliation networks from the following sources are included as datasets:
-* Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*](http://www.amazon.com/Deep-South-Anthropological-Southern-Classics/dp/1570038155), p. 148 (`women_group`) and p. 209 (`women_clique`);
+* Davis(, Davis), Gardner, Gardner(, and St Clair Drake)'s [*Deep South: A Social Anthropological Study of Caste and Class*](https://www.amazon.com/Deep-South-Anthropological-Southern-Classics/dp/1570038155), p. 148 (`women_group`) and p. 209 (`women_clique`);
 * Scott and Hughes' [*The Anatomy of Scottish Capital*](http://books.google.com/books?id=59mvAwAAQBAJ), specifically Table 2, covering 1920-21 (`scotland1920s`);
-* Galaskiewicz's [*Social Organization of an Urban Grants Economy*](http://books.google.com/books?id=Vd25AAAAIAAJ), specifically a subset reproduced in Faust's ["Centrality in affiliation networks"](http://www.socsci.uci.edu/~kfaust/faust/research/articles/faust_centrality_sn_1997.pdf) (`minneapolis1970s`);
-* Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"](http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf) (`chicago1960s`);
-* [Noordin Top Terrorist Network Data](http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp), using meetings (`nmt_meetings`) and organizations (`nmt_organizations`) as events;
+* Galaskiewicz's [*Social Organization of an Urban Grants Economy*](http://books.google.com/books?id=Vd25AAAAIAAJ), specifically a subset reproduced in Faust's ["Centrality in affiliation networks"](https://sites.socsci.uci.edu/~kfaust/faust/research/articles/faust_centrality_sn_1997.pdf) (`minneapolis1970s`);
+* Barnes and Burkett's ["Structural Redundancy and Multiplicity in Corporate Networks"](https://www.insna.org/connections-archives-2000-2015) (`chicago1960s`);
+* [Noordin Top Terrorist Network Data](https://web.archive.org/web/20140625114607/http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp), using meetings (`nmt_meetings`) and organizations (`nmt_organizations`) as events;
 * Fischer's [*Paul Revere's Ride*](http://books.google.com/books/about/Paul_Revere_s_Ride.html?id=ZAvQfZFbLp4C), Appendix D, as used in Han's ["The Other Ride of Paul Revere"](http://www.sscnet.ucla.edu/polisci/faculty/chwe/ps269/han.pdf) (`whigs`).
 
 ## Documentation
 
 The vignette `southern_women` outlines an analysis of `women_clique` and `women_group` using the censuses, some clustering coefficients, and other tools.
 
-The full documentation is built into [a **bitriad** website](http://corybrunson.github.io/bitriad/) using [pkgdown](https://github.com/hadley/pkgdown).
+The full documentation is built into [a **bitriad** website](http://corybrunson.github.io/bitriad/) using [pkgdown](https://github.com/r-lib/pkgdown).

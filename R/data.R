@@ -55,7 +55,7 @@ NULL
 #' @format An affiliation network; see [is_an].
 #' @source Barnes, R. & Burkett, T. (2010). Structural Redundancy and
 #'   Multiplicity in Corporate Networks. *Connections*, 30(2), p. 4--20. 
-#'   \url{http://www.insna.org/PDF/Connections/v30/2010_I-2_P-1-1.pdf}
+#'   \url{https://www.insna.org/connections-archives-2000-2015}
 #' @name chicago1960s
 NULL
 
@@ -67,7 +67,7 @@ NULL
 #' @format An affiliation network; see [is_an].
 #' @source Noordin Top Terrorist Network Data. (2011). The Association of
 #'   Religious Data Archives. 
-#'   \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
+#'   \url{https://web.archive.org/web/20140625114607/http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
 #' @name nmt_meetings
 NULL
 
@@ -79,7 +79,7 @@ NULL
 #' @format An affiliation network; see [is_an].
 #' @source Noordin Top Terrorist Network Data. (2011). The Association of
 #'   Religious Data Archives. 
-#'   \url{http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
+#'   \url{https://web.archive.org/web/20140625114607/http://www.thearda.com/Archive/Files/Descriptions/TERRNET.asp}
 #' @name nmt_organizations
 NULL
 
