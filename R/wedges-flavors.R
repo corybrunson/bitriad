@@ -12,11 +12,11 @@
 indequ_wedges <-
   function(graph, Q) {
     # Identify secondary neighbors of Q
-    n1 <- setdiff(neighborhood(graph, 1, Q)[[1]], Q)
+    n1 <- setdiff(as_ids(ego(graph, 1, Q)[[1]]), Q)
     # If there aren't at least two, return zeroes
     if(length(n1) < 2) return(c(0, 0))
     # Identify primary neighborhoods of secondary neighbors of Q
-    n1n1 <- lapply(neighborhood(graph, 1, n1), setdiff, c(Q, n1))
+    n1n1 <- lapply(lapply(ego(graph, 1, n1), as_ids), setdiff, c(Q, n1))
     # Array the 2-paths centered at Q
     # (Note that these are indices of n1, not vertex ids)
     p <- utils::combn(1:length(n1), 2)
@@ -37,8 +37,8 @@ indequ_wedges <-
         # by events Z that are not tied to Q?
         Rw <- which(sapply(Rs, function(R) {
           length(setdiff(
-            intersect(neighborhood(graph, 1, P)[[1]],
-                      neighborhood(graph, 1, R)[[1]]),
+            intersect(as_ids(ego(graph, 1, P)[[1]]),
+                      as_ids(ego(graph, 1, R)[[1]])),
             n1)) > 0
         }))
         c(length(Rs), length(Rw))
@@ -56,13 +56,13 @@ indequ.wedges <- indequ_wedges
 indstr_wedges <-
   function(graph, Q) {
     # Identify nodes of separation (exactly) 1 and 2 from Q
-    n1 <- setdiff(neighborhood(graph, 1, Q)[[1]], Q)
-    n2 <- setdiff(neighborhood(graph, 2, Q)[[1]], c(n1, Q)) # rm Q?
+    n1 <- setdiff(as_ids(ego(graph, 1, Q)[[1]]), Q)
+    n2 <- setdiff(as_ids(ego(graph, 2, Q)[[1]]), c(n1, Q)) # rm Q?
     # Require at least two nodes of separation 2 for a wedge
     if(length(n2) < 2) return(c(0, 0))
     # Identify secondary neighbors of primary neighbors P of Q (excluding P)
     n2n1 <- lapply(n2,
-                   function(P) setdiff(neighborhood(graph, 1, P)[[1]], P))
+                   function(P) setdiff(as_ids(ego(graph, 1, P)[[1]]), P))
     # Identify indexes of pairs (P, R) of nodes in n2
     p <- utils::combn(1:length(n2), 2)
     # Remove pairs (P, R) with no pairwise exclusive secondary neighbors
@@ -91,8 +91,8 @@ indstr.wedges <- indstr_wedges
 injact_wedges <-
   function(graph, Q) {
     # Identify nodes of separation (exactly) 1 and 2 from Q
-    n1 <- setdiff(neighborhood(graph, 1, Q)[[1]], Q)
-    n2 <- setdiff(neighborhood(graph, 2, Q)[[1]], c(n1, Q))
+    n1 <- setdiff(as_ids(ego(graph, 1, Q)[[1]]), Q)
+    n2 <- setdiff(as_ids(ego(graph, 2, Q)[[1]]), c(n1, Q))
     # Require at least two nodes of separation 2 for a wedge
     if(length(n2) < 2) return(c(0, 0))
     # Identify pairs (P, R) of nodes in n2
@@ -100,7 +100,7 @@ injact_wedges <-
     # Identify which of these pairs form wedges & which of these are closed
     wedgelist <- sapply(1:dim(p)[2], function(j) {
       # Secondary neighbors of P and of R
-      pn1 <- neighborhood(graph, 1, p[1:2, j])
+      pn1 <- lapply(ego(graph, 1, p[1:2, j]), as_ids)
       # Common neighbors of P and R
       tn1 <- do.call(intersect, pn1)
       # If only one secondary links either to Q then no wedges exist
@@ -122,11 +122,11 @@ injact.wedges <- injact_wedges
 injequ_wedges <-
   function(graph, Q) {
     # Identify secondary neighbors of Q
-    n1 <- setdiff(neighborhood(graph, 1, Q)[[1]], Q)
+    n1 <- setdiff(as_ids(ego(graph, 1, Q)[[1]]), Q)
     # If there aren't at least two, return zeroes
     if(length(n1) < 2) return(c(0, 0))
     # Identify primary neighborhoods of secondary neighbors of Q
-    n1n1 <- lapply(neighborhood(graph, 1, n1), setdiff, c(Q, n1))
+    n1n1 <- lapply(lapply(ego(graph, 1, n1), as_ids), setdiff, c(Q, n1))
     # Array the 2-paths centered at Q
     # (Note that these are indices of n1, not vertex ids)
     p <- utils::combn(1:length(n1), 2)
@@ -141,8 +141,8 @@ injequ_wedges <-
         if(length(Rs) == 0) return(c(0, 0))
         # Which Rs produce 4-paths (P, X, Q, Y, R) that are closed?
         Rw <- which(sapply(Rs, function(R) {
-          length(setdiff(intersect(neighborhood(graph, 1, P)[[1]],
-                                   neighborhood(graph, 1, R)[[1]]),
+          length(setdiff(intersect(as_ids(ego(graph, 1, P)[[1]]),
+                                   as_ids(ego(graph, 1, R)[[1]])),
                          n1[p[, j]])) > 0
         }))
         return(c(length(Rs), length(Rw)))
@@ -160,10 +160,10 @@ injequ.wedges <- injequ_wedges
 injstr_wedges <-
   function(graph, Q) {
     # Identify nodes of separation (exactly) 1 and 2 from Q
-    n1 <- setdiff(neighborhood(graph, 1, Q)[[1]], Q)
-    n2 <- setdiff(neighborhood(graph, 2, Q)[[1]], c(n1, Q))
+    n1 <- setdiff(as_ids(ego(graph, 1, Q)[[1]]), Q)
+    n2 <- setdiff(as_ids(ego(graph, 2, Q)[[1]]), c(n1, Q))
     # Identify events attended by these actors
-    n2n1 <- lapply(neighborhood(graph, 1, n2), setdiff, y = n2)
+      n2n1 <- lapply(lapply(ego(graph, 1, n2), as_ids), setdiff, y = n2)
     
     # Require at least two nodes of separation 2 for a wedge
     if(length(n2) < 2) return(c(0, 0))

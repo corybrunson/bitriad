@@ -11,7 +11,7 @@
 #' @name triad_tallies
 #' @family triad census functions
 #' @param graph A one-mode network
-#' @param bigraph The ambient affiliation network from which \code{graph} is
+#' @param bigraph The ambient affiliation network from which `graph` is
 #'   projected
 NULL
 
@@ -22,7 +22,7 @@ connectedTriples <- function(
   graph = actor_projection(bigraph, name = 'id')
 ) {
   trips <- do.call(rbind, lapply(1:vcount(graph), function(i) {
-    nbhd <- neighborhood(graph, 1, i)[[1]]
+    nbhd <- as_ids(ego(graph, 1, i)[[1]])
     # Skip nodes with not enough neighbors
     if(length(nbhd) < 2) return(NULL)
     # horizontal array of pairs of neighbors of i
@@ -55,8 +55,8 @@ oneTiedTriads <- function(graph) {
   counts <- data.frame(
     x = E(graph)$weight,
     n = vcount(graph) - as.numeric(sapply(1:ecount(graph), function(i) {
-      length(unique(unlist(neighborhood(graph, order = 1,
-                                        ends(graph, i)))))
+      length(unique(unlist(lapply(ego(graph, order = 1,
+                                        ends(graph, i)), as_ids))))
     }))
   )
   # Return the aggregated data frame

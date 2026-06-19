@@ -23,15 +23,27 @@
 \alias{excl.transitivity}
 \title{Affiliation network clustering coefficients}
 \usage{
-transitivity_an(graph, type = "global", wedgeFun, flavor,
-  vids = which(!V(graph)$type), add.names = FALSE)
+transitivity_an(
+  graph,
+  type = "global",
+  wedgeFun,
+  flavor,
+  vids = which(!V(graph)$type),
+  add.names = FALSE
+)
 
 transitivity_an_triads(graph, vids = which(!V(graph)$type), flavor)
 
 transitivity_an_wedges(graph, vids = which(!V(graph)$type), wedgeFun)
 
-transitivity.an(graph, type = "global", wedgeFun, flavor,
-  vids = which(!V(graph)$type), add.names = FALSE)
+transitivity.an(
+  graph,
+  type = "global",
+  wedgeFun,
+  flavor,
+  vids = which(!V(graph)$type),
+  add.names = FALSE
+)
 
 transitivity.an.triads(graph, vids = which(!V(graph)$type), flavor)
 
@@ -68,15 +80,15 @@ excl.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 \arguments{
 \item{graph}{An affiliation network; see \code{is_an}.}
 
-\item{type}{Character; the type of clustering coefficient (defaults to 
+\item{type}{Character; the type of clustering coefficient (defaults to
 "global").}
 
 \item{wedgeFun}{The wedge function; overrides \code{flavor}.}
 
-\item{flavor}{The flavor of transitivity to be used; overridden by 
+\item{flavor}{The flavor of transitivity to be used; overridden by
 \code{wedgeFun}.}
 
-\item{vids}{A subset of actor node ids at which to evaluate the local 
+\item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient.}
 
 \item{add.names}{Logical; whether to label the matrix rows and columns.}
@@ -84,18 +96,18 @@ clustering coefficient.}
 \item{triads}{A matrix of centered triads.}
 }
 \value{
-If \code{type} is "global", the global clustering coefficient of the 
-  network; if "local", the local clustering coefficients of the actors; 
-  otherwise, a 2-column matrix, each row of which gives the number of wedges 
-  and the number of closed wedges centered at each actor.
+If \code{type} is "global", the global clustering coefficient of the
+network; if "local", the local clustering coefficients of the actors;
+otherwise, a 2-column matrix, each row of which gives the number of wedges
+and the number of closed wedges centered at each actor.
 }
 \description{
-This function computes a given flavor of transitivity (triadic closure) on a 
-given affiliation network. The calculations are performed locally. Each 
+This function computes a given flavor of transitivity (triadic closure) on a
+given affiliation network. The calculations are performed locally. Each
 flavor is defined as a proportion of "wedges" that are "closed", for suitable
 definitions of both terms. The function \code{transitivity_an} is a shell
-that proceeds across actors and computes wedges using the provided 
-\code{wedgeFun}. These functions count the "wedges", and among them the 
+that proceeds across actors and computes wedges using the provided
+\code{wedgeFun}. These functions count the "wedges", and among them the
 "closed" ones, centered at a given actor node in a given affiliation network.
 The triads method \code{transitivity_an_triads} first classifies every triad
 centered at each node. The appropriate formula then counts the wedges and
@@ -108,8 +120,10 @@ count matrix, which is returned back into \code{transitivity_an} for
 outputting.
 }
 \seealso{
-Other triad closure functions: \code{\link{dynamic_triad_closure}},
-  \code{\link{project_transitivity}},
-  \code{\link{triad_closure_from_census}},
-  \code{\link{triad_closure}}
+Other triad closure functions:
+\code{\link[=dynamic_triad_closure]{dynamic_triad_closure()}},
+\code{\link[=project_transitivity]{project_transitivity()}},
+\code{\link[=triad_closure]{triad_closure()}},
+\code{\link[=triad_closure_from_census]{triad_closure_from_census()}}
 }
+\concept{triad closure functions}

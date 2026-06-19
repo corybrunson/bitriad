@@ -4,16 +4,16 @@
 #'   
 #' @name modes
 #' @family modal queries and manipulations
-#' @seealso Original \strong{igraph} functions: \code{\link[igraph]{V}},
-#'   \code{\link[igraph]{set_vertex_attr}}
+#' @seealso Original **igraph** functions: [V],
+#'   [set_vertex_attr]
 #' @param graph An affiliation network.
 #' @param name  The name of the attribute to set.
 #' @param index An optional node sequence to set the attributes of a subset of 
 #'   actor or event nodes.
 #' @param x An affiliation network.
-#' @param value The new value of the attribute for all (or \code{index}) actor 
+#' @param value The new value of the attribute for all (or `index`) actor 
 #'   or event nodes.
-#' @return \code{graph}, with the actor or event attribute added or set.
+#' @return `graph`, with the actor or event attribute added or set.
 #' @examples
 #' data(women_clique)
 #' print(V1(women_clique))

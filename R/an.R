@@ -1,31 +1,31 @@
 #' @title Affiliation network structure
 #'   
-#' @description Test \code{igraph} objects for affiliation network structure or
+#' @description Test `igraph` objects for affiliation network structure or
 #'   impose such structure if possible.
 #'   
 #' @details An affiliation network is a bipartite graph whose nodes are 
 #'   classified as actors and events in such a way that all links are between 
-#'   actors and events. The function \code{\link[igraph]{is_bipartite}} tests an
-#'   `igraph` object for a \code{type} attribute, which is intended to 
+#'   actors and events. The function [is_bipartite] tests an
+#'   `igraph` object for a `type` attribute, which is intended to 
 #'   bipartition of the nodes. It does not test whether the links respect this 
-#'   partition. The function \code{is_an} tests this, as well as the condition 
+#'   partition. The function `is_an` tests this, as well as the condition 
 #'   that actor nodes precede event nodes in their node IDs, which simplifies 
-#'   some other functions. The function \code{as_an} coerces an `igraph` object 
+#'   some other functions. The function `as_an` coerces an `igraph` object 
 #'   to an affiliation network by verifying that the object is bipartite and 
-#'   minimally permuting the node IDs. If \code{graph} has no \code{type} 
-#'   attribute and \code{add.type.attribute} is \code{FALSE}, then \code{as_an} 
-#'   throws an error; if \code{add.type.attribute} is \code{TRUE}, then 
-#'   \code{as_an} introduces a logical \code{type} attribute that takes the 
-#'   value \code{FALSE} at the first node (by node ID) in each connected 
-#'   component and \code{TRUE} or \code{FALSE} at the remaining nodes according 
+#'   minimally permuting the node IDs. If `graph` has no `type` 
+#'   attribute and `add.type.attribute` is `FALSE`, then `as_an` 
+#'   throws an error; if `add.type.attribute` is `TRUE`, then 
+#'   `as_an` introduces a logical `type` attribute that takes the 
+#'   value `FALSE` at the first node (by node ID) in each connected 
+#'   component and `TRUE` or `FALSE` at the remaining nodes according 
 #'   as they are an odd or even number of hops from the first.
 #'   
 #' @name affiliation_network
 #' @family network testing and coercion
-#' @seealso Original \strong{igraph} functions: \code{\link{is_igraph}}
-#' @param graph An \code{igraph} object.
-#' @param add.type.attribute Logical; whether to introduce a \code{type} 
-#'   attribute if \code{graph} has none before testing for bipartite structure.
+#' @seealso Original **igraph** functions: [is_igraph]
+#' @param graph An `igraph` object.
+#' @param add.type.attribute Logical; whether to introduce a `type` 
+#'   attribute if `graph` has none before testing for bipartite structure.
 NULL
 
 #' @rdname affiliation_network
@@ -54,7 +54,7 @@ as_an <- function(graph, add.type.attribute = FALSE) {
   }
   if (is_directed(graph)) {
     warning("Graph is directed; collapsing directed links.")
-    graph <- as.undirected(graph, mode = "collapse")
+    graph <- as_undirected(graph, mode = "collapse")
   }
   if (!("type" %in% vertex_attr_names(graph))) {
     if (add.type.attribute) {

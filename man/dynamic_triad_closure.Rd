@@ -8,17 +8,37 @@
 \alias{dynamic_triad_closure_projection}
 \title{Triadic closure for dynamic affiliation networks}
 \usage{
-dynamic_triad_closure(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ..., measure = NULL)
+dynamic_triad_closure(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global",
+  ...,
+  measure = NULL
+)
 
-dynamic_triad_closure_an(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ..., measure = NULL)
+dynamic_triad_closure_an(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global",
+  ...,
+  measure = NULL
+)
 
-dynamic_transitivity_an(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ..., measure = NULL)
+dynamic_transitivity_an(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global",
+  ...,
+  measure = NULL
+)
 
-dyn.transitivity.an(graph, actors = V(graph)[V(graph)$type == FALSE],
-  type = "global", ..., measure = NULL)
+dyn.transitivity.an(
+  graph,
+  actors = V(graph)[V(graph)$type == FALSE],
+  type = "global",
+  ...,
+  measure = NULL
+)
 
 dynamic_triad_closure_projection(graph, memory = Inf, type = "global")
 }
@@ -27,16 +47,16 @@ dynamic_triad_closure_projection(graph, memory = Inf, type = "global")
 
 \item{actors}{A vector of actor nodes in \code{graph}.}
 
-\item{type}{The type of statistic, matched to \code{"global"}, 
+\item{type}{The type of statistic, matched to \code{"global"},
 \code{"local"}, or \code{"raw"}.}
 
 \item{...}{Additional parameters passed to specific functions.}
 
-\item{measure}{Character; the measure of triad closure, used as the suffix 
-\code{*} to \code{triad_closure_*}. Matched to \code{"classical"} (also 
-\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), 
-\code{"unconnected"} (also \code{"liebig_rao_0"}), 
-\code{"completely_connected"} (also \code{"liebig_rao_3"}), 
+\item{measure}{Character; the measure of triad closure, used as the suffix
+\code{*} to \verb{triad_closure_*}. Matched to \code{"classical"} (also
+\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}),
+\code{"unconnected"} (also \code{"liebig_rao_0"}),
+\code{"completely_connected"} (also \code{"liebig_rao_3"}),
 \code{"exclusive"}, or \code{"projection"}.}
 
 \item{memory}{Numeric; minimum delay of wedge formation since would-have-been
@@ -59,8 +79,10 @@ cbind(
 )
 }
 \seealso{
-Other triad closure functions: \code{\link{project_transitivity}},
-  \code{\link{transitivity_an}},
-  \code{\link{triad_closure_from_census}},
-  \code{\link{triad_closure}}
+Other triad closure functions:
+\code{\link[=project_transitivity]{project_transitivity()}},
+\code{\link[=transitivity_an]{transitivity_an()}},
+\code{\link[=triad_closure]{triad_closure()}},
+\code{\link[=triad_closure_from_census]{triad_closure_from_census()}}
 }
+\concept{triad closure functions}

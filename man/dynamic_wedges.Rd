@@ -4,16 +4,25 @@
 \alias{dynamic_wedges}
 \title{Wedge censuses and closure indicators for dynamic affiliation networks}
 \usage{
-dynamic_wedges(graph, actor, alcove = 0, wedge = 0, maps = 0,
-  congruence = 0, memory = Inf, wedge.gap = Inf, close.after = 0,
-  close.before = Inf)
+dynamic_wedges(
+  graph,
+  actor,
+  alcove = 0,
+  wedge = 0,
+  maps = 0,
+  congruence = 0,
+  memory = Inf,
+  wedge.gap = Inf,
+  close.after = 0,
+  close.before = Inf
+)
 }
 \arguments{
 \item{graph}{A dynamic affiliation network.}
 
 \item{actor}{An actor node in \code{graph}.}
 
-\item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and 
+\item{alcove, wedge, maps, congruence}{Choice of alcove, wedge, maps, and
 congruence (see Details).}
 
 \item{memory}{Numeric; minimum delay of wedge formation since would-have-been
@@ -25,105 +34,103 @@ closing events.}
 both events form a wedge for a third event to close it.}
 }
 \value{
-A two-element list consisting of (1) a 3- or 5-row integer matrix of 
-  (representatives of) all (congruence classes of) wedges in \code{graph} 
-  centered at \code{actor}, and (2) a logical vector indicating whether each 
-  wedge is closed.
+A two-element list consisting of (1) a 3- or 5-row integer matrix of
+(representatives of) all (congruence classes of) wedges in \code{graph}
+centered at \code{actor}, and (2) a logical vector indicating whether each
+wedge is closed.
 }
 \description{
-Given a dynamic affiliation network and an actor node ID, 
-  identify all wedges for a specified measure centered at the node and 
-  indicate whether each is closed.
+Given a dynamic affiliation network and an actor node ID,
+identify all wedges for a specified measure centered at the node and
+indicate whether each is closed.
 }
 \details{
-The \code{dynamic_wedges_*} functions implement wedge censuses 
-  underlying the several measures of triad closure described below. Each 
-  function returns a transversal of wedges from the congruence classes of 
-  wedges centered at the index actor and indicators of whether each class is 
-  closed. The shell function \code{dynamic_wedges} determines a unique
-  measure from several coded arguments (see below) and passes the input
-  affiliation network to that measure.
-
-
+The \verb{dynamic_wedges_*} functions implement wedge censuses
+underlying the several measures of triad closure described below. Each
+function returns a transversal of wedges from the congruence classes of
+wedges centered at the index actor and indicators of whether each class is
+closed. The shell function \code{dynamic_wedges} determines a unique
+measure from several coded arguments (see below) and passes the input
+affiliation network to that measure.
 }
 \section{Measures of triad closure}{
- Each measure of triad closure is defined 
-  as the proportion of wedges that are closed, where a \emph{wedge} is the 
-  image of a specified two-event triad \eqn{W} under a specified subcategory 
-  of graph maps \eqn{C} subject to a specified congruence relation \eqn{~}, 
-  and where a wedge is \emph{closed} if it is the image of such a map that 
-  factors through a canonical inclusion of \eqn{W} to a specified self-dual 
-  three-event triad \eqn{X}.
-  
+ Each measure of triad closure is defined
+as the proportion of wedges that are closed, where a \emph{wedge} is the
+image of a specified two-event triad \eqn{W} under a specified subcategory
+of graph maps \eqn{C} subject to a specified congruence relation \eqn{~},
+and where a wedge is \emph{closed} if it is the image of such a map that
+factors through a canonical inclusion of \eqn{W} to a specified self-dual
+three-event triad \eqn{X}.
+
 The alcove, wedge, maps, and congruence can be specified by numerical codes
 as follows (no plans exist to implement more measures than these):
 \itemize{
- \item{\code{alcove}:
-  \itemize{
-   \item{\code{0}: \eqn{T_{(1,1,1),0}}}
-   \item{\code{1}: \eqn{T_{(1,1,0),1}}} (\strong{not yet implemented})
-   \item{\code{2}: \eqn{T_{(1,0,0),2}}} (\strong{not yet implemented})
-   \item{\code{3}: \eqn{T_{(0,0,0),3}}} (\strong{not yet implemented})
-  }
- }
- \item{\code{wedge}:
-  \itemize{
-   \item{\code{0}: \eqn{T_{(1,1,0),0}}}
-   \item{\code{1}: \eqn{T_{(1,0,0),1}}} (\strong{not yet implemented})
-   \item{\code{2}: \eqn{T_{(0,0,0),2}}} (\strong{not yet implemented})
-  }
- }
- \item{\code{maps}:
-  \itemize{
-   \item{\code{0}: all graph maps (injective on actors)}
-   \item{\code{1}: injective graph maps}
-   \item{\code{2}: induced injective graph maps}
-  }
- }
- \item{\code{congruence}:
-  \itemize{
-   \item{\code{0}: same actor and event images (equivalence)}
-   \item{\code{1}: same actor images, structurally equivalent event images}
-   \item{\code{2}: same actor images}
-  }
- }
+\item{\code{alcove}:
+\itemize{
+\item{\code{0}: \eqn{T_{(1,1,1),0}}}
+\item{\code{1}: \eqn{T_{(1,1,0),1}}} (\strong{not yet implemented})
+\item{\code{2}: \eqn{T_{(1,0,0),2}}} (\strong{not yet implemented})
+\item{\code{3}: \eqn{T_{(0,0,0),3}}} (\strong{not yet implemented})
+}
+}
+\item{\code{wedge}:
+\itemize{
+\item{\code{0}: \eqn{T_{(1,1,0),0}}}
+\item{\code{1}: \eqn{T_{(1,0,0),1}}} (\strong{not yet implemented})
+\item{\code{2}: \eqn{T_{(0,0,0),2}}} (\strong{not yet implemented})
+}
+}
+\item{\code{maps}:
+\itemize{
+\item{\code{0}: all graph maps (injective on actors)}
+\item{\code{1}: injective graph maps}
+\item{\code{2}: induced injective graph maps}
+}
+}
+\item{\code{congruence}:
+\itemize{
+\item{\code{0}: same actor and event images (equivalence)}
+\item{\code{1}: same actor images, structurally equivalent event images}
+\item{\code{2}: same actor images}
+}
+}
 }
 Some specifications correspond to statistics of especial interest:
 \itemize{
- \item{\code{0,0,0,2}:
-  the classical clustering coefficient (Watts & Strogatz, 1998),
-  evaluated on the unipartite actor projection
- }
- \item{\code{0,0,1,0}:
-  the two-mode clustering coefficient (Opsahl, 2013)
- }
- \item{\code{0,0,2,0}:
-  the unconnected clustering coefficient (Liebig & Rao, 2014)
- }
- \item{\code{3,2,2,0}:
-  the completely connected clustering coefficient (Liebig & Rao, 2014)
-  (\strong{not yet implemented})
- }
- \item{\code{0,0,2,1}:
-  the exclusive clustering coefficient (Brunson, 2015)
- }
- \item{\code{0,0,2,2}:
-  the exclusive clustering coefficient
- }
+\item{\verb{0,0,0,2}:
+the classical clustering coefficient (Watts & Strogatz, 1998),
+evaluated on the unipartite actor projection
+}
+\item{\verb{0,0,1,0}:
+the two-mode clustering coefficient (Opsahl, 2013)
+}
+\item{\verb{0,0,2,0}:
+the unconnected clustering coefficient (Liebig & Rao, 2014)
+}
+\item{\verb{3,2,2,0}:
+the completely connected clustering coefficient (Liebig & Rao, 2014)
+(\strong{not yet implemented})
+}
+\item{\verb{0,0,2,1}:
+the exclusive clustering coefficient (Brunson, 2015)
+}
+\item{\verb{0,0,2,2}:
+the exclusive clustering coefficient
+}
 }
 See Brunson (2015) for a general definition and the aforecited references for
 discussions of each statistic.
 }
 
 \references{
-Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world" 
+Watts, D.J., & Strogatz, S.H. (1998). Collective dynamics of "small-world"
 networks. \emph{Nature}, 393(6684), 440--442.
 
-Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the 
+Opsahl, T. (2013). Triadic closure in two-mode networks: Redefining the
 global and local clustering coefficients. \emph{Social Networks}, 35(2),
 159--167. Special Issue on Advances in Two-mode Social Networks.
 
-Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite 
+Liebig, J., & Rao, A. (2014). Identifying influential nodes in bipartite
 networks using the clustering coefficient. Pages 323--330 of:
 \emph{Proceedings of the tenth international conference on signal-image
 technology and internet-based systems}.
@@ -132,5 +139,7 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-Other wedge functions: \code{\link{indequ_wedges}}
+Other wedge functions:
+\code{\link[=indequ_wedges]{indequ_wedges()}}
 }
+\concept{wedge functions}

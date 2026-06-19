@@ -2,7 +2,6 @@
 % Please edit documentation in R/triad-tallies.R
 \name{triad_tallies}
 \alias{triad_tallies}
-\alias{triad_tallies}
 \alias{connectedTriples}
 \alias{oneTiedTriads}
 \alias{twoTiedTriads}
@@ -24,16 +23,18 @@ projected}
 \item{graph}{A one-mode network}
 }
 \description{
-These functions are called by the full triad census to handle triads of 
-different types using the projection onto actor nodes. The name of each 
-function indicates the number of edges that appear among the three actors of 
+These functions are called by the full triad census to handle triads of
+different types using the projection onto actor nodes. The name of each
+function indicates the number of edges that appear among the three actors of
 the triad in the projection. (Zero-edge triads do not need to be tallied; the
 total number of triads is easily calculated, and the difference between this
 number and the total number of triads with edges gives the number of triads
 without.)
 }
 \seealso{
-Other triad census functions: \code{\link{project_census}},
-  \code{\link{triad_census}},
-  \code{\link{triad_closure_from_census}}
+Other triad census functions:
+\code{\link[=project_census]{project_census()}},
+\code{\link[=triad_census]{triad_census()}},
+\code{\link[=triad_closure_from_census]{triad_closure_from_census()}}
 }
+\concept{triad census functions}

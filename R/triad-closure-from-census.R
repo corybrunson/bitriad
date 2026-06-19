@@ -16,22 +16,22 @@
 #' @family triad closure functions
 #' @param census Numeric matrix or vector; an affiliation network triad census. 
 #'   It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1, 
-#'   respectively, unless otherwise specified by \code{scheme}; otherwise it is 
+#'   respectively, unless otherwise specified by `scheme`; otherwise it is 
 #'   treated as full.
 #' @param scheme Character; the type of triad census provided, matched to 
-#'   \code{"full"}, \code{"difference"} (also \code{"uniformity"}), 
-#'   \code{"binary"} (also \code{"structural"}), or \code{"simple"}.
+#'   `"full"`, `"difference"` (also `"uniformity"`), 
+#'   `"binary"` (also `"structural"`), or `"simple"`.
 #' @param alcove,wedge,maps,congruence Choice of alcove, wedge, maps, and 
 #'   congruence (see Details).
 #' @param measure Character; the measure of triad closure (matched to 
 #'   "classical", "watts_strogatz", "twomode", "opsahl", "unconnected", 
 #'   "liebig_rao_0", "completely_connected", "liebig_rao_3", "exclusive", 
 #'   "allact", "indequ", "indstr", "injact", "injequ", or "injstr"). Overrides 
-#'   \code{alcove}, \code{wedge}, \code{maps}, and \code{congruence}.
+#'   `alcove`, `wedge`, `maps`, and `congruence`.
 #' @param open.fun,closed.fun Functions to calculate the open and closed 
-#'   wedge count for a triad (when \code{scheme} is \code{"full"}) or a triad
+#'   wedge count for a triad (when `scheme` is `"full"`) or a triad
 #'   census (otherwise), in order to calculate a custom measure of triad 
-#'   closure. Override \code{measure}.
+#'   closure. Override `measure`.
 #' @param counts Logical; whether to return open and closed wedge counts 
 #'   instead of the quotient.
 #' @param ... Arguments passed from deprecated functions to their replacements.

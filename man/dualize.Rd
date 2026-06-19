@@ -17,9 +17,9 @@ dual.an(graph)
 }
 \description{
 This function obtains the dual of an affiliation network, in
-  which the actors and events have swapped roles. To do this, it negates
-  the logical values of the node \code{type} attribute and reorders the
-  node ids accordingly.
+which the actors and events have swapped roles. To do this, it negates
+the logical values of the node \code{type} attribute and reorders the
+node ids accordingly.
 }
 \examples{
 data(women_clique)
@@ -28,7 +28,10 @@ proj <- actor_projection(dualize(women_clique))
 vcount(proj) == tab[2]
 }
 \seealso{
-Other modal queries and manipulations: \code{\link{mode_addition}},
-  \code{\link{mode_counts}}, \code{\link{modes}},
-  \code{\link{schedule}}
+Other modal queries and manipulations:
+\code{\link{mode_addition}},
+\code{\link{mode_counts}},
+\code{\link{modes}},
+\code{\link[=schedule]{schedule()}}
 }
+\concept{modal queries and manipulations}

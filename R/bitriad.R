@@ -1,4 +1,4 @@
-#' @title \code{bitriad}: Triadic analysis of affiliation networks
+#' @title `bitriad`: Triadic analysis of affiliation networks
 #'   
 #' @description Calculate triad censuses and triad closure statistics designed 
 #'   for affiliation networks.
@@ -11,10 +11,9 @@
 #' @template triadcensus
 #' @template triadclosure
 #'   
-#' @docType package
 #' @author Jason Cory Brunson
 #' @import MASS igraph Rcpp
 #' @importFrom Rcpp evalCpp
 #' @useDynLib bitriad
 #' @name bitriad
-NULL
+"_PACKAGE"

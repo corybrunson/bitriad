@@ -1,7 +1,7 @@
 #' @title Affiliation network triads
 #'   
 #' @description These functions create and operate on triads in affiliation 
-#'   networks. In this context, a *triad* is the \code{\link{schedule}} of a 
+#'   networks. In this context, a *triad* is the [schedule] of a 
 #'   subset of three distinct actors.
 #'   
 #' @name triad
@@ -13,26 +13,26 @@
 #' @param actor_names,event_names Actor and event names (actor names default to 
 #'   "p", "q", and "r"; event names default to positive integers).
 #' @param graph An affiliation network, in some cases must be a triad.
-#' @param actors A vector of three actor nodes in \code{graph}.
+#' @param actors A vector of three actor nodes in `graph`.
 #' @param as.partition Whether to sort the exclusive events, versus reporting 
-#'   them in order of the nodes; defaults to \code{TRUE}.
+#'   them in order of the nodes; defaults to `TRUE`.
 #' @param format Character matched to "list" or "vector"; whether to return the 
 #'   triad class as a list of \eqn{\lambda=(x,y,z)} and \eqn{w} or as a vector
 #'   of \eqn{w}, \eqn{x=\lambda_1}, \eqn{y=\lambda_2}, and \eqn{z=\lambda_3}.
 #' @param triad An affiliation network with exactly three distinct actors.
 #' @param scale A scaling parameter for the entire plot.
-#' @param angdir A rotation direction parameter (\code{-1} for clockwise, 
-#'   \code{1} for counter-clockwise).
+#' @param angdir A rotation direction parameter (`-1` for clockwise, 
+#'   `1` for counter-clockwise).
 #' @param rot,rot_lambda,rot_w Angular orientation parameters for the entire 
 #'   triad, for the exclusive events of two actors, and for the inclusive events
 #'   of all three actors.
 #' @param layout A two-column numeric matrix interpretable as a 
-#'   \code{\link[igraph]{layout}}.
-#' @param prettify Logical; whether to use \code{prettify_an} to adjust the 
+#'   [layout].
+#' @param prettify Logical; whether to use `prettify_an` to adjust the 
 #'   aesthetics of a triad before plotting it.
 #' @param cex Node size scaling parameter.
 #' @param xlim,ylim Custom bounds on the horizontal and vertical axes.
-#' @param ... Additional arguments passed to \code{\link[igraph]{plot.igraph}}.
+#' @param ... Additional arguments passed to [plot.igraph].
 NULL
 
 #' @rdname triad
@@ -77,7 +77,7 @@ is_triad <- function(graph) {
     return(FALSE)
   }
   if (actor_count(graph) != 3) return(FALSE)
-  if (any(degree(graph, V(graph)$type == TRUE) <= 1)) return(FALSE)
+  if (any(degree(graph, V(graph)[V(graph)$type == TRUE]) <= 1)) return(FALSE)
   TRUE
 }
 
@@ -94,7 +94,7 @@ triad_class <- function(
   stopifnot(length(actors) == 3)
   
   # count inclusive and exclusive events
-  actor_events <- neighborhood(graph, order = 1, nodes = actors)
+  actor_events <- lapply(ego(graph, order = 1, nodes = actors), as_ids)
   w <- length(which(table(unlist(actor_events)) == 3))
   lambda <- sapply(1:3, function(i) {
     length(which(table(unlist(actor_events[c(i, i %% 3 + 1)])) > 1))

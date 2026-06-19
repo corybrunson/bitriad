@@ -1,11 +1,11 @@
 
 edgeWeight <- function(graph, vp) {
-  id <- get.edge.ids(graph, vp)
+  id <- get_edge_ids(graph, vp)
   if(id == 0) 0 else E(graph)$weight[id]
 }
 
 shareWeight <- function(bigraph, vids) {
-  length(Reduce(intersect, neighborhood(bigraph, 1, as.numeric(vids))))
+  length(Reduce(intersect, lapply(ego(bigraph, 1, as.numeric(vids)), as_ids)))
 }
 
 census_scheme <- function(census, scheme) {
@@ -36,7 +36,7 @@ census_scheme <- function(census, scheme) {
   } else {
     scheme <- if (all(cdim == c(8, 2))) {
       "difference"
-    } else  if (all(cdim == c(4, 1))) {
+    } else  if (all(cdim == c(4, 2))) {
       "binary"
     } else  if (all(cdim == c(4, 1))) {
       "simple"
@@ -62,7 +62,7 @@ measure_codes <- list(
 )
 
 # compress a wedgelist into a desired statistic
-wedgeReturn <- function(wedgelist, type, add.names) {
+wedgeReturn <- function(wedgelist, type, add.names = NULL) {
   
   # global
   if (type == "global") {

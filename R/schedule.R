@@ -3,12 +3,12 @@
 #' @description Given an affiliation network and a vector of actor node IDs, 
 #'   produce the induced subgraph on the actor nodes together with all event 
 #'   nodes incident to at least two of them. This is called the actors'
-#'   \emph{schedule}.
+#'   *schedule*.
 #'   
 #' @name schedule
 #' @family modal queries and manipulations
 #' @param graph An affiliation network.
-#' @param actors A vector of actor nodes in \code{graph}.
+#' @param actors A vector of actor nodes in `graph`.
 #' @export
 schedule <- function(
   graph,
@@ -16,7 +16,7 @@ schedule <- function(
 ) {
   stopifnot(all(V(graph)$type[actors] == FALSE))
   actors <- as.numeric(V(graph)[actors])
-  events_table <- table(unlist(neighborhood(graph, 1, actors)))
+  events_table <- table(unlist(lapply(ego(graph, 1, actors), as_ids)))
   coattended <- as.numeric(names(events_table)[events_table > 1])
   induced_subgraph(graph, c(actors, coattended))
 }

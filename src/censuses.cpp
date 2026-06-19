@@ -31,9 +31,9 @@ IntegerMatrix centered_triads_C(IntegerMatrix el, int q) {
   std::vector<int> y_vec;
   std::vector<int> z_vec;
   // Initialize intersections and differences
-  std::vector<int> p_events;
+  IntegerVector p_events;
   std::vector<int> pq_events;
-  std::vector<int> r_events;
+  IntegerVector r_events;
   std::vector<int> qr_events;
   std::vector<int> pr_events;
   std::vector<int> pqr_events;
@@ -121,7 +121,8 @@ List wedges_x0w0m0c0(IntegerMatrix el, int q) {
   int i,j,k,l;
   
   // Incident events
-  IntegerVector q_events, a_actors, q_self, a_actors_q;
+  IntegerVector q_events, a_actors, q_self;
+  std::vector<int> a_actors_q;
   // Compute event (distance 1) neigborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -129,11 +130,11 @@ List wedges_x0w0m0c0(IntegerMatrix el, int q) {
   int q_events_count = q_events.size();
   // Compute actor (distance 1) neighborhoods about events of q, excluding q
   q_self = q;
-  std::vector<IntegerVector> a_actors_q_list;
+  std::vector<std::vector<int>> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
     std::sort(a_actors.begin(), a_actors.end());
-    a_actors_q = IntegerVector::create();
+    a_actors_q.clear();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
                         std::inserter(a_actors_q, a_actors_q.end()));
@@ -148,8 +149,8 @@ List wedges_x0w0m0c0(IntegerMatrix el, int q) {
   std::vector<int> r_vec;
   std::vector<bool> cl_vec;
   // Initialize intersections and differences
-  std::vector<int> p_events;
-  std::vector<int> r_events;
+  IntegerVector p_events;
+  IntegerVector r_events;
   std::vector<int> pr_events;
   // Add 4-paths (with distinct actors)
   bool cl;
@@ -221,7 +222,8 @@ List wedges_x0w0m0c1(IntegerMatrix el, int q) {
   int i,j;
   
   // Incident events
-  IntegerVector q_actors, q_events, p_events, pq_events, p_q_events;
+  IntegerVector q_actors, q_events, p_events;
+  std::vector<int> pq_events;
   // Compute event (distance 1) and actor (distance 2) neighborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -232,13 +234,13 @@ List wedges_x0w0m0c1(IntegerMatrix el, int q) {
   
   // Compute event neighborhoods about actor neigbhors of q
   std::vector<IntegerVector> p_events_list;
-  std::vector<IntegerVector> pq_events_list;
+  std::vector<std::vector<int>> pq_events_list;
   for (i = 0; i < q_actors_count; i++) {
     p_events = actor_nbhd_1(el, q_actors[i])["d1"];
     std::sort(p_events.begin(), p_events.end());
     p_events_list.push_back(p_events);
     // Restrict to events shared with q
-    pq_events = IntegerVector::create();
+    pq_events.clear();
     std::set_intersection(q_events.begin(), q_events.end(),
                           p_events.begin(), p_events.end(),
                           std::back_inserter(pq_events));
@@ -409,7 +411,8 @@ List wedges_x0w0m1c0(IntegerMatrix el, int q) {
   int i,j,k,l;
   
   // Incident events
-  IntegerVector q_events, a_actors, q_self, a_actors_q;
+  IntegerVector q_events, a_actors, q_self;
+  std::vector<int> a_actors_q;
   // Compute event (distance 1) neigborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -417,11 +420,11 @@ List wedges_x0w0m1c0(IntegerMatrix el, int q) {
   int q_events_count = q_events.size();
   // Compute actor (distance 1) neighborhoods about events of q, excluding q
   q_self = q;
-  std::vector<IntegerVector> a_actors_q_list;
+  std::vector<std::vector<int>> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
     std::sort(a_actors.begin(), a_actors.end());
-    a_actors_q = IntegerVector::create();
+    a_actors_q.clear();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
                         std::inserter(a_actors_q, a_actors_q.end()));
@@ -436,8 +439,8 @@ List wedges_x0w0m1c0(IntegerMatrix el, int q) {
   std::vector<int> r_vec;
   std::vector<bool> cl_vec;
   // Initialize intersections and differences
-  std::vector<int> p_events;
-  std::vector<int> r_events;
+  IntegerVector p_events;
+  IntegerVector r_events;
   std::vector<int> pr_events;
   std::vector<int> ab;
   std::vector<int> pr_events_ab;
@@ -515,7 +518,9 @@ List wedges_x0w0m1c1(IntegerMatrix el, int q) {
   int i,j;
   
   // Incident events
-  IntegerVector q_actors, q_events, p_events, pq_events, p_q_events;
+  IntegerVector q_actors, q_events, p_events;
+  std::vector<int> pq_events;
+  std::vector<int> p_q_events;
   // Compute event (distance 1) and actor (distance 2) neighborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -526,20 +531,20 @@ List wedges_x0w0m1c1(IntegerMatrix el, int q) {
   
   // Compute event neighborhoods about actor neigbhors of q
   std::vector<IntegerVector> p_events_list;
-  std::vector<IntegerVector> pq_events_list;
-  std::vector<IntegerVector> p_q_events_list;
+  std::vector<std::vector<int>> pq_events_list;
+  std::vector<std::vector<int>> p_q_events_list;
   for (i = 0; i < q_actors_count; i++) {
     p_events = actor_nbhd_1(el, q_actors[i])["d1"];
     std::sort(p_events.begin(), p_events.end());
     p_events_list.push_back(p_events);
     // Restrict to events shared with q
-    pq_events = IntegerVector::create();
+    pq_events.clear();
     std::set_intersection(q_events.begin(), q_events.end(),
                           p_events.begin(), p_events.end(),
                           std::back_inserter(pq_events));
     pq_events_list.push_back(pq_events);
     // Restrict to events not shared with q
-    p_q_events = IntegerVector::create();
+    p_q_events.clear();
     std::set_difference(p_events.begin(), p_events.end(),
                         q_events.begin(), q_events.end(),
                         std::inserter(p_q_events, p_q_events.end()));
@@ -652,7 +657,8 @@ List wedges_x0w0m1c2(IntegerMatrix el, int q) {
   int i,j;
   
   // Incident events
-  IntegerVector q_actors, q_events, p_events, pq_events;
+  IntegerVector q_actors, q_events, p_events;
+  std::vector<int> pq_events;
   // Compute event (distance 1) and actor (distance 2) neighborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -663,13 +669,13 @@ List wedges_x0w0m1c2(IntegerMatrix el, int q) {
   
   // Compute event neighborhoods about actor neigbhors of q
   std::vector<IntegerVector> p_events_list;
-  std::vector<IntegerVector> pq_events_list;
+  std::vector<std::vector<int>> pq_events_list;
   for (i = 0; i < q_actors_count; i++) {
     p_events = actor_nbhd_1(el, q_actors[i])["d1"];
     std::sort(p_events.begin(), p_events.end());
     p_events_list.push_back(p_events);
     // Restrict to events shared with q
-    pq_events = IntegerVector::create();
+    pq_events.clear();
     std::set_intersection(q_events.begin(), q_events.end(),
                           p_events.begin(), p_events.end(),
                           std::back_inserter(pq_events));
@@ -798,7 +804,8 @@ List wedges_x0w0m2c0(IntegerMatrix el, int q) {
   int i,j,k,l;
   
   // Incident events
-  IntegerVector q_events, a_actors, q_self, a_actors_q;
+  IntegerVector q_events, a_actors, q_self;
+  std::vector<int> a_actors_q;
   // Compute event (distance 1) neigborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -806,11 +813,11 @@ List wedges_x0w0m2c0(IntegerMatrix el, int q) {
   int q_events_count = q_events.size();
   // Compute actor (distance 1) neighborhoods about events of q, excluding q
   q_self = q;
-  std::vector<IntegerVector> a_actors_q_list;
+  std::vector<std::vector<int>> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
     std::sort(a_actors.begin(), a_actors.end());
-    a_actors_q = IntegerVector::create();
+    a_actors_q.clear();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
                         std::inserter(a_actors_q, a_actors_q.end()));
@@ -827,8 +834,8 @@ List wedges_x0w0m2c0(IntegerMatrix el, int q) {
   // Initialize intersections and differences
   std::vector<int> a_b_actors;
   std::vector<int> b_a_actors;
-  std::vector<int> p_events;
-  std::vector<int> r_events;
+  IntegerVector p_events;
+  IntegerVector r_events;
   std::vector<int> pr_events;
   std::vector<int> pr_q_events;
   // Add 4-paths (with distinct nodes)
@@ -915,7 +922,8 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
   int i,j;
   
   // Incident events
-  IntegerVector q_actors, q_events, p_events, pq_events;
+  IntegerVector q_actors, q_events, p_events;
+  std::vector<int> pq_events;
   // Compute event (distance 1) and actor (distance 2) neighborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -926,13 +934,13 @@ List wedges_x0w0m2c1(IntegerMatrix el, int q) {
   
   // Compute event neighborhoods about actor neigbhors of q
   std::vector<IntegerVector> p_events_list;
-  std::vector<IntegerVector> pq_events_list;
+  std::vector<std::vector<int>> pq_events_list;
   for (i = 0; i < q_actors_count; i++) {
     p_events = actor_nbhd_1(el, q_actors[i])["d1"];
     std::sort(p_events.begin(), p_events.end());
     p_events_list.push_back(p_events);
     // Restrict to events shared with q
-    pq_events = IntegerVector::create();
+    pq_events.clear();
     std::set_intersection(q_events.begin(), q_events.end(),
                           p_events.begin(), p_events.end(),
                           std::back_inserter(pq_events));
@@ -1017,7 +1025,8 @@ List dynamic_wedges_x0w0m20c02(
   double ab_t0,ab_t1,c_t;
   
   // Incident events
-  IntegerVector q_events, a_actors, q_self, a_actors_q;
+  IntegerVector q_events, a_actors, q_self;
+  std::vector<int> a_actors_q;
   // Compute event (distance 1) neigborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -1025,11 +1034,11 @@ List dynamic_wedges_x0w0m20c02(
   int q_events_count = q_events.size();
   // Compute actor (distance 1) neighborhoods about events of q, excluding q
   q_self = q;
-  std::vector<IntegerVector> a_actors_q_list;
+  std::vector<std::vector<int>> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
     std::sort(a_actors.begin(), a_actors.end());
-    a_actors_q = IntegerVector::create();
+    a_actors_q.clear();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
                         std::inserter(a_actors_q, a_actors_q.end()));
@@ -1047,8 +1056,8 @@ List dynamic_wedges_x0w0m20c02(
   // Initialize intersections and differences
   std::vector<int> a_b_actors;
   std::vector<int> b_a_actors;
-  std::vector<int> p_events;
-  std::vector<int> r_events;
+  IntegerVector p_events;
+  IntegerVector r_events;
   std::vector<int> pr_events;
   // Add 4-paths (with distinct nodes)
   bool we;
@@ -1101,13 +1110,13 @@ List dynamic_wedges_x0w0m20c02(
             // then there is no wedge
             if ((ab_t0 - memory <= c_t) &&
                 (c_t <= ab_t1)) {
-              we = (we & FALSE);
+              we = (we && FALSE);
             }
             // If p and r share c that succeeds a and b within the pause window,
             // then any wedge is closed
             if ((ab_t1 + close_after <= c_t) &&
                 (c_t <= ab_t1 + close_before)) {
-              cl = (cl | TRUE);
+              cl = (cl || TRUE);
               if (c_t < first_c_t) {
                 first_c = pr_events[m];
                 first_c_t = c_t;
@@ -1167,7 +1176,8 @@ List dynamic_wedges_x0w0m0c0(
   double ab_t0,ab_t1,c_t;
   
   // Incident events
-  IntegerVector q_events, a_actors, q_self, a_actors_q;
+  IntegerVector q_events, a_actors, q_self;
+  std::vector<int> a_actors_q;
   // Compute event (distance 1) neigborhoods about q
   List q_ego = actor_nbhd_2(el, q);
   q_events = q_ego["d1"];
@@ -1175,11 +1185,11 @@ List dynamic_wedges_x0w0m0c0(
   int q_events_count = q_events.size();
   // Compute actor (distance 1) neighborhoods about events of q, excluding q
   q_self = q;
-  std::vector<IntegerVector> a_actors_q_list;
+  std::vector<std::vector<int>> a_actors_q_list;
   for (i = 0; i < q_events_count; i++) {
     a_actors = event_nbhd_1(el, q_events[i])["d1"];
     std::sort(a_actors.begin(), a_actors.end());
-    a_actors_q = IntegerVector::create();
+    a_actors_q.clear();
     std::set_difference(a_actors.begin(), a_actors.end(),
                         q_self.begin(), q_self.end(),
                         std::inserter(a_actors_q, a_actors_q.end()));
@@ -1194,8 +1204,8 @@ List dynamic_wedges_x0w0m0c0(
   std::vector<int> r_vec;
   std::vector<bool> cl_vec;
   // Initialize intersections and differences
-  std::vector<int> p_events;
-  std::vector<int> r_events;
+  IntegerVector p_events;
+  IntegerVector r_events;
   std::vector<int> pr_events;
   // Add 4-paths (with distinct actors)
   bool we;
@@ -1241,13 +1251,13 @@ List dynamic_wedges_x0w0m0c0(
             // then there is no wedge
             if ((ab_t0 - memory <= c_t) &&
                 (c_t <= ab_t1)) {
-              we = (we & FALSE);
+              we = (we && FALSE);
             }
             // If p and r share c that succeeds a and b within the pause window,
             // then any wedge is closed
             if ((ab_t1 + close_after <= c_t) &&
                 (c_t <= ab_t1 + close_before)) {
-              cl = (cl | TRUE);
+              cl = (cl || TRUE);
             }
           }
           // Keep the 4-path as a wedge
@@ -1337,7 +1347,7 @@ NumericMatrix triad_census_full_batagelj_mrvar_numeric_C(
       std::sort(q_actors.begin(), q_actors.end());
       
       // Events a attended by actors p and q
-      IntegerVector events_a = IntegerVector::create();
+      std::vector<int> events_a;
       std::set_intersection(p_events.begin(), p_events.end(),
                             q_events.begin(), q_events.end(),
                             std::back_inserter(events_a));
@@ -1368,7 +1378,7 @@ NumericMatrix triad_census_full_batagelj_mrvar_numeric_C(
       tc(lambda_i, w) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
-        if ((actors_r[k] == actors[i]) |
+        if ((actors_r[k] == actors[i]) ||
             (actors_r[k] == actors_q[j])) {
           continue;
         }
@@ -1380,27 +1390,27 @@ NumericMatrix triad_census_full_batagelj_mrvar_numeric_C(
         std::sort(r_actors.begin(), r_actors.end());
         
         // Events c attended by actors p and r
-        IntegerVector events_c = IntegerVector::create();
+        std::vector<int> events_c;
         std::set_intersection(p_events.begin(), p_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_c));
         
-        if ((actors_q[j] >= actors_r[k]) &
-            ((actors[i] >= actors_r[k]) |
-            (actors_r[k] >= actors_q[j]) |
+        if ((actors_q[j] >= actors_r[k]) &&
+            ((actors[i] >= actors_r[k]) ||
+            (actors_r[k] >= actors_q[j]) ||
             (events_c.size() > 0))) {
           continue;
         }
         
         // Events b attended by actors q and r
-        IntegerVector events_b = IntegerVector::create();
+        std::vector<int> events_b;
         std::set_intersection(q_events.begin(), q_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
         std::sort(events_a.begin(), events_a.end());
         std::sort(events_c.begin(), events_c.end());
-        IntegerVector events_d = IntegerVector::create();
+        std::vector<int> events_d;
         std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
@@ -1438,15 +1448,15 @@ NumericMatrix triad_census_full_batagelj_mrvar_numeric_C(
   // Inclusive event count w
   w = 0;
   // Count non-zero triads
-  int tot = 0;
-  for (i = 0; i < max_i + 1; i++) {
-    for (j = 0; j < max_w + 1; j++) {
-      tot += tc(i, j);
-    }
-  }
+  // int tot = 0;
+  // for (i = 0; i < max_i + 1; i++) {
+  //   for (j = 0; j < max_w + 1; j++) {
+  //     tot += tc(i, j);
+  //   }
+  // }
   // Increment matrix entry
-  //tc(lambda_i, w) = choose_C(na, 3) - tot;
-  
+  // tc(lambda_i, w) = choose_C(na, 3) - tot;
+    
   // Subset matrix according to 'max_i' and 'max_w'
   IntegerVector max_lambda = index_partition(max_i);
   max_lambda[0] += 1;
@@ -1512,7 +1522,7 @@ IntegerMatrix triad_census_full_batagelj_mrvar_integer_C(
       std::sort(q_actors.begin(), q_actors.end());
       
       // Events a attended by actors p and q
-      IntegerVector events_a = IntegerVector::create();
+      std::vector<int> events_a;
       std::set_intersection(p_events.begin(), p_events.end(),
                             q_events.begin(), q_events.end(),
                             std::back_inserter(events_a));
@@ -1546,7 +1556,7 @@ IntegerMatrix triad_census_full_batagelj_mrvar_integer_C(
       tc(lambda_i, w) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
-        if ((actors_r[k] == actors[i]) |
+        if ((actors_r[k] == actors[i]) ||
             (actors_r[k] == actors_q[j])) {
           continue;
         }
@@ -1558,27 +1568,27 @@ IntegerMatrix triad_census_full_batagelj_mrvar_integer_C(
         std::sort(r_actors.begin(), r_actors.end());
         
         // Events c attended by actors p and r
-        IntegerVector events_c = IntegerVector::create();
+        std::vector<int> events_c;
         std::set_intersection(p_events.begin(), p_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_c));
         
-        if ((actors_q[j] >= actors_r[k]) &
-            ((actors[i] >= actors_r[k]) |
-            (actors_r[k] >= actors_q[j]) |
+        if ((actors_q[j] >= actors_r[k]) &&
+            ((actors[i] >= actors_r[k]) ||
+            (actors_r[k] >= actors_q[j]) ||
             (events_c.size() > 0))) {
           continue;
         }
         
         // Events b attended by actors q and r
-        IntegerVector events_b = IntegerVector::create();
+        std::vector<int> events_b;
         std::set_intersection(q_events.begin(), q_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
         std::sort(events_a.begin(), events_a.end());
         std::sort(events_c.begin(), events_c.end());
-        IntegerVector events_d = IntegerVector::create();
+        std::vector<int> events_d;
         std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
@@ -1620,14 +1630,14 @@ IntegerMatrix triad_census_full_batagelj_mrvar_integer_C(
   // Inclusive event count w
   w = 0;
   // Count non-zero triads
-  int tot = 0;
-  for (i = 0; i < max_i + 1; i++) {
-    for (j = 0; j < max_w + 1; j++) {
-      tot += tc(i, j);
-    }
-  }
+  // int tot = 0;
+  // for (i = 0; i < max_i + 1; i++) {
+  //   for (j = 0; j < max_w + 1; j++) {
+  //     tot += tc(i, j);
+  //   }
+  // }
   // Increment matrix entry
-  //tc(lambda_i, w) = choose_C(na, 3) - tot;
+  // tc(lambda_i, w) = choose_C(na, 3) - tot;
   
   // Subset matrix according to 'max_i' and 'max_w'
   IntegerVector max_lambda = index_partition(max_i);
@@ -1693,7 +1703,7 @@ NumericMatrix triad_census_difference_batagelj_mrvar_numeric_C(
       std::sort(q_actors.begin(), q_actors.end());
       
       // Events a attended by actors p and q
-      IntegerVector events_a = IntegerVector::create();
+      std::vector<int> events_a;
       std::set_intersection(p_events.begin(), p_events.end(),
                             q_events.begin(), q_events.end(),
                             std::back_inserter(events_a));
@@ -1710,7 +1720,7 @@ NumericMatrix triad_census_difference_batagelj_mrvar_numeric_C(
       tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
-        if ((actors_r[k] == actors[i]) |
+        if ((actors_r[k] == actors[i]) ||
             (actors_r[k] == actors_q[j])) {
           continue;
         }
@@ -1722,27 +1732,27 @@ NumericMatrix triad_census_difference_batagelj_mrvar_numeric_C(
         std::sort(r_actors.begin(), r_actors.end());
         
         // Events c attended by actors p and r
-        IntegerVector events_c = IntegerVector::create();
+        std::vector<int> events_c;
         std::set_intersection(p_events.begin(), p_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_c));
         
-        if ((actors_q[j] >= actors_r[k]) &
-            ((actors[i] >= actors_r[k]) |
-            (actors_r[k] >= actors_q[j]) |
+        if ((actors_q[j] >= actors_r[k]) &&
+            ((actors[i] >= actors_r[k]) ||
+            (actors_r[k] >= actors_q[j]) ||
             (events_c.size() > 0))) {
           continue;
         }
         
         // Events b attended by actors q and r
-        IntegerVector events_b = IntegerVector::create();
+        std::vector<int> events_b;
         std::set_intersection(q_events.begin(), q_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
         std::sort(events_a.begin(), events_a.end());
         std::sort(events_c.begin(), events_c.end());
-        IntegerVector events_d = IntegerVector::create();
+        std::vector<int> events_d;
         std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
@@ -1763,14 +1773,14 @@ NumericMatrix triad_census_difference_batagelj_mrvar_numeric_C(
   }
   
   // Count non-zero triads
-  int tot = 0;
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < 2; j++) {
-      tot += tc(i, j);
-    }
-  }
+  // int tot = 0;
+  // for (i = 0; i < 4; i++) {
+  //   for (j = 0; j < 2; j++) {
+  //     tot += tc(i, j);
+  //   }
+  // }
   // Tally zero-link triads
-  //tc(0, 0) = choose_C(na, 3) - tot;
+  // tc(0, 0) = choose_C(na, 3) - tot;
   
   return tc;
 }
@@ -1820,7 +1830,7 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_integer_C(
       std::sort(q_actors.begin(), q_actors.end());
       
       // Events a attended by actors p and q
-      IntegerVector events_a = IntegerVector::create();
+      std::vector<int> events_a;
       std::set_intersection(p_events.begin(), p_events.end(),
                             q_events.begin(), q_events.end(),
                             std::back_inserter(events_a));
@@ -1840,7 +1850,7 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_integer_C(
       tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
-        if ((actors_r[k] == actors[i]) |
+        if ((actors_r[k] == actors[i]) ||
             (actors_r[k] == actors_q[j])) {
           continue;
         }
@@ -1852,27 +1862,27 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_integer_C(
         std::sort(r_actors.begin(), r_actors.end());
         
         // Events c attended by actors p and r
-        IntegerVector events_c = IntegerVector::create();
+        std::vector<int> events_c;
         std::set_intersection(p_events.begin(), p_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_c));
         
-        if ((actors_q[j] >= actors_r[k]) &
-            ((actors[i] >= actors_r[k]) |
-            (actors_r[k] >= actors_q[j]) |
+        if ((actors_q[j] >= actors_r[k]) &&
+            ((actors[i] >= actors_r[k]) ||
+            (actors_r[k] >= actors_q[j]) ||
             (events_c.size() > 0))) {
           continue;
         }
         
         // Events b attended by actors q and r
-        IntegerVector events_b = IntegerVector::create();
+        std::vector<int> events_b;
         std::set_intersection(q_events.begin(), q_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
         std::sort(events_a.begin(), events_a.end());
         std::sort(events_c.begin(), events_c.end());
-        IntegerVector events_d = IntegerVector::create();
+        std::vector<int> events_d;
         std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
@@ -1897,14 +1907,14 @@ IntegerMatrix triad_census_difference_batagelj_mrvar_integer_C(
   }
   
   // Count non-zero triads
-  int tot = 0;
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < 2; j++) {
-      tot += tc(i, j);
-    }
-  }
+  // int tot = 0;
+  // for (i = 0; i < 4; i++) {
+  //   for (j = 0; j < 2; j++) {
+  //     tot += tc(i, j);
+  //   }
+  // }
   // Tally zero-link triads
-  //tc(0, 0) = choose_C(na, 3) - tot;
+  // tc(0, 0) = choose_C(na, 3) - tot;
   
   return tc;
 }
@@ -1957,7 +1967,7 @@ NumericMatrix triad_census_binary_batagelj_mrvar_numeric_C(
       std::sort(q_actors.begin(), q_actors.end());
       
       // Events a attended by actors p and q
-      IntegerVector events_a = IntegerVector::create();
+      std::vector<int> events_a;
       std::set_intersection(p_events.begin(), p_events.end(),
                             q_events.begin(), q_events.end(),
                             std::back_inserter(events_a));
@@ -1974,7 +1984,7 @@ NumericMatrix triad_census_binary_batagelj_mrvar_numeric_C(
       tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
-        if ((actors_r[k] == actors[i]) |
+        if ((actors_r[k] == actors[i]) ||
             (actors_r[k] == actors_q[j])) {
           continue;
         }
@@ -1986,27 +1996,27 @@ NumericMatrix triad_census_binary_batagelj_mrvar_numeric_C(
         std::sort(r_actors.begin(), r_actors.end());
         
         // Events c attended by actors p and r
-        IntegerVector events_c = IntegerVector::create();
+        std::vector<int> events_c;
         std::set_intersection(p_events.begin(), p_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_c));
         
-        if ((actors_q[j] >= actors_r[k]) &
-            ((actors[i] >= actors_r[k]) |
-            (actors_r[k] >= actors_q[j]) |
+        if ((actors_q[j] >= actors_r[k]) &&
+            ((actors[i] >= actors_r[k]) ||
+            (actors_r[k] >= actors_q[j]) ||
             (events_c.size() > 0))) {
           continue;
         }
         
         // Events b attended by actors q and r
-        IntegerVector events_b = IntegerVector::create();
+        std::vector<int> events_b;
         std::set_intersection(q_events.begin(), q_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
         std::sort(events_a.begin(), events_a.end());
         std::sort(events_c.begin(), events_c.end());
-        IntegerVector events_d = IntegerVector::create();
+        std::vector<int> events_d;
         std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
@@ -2022,14 +2032,14 @@ NumericMatrix triad_census_binary_batagelj_mrvar_numeric_C(
   }
   
   // Count non-zero triads
-  int tot = 0;
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < 2; j++) {
-      tot += tc(i, j);
-    }
-  }
+  // int tot = 0;
+  // for (i = 0; i < 4; i++) {
+  //   for (j = 0; j < 2; j++) {
+  //     tot += tc(i, j);
+  //   }
+  // }
   // Tally zero-link triads
-  //tc(0, 0) = choose_C(na, 3) - tot;
+  // tc(0, 0) = choose_C(na, 3) - tot;
   
   return tc;
 }
@@ -2078,7 +2088,7 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_integer_C(
       std::sort(q_actors.begin(), q_actors.end());
       
       // Events a attended by actors p and q
-      IntegerVector events_a = IntegerVector::create();
+      std::vector<int> events_a;
       std::set_intersection(p_events.begin(), p_events.end(),
                             q_events.begin(), q_events.end(),
                             std::back_inserter(events_a));
@@ -2098,7 +2108,7 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_integer_C(
       tc(1, 0) += na - actors_r.size();
       
       for (k = 0; k < actors_r.size(); k++) {
-        if ((actors_r[k] == actors[i]) |
+        if ((actors_r[k] == actors[i]) ||
             (actors_r[k] == actors_q[j])) {
           continue;
         }
@@ -2110,27 +2120,27 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_integer_C(
         std::sort(r_actors.begin(), r_actors.end());
         
         // Events c attended by actors p and r
-        IntegerVector events_c = IntegerVector::create();
+        std::vector<int> events_c;
         std::set_intersection(p_events.begin(), p_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_c));
         
-        if ((actors_q[j] >= actors_r[k]) &
-            ((actors[i] >= actors_r[k]) |
-            (actors_r[k] >= actors_q[j]) |
+        if ((actors_q[j] >= actors_r[k]) &&
+            ((actors[i] >= actors_r[k]) ||
+            (actors_r[k] >= actors_q[j]) ||
             (events_c.size() > 0))) {
           continue;
         }
         
         // Events b attended by actors q and r
-        IntegerVector events_b = IntegerVector::create();
+        std::vector<int> events_b;
         std::set_intersection(q_events.begin(), q_events.end(),
                               r_events.begin(), r_events.end(),
                               std::back_inserter(events_b));
         // Events d attended by actors p, q, and r
         std::sort(events_a.begin(), events_a.end());
         std::sort(events_c.begin(), events_c.end());
-        IntegerVector events_d = IntegerVector::create();
+        std::vector<int> events_d;
         std::set_intersection(events_a.begin(), events_a.end(),
                               events_c.begin(), events_c.end(),
                               std::back_inserter(events_d));
@@ -2150,14 +2160,14 @@ IntegerMatrix triad_census_binary_batagelj_mrvar_integer_C(
   }
   
   // Count non-zero triads
-  int tot = 0;
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < 2; j++) {
-      tot += tc(i, j);
-    }
-  }
+  // int tot = 0;
+  // for (i = 0; i < 4; i++) {
+  //   for (j = 0; j < 2; j++) {
+  //     tot += tc(i, j);
+  //   }
+  // }
   // Tally zero-link triads
-  //tc(0, 0) = choose_C(na, 3) - tot;
+  // tc(0, 0) = choose_C(na, 3) - tot;
   
   return tc;
 }
@@ -2171,7 +2181,7 @@ IntegerVector wedges_from_binary_census_C(
     IntegerMatrix census,
     int alcove, int wedge, int maps, int congruence
 ) {
-  if (alcove >= 2 | maps == 1 | congruence == 0) {
+  if (alcove >= 2 || maps == 1 || congruence == 0) {
     stop("Specified wedges cannot be recovered from a binary census.");
   }
   

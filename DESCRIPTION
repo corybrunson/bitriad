@@ -1,18 +1,20 @@
 Package: bitriad
 Type: Package
 Title: Triadic Analysis of Affiliation Networks
-Version: 0.3
-Date: 2017-10-31
-Authors@R: person('Jason Cory', 'Brunson', email = 'jabrunso@vt.edu',
+Version: 0.4
+Authors@R: person('Jason Cory', 'Brunson', email = 'cornelioid@gmail.com',
     role = c('aut', 'cre'))
-Maintainer: Jason Cory Brunson <jabrunso@vt.edu>
-Description: This package implements two principal tools for the triadic
-    analysis of affiliation networks: triad census and triadic closure.
-    The package includes several variations on both classical tools, tailored
-    to affiliation network structure. Assorted additional functions are
-    included for affiliation network manipulation. The package is built on the
-    igraph package but includes new graph-theoretic calculations written using
-    the Rcpp package.
+Maintainer: Jason Cory Brunson <cornelioid@gmail.com>
+Description: Two principal tools are provided for the triadic analysis of
+    affiliation networks: triad census and triadic closure.
+    These include several variations on both classical tools
+    tailored to affiliation network structure; see
+    Opsahl (2013) <doi:10.1016/j.socnet.2011.07.001>,
+    Liebig and Rao (2014) <doi:10.1109/SITIS.2014.15>, and
+    Brunson (2015) <doi:10.1017/nws.2015.38>.
+    Additional functions support manipulation ofaffiliation networks.
+    'bitriad' is built on the 'igraph' package and includes
+    new graph-theoretic calculations written using the {Rcpp} package.
 Depends:
     R (>= 3.3.2),
     igraph (>= 1.1.2)
@@ -26,4 +28,5 @@ Suggests:
 License: GPL-2
 VignetteBuilder: knitr
 Classification/MSC: 05C82, 91D30
-RoxygenNote: 6.0.1
+Config/roxygen2/version: 8.0.0
+Config/roxygen2/markdown: TRUE
