@@ -24,3 +24,4 @@
 
 # CRAN
 ^cran-comments\.md$
+^CRAN-SUBMISSION$
