@@ -26,7 +26,7 @@
 #' @param wedge.gap Numeric; maximum delay between the two events of a wedge.
 #' @param close.after,close.before Numeric; minimum and maximum delays after
 #'   both events form a wedge for a third event to close it.
-#' @return A two-element list consisting of (1) a 3- or 5-row integer matrix of 
+#' @returns A two-element list consisting of (1) a 3- or 5-row integer matrix of 
 #'   (representatives of) all (congruence classes of) wedges in `graph` 
 #'   centered at `actor`, and (2) a logical vector indicating whether each 
 #'   wedge is closed.

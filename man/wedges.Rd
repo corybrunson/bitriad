@@ -275,3 +275,4 @@ Other wedge functions:
 \code{\link[=dynamic_wedges]{dynamic_wedges()}}
 }
 \concept{wedge functions}
+\keyword{internal}

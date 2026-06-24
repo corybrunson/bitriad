@@ -1,26 +1,25 @@
 #' @title Project an affiliation network onto its actors
-#'   
-#' @description These functions use [bipartite_projection] to 
-#'   compute the projections of an affiliation network onto the actor or event 
-#'   nodes.
-#'   
+#'
+#' @description These functions use [bipartite_projection()] to compute the
+#'   projections of an affiliation network onto the actor or event nodes.
+#'
 #' @name mode_projection
-#' @seealso Original **igraph** functions: 
-#'   [bipartite_projection]
+#' @seealso Original **igraph** functions: [bipartite_projection()]
 #' @param graph An affiliation network.
 #' @param mode Numeric or character; whether to project onto actors (`1` or
 #'   `"actors"`) or onto events (`2` or `"events"`).
-#' @param name Character; the attribute of the actor or event nodes in 
-#'   `graph` to use as names for the nodes in the projection. If `NA`,
-#'   node IDs are converted to characters and used. If `NULL`, no names are
-#'   assigned.
+#' @param name Character; the attribute of the actor or event nodes in `graph`
+#'   to use as names for the nodes in the projection. If `NA`, node IDs are
+#'   converted to characters and used. If `NULL`, no names are assigned.
 #' @param ... Arguments passed to `mode_projection`.
+#' @returns An `igraph` object with nodes corresponding to one `"type"` of the
+#'   input `graph`.
 #' @examples
 #' data(chicago1960s)
-#' tab <- table(V(chicago1960s)$type)
-#' proj <- actor_projection(chicago1960s)
+#' ( tab <- table(V(chicago1960s)$type) )
+#' ( proj <- actor_projection(chicago1960s) )
 #' vcount(proj) == tab[1]
-#' proj <- event_projection(chicago1960s)
+#' ( proj <- event_projection(chicago1960s) )
 #' vcount(proj) == tab[2]
 #' @export
 mode_projection <- function(graph, mode = 1, name = "name") {

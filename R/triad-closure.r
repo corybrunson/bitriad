@@ -9,48 +9,46 @@
 #'   and numerators from which the global and local statistics can be recovered.
 #'   
 #'   The function `triad_closure_projection` recapitulates 
-#'   [triad_closure_watts_strogatz] by invoking the 
-#'   [bipartite_projection] and 
-#'   [transitivity] functions in **igraph**.
+#'   [triad_closure_watts_strogatz()] by invoking the 
+#'   [bipartite_projection()] and 
+#'   [transitivity()] functions in **igraph**.
 #'   
 #' @template triadclosure
 #'   
 
 #' @name triad_closure
 #' @family triad closure functions
-#' @seealso Original **igraph** functions:
-#'   [transitivity]
+#' @seealso Original **igraph** functions: [transitivity()]
 #' @param graph An affiliation network.
 #' @param actors A vector of actor nodes in `graph`.
 #' @param triad_list A list of triad isomorphism classes in matrix format, as
 #'   produced by [centered_triads].
-#' @param type The type of statistic, matched to `"global"`, 
-#'   `"local"`, or `"raw"`.
+#' @param type The type of statistic, matched to `"global"`, `"local"`, or
+#'   `"raw"`.
 #' @param ... Measure specifications passed to [wedges].
-#' @param measure Character; the measure of triad closure, used as the suffix 
-#'   `*` to `triad_closure_*` Matched to `"classical"` (also 
-#'   `"watts_strogatz"`), `"twomode"` (also `"opsahl"`), 
-#'   `"unconnected"` (also `"liebig_rao_0"`), 
-#'   `"completely_connected"` (also `"liebig_rao_3"`), or 
+#' @param measure Character; the measure of triad closure, used as the suffix
+#'   `*` to `triad_closure_*` Matched to `"classical"` (also
+#'   `"watts_strogatz"`), `"twomode"` (also `"opsahl"`), `"unconnected"` (also
+#'   `"liebig_rao_0"`), `"completely_connected"` (also `"liebig_rao_3"`), or
 #'   `"exclusive"`.
-#' @param method Character; for a given `measure`, whether to use the 
-#'   measure-specific wedge census (`"wedges"`) or the measure-specific 
+#' @param method Character; for a given `measure`, whether to use the
+#'   measure-specific wedge census (`"wedges"`) or the measure-specific
 #'   calculation on the centered triad census (`"triads"`).
 #' @param triads.fun A custom triad closure calculation. It must accept a vector
-#'   of *centered* triad isomorphism classes, encoded as vectors `w`, 
-#'   `x`, `y`, and `z`, and return a 2-row integer matrix 
-#'   recording the number of wedges of the desired measure centered at the 
-#'   second actor, and involving the other two actors, of each triad.
-#' @param wedges.fun A custom wedge census function. It must accept an 
-#'   affiliation network `graph` and a single actor node ID `actor` 
-#'   and may have any additional parameters. It must return a named list with 
-#'   values `wedges` a numeric matrix of node IDs whose columns record the 
-#'   wedges centered at `actor` and `closed` a logical vector 
-#'   recording whether each wedge is closed. Overrides `measure`.
-#' @return If `type` is `"global"`, the global statistic for 
-#'   `graph`; if `"local"`, the local statistics for `actors`; if
-#'   `"raw"`, a 2-column matrix, each row of which gives the number of 
-#'   wedges and of closed wedges centered at `actors`.
+#'   of *centered* triad isomorphism classes, encoded as vectors `w`, `x`, `y`,
+#'   and `z`, and return a 2-row integer matrix recording the number of wedges
+#'   of the desired measure centered at the second actor, and involving the
+#'   other two actors, of each triad.
+#' @param wedges.fun A custom wedge census function. It must accept an
+#'   affiliation network `graph` and a single actor node ID `actor` and may have
+#'   any additional parameters. It must return a named list with values `wedges`
+#'   a numeric matrix of node IDs whose columns record the wedges centered at
+#'   `actor` and `closed` a logical vector recording whether each wedge is
+#'   closed. Overrides `measure`.
+#' @returns If `type` is `"global"`, the global statistic for `graph` (a single
+#'   numeric value); if `"local"`, the local statistics for `actors` (a numeric
+#'   vector); if `"raw"`, a 2-column matrix, each row of which gives the number
+#'   of wedges and of closed wedges centered at `actors`.
 #' @examples
 #' data(women_clique)
 #' mapply(

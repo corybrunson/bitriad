@@ -1,32 +1,40 @@
 #' @title Project a higher-resolution triad census to a lower-resolution one
-#'   
-#' @description Given a triad census of any scheme, construct a triad census of 
+#'
+#' @description Given a triad census of any scheme, construct a triad census of
 #'   a coarser (strictly less informative) scheme.
-#'   
-#' @details This function inputes an affiliation network triad census of any 
+#'
+#' @details This function inputes an affiliation network triad census of any
 #'   scheme and returns a list of triad censuses projected from it (not icluding
-#'   itself). The schemes are, in order of resolution, *full* (also called 
-#'   the *affiliation network triad census* without qualification), 
+#'   itself). The schemes are, in order of resolution, *full* (also called the
+#'   *affiliation network triad census* without qualification),
 #'   *difference*, *binary*, and *simple*. A final element of the
 #'   output list is the total number of triads in the affiliation network. Each
 #'   summary can be recovered from those before it, specifically by aggregating
 #'   certain matrix entries to form a smaller matrix. The helper functions
-#'   `*_from_*_census()` project a census of each scheme to one of each
-#'   coarser scheme.
-#'   
+#'   `*_from_*_census()` project a census of each scheme to one of each coarser
+#'   scheme.
+#'
 #' @template triadcensus
-#'   
+#'
 #' @name project_census
 #' @family triad census functions
-#' @param census Numeric matrix or vector; an affiliation network triad census. 
-#'   It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1, 
-#'   respectively, unless otherwise specified by `scheme`; otherwise it is 
+#' @param census Numeric matrix or vector; an affiliation network triad census.
+#'   It is treated as binary or simple if its dimensons are 4-by-2 or 4-by-1,
+#'   respectively, unless otherwise specified by `scheme`; otherwise it is
 #'   treated as full.
-#' @param scheme Character; the type of triad census provided, matched to 
-#'   `"full"`, `"difference"` (also `"uniformity"`), 
-#'   `"binary"` (also `"structural"`), or `"simple"`.
+#' @param scheme Character; the type of triad census provided, matched to
+#'   `"full"`, `"difference"` (also `"uniformity"`), `"binary"` (also
+#'   `"structural"`), or `"simple"`.
 #' @param add.names Logical; whether to label the rows and columns of the output
 #'   matrix.
+#' @returns A list of [triad_census()] outputs.
+#' @examples
+#' data(women_group)
+#' group_full_census <- triad_census(women_group, scheme = "full")
+#' project_census(group_full_census, scheme = "full")
+#' group_binary_census <- triad_census(women_group, scheme = "binary")
+#' project_census(group_binary_census, scheme = "binary")
+#'
 #' @export
 project_census <- function(
   census, scheme = NULL,

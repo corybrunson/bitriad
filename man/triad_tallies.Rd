@@ -38,3 +38,4 @@ Other triad census functions:
 \code{\link[=triad_closure_from_census]{triad_closure_from_census()}}
 }
 \concept{triad census functions}
+\keyword{internal}

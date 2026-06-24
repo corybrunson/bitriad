@@ -19,6 +19,7 @@
 #'   `"exclusive"`, or `"projection"`.
 #' @param memory Numeric; minimum delay of wedge formation since would-have-been
 #'   closing events.
+#' @returns A numeric vector of the same length as `actors`.
 #' @examples
 #' data(women_group)
 #' dynamic_triad_closure(women_group)

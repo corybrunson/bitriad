@@ -10,6 +10,7 @@
 #'   decreasing order.
 #' @param lambda Integer vector; a partition of at most 3 parts, with parts in 
 #'   non-increasing order.
+#' @returns Numeric vectors.
 #' @examples
 #' index_subset(2)
 #' index_partition(2)

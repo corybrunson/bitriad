@@ -11,23 +11,38 @@ is_dynamic_an(graph)
 
 is.dyn(graph)
 
-as_dynamic_an(graph, use.time.attribute = "time", add.time.attribute = FALSE)
+as_dynamic_an(graph, use_attr = NULL)
 }
 \arguments{
 \item{graph}{An affiliation network.}
 
-\item{use.time.attribute}{Character; the vertex attribute to coerce to
-numeric if necessary and use as the \code{"time"} attribute.}
-
-\item{add.time.attribute}{Logical; whether, if \code{graph} has no attribute
-\code{use.time.attribute}, to introduce an artificial \code{"time"}
-attribute taking the values \code{1:event_count(graph)}, reflecting the
-order of the event node IDs.}
+\item{use_attr}{Character; the vertex attribute to coerce to numeric if
+necessary and use as the \code{"time"} attribute. If \code{NULL}, the default, time
+takes the values \code{seq(event_count(graph))}, reflecting the order of the
+event node IDs.}
+}
+\value{
+The input \code{graph} with a new \code{"time"} vertex attribute and its event
+nodes permuted to respect this attribute.
 }
 \description{
-An affiliation network is \emph{dynamic}, for present purposes,
-if its event nodes have time stamps, recorded as a numeric vertex attribute
+An affiliation network is \emph{dynamic}, for present purposes, if
+its event nodes have time stamps, recorded as a numeric vertex attribute
 \code{"time"} in non-decreasing order.
+}
+\examples{
+data(women_group)
+is_dynamic_an(women_group)
+data(women_clique)
+is_dynamic_an(women_clique)
+as_dynamic_an(women_clique)
+data(nmt_meetings)
+nmt_meetings <- set_event_attr(
+  nmt_meetings, "meet",
+  value = gsub("meet", "", V2(nmt_meetings)$name)
+)
+as_dynamic_an(nmt_meetings, use_attr = "meet")
+
 }
 \seealso{
 Other network testing and coercion:

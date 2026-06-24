@@ -117,37 +117,36 @@ calculation on the centered triad census (\code{"triads"}).}
 
 \item{actors}{A vector of actor nodes in \code{graph}.}
 
-\item{type}{The type of statistic, matched to \code{"global"},
-\code{"local"}, or \code{"raw"}.}
+\item{type}{The type of statistic, matched to \code{"global"}, \code{"local"}, or
+\code{"raw"}.}
 
 \item{triad_list}{A list of triad isomorphism classes in matrix format, as
 produced by \link{centered_triads}.}
 
 \item{measure}{Character; the measure of triad closure, used as the suffix
 \code{*} to \verb{triad_closure_*} Matched to \code{"classical"} (also
-\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}),
-\code{"unconnected"} (also \code{"liebig_rao_0"}),
-\code{"completely_connected"} (also \code{"liebig_rao_3"}), or
+\code{"watts_strogatz"}), \code{"twomode"} (also \code{"opsahl"}), \code{"unconnected"} (also
+\code{"liebig_rao_0"}), \code{"completely_connected"} (also \code{"liebig_rao_3"}), or
 \code{"exclusive"}.}
 
 \item{triads.fun}{A custom triad closure calculation. It must accept a vector
-of \emph{centered} triad isomorphism classes, encoded as vectors \code{w},
-\code{x}, \code{y}, and \code{z}, and return a 2-row integer matrix
-recording the number of wedges of the desired measure centered at the
-second actor, and involving the other two actors, of each triad.}
+of \emph{centered} triad isomorphism classes, encoded as vectors \code{w}, \code{x}, \code{y},
+and \code{z}, and return a 2-row integer matrix recording the number of wedges
+of the desired measure centered at the second actor, and involving the
+other two actors, of each triad.}
 
 \item{wedges.fun}{A custom wedge census function. It must accept an
-affiliation network \code{graph} and a single actor node ID \code{actor}
-and may have any additional parameters. It must return a named list with
-values \code{wedges} a numeric matrix of node IDs whose columns record the
-wedges centered at \code{actor} and \code{closed} a logical vector
-recording whether each wedge is closed. Overrides \code{measure}.}
+affiliation network \code{graph} and a single actor node ID \code{actor} and may have
+any additional parameters. It must return a named list with values \code{wedges}
+a numeric matrix of node IDs whose columns record the wedges centered at
+\code{actor} and \code{closed} a logical vector recording whether each wedge is
+closed. Overrides \code{measure}.}
 }
 \value{
-If \code{type} is \code{"global"}, the global statistic for
-\code{graph}; if \code{"local"}, the local statistics for \code{actors}; if
-\code{"raw"}, a 2-column matrix, each row of which gives the number of
-wedges and of closed wedges centered at \code{actors}.
+If \code{type} is \code{"global"}, the global statistic for \code{graph} (a single
+numeric value); if \code{"local"}, the local statistics for \code{actors} (a numeric
+vector); if \code{"raw"}, a 2-column matrix, each row of which gives the number
+of wedges and of closed wedges centered at \code{actors}.
 }
 \description{
 Given an affiliation network and a vector of actor node IDs,
@@ -160,9 +159,9 @@ statistic, a vector of local statistics, or a matrix of local denominators
 and numerators from which the global and local statistics can be recovered.
 
 The function \code{triad_closure_projection} recapitulates
-\link{triad_closure_watts_strogatz} by invoking the
-\link[igraph:bipartite_projection]{bipartite_projection} and
-\link[igraph:transitivity]{transitivity} functions in \strong{igraph}.
+\code{\link[=triad_closure_watts_strogatz]{triad_closure_watts_strogatz()}} by invoking the
+\code{\link[igraph:bipartite_projection]{bipartite_projection()}} and
+\code{\link[igraph:transitivity]{transitivity()}} functions in \strong{igraph}.
 }
 \section{Measures of triad closure}{
  Each measure of triad closure is defined
@@ -265,8 +264,7 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-Original \strong{igraph} functions:
-\link[igraph:transitivity]{transitivity}
+Original \strong{igraph} functions: \code{\link[igraph:transitivity]{transitivity()}}
 
 Other triad closure functions:
 \code{\link[=dynamic_triad_closure]{dynamic_triad_closure()}},

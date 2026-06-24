@@ -126,6 +126,9 @@ instead of the quotient.}
 
 \item{...}{Arguments passed from deprecated functions to their replacements.}
 }
+\value{
+Output equivalent to that of \code{\link[=triad_closure]{triad_closure()}}.
+}
 \description{
 Given a triad census of a suitable scheme, calculate a global
 measure of triad closure for the associated affiliation network.

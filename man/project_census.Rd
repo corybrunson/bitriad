@@ -52,11 +52,14 @@ respectively, unless otherwise specified by \code{scheme}; otherwise it is
 treated as full.}
 
 \item{scheme}{Character; the type of triad census provided, matched to
-\code{"full"}, \code{"difference"} (also \code{"uniformity"}),
-\code{"binary"} (also \code{"structural"}), or \code{"simple"}.}
+\code{"full"}, \code{"difference"} (also \code{"uniformity"}), \code{"binary"} (also
+\code{"structural"}), or \code{"simple"}.}
 
 \item{add.names}{Logical; whether to label the rows and columns of the output
 matrix.}
+}
+\value{
+A list of \code{\link[=triad_census]{triad_census()}} outputs.
 }
 \description{
 Given a triad census of any scheme, construct a triad census of
@@ -65,14 +68,14 @@ a coarser (strictly less informative) scheme.
 \details{
 This function inputes an affiliation network triad census of any
 scheme and returns a list of triad censuses projected from it (not icluding
-itself). The schemes are, in order of resolution, \emph{full} (also called
-the \emph{affiliation network triad census} without qualification),
+itself). The schemes are, in order of resolution, \emph{full} (also called the
+\emph{affiliation network triad census} without qualification),
 \emph{difference}, \emph{binary}, and \emph{simple}. A final element of the
 output list is the total number of triads in the affiliation network. Each
 summary can be recovered from those before it, specifically by aggregating
 certain matrix entries to form a smaller matrix. The helper functions
-\verb{*_from_*_census()} project a census of each scheme to one of each
-coarser scheme.
+\verb{*_from_*_census()} project a census of each scheme to one of each coarser
+scheme.
 }
 \section{Triad censuses}{
  Three triad censuses are implemented for affiliation
@@ -135,6 +138,14 @@ is adapted from the algorithm of Batagelj and Mrvar (2001) for calculating
 the classical triad census for a directed graph.
 }
 
+\examples{
+data(women_group)
+group_full_census <- triad_census(women_group, scheme = "full")
+project_census(group_full_census, scheme = "full")
+group_binary_census <- triad_census(women_group, scheme = "binary")
+project_census(group_binary_census, scheme = "binary")
+
+}
 \references{
 Kreher, D.L., & Stinson, D.R. (1999). Combinatorial algorithms: generation,
 enumeration, and search. \emph{SIGACT News}, 30(1), 33--35.

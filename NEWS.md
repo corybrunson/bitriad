@@ -56,6 +56,12 @@ Key conversions:
 
 ## Other changes
 
+Bugs were patched in `as_an()`, `as_dynamic_an()`, and `schedule()`.
+
+Helpers `actor_attr()` and `event_attr()` built on `vertex_attr()` were added.
+
+Documentation was expanded where needed, including examples "Value" sections where absent.
+
 The vignette was rebuilt after some restyling of the code.
 
 Package description was revised and hyperlinks were updated per checks.

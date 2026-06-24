@@ -6,6 +6,7 @@
 #'   
 #' @name prettify
 #' @param graph An affiliation network.
+#' @returns The input `graph` with aesthetic node and link attributes (re)set.
 #' @examples
 #' library(igraph)
 #' data(women_clique)

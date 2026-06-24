@@ -130,15 +130,14 @@ of \eqn{w}, \eqn{x=\lambda_1}, \eqn{y=\lambda_2}, and \eqn{z=\lambda_3}.}
 
 \item{scale}{A scaling parameter for the entire plot.}
 
-\item{angdir}{A rotation direction parameter (\code{-1} for clockwise,
-\code{1} for counter-clockwise).}
+\item{angdir}{A rotation direction parameter (\code{-1} for clockwise, \code{1} for
+counter-clockwise).}
 
 \item{rot, rot_lambda, rot_w}{Angular orientation parameters for the entire
 triad, for the exclusive events of two actors, and for the inclusive events
 of all three actors.}
 
-\item{layout}{A two-column numeric matrix interpretable as a
-\link{layout}.}
+\item{layout}{A two-column numeric matrix interpretable as a \link{layout}.}
 
 \item{prettify}{Logical; whether to use \code{prettify_an} to adjust the
 aesthetics of a triad before plotting it.}
@@ -149,8 +148,20 @@ aesthetics of a triad before plotting it.}
 
 \item{...}{Additional arguments passed to \link[igraph:plot.igraph]{plot.igraph}.}
 }
+\value{
+An \code{igraph} object, a logical value, a matrix of plotting
+coordinates, or a list of summary parameters \code{lambda} and \code{w}.
+}
 \description{
 These functions create and operate on triads in affiliation
-networks. In this context, a \emph{triad} is the \link{schedule} of a
-subset of three distinct actors.
+networks. In this context, a \emph{triad} is the \link{schedule} of a subset of three
+distinct actors.
+}
+\examples{
+tr <- make_triad(lambda = c(3,1,1), w = 2)
+is_triad(tr)
+triad_class(tr)
+layout_triad(tr)
+plot_triad(tr)
+
 }

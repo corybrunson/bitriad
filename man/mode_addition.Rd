@@ -19,19 +19,20 @@ add_events(graph, nv, ..., attr = list(), actors = NULL)
 \item{mode}{Numeric or character; whether to project onto actors (\code{1} or
 \code{"actors"}) or onto events (\code{2} or \code{"events"}).}
 
-\item{nv, ..., attr}{Arguments passed to \link[igraph:add_vertices]{add_vertices}.
-Events added to a dynamic affiliation network should be given time
-attributes.}
+\item{nv, ..., attr}{Arguments passed to \code{\link[igraph:add_vertices]{add_vertices()}}. Events added to a
+dynamic affiliation network should be given time attributes.}
 
-\item{affiliations}{A vector, or list of length \code{nv} of vectors, of
-nodes in \code{graph} of mode \emph{not} \code{mode}, to be linked to the
-new node(s).}
+\item{affiliations}{A vector, or list of length \code{nv} of vectors, of nodes in
+\code{graph} of mode \emph{not} \code{mode}, to be linked to the new node(s).}
 
-\item{events}{A vector, or list of length \code{nv} of vectors, of event
-nodes in \code{graph}, to be linked to the new actor(s).}
+\item{events}{A vector, or list of length \code{nv} of vectors, of event nodes in
+\code{graph}, to be linked to the new actor(s).}
 
-\item{actors}{A vector, or list of length \code{nv} of vectors, of actor
-nodes in \code{graph}, to be linked to the new event(s).}
+\item{actors}{A vector, or list of length \code{nv} of vectors, of actor nodes in
+\code{graph}, to be linked to the new event(s).}
+}
+\value{
+The input \code{graph} with additional actor or event nodes added.
 }
 \description{
 These functions add actor and event nodes (as desired) to a
@@ -56,8 +57,7 @@ cbind(
 )
 }
 \seealso{
-Original \strong{igraph} functions:
-\link[igraph:add_vertices]{add_vertices}, \link[igraph:add_edges]{add_edges}
+Original \strong{igraph} functions: \code{\link[igraph:add_vertices]{add_vertices()}}, \code{\link[igraph:add_edges]{add_edges()}}
 
 Other modal queries and manipulations:
 \code{\link[=dualize]{dualize()}},

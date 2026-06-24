@@ -11,11 +11,18 @@ schedule(graph, actors = V(graph)[V(graph)$type == FALSE])
 
 \item{actors}{A vector of actor nodes in \code{graph}.}
 }
+\value{
+An \code{igraph} object induced from the input \code{graph}.
+}
 \description{
 Given an affiliation network and a vector of actor node IDs,
 produce the induced subgraph on the actor nodes together with all event
 nodes incident to at least two of them. This is called the actors'
 \emph{schedule}.
+}
+\examples{
+data(women_clique)
+schedule(women_clique, actors = V1(women_clique)[seq(3)])
 }
 \seealso{
 Other modal queries and manipulations:

@@ -13,6 +13,9 @@ prettify.an(graph)
 \arguments{
 \item{graph}{An affiliation network.}
 }
+\value{
+The input \code{graph} with aesthetic node and link attributes (re)set.
+}
 \description{
 Given an affiliation network, assign the node and link
 aesthetics to values that produce a neater visualization through

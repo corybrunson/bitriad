@@ -1,25 +1,23 @@
 #' @title Add actor and event nodes
-#'   
-#' @description These functions add actor and event nodes (as desired) to a 
+#'
+#' @description These functions add actor and event nodes (as desired) to a
 #'   graph while maintaining its (temporal) affiliation network structure.
-#'   
+#'
 #' @name mode_addition
 #' @family modal queries and manipulations
-#' @seealso Original **igraph** functions: 
-#'   [add_vertices], [add_edges]
+#' @seealso Original **igraph** functions: [add_vertices()], [add_edges()]
 #' @param graph An affiliation network.
 #' @param mode Numeric or character; whether to project onto actors (`1` or
 #'   `"actors"`) or onto events (`2` or `"events"`).
-#' @param nv,...,attr Arguments passed to [add_vertices]. 
-#'   Events added to a dynamic affiliation network should be given time 
-#'   attributes.
-#' @param affiliations A vector, or list of length `nv` of vectors, of 
-#'   nodes in `graph` of mode *not* `mode`, to be linked to the
-#'   new node(s).
-#' @param actors A vector, or list of length `nv` of vectors, of actor 
-#'   nodes in `graph`, to be linked to the new event(s).
-#' @param events A vector, or list of length `nv` of vectors, of event 
-#'   nodes in `graph`, to be linked to the new actor(s).
+#' @param nv,...,attr Arguments passed to [add_vertices()]. Events added to a
+#'   dynamic affiliation network should be given time attributes.
+#' @param affiliations A vector, or list of length `nv` of vectors, of nodes in
+#'   `graph` of mode *not* `mode`, to be linked to the new node(s).
+#' @param actors A vector, or list of length `nv` of vectors, of actor nodes in
+#'   `graph`, to be linked to the new event(s).
+#' @param events A vector, or list of length `nv` of vectors, of event nodes in
+#'   `graph`, to be linked to the new actor(s).
+#' @returns The input `graph` with additional actor or event nodes added.
 #' @examples
 #' data(women_clique)
 #' plot(prettify_an(add_actors(women_clique, nv = 1, events = c(7, 9))))

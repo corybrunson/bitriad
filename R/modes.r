@@ -1,19 +1,20 @@
 #' @title Actor and event node iteration and attribute querying and assignment
-#'   
+#'
 #' @description These functions return actor and event node lists.
-#'   
+#'
 #' @name modes
 #' @family modal queries and manipulations
-#' @seealso Original **igraph** functions: [V],
-#'   [set_vertex_attr]
+#' @seealso Original **igraph** functions: [V()], [vertex_attr()],
+#'   [set_vertex_attr()]
 #' @param graph An affiliation network.
 #' @param name  The name of the attribute to set.
-#' @param index An optional node sequence to set the attributes of a subset of 
+#' @param index An optional node sequence to set the attributes of a subset of
 #'   actor or event nodes.
 #' @param x An affiliation network.
-#' @param value The new value of the attribute for all (or `index`) actor 
-#'   or event nodes.
-#' @return `graph`, with the actor or event attribute added or set.
+#' @param value The new value of the attribute for all (or `index`) actor or
+#'   event nodes.
+#' @returns The value of the actor or event attribute, or the input `graph` with
+#'   the attribute set.
 #' @examples
 #' data(women_clique)
 #' print(V1(women_clique))
@@ -35,6 +36,20 @@ V1 <- function(graph) {
 V2 <- function(graph) {
   stopifnot(is_an(graph))
   V(graph)[V(graph)$type == TRUE]
+}
+
+#' @rdname modes
+#' @export
+actor_attr <- function(graph, name, index = V1(graph)) {
+  stopifnot(is_an(graph))
+  vertex_attr(graph = graph, name = name, index = index)
+}
+
+#' @rdname modes
+#' @export
+event_attr <- function(graph, name, index = V2(graph)) {
+  stopifnot(is_an(graph))
+  vertex_attr(graph = graph, name = name, index = index)
 }
 
 #' @rdname modes

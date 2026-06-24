@@ -35,6 +35,7 @@
 #' @param counts Logical; whether to return open and closed wedge counts 
 #'   instead of the quotient.
 #' @param ... Arguments passed from deprecated functions to their replacements.
+#' @returns Output equivalent to that of [triad_closure()].
 #' @export
 triad_closure_from_census <- function(
   census, scheme = NULL,

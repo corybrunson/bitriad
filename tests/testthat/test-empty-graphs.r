@@ -7,7 +7,7 @@ test_that("empty graphs are not all recognized as ANs", {
   expect_false(is_dynamic_an(g))
 })
 
-g <- as_an(g, add.type.attribute = TRUE)
+g <- as_an(g, map_type = TRUE)
 
 test_that("empty graphs with 'type' attributes are recognized as ANs", {
   expect_true(is_an(g))

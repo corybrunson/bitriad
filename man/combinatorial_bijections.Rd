@@ -49,6 +49,9 @@ decreasing order.}
 \item{lambda}{Integer vector; a partition of at most 3 parts, with parts in
 non-increasing order.}
 }
+\value{
+Numeric vectors.
+}
 \description{
 These functions biject among partitions of at most 3 parts,
 3-subsets of natural numbers, and indices for the lexicographic total

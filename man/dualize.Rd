@@ -15,6 +15,9 @@ dual.an(graph)
 \arguments{
 \item{graph}{An affiliation network.}
 }
+\value{
+The input \code{graph} with the \code{"type"} attribute logically negated.
+}
 \description{
 This function obtains the dual of an affiliation network, in
 which the actors and events have swapped roles. To do this, it negates
@@ -23,8 +26,8 @@ node ids accordingly.
 }
 \examples{
 data(women_clique)
-tab <- table(V(women_clique)$type)
-proj <- actor_projection(dualize(women_clique))
+( tab <- table(V(women_clique)$type) )
+( proj <- actor_projection(dualize(women_clique)) )
 vcount(proj) == tab[2]
 }
 \seealso{

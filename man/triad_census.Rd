@@ -71,21 +71,20 @@ simple.triad.census(graph, add.names = TRUE)
 \arguments{
 \item{graph}{An \strong{igraph} object, usually an affiliation network.}
 
-\item{...}{Additional arguments (currently \code{use.integer} and
-\code{verbose}) passed to the \code{method} function.}
+\item{...}{Additional arguments (currently \code{use.integer} and \code{verbose})
+passed to the \code{method} function.}
 
 \item{add.names}{Logical; whether to label the rows and columns of the output
 matrix.}
 
 \item{scheme}{Character; the type of triad census to calculate, matched to
-\code{"full"}, \code{"difference"} (also \code{"uniformity"}),
-\code{"binary"} (also \code{"structural"}), or \code{"simple"}.}
+\code{"full"}, \code{"difference"} (also \code{"uniformity"}), \code{"binary"} (also
+\code{"structural"}), or \code{"simple"}.}
 
 \item{method}{Character; the triad census method to use. Currently only
-\code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an
-inefficient but reliable implementation in R from the first package version
-that invokes the \link{simple_triad_census} of the
-\link{actor_projection} of \code{graph}.}
+\code{"batagelj_mrvar"} is implemented. \code{"projection"} calls an inefficient but
+reliable implementation in R from the first package version that invokes
+the \code{\link[=simple_triad_census]{simple_triad_census()}} of the \code{\link[=actor_projection]{actor_projection()}} of \code{graph}.}
 
 \item{use.integer}{Logical; whether to use the \code{IntegerMatrix} class in
 \strong{Rcpp} rather than the default \code{NumericMatrix}.}
@@ -93,8 +92,8 @@ that invokes the \link{simple_triad_census} of the
 \item{verbose}{Logical; whether to display progress bars.}
 }
 \value{
-A matrix counts of triad congruence classes, with row indices
-reflecting pairwise exclusive events and column indices reflecting
+An integer matrix of counts of triad congruence classes, with row
+indices reflecting pairwise exclusive events and column indices reflecting
 triadwise events.
 }
 \description{
@@ -102,14 +101,14 @@ Given an affiliation network, tally all actor triads by
 isomorphism or other congruence class.
 }
 \details{
-The \verb{triad_census_*} functions implement the several triad
+The \verb{triad_census_*()} functions implement the several triad
 censuses described below. Each census is based on a congruence relation
 among the triads in an affiliation network, and each function returns a
 matrix (or, in the "simple" case, a vector) recording the number of triads
 in each congruence class.
 
-The function \code{triad_census} supercedes
-\link{triad_census} but calls in case \code{graph} is not an
+The function \code{triad_census()} masks
+\code{\link[=triad_census]{triad_census()}} but calls it in case \code{graph} is not an
 affiliation network.
 }
 \section{Triad censuses}{
@@ -190,8 +189,7 @@ Brunson, J.C. (2015). Triadic analysis of affiliation networks. \emph{Network
 Science}, 3(4), 480--508.
 }
 \seealso{
-Original \strong{igraph} functions:
-\link{triad_census}
+Original \strong{igraph} functions: \code{\link[=triad_census]{triad_census()}}
 
 Other triad census functions:
 \code{\link[=project_census]{project_census()}},

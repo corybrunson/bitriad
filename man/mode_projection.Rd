@@ -24,27 +24,28 @@ event.projection(graph, ...)
 \item{mode}{Numeric or character; whether to project onto actors (\code{1} or
 \code{"actors"}) or onto events (\code{2} or \code{"events"}).}
 
-\item{name}{Character; the attribute of the actor or event nodes in
-\code{graph} to use as names for the nodes in the projection. If \code{NA},
-node IDs are converted to characters and used. If \code{NULL}, no names are
-assigned.}
+\item{name}{Character; the attribute of the actor or event nodes in \code{graph}
+to use as names for the nodes in the projection. If \code{NA}, node IDs are
+converted to characters and used. If \code{NULL}, no names are assigned.}
 
 \item{...}{Arguments passed to \code{mode_projection}.}
 }
+\value{
+An \code{igraph} object with nodes corresponding to one \code{"type"} of the
+input \code{graph}.
+}
 \description{
-These functions use \link[igraph:bipartite_projection]{bipartite_projection} to
-compute the projections of an affiliation network onto the actor or event
-nodes.
+These functions use \code{\link[igraph:bipartite_projection]{bipartite_projection()}} to compute the
+projections of an affiliation network onto the actor or event nodes.
 }
 \examples{
 data(chicago1960s)
-tab <- table(V(chicago1960s)$type)
-proj <- actor_projection(chicago1960s)
+( tab <- table(V(chicago1960s)$type) )
+( proj <- actor_projection(chicago1960s) )
 vcount(proj) == tab[1]
-proj <- event_projection(chicago1960s)
+( proj <- event_projection(chicago1960s) )
 vcount(proj) == tab[2]
 }
 \seealso{
-Original \strong{igraph} functions:
-\link[igraph:bipartite_projection]{bipartite_projection}
+Original \strong{igraph} functions: \code{\link[igraph:bipartite_projection]{bipartite_projection()}}
 }

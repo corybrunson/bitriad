@@ -3,14 +3,14 @@
 #' @description Given an affiliation network, tally all actor triads by 
 #'   isomorphism or other congruence class.
 #'   
-#' @details The `triad_census_*` functions implement the several triad 
+#' @details The `triad_census_*()` functions implement the several triad 
 #'   censuses described below. Each census is based on a congruence relation 
 #'   among the triads in an affiliation network, and each function returns a 
 #'   matrix (or, in the "simple" case, a vector) recording the number of triads 
 #'   in each congruence class.
 #'   
-#'   The function `triad_census` supercedes 
-#'   [triad_census] but calls in case `graph` is not an
+#'   The function `triad_census()` masks 
+#'   [triad_census()] but calls it in case `graph` is not an
 #'   affiliation network.
 #'   
 #' @template triadcensus
@@ -18,26 +18,24 @@
 
 #' @name triad_census
 #' @family triad census functions
-#' @seealso Original **igraph** functions: 
-#'   [triad_census]
+#' @seealso Original **igraph** functions: [triad_census()]
 #' @param graph An **igraph** object, usually an affiliation network.
-#' @param ... Additional arguments (currently `use.integer` and
-#'   `verbose`) passed to the `method` function.
+#' @param ... Additional arguments (currently `use.integer` and `verbose`)
+#'   passed to the `method` function.
 #' @param add.names Logical; whether to label the rows and columns of the output
 #'   matrix.
-#' @param scheme Character; the type of triad census to calculate, matched to 
-#'   `"full"`, `"difference"` (also `"uniformity"`), 
-#'   `"binary"` (also `"structural"`), or `"simple"`.
-#' @param method Character; the triad census method to use. Currently only 
-#'   `"batagelj_mrvar"` is implemented. `"projection"` calls an 
-#'   inefficient but reliable implementation in R from the first package version
-#'   that invokes the [simple_triad_census] of the 
-#'   [actor_projection] of `graph`.
+#' @param scheme Character; the type of triad census to calculate, matched to
+#'   `"full"`, `"difference"` (also `"uniformity"`), `"binary"` (also
+#'   `"structural"`), or `"simple"`.
+#' @param method Character; the triad census method to use. Currently only
+#'   `"batagelj_mrvar"` is implemented. `"projection"` calls an inefficient but
+#'   reliable implementation in R from the first package version that invokes
+#'   the [simple_triad_census()] of the [actor_projection()] of `graph`.
 #' @param use.integer Logical; whether to use the `IntegerMatrix` class in
 #'   **Rcpp** rather than the default `NumericMatrix`.
 #' @param verbose Logical; whether to display progress bars.
-#' @return A matrix counts of triad congruence classes, with row indices 
-#'   reflecting pairwise exclusive events and column indices reflecting 
+#' @returns An integer matrix of counts of triad congruence classes, with row
+#'   indices reflecting pairwise exclusive events and column indices reflecting
 #'   triadwise events.
 #' @examples
 #' data(women_clique)

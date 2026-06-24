@@ -17,14 +17,21 @@ project.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 \item{vids}{A subset of actor node ids at which to evaluate the local
 clustering coefficient.}
 }
+\value{
+If \code{type} is \code{"global"}, the global clustering coefficient of the
+network (a single numeric value); if \code{"local"}, the local clustering
+coefficients of the actors (a numeric vector); otherwise, a 2-column
+matrix, each row of which gives the number of wedges and the number of
+closed wedges centered at each actor.
+}
 \description{
 Each clustering coefficient can be defined as the proportion of "wedges" that
 are "closed", for suitable definitions of both terms. The main function,
-transitivity_an, calls one of the wedge functions and computes the
-global or local clustering coefficient of the given affiliation network,
-and if the local, then at the given nodes. (\code{project_transitivity}
-cheats by using the native \code{transitivity} but produces output consistent
-with the other variants of \code{transitivity_an}.)
+\code{\link[=transitivity_an]{transitivity_an()}}, calls one of the wedge functions and computes the global
+or local clustering coefficient of the given affiliation network, and if the
+local, then at the given nodes. (\code{project_transitivity} cheats by using
+\code{\link[igraph:transitivity]{transitivity()}} but produces output consistent with the other
+variants of \code{transitivity_an}.)
 }
 \seealso{
 Other triad closure functions:

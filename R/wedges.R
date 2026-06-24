@@ -26,7 +26,7 @@
 #'   `p`, `q`, `r`: `w` attended by all three, `x`
 #'   attended by `p` and `q` only, `y` attended by `q` and
 #'   `r` only, and `z` attended by `p` and `r` only.
-#' @return A two-element list consisting of (1) a 3- or 5-row integer matrix of 
+#' @returns A two-element list consisting of (1) a 3- or 5-row integer matrix of 
 #'   (representatives of) all (congruence classes of) wedges in `graph` 
 #'   centered at `actor`, and (2) a logical vector indicating whether each 
 #'   wedge is closed.

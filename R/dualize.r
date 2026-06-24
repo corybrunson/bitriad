@@ -7,12 +7,13 @@
 #'   
 #' @name dualize
 #' @family modal queries and manipulations
-#' @param graph An affiliation network.
 #' @import igraph
+#' @param graph An affiliation network.
+#' @returns The input `graph` with the `"type"` attribute logically negated.
 #' @examples
 #' data(women_clique)
-#' tab <- table(V(women_clique)$type)
-#' proj <- actor_projection(dualize(women_clique))
+#' ( tab <- table(V(women_clique)$type) )
+#' ( proj <- actor_projection(dualize(women_clique)) )
 #' vcount(proj) == tab[2]
 #' @export
 dualize <- function(graph) {

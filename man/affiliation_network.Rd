@@ -12,15 +12,19 @@ is_an(graph)
 
 is.an(graph)
 
-as_an(graph, add.type.attribute = FALSE)
+as_an(graph, map_type = FALSE)
 
-as.an(graph, add.type.attribute = FALSE)
+as.an(graph, map_type = FALSE)
 }
 \arguments{
 \item{graph}{An \code{igraph} object.}
 
-\item{add.type.attribute}{Logical; whether to introduce a \code{type}
-attribute if \code{graph} has none before testing for bipartite structure.}
+\item{map_type}{Logical; whether to add a \code{type} attribute for bipartite
+structure if \code{graph} admits one.}
+}
+\value{
+For \code{is_an()}, a logical value; for \code{as_an()}, the input \code{graph}
+with a \code{"type"} attribute.
 }
 \description{
 Test \code{igraph} objects for affiliation network structure or
@@ -29,23 +33,30 @@ impose such structure if possible.
 \details{
 An affiliation network is a bipartite graph whose nodes are
 classified as actors and events in such a way that all links are between
-actors and events. The function \link[igraph:is_bipartite]{is_bipartite} tests an
-\code{igraph} object for a \code{type} attribute, which is intended to
-bipartition of the nodes. It does not test whether the links respect this
-partition. The function \code{is_an} tests this, as well as the condition
-that actor nodes precede event nodes in their node IDs, which simplifies
-some other functions. The function \code{as_an} coerces an \code{igraph} object
-to an affiliation network by verifying that the object is bipartite and
-minimally permuting the node IDs. If \code{graph} has no \code{type}
-attribute and \code{add.type.attribute} is \code{FALSE}, then \code{as_an}
-throws an error; if \code{add.type.attribute} is \code{TRUE}, then
-\code{as_an} introduces a logical \code{type} attribute that takes the
-value \code{FALSE} at the first node (by node ID) in each connected
-component and \code{TRUE} or \code{FALSE} at the remaining nodes according
-as they are an odd or even number of hops from the first.
+actors and events. The function \code{\link[igraph:is_bipartite]{is_bipartite()}} tests an \code{igraph} object
+for a \code{type} attribute, which is intended to bipartition of the nodes. It
+does not test whether the links respect this partition. The function
+\code{is_an} tests this, as well as the condition that actor nodes precede event
+nodes in their node IDs, which simplifies some other functions. The
+function \code{as_an} coerces an \code{igraph} object to an affiliation network by
+verifying that the object is bipartite and minimally permuting the node
+IDs. If \code{graph} has no \code{type} attribute and \code{map_type} is \code{FALSE}, then
+\code{as_an} throws an error; if \code{map_type} is \code{TRUE}, then \code{as_an} calls
+\code{\link[igraph:bipartite_mapping]{bipartite_mapping()}} to add a logical \code{type} attribute that takes the
+value \code{FALSE} at the first node (by node ID) in each connected component
+and \code{TRUE} or \code{FALSE} at the remaining nodes. (If this cannot be done, an
+error is thrown.)
+}
+\examples{
+graph <- make_graph(c( 1,2, 1,4, 1,6, 3,6, 5,6, 7,8, 9,8 ))
+is_an(graph)
+# as_an(graph) # throws an error
+an_graph <- as_an(graph, map_type = TRUE)
+is_an(an_graph)
+
 }
 \seealso{
-Original \strong{igraph} functions: \link[igraph:is_igraph]{is_igraph}
+Original \strong{igraph} functions: \code{\link[igraph:is_igraph]{is_igraph()}}
 
 Other network testing and coercion:
 \code{\link{dynamic_an}}

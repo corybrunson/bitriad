@@ -1,38 +1,46 @@
 #' @title Affiliation network triads
-#'   
-#' @description These functions create and operate on triads in affiliation 
-#'   networks. In this context, a *triad* is the [schedule] of a 
-#'   subset of three distinct actors.
-#'   
+#'
+#' @description These functions create and operate on triads in affiliation
+#'   networks. In this context, a *triad* is the [schedule] of a subset of three
+#'   distinct actors.
+#'
 #' @name triad
-#' @param lambda A non-negative integer vector of length three indicating the 
-#'   number of events attended by each pair of actors and not by the third 
+#' @param lambda A non-negative integer vector of length three indicating the
+#'   number of events attended by each pair of actors and not by the third
 #'   (*exclusive* events).
-#' @param w A non-negative integer indicating the number of events attended by 
+#' @param w A non-negative integer indicating the number of events attended by
 #'   all three actors (*inclusive* events).
-#' @param actor_names,event_names Actor and event names (actor names default to 
+#' @param actor_names,event_names Actor and event names (actor names default to
 #'   "p", "q", and "r"; event names default to positive integers).
 #' @param graph An affiliation network, in some cases must be a triad.
 #' @param actors A vector of three actor nodes in `graph`.
-#' @param as.partition Whether to sort the exclusive events, versus reporting 
+#' @param as.partition Whether to sort the exclusive events, versus reporting
 #'   them in order of the nodes; defaults to `TRUE`.
-#' @param format Character matched to "list" or "vector"; whether to return the 
+#' @param format Character matched to "list" or "vector"; whether to return the
 #'   triad class as a list of \eqn{\lambda=(x,y,z)} and \eqn{w} or as a vector
 #'   of \eqn{w}, \eqn{x=\lambda_1}, \eqn{y=\lambda_2}, and \eqn{z=\lambda_3}.
 #' @param triad An affiliation network with exactly three distinct actors.
 #' @param scale A scaling parameter for the entire plot.
-#' @param angdir A rotation direction parameter (`-1` for clockwise, 
-#'   `1` for counter-clockwise).
-#' @param rot,rot_lambda,rot_w Angular orientation parameters for the entire 
+#' @param angdir A rotation direction parameter (`-1` for clockwise, `1` for
+#'   counter-clockwise).
+#' @param rot,rot_lambda,rot_w Angular orientation parameters for the entire
 #'   triad, for the exclusive events of two actors, and for the inclusive events
 #'   of all three actors.
-#' @param layout A two-column numeric matrix interpretable as a 
-#'   [layout].
-#' @param prettify Logical; whether to use `prettify_an` to adjust the 
+#' @param layout A two-column numeric matrix interpretable as a [layout].
+#' @param prettify Logical; whether to use `prettify_an` to adjust the
 #'   aesthetics of a triad before plotting it.
 #' @param cex Node size scaling parameter.
 #' @param xlim,ylim Custom bounds on the horizontal and vertical axes.
 #' @param ... Additional arguments passed to [plot.igraph].
+#' @returns An `igraph` object, a logical value, a matrix of plotting
+#'   coordinates, or a list of summary parameters `lambda` and `w`.
+#' @examples
+#' tr <- make_triad(lambda = c(3,1,1), w = 2)
+#' is_triad(tr)
+#' triad_class(tr)
+#' layout_triad(tr)
+#' plot_triad(tr)
+#' 
 NULL
 
 #' @rdname triad

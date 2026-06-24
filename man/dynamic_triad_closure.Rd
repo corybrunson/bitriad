@@ -62,6 +62,9 @@ dynamic_triad_closure_projection(graph, memory = Inf, type = "global")
 \item{memory}{Numeric; minimum delay of wedge formation since would-have-been
 closing events.}
 }
+\value{
+A numeric vector of the same length as \code{actors}.
+}
 \description{
 Given an affiliation network with time-stamped events, compute the proportion
 of centered triples at which an open wedge exists at some time that is closed

@@ -1,38 +1,38 @@
 #' Affiliation network clustering coefficients
-#' 
-#' This function computes a given flavor of transitivity (triadic closure) on a 
-#' given affiliation network. The calculations are performed locally. Each 
+#'
+#' This function computes a given flavor of transitivity (triadic closure) on a
+#' given affiliation network. The calculations are performed locally. Each
 #' flavor is defined as a proportion of "wedges" that are "closed", for suitable
-#' definitions of both terms. The function `transitivity_an` is a shell
-#' that proceeds across actors and computes wedges using the provided 
-#' `wedgeFun`. These functions count the "wedges", and among them the 
-#' "closed" ones, centered at a given actor node in a given affiliation network.
-#' The triads method `transitivity_an_triads` first classifies every triad
-#' centered at each node. The appropriate formula then counts the wedges and
-#' closed wedges at each. The method is slower for a single flavor but can be
-#' used to produce multiple flavors with negligible additional computational
-#' cost. The wedges method `transitivity_an_wedges` relies on a separate
-#' "wedge function" for each statistic. The algorithm calls the appropriate
-#' wedge function to run over the necessary wedge centers and return a wedge
-#' count matrix, which is returned back into `transitivity_an` for
-#' outputting.
-#' 
+#' definitions of both terms. The function `transitivity_an` is a shell that
+#' proceeds across actors and computes wedges using the provided `wedgeFun`.
+#' These functions count the "wedges", and among them the "closed" ones,
+#' centered at a given actor node in a given affiliation network. The triads
+#' method `transitivity_an_triads` first classifies every triad centered at each
+#' node. The appropriate formula then counts the wedges and closed wedges at
+#' each. The method is slower for a single flavor but can be used to produce
+#' multiple flavors with negligible additional computational cost. The wedges
+#' method `transitivity_an_wedges` relies on a separate "wedge function" for
+#' each statistic. The algorithm calls the appropriate wedge function to run
+#' over the necessary wedge centers and return a wedge count matrix, which is
+#' returned back into `transitivity_an` for outputting.
+#'
 #' @name transitivity_an
 #' @family triad closure functions
 #' @param graph An affiliation network; see `is_an`.
-#' @param type Character; the type of clustering coefficient (defaults to 
+#' @param type Character; the type of clustering coefficient (defaults to
 #'   "global").
-#' @param vids A subset of actor node ids at which to evaluate the local 
+#' @param vids A subset of actor node ids at which to evaluate the local
 #'   clustering coefficient.
 #' @param wedgeFun The wedge function; overrides `flavor`.
-#' @param flavor The flavor of transitivity to be used; overridden by 
+#' @param flavor The flavor of transitivity to be used; overridden by
 #'   `wedgeFun`.
 #' @param add.names Logical; whether to label the matrix rows and columns.
 #' @param triads A matrix of centered triads.
-#' @return If `type` is "global", the global clustering coefficient of the 
-#'   network; if "local", the local clustering coefficients of the actors; 
-#'   otherwise, a 2-column matrix, each row of which gives the number of wedges 
-#'   and the number of closed wedges centered at each actor.
+#' @returns If `type` is `"global"`, the global clustering coefficient of the
+#'   network (a single numeric value); if `"local"`, the local clustering
+#'   coefficients of the actors (a numeric vector); otherwise, a 2-column
+#'   matrix, each row of which gives the number of wedges and the number of
+#'   closed wedges centered at each actor.
 #' @export
 transitivity_an <- function(
   graph,
