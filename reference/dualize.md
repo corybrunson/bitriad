@@ -21,6 +21,10 @@ dual.an(graph)
 
   An affiliation network.
 
+## Value
+
+The input `graph` with the `"type"` attribute logically negated.
+
 ## See also
 
 Other modal queries and manipulations:
@@ -33,8 +37,17 @@ Other modal queries and manipulations:
 
 ``` r
 data(women_clique)
-tab <- table(V(women_clique)$type)
-proj <- actor_projection(dualize(women_clique))
+( tab <- table(V(women_clique)$type) )
+#> 
+#> FALSE  TRUE 
+#>     5     5 
+( proj <- actor_projection(dualize(women_clique)) )
+#> IGRAPH 91b91a8 UNW- 5 9 -- 
+#> + attr: name (v/c), weight (e/n)
+#> + edges from 91b91a8 (vertex names):
+#> [1] Bridge--Movies   Bridge--Dance    Bridge--Dinner   Bridge--Visiting
+#> [5] Dinner--Visiting Dinner--Movies   Dinner--Dance    Movies--Dance   
+#> [9] Dance --Visiting
 vcount(proj) == tab[2]
 #> TRUE 
 #> TRUE 

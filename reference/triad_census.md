@@ -80,8 +80,8 @@ simple.triad.census(graph, add.names = TRUE)
   Character; the triad census method to use. Currently only
   `"batagelj_mrvar"` is implemented. `"projection"` calls an inefficient
   but reliable implementation in R from the first package version that
-  invokes the simple_triad_census of the
-  [actor_projection](http://corybrunson.github.io/bitriad/reference/mode_projection.md)
+  invokes the `simple_triad_census()` of the
+  [`actor_projection()`](http://corybrunson.github.io/bitriad/reference/mode_projection.md)
   of `graph`.
 
 - use.integer:
@@ -95,20 +95,20 @@ simple.triad.census(graph, add.names = TRUE)
 
 ## Value
 
-A matrix counts of triad congruence classes, with row indices reflecting
-pairwise exclusive events and column indices reflecting triadwise
-events.
+An integer matrix of counts of triad congruence classes, with row
+indices reflecting pairwise exclusive events and column indices
+reflecting triadwise events.
 
 ## Details
 
-The `triad_census_*` functions implement the several triad censuses
+The `triad_census_*()` functions implement the several triad censuses
 described below. Each census is based on a congruence relation among the
 triads in an affiliation network, and each function returns a matrix
 (or, in the "simple" case, a vector) recording the number of triads in
 each congruence class.
 
-The function `triad_census` supercedes triad_census but calls in case
-`graph` is not an affiliation network.
+The function `triad_census()` masks `triad_census()` but calls it in
+case `graph` is not an affiliation network.
 
 ## Triad censuses
 
@@ -188,7 +188,7 @@ Science*, 3(4), 480–508.
 
 ## See also
 
-Original **igraph** functions: triad_census
+Original **igraph** functions: `triad_census()`
 
 Other triad census functions:
 [`project_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md),

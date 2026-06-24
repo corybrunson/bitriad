@@ -176,3 +176,37 @@ plotTriad(
 
   Additional arguments passed to
   [plot.igraph](https://r.igraph.org/reference/plot.igraph.html).
+
+## Value
+
+An `igraph` object, a logical value, a matrix of plotting coordinates,
+or a list of summary parameters `lambda` and `w`.
+
+## Examples
+
+``` r
+tr <- make_triad(lambda = c(3,1,1), w = 2)
+is_triad(tr)
+#> [1] TRUE
+triad_class(tr)
+#> $lambda
+#> [1] 3 1 1
+#> 
+#> $w
+#> [1] 2
+#> 
+layout_triad(tr)
+#>                [,1]        [,2]
+#>  [1,]  6.123234e-17  1.00000000
+#>  [2,]  8.660254e-01 -0.50000000
+#>  [3,] -8.660254e-01 -0.50000000
+#>  [4,]  6.062178e-01  0.35000000
+#>  [5,]  1.125833e+00  0.35000000
+#>  [6,]  8.660254e-01  0.80000000
+#>  [7,] -1.836970e-16 -1.00000000
+#>  [8,] -8.660254e-01  0.50000000
+#>  [9,]  2.897777e-01  0.07764571
+#> [10,] -2.897777e-01 -0.07764571
+plot_triad(tr)
+
+```

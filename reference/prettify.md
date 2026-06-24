@@ -19,6 +19,10 @@ prettify.an(graph)
 
   An affiliation network.
 
+## Value
+
+The input `graph` with aesthetic node and link attributes (re)set.
+
 ## Examples
 
 ``` r

@@ -55,6 +55,23 @@ and minimally revised, with summaries copied below.
 
 ### Other changes
 
+Bugs were patched in
+[`as_an()`](http://corybrunson.github.io/bitriad/reference/affiliation_network.md),
+[`as_dynamic_an()`](http://corybrunson.github.io/bitriad/reference/dynamic_an.md),
+and
+[`schedule()`](http://corybrunson.github.io/bitriad/reference/schedule.md).
+
+Helpers
+[`actor_attr()`](http://corybrunson.github.io/bitriad/reference/modes.md)
+and
+[`event_attr()`](http://corybrunson.github.io/bitriad/reference/modes.md)
+built on
+[`vertex_attr()`](https://r.igraph.org/reference/vertex_attr.html) were
+added.
+
+Documentation was expanded where needed, including examples “Value”
+sections where absent.
+
 The vignette was rebuilt after some restyling of the code.
 
 Package description was revised and hyperlinks were updated per checks.

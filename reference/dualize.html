@@ -67,6 +67,10 @@ node ids accordingly.</p>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>The input <code>graph</code> with the <code>"type"</code> attribute logically negated.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other modal queries and manipulations:
 <code><a href="mode_addition.html">mode_addition</a></code>,
@@ -78,8 +82,17 @@ node ids accordingly.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">women_clique</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">V</span><span class="op">(</span><span class="va">women_clique</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">proj</span> <span class="op">&lt;-</span> <span class="fu"><a href="mode_projection.html">actor_projection</a></span><span class="op">(</span><span class="fu">dualize</span><span class="op">(</span><span class="va">women_clique</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span> <span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">V</span><span class="op">(</span><span class="va">women_clique</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5     5 </span>
+<span class="r-in"><span><span class="op">(</span> <span class="va">proj</span> <span class="op">&lt;-</span> <span class="fu"><a href="mode_projection.html">actor_projection</a></span><span class="op">(</span><span class="fu">dualize</span><span class="op">(</span><span class="va">women_clique</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 91b91a8 UNW- 5 9 -- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + attr: name (v/c), weight (e/n)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 91b91a8 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Bridge--Movies   Bridge--Dance    Bridge--Dinner   Bridge--Visiting</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] Dinner--Visiting Dinner--Movies   Dinner--Dance    Movies--Dance   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [9] Dance --Visiting</span>
 <span class="r-in"><span><span class="fu">vcount</span><span class="op">(</span><span class="va">proj</span><span class="op">)</span> <span class="op">==</span> <span class="va">tab</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE </span>

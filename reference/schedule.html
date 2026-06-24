@@ -67,6 +67,10 @@ nodes incident to at least two of them. This is called the actors'
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>An <code>igraph</code> object induced from the input <code>graph</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other modal queries and manipulations:
 <code><a href="dualize.html">dualize()</a></code>,
@@ -75,6 +79,17 @@ nodes incident to at least two of them. This is called the actors'
 <code><a href="modes.html">modes</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">women_clique</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">schedule</span><span class="op">(</span><span class="va">women_clique</span>, actors <span class="op">=</span> <span class="fu"><a href="modes.html">V1</a></span><span class="op">(</span><span class="va">women_clique</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 021258e UN-B 6 6 -- </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + attr: type (v/l), name (v/c)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 021258e (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Miss A--Bridge Miss A--Movies Miss A--Dance  Miss B--Movies Miss B--Dance </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] Miss C--Bridge</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

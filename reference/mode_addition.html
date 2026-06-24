@@ -66,31 +66,32 @@ graph while maintaining its (temporal) affiliation network structure.</p>
 
 
 <dt id="arg-nv-attr">nv, ..., attr<a class="anchor" aria-label="anchor" href="#arg-nv-attr"></a></dt>
-<dd><p>Arguments passed to <a href="https://r.igraph.org/reference/add_vertices.html" class="external-link">add_vertices</a>.
-Events added to a dynamic affiliation network should be given time
-attributes.</p></dd>
+<dd><p>Arguments passed to <code><a href="https://r.igraph.org/reference/add_vertices.html" class="external-link">add_vertices()</a></code>. Events added to a
+dynamic affiliation network should be given time attributes.</p></dd>
 
 
 <dt id="arg-affiliations">affiliations<a class="anchor" aria-label="anchor" href="#arg-affiliations"></a></dt>
-<dd><p>A vector, or list of length <code>nv</code> of vectors, of
-nodes in <code>graph</code> of mode <em>not</em> <code>mode</code>, to be linked to the
-new node(s).</p></dd>
+<dd><p>A vector, or list of length <code>nv</code> of vectors, of nodes in
+<code>graph</code> of mode <em>not</em> <code>mode</code>, to be linked to the new node(s).</p></dd>
 
 
 <dt id="arg-events">events<a class="anchor" aria-label="anchor" href="#arg-events"></a></dt>
-<dd><p>A vector, or list of length <code>nv</code> of vectors, of event
-nodes in <code>graph</code>, to be linked to the new actor(s).</p></dd>
+<dd><p>A vector, or list of length <code>nv</code> of vectors, of event nodes in
+<code>graph</code>, to be linked to the new actor(s).</p></dd>
 
 
 <dt id="arg-actors">actors<a class="anchor" aria-label="anchor" href="#arg-actors"></a></dt>
-<dd><p>A vector, or list of length <code>nv</code> of vectors, of actor
-nodes in <code>graph</code>, to be linked to the new event(s).</p></dd>
+<dd><p>A vector, or list of length <code>nv</code> of vectors, of actor nodes in
+<code>graph</code>, to be linked to the new event(s).</p></dd>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>The input <code>graph</code> with additional actor or event nodes added.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Original <strong>igraph</strong> functions:
-<a href="https://r.igraph.org/reference/add_vertices.html" class="external-link">add_vertices</a>, <a href="https://r.igraph.org/reference/add_edges.html" class="external-link">add_edges</a></p>
+    <div class="dont-index"><p>Original <strong>igraph</strong> functions: <code><a href="https://r.igraph.org/reference/add_vertices.html" class="external-link">add_vertices()</a></code>, <code><a href="https://r.igraph.org/reference/add_edges.html" class="external-link">add_edges()</a></code></p>
 <p>Other modal queries and manipulations:
 <code><a href="dualize.html">dualize()</a></code>,
 <code><a href="mode_counts.html">mode_counts</a></code>,
@@ -154,6 +155,7 @@ nodes in <code>graph</code>, to be linked to the new event(s).</p></dd>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'dynamic_wedges' is experimental.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'dynamic_wedges' is experimental.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'dynamic_wedges' is experimental.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`graph` is already dynamic and will be returned unchanged.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'dynamic_wedges' is experimental.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'dynamic_wedges' is experimental.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'dynamic_wedges' is experimental.</span>
@@ -173,22 +175,22 @@ nodes in <code>graph</code>, to be linked to the new event(s).</p></dd>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'dynamic_wedges' is experimental.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'dynamic_wedges' is experimental.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]      [,2]      [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 0.4496124 0.4365079 0.4496124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 0.4496124 0.4496124 0.4496124</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 0.6052632 0.6052632 0.6052632</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 0.5144509 0.5058824 0.5144509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 0.5144509 0.5144509 0.5144509</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 0.4871795 0.4871795 0.4871795</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 1.0000000 1.0000000 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] 0.0000000 0.4782609 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] 0.0000000 0.0000000 0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 0.5652174 0.5652174 0.5652174</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 0.4666667 0.4482759 0.4666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 0.5000000 0.4939759 0.5000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 0.4666667 0.4666667 0.4666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 0.5000000 0.5000000 0.5000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 0.5185185 0.5185185 0.5185185</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 0.4285714 0.4285714 0.4285714</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [12,] 0.4285714 0.4285714 0.4285714</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [13,] 0.5714286 0.5714286 0.5714286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] 0.7207792 0.7189542 0.7207792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] 0.7207792 0.7207792 0.7207792</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [15,] 0.5714286 0.5714286 0.5714286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] 0.0000000 0.3750000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] 0.0000000 0.0000000 0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [17,] 1.0000000 1.0000000 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [18,] 1.0000000 1.0000000 1.0000000</span>
 </code></pre></div>

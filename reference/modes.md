@@ -9,6 +9,10 @@ V1(graph)
 
 V2(graph)
 
+actor_attr(graph, name, index = V1(graph))
+
+event_attr(graph, name, index = V2(graph))
+
 set_actor_attr(graph, name, index = V1(graph), value)
 
 set_event_attr(graph, name, index = V2(graph), value)
@@ -44,13 +48,15 @@ V2(x) <- value
 
 ## Value
 
-`graph`, with the actor or event attribute added or set.
+The value of the actor or event attribute, or the input `graph` with the
+attribute set.
 
 ## See also
 
 Original **igraph** functions:
-[V](https://r.igraph.org/reference/V.html),
-[set_vertex_attr](https://r.igraph.org/reference/set_vertex_attr.html)
+[`V()`](https://r.igraph.org/reference/V.html),
+[`vertex_attr()`](https://r.igraph.org/reference/vertex_attr.html),
+[`set_vertex_attr()`](https://r.igraph.org/reference/set_vertex_attr.html)
 
 Other modal queries and manipulations:
 [`dualize()`](http://corybrunson.github.io/bitriad/reference/dualize.md),

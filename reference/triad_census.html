@@ -102,8 +102,8 @@ isomorphism or other congruence class.</p>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional arguments (currently <code>use.integer</code> and
-<code>verbose</code>) passed to the <code>method</code> function.</p></dd>
+<dd><p>Additional arguments (currently <code>use.integer</code> and <code>verbose</code>)
+passed to the <code>method</code> function.</p></dd>
 
 
 <dt id="arg-add-names">add.names<a class="anchor" aria-label="anchor" href="#arg-add-names"></a></dt>
@@ -113,16 +113,15 @@ matrix.</p></dd>
 
 <dt id="arg-scheme">scheme<a class="anchor" aria-label="anchor" href="#arg-scheme"></a></dt>
 <dd><p>Character; the type of triad census to calculate, matched to
-<code>"full"</code>, <code>"difference"</code> (also <code>"uniformity"</code>),
-<code>"binary"</code> (also <code>"structural"</code>), or <code>"simple"</code>.</p></dd>
+<code>"full"</code>, <code>"difference"</code> (also <code>"uniformity"</code>), <code>"binary"</code> (also
+<code>"structural"</code>), or <code>"simple"</code>.</p></dd>
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>Character; the triad census method to use. Currently only
-<code>"batagelj_mrvar"</code> is implemented. <code>"projection"</code> calls an
-inefficient but reliable implementation in R from the first package version
-that invokes the simple_triad_census of the
-<a href="mode_projection.html">actor_projection</a> of <code>graph</code>.</p></dd>
+<code>"batagelj_mrvar"</code> is implemented. <code>"projection"</code> calls an inefficient but
+reliable implementation in R from the first package version that invokes
+the <code>simple_triad_census()</code> of the <code><a href="mode_projection.html">actor_projection()</a></code> of <code>graph</code>.</p></dd>
 
 
 <dt id="arg-use-integer">use.integer<a class="anchor" aria-label="anchor" href="#arg-use-integer"></a></dt>
@@ -136,19 +135,19 @@ that invokes the simple_triad_census of the
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A matrix counts of triad congruence classes, with row indices
-reflecting pairwise exclusive events and column indices reflecting
+    <p>An integer matrix of counts of triad congruence classes, with row
+indices reflecting pairwise exclusive events and column indices reflecting
 triadwise events.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The <code>triad_census_*</code> functions implement the several triad
+    <p>The <code>triad_census_*()</code> functions implement the several triad
 censuses described below. Each census is based on a congruence relation
 among the triads in an affiliation network, and each function returns a
 matrix (or, in the "simple" case, a vector) recording the number of triads
 in each congruence class.</p>
-<p>The function <code>triad_census</code> supercedes
-triad_census but calls in case <code>graph</code> is not an
+<p>The function <code>triad_census()</code> masks
+<code>triad_census()</code> but calls it in case <code>graph</code> is not an
 affiliation network.</p>
     </div>
     <div class="section level2">
@@ -220,8 +219,7 @@ Science</em>, 3(4), 480–508.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Original <strong>igraph</strong> functions:
-triad_census</p>
+    <div class="dont-index"><p>Original <strong>igraph</strong> functions: <code>triad_census()</code></p>
 <p>Other triad census functions:
 <code><a href="project_census.html">project_census()</a></code>,
 <code><a href="triad_closure_from_census.html">triad_closure_from_census()</a></code>,

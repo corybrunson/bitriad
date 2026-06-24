@@ -49,9 +49,9 @@ impose such structure if possible.</p>
 <span></span>
 <span><span class="fu">is.an</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">as_an</span><span class="op">(</span><span class="va">graph</span>, add.type.attribute <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">as_an</span><span class="op">(</span><span class="va">graph</span>, map_type <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">as.an</span><span class="op">(</span><span class="va">graph</span>, add.type.attribute <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">as.an</span><span class="op">(</span><span class="va">graph</span>, map_type <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -62,37 +62,54 @@ impose such structure if possible.</p>
 <dd><p>An <code>igraph</code> object.</p></dd>
 
 
-<dt id="arg-add-type-attribute">add.type.attribute<a class="anchor" aria-label="anchor" href="#arg-add-type-attribute"></a></dt>
-<dd><p>Logical; whether to introduce a <code>type</code>
-attribute if <code>graph</code> has none before testing for bipartite structure.</p></dd>
+<dt id="arg-map-type">map_type<a class="anchor" aria-label="anchor" href="#arg-map-type"></a></dt>
+<dd><p>Logical; whether to add a <code>type</code> attribute for bipartite
+structure if <code>graph</code> admits one.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>For <code>is_an()</code>, a logical value; for <code>as_an()</code>, the input <code>graph</code>
+with a <code>"type"</code> attribute.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>An affiliation network is a bipartite graph whose nodes are
 classified as actors and events in such a way that all links are between
-actors and events. The function <a href="https://r.igraph.org/reference/is_bipartite.html" class="external-link">is_bipartite</a> tests an
-<code>igraph</code> object for a <code>type</code> attribute, which is intended to
-bipartition of the nodes. It does not test whether the links respect this
-partition. The function <code>is_an</code> tests this, as well as the condition
-that actor nodes precede event nodes in their node IDs, which simplifies
-some other functions. The function <code>as_an</code> coerces an <code>igraph</code> object
-to an affiliation network by verifying that the object is bipartite and
-minimally permuting the node IDs. If <code>graph</code> has no <code>type</code>
-attribute and <code>add.type.attribute</code> is <code>FALSE</code>, then <code>as_an</code>
-throws an error; if <code>add.type.attribute</code> is <code>TRUE</code>, then
-<code>as_an</code> introduces a logical <code>type</code> attribute that takes the
-value <code>FALSE</code> at the first node (by node ID) in each connected
-component and <code>TRUE</code> or <code>FALSE</code> at the remaining nodes according
-as they are an odd or even number of hops from the first.</p>
+actors and events. The function <code><a href="https://r.igraph.org/reference/is_bipartite.html" class="external-link">is_bipartite()</a></code> tests an <code>igraph</code> object
+for a <code>type</code> attribute, which is intended to bipartition of the nodes. It
+does not test whether the links respect this partition. The function
+<code>is_an</code> tests this, as well as the condition that actor nodes precede event
+nodes in their node IDs, which simplifies some other functions. The
+function <code>as_an</code> coerces an <code>igraph</code> object to an affiliation network by
+verifying that the object is bipartite and minimally permuting the node
+IDs. If <code>graph</code> has no <code>type</code> attribute and <code>map_type</code> is <code>FALSE</code>, then
+<code>as_an</code> throws an error; if <code>map_type</code> is <code>TRUE</code>, then <code>as_an</code> calls
+<code><a href="https://r.igraph.org/reference/bipartite_mapping.html" class="external-link">bipartite_mapping()</a></code> to add a logical <code>type</code> attribute that takes the
+value <code>FALSE</code> at the first node (by node ID) in each connected component
+and <code>TRUE</code> or <code>FALSE</code> at the remaining nodes. (If this cannot be done, an
+error is thrown.)</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Original <strong>igraph</strong> functions: <a href="https://r.igraph.org/reference/is_igraph.html" class="external-link">is_igraph</a></p>
+    <div class="dont-index"><p>Original <strong>igraph</strong> functions: <code><a href="https://r.igraph.org/reference/is_igraph.html" class="external-link">is_igraph()</a></code></p>
 <p>Other network testing and coercion:
 <code><a href="dynamic_an.html">dynamic_an</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu">make_graph</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">1</span>,<span class="fl">2</span>, <span class="fl">1</span>,<span class="fl">4</span>, <span class="fl">1</span>,<span class="fl">6</span>, <span class="fl">3</span>,<span class="fl">6</span>, <span class="fl">5</span>,<span class="fl">6</span>, <span class="fl">7</span>,<span class="fl">8</span>, <span class="fl">9</span>,<span class="fl">8</span> <span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">is_an</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-in"><span><span class="co"># as_an(graph) # throws an error</span></span></span>
+<span class="r-in"><span><span class="va">an_graph</span> <span class="op">&lt;-</span> <span class="fu">as_an</span><span class="op">(</span><span class="va">graph</span>, map_type <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Graph is directed; collapsing directed links.</span>
+<span class="r-in"><span><span class="fu">is_an</span><span class="op">(</span><span class="va">an_graph</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

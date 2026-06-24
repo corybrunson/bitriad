@@ -157,8 +157,8 @@ calculation on the centered triad census (<code>"triads"</code>).</p></dd>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>The type of statistic, matched to <code>"global"</code>,
-<code>"local"</code>, or <code>"raw"</code>.</p></dd>
+<dd><p>The type of statistic, matched to <code>"global"</code>, <code>"local"</code>, or
+<code>"raw"</code>.</p></dd>
 
 
 <dt id="arg-triad-list">triad_list<a class="anchor" aria-label="anchor" href="#arg-triad-list"></a></dt>
@@ -169,35 +169,34 @@ produced by <a href="wedges.html">centered_triads</a>.</p></dd>
 <dt id="arg-measure">measure<a class="anchor" aria-label="anchor" href="#arg-measure"></a></dt>
 <dd><p>Character; the measure of triad closure, used as the suffix
 <code>*</code> to <code>triad_closure_*</code> Matched to <code>"classical"</code> (also
-<code>"watts_strogatz"</code>), <code>"twomode"</code> (also <code>"opsahl"</code>),
-<code>"unconnected"</code> (also <code>"liebig_rao_0"</code>),
-<code>"completely_connected"</code> (also <code>"liebig_rao_3"</code>), or
+<code>"watts_strogatz"</code>), <code>"twomode"</code> (also <code>"opsahl"</code>), <code>"unconnected"</code> (also
+<code>"liebig_rao_0"</code>), <code>"completely_connected"</code> (also <code>"liebig_rao_3"</code>), or
 <code>"exclusive"</code>.</p></dd>
 
 
 <dt id="arg-triads-fun">triads.fun<a class="anchor" aria-label="anchor" href="#arg-triads-fun"></a></dt>
 <dd><p>A custom triad closure calculation. It must accept a vector
-of <em>centered</em> triad isomorphism classes, encoded as vectors <code>w</code>,
-<code>x</code>, <code>y</code>, and <code>z</code>, and return a 2-row integer matrix
-recording the number of wedges of the desired measure centered at the
-second actor, and involving the other two actors, of each triad.</p></dd>
+of <em>centered</em> triad isomorphism classes, encoded as vectors <code>w</code>, <code>x</code>, <code>y</code>,
+and <code>z</code>, and return a 2-row integer matrix recording the number of wedges
+of the desired measure centered at the second actor, and involving the
+other two actors, of each triad.</p></dd>
 
 
 <dt id="arg-wedges-fun">wedges.fun<a class="anchor" aria-label="anchor" href="#arg-wedges-fun"></a></dt>
 <dd><p>A custom wedge census function. It must accept an
-affiliation network <code>graph</code> and a single actor node ID <code>actor</code>
-and may have any additional parameters. It must return a named list with
-values <code>wedges</code> a numeric matrix of node IDs whose columns record the
-wedges centered at <code>actor</code> and <code>closed</code> a logical vector
-recording whether each wedge is closed. Overrides <code>measure</code>.</p></dd>
+affiliation network <code>graph</code> and a single actor node ID <code>actor</code> and may have
+any additional parameters. It must return a named list with values <code>wedges</code>
+a numeric matrix of node IDs whose columns record the wedges centered at
+<code>actor</code> and <code>closed</code> a logical vector recording whether each wedge is
+closed. Overrides <code>measure</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>If <code>type</code> is <code>"global"</code>, the global statistic for
-<code>graph</code>; if <code>"local"</code>, the local statistics for <code>actors</code>; if
-<code>"raw"</code>, a 2-column matrix, each row of which gives the number of
-wedges and of closed wedges centered at <code>actors</code>.</p>
+    <p>If <code>type</code> is <code>"global"</code>, the global statistic for <code>graph</code> (a single
+numeric value); if <code>"local"</code>, the local statistics for <code>actors</code> (a numeric
+vector); if <code>"raw"</code>, a 2-column matrix, each row of which gives the number
+of wedges and of closed wedges centered at <code>actors</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -206,9 +205,9 @@ of triad closure described below. Each function returns a single global
 statistic, a vector of local statistics, or a matrix of local denominators
 and numerators from which the global and local statistics can be recovered.</p>
 <p>The function <code>triad_closure_projection</code> recapitulates
-triad_closure_watts_strogatz by invoking the
-<a href="https://r.igraph.org/reference/bipartite_projection.html" class="external-link">bipartite_projection</a> and
-<a href="https://r.igraph.org/reference/transitivity.html" class="external-link">transitivity</a> functions in <strong>igraph</strong>.</p>
+<code>triad_closure_watts_strogatz()</code> by invoking the
+<code><a href="https://r.igraph.org/reference/bipartite_projection.html" class="external-link">bipartite_projection()</a></code> and
+<code><a href="https://r.igraph.org/reference/transitivity.html" class="external-link">transitivity()</a></code> functions in <strong>igraph</strong>.</p>
     </div>
     <div class="section level2">
     <h2 id="measures-of-triad-closure">Measures of triad closure<a class="anchor" aria-label="anchor" href="#measures-of-triad-closure"></a></h2>
@@ -274,8 +273,7 @@ Science</em>, 3(4), 480–508.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Original <strong>igraph</strong> functions:
-<a href="https://r.igraph.org/reference/transitivity.html" class="external-link">transitivity</a></p>
+    <div class="dont-index"><p>Original <strong>igraph</strong> functions: <code><a href="https://r.igraph.org/reference/transitivity.html" class="external-link">transitivity()</a></code></p>
 <p>Other triad closure functions:
 <code><a href="dynamic_triad_closure.html">dynamic_triad_closure()</a></code>,
 <code><a href="project_transitivity.html">project_transitivity()</a></code>,

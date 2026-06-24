@@ -47,6 +47,10 @@ partitionSubset(lambda)
   Integer vector; a partition of at most 3 parts, with parts in
   non-increasing order.
 
+## Value
+
+Numeric vectors.
+
 ## Examples
 
 ``` r

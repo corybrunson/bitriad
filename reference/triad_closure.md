@@ -152,10 +152,10 @@ triad_closure_projection(
 
 ## Value
 
-If `type` is `"global"`, the global statistic for `graph`; if `"local"`,
-the local statistics for `actors`; if `"raw"`, a 2-column matrix, each
-row of which gives the number of wedges and of closed wedges centered at
-`actors`.
+If `type` is `"global"`, the global statistic for `graph` (a single
+numeric value); if `"local"`, the local statistics for `actors` (a
+numeric vector); if `"raw"`, a 2-column matrix, each row of which gives
+the number of wedges and of closed wedges centered at `actors`.
 
 ## Details
 
@@ -166,9 +166,9 @@ denominators and numerators from which the global and local statistics
 can be recovered.
 
 The function `triad_closure_projection` recapitulates
-triad_closure_watts_strogatz by invoking the
-[bipartite_projection](https://r.igraph.org/reference/bipartite_projection.html)
-and [transitivity](https://r.igraph.org/reference/transitivity.html)
+`triad_closure_watts_strogatz()` by invoking the
+[`bipartite_projection()`](https://r.igraph.org/reference/bipartite_projection.html)
+and [`transitivity()`](https://r.igraph.org/reference/transitivity.html)
 functions in **igraph**.
 
 ## Measures of triad closure
@@ -256,7 +256,7 @@ Science*, 3(4), 480–508.
 ## See also
 
 Original **igraph** functions:
-[transitivity](https://r.igraph.org/reference/transitivity.html)
+[`transitivity()`](https://r.igraph.org/reference/transitivity.html)
 
 Other triad closure functions:
 [`dynamic_triad_closure()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md),

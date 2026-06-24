@@ -131,6 +131,11 @@ transitivity.census(...)
 
   Arguments passed from deprecated functions to their replacements.
 
+## Value
+
+Output equivalent to that of
+[`triad_closure()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md).
+
 ## Details
 
 Each global measure of triad closure can be recovered from the full

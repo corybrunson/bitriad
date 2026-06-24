@@ -21,11 +21,15 @@ event.count(graph)
 
   An affiliation network.
 
+## Value
+
+An integer.
+
 ## See also
 
 Original **igraph** functions:
-[vcount](https://r.igraph.org/reference/gorder.html),
-[ecount](https://r.igraph.org/reference/gsize.html)
+[`vcount()`](https://r.igraph.org/reference/gorder.html),
+[`ecount()`](https://r.igraph.org/reference/gsize.html)
 
 Other modal queries and manipulations:
 [`dualize()`](http://corybrunson.github.io/bitriad/reference/dualize.md),

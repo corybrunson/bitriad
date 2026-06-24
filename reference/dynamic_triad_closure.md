@@ -73,6 +73,10 @@ dynamic_triad_closure_projection(graph, memory = Inf, type = "global")
   Numeric; minimum delay of wedge formation since would-have-been
   closing events.
 
+## Value
+
+A numeric vector of the same length as `actors`.
+
 ## See also
 
 Other triad closure functions:

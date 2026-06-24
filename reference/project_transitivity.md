@@ -2,10 +2,12 @@
 
 Each clustering coefficient can be defined as the proportion of "wedges"
 that are "closed", for suitable definitions of both terms. The main
-function, transitivity_an, calls one of the wedge functions and computes
-the global or local clustering coefficient of the given affiliation
-network, and if the local, then at the given nodes.
-(`project_transitivity` cheats by using the native `transitivity` but
+function,
+[`transitivity_an()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md),
+calls one of the wedge functions and computes the global or local
+clustering coefficient of the given affiliation network, and if the
+local, then at the given nodes. (`project_transitivity` cheats by using
+[`transitivity()`](https://r.igraph.org/reference/transitivity.html) but
 produces output consistent with the other variants of
 `transitivity_an`.)
 
@@ -31,6 +33,14 @@ project.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
   A subset of actor node ids at which to evaluate the local clustering
   coefficient.
+
+## Value
+
+If `type` is `"global"`, the global clustering coefficient of the
+network (a single numeric value); if `"local"`, the local clustering
+coefficients of the actors (a numeric vector); otherwise, a 2-column
+matrix, each row of which gives the number of wedges and the number of
+closed wedges centered at each actor.
 
 ## See also
 

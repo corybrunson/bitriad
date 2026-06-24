@@ -108,10 +108,11 @@ excl.transitivity(graph, type = "global", vids = which(!V(graph)$type))
 
 ## Value
 
-If `type` is "global", the global clustering coefficient of the network;
-if "local", the local clustering coefficients of the actors; otherwise,
-a 2-column matrix, each row of which gives the number of wedges and the
-number of closed wedges centered at each actor.
+If `type` is `"global"`, the global clustering coefficient of the
+network (a single numeric value); if `"local"`, the local clustering
+coefficients of the actors (a numeric vector); otherwise, a 2-column
+matrix, each row of which gives the number of wedges and the number of
+closed wedges centered at each actor.
 
 ## See also
 

@@ -54,6 +54,12 @@ stc2tc(census)
 
   Logical; whether to label the rows and columns of the output matrix.
 
+## Value
+
+A list of
+[`triad_census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+outputs.
+
 ## Details
 
 This function inputes an affiliation network triad census of any scheme
@@ -154,3 +160,45 @@ Other triad census functions:
 [`triad_census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md),
 [`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md),
 [`triad_tallies`](http://corybrunson.github.io/bitriad/reference/triad_tallies.md)
+
+## Examples
+
+``` r
+data(women_group)
+group_full_census <- triad_census(women_group, scheme = "full")
+project_census(group_full_census, scheme = "full")
+#> $total
+#> [1] 816
+#> 
+#> $simple
+#>   0   1   2   3 
+#>   0  39 146 631 
+#> 
+#> $binary
+#>     0   1
+#> 0   0  17
+#> 1  39 240
+#> 2 146 253
+#> 3  45  76
+#> 
+#> $difference
+#>          0   1
+#> (0,0,0)  0  17
+#> (1,0,0) 39 240
+#> (0,1,0) 52  82
+#> (1,1,0) 94 171
+#> (0,0,1)  7  19
+#> (1,0,1) 26  51
+#> (0,1,1)  1   3
+#> (1,1,1) 11   3
+#> 
+group_binary_census <- triad_census(women_group, scheme = "binary")
+project_census(group_binary_census, scheme = "binary")
+#> $total
+#> [1] 816
+#> 
+#> $simple
+#>   0   1   2   3 
+#>   0  39 146 631 
+#> 
+```
