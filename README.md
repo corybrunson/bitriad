@@ -12,7 +12,7 @@ The paper [*Triadic analysis of affiliation networks*](https://arxiv.org/abs/150
 The package is not yet on CRAN; it can be installed using the [devtools](https://github.com/r-lib/devtools) package:
 
 ```r
-devtools::install_github("corybrunson/bitriad")
+remotes::install_github("corybrunson/bitriad")
 ```
 
 ## Functionality
