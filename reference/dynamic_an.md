@@ -47,9 +47,9 @@ data(women_clique)
 is_dynamic_an(women_clique)
 #> [1] FALSE
 as_dynamic_an(women_clique)
-#> IGRAPH 8683189 UN-B 10 14 -- 
+#> IGRAPH f0002c9 UN-B 10 14 -- 
 #> + attr: type (v/l), name (v/c), time (v/n)
-#> + edges from 8683189 (vertex names):
+#> + edges from f0002c9 (vertex names):
 #>  [1] Miss A--Bridge   Miss A--Movies   Miss A--Dance    Miss B--Movies  
 #>  [5] Miss B--Dance    Miss C--Bridge   Miss C--Dinner   Miss C--Visiting
 #>  [9] Miss D--Bridge   Miss D--Dinner   Miss D--Movies   Miss E--Dinner  
@@ -60,9 +60,9 @@ nmt_meetings <- set_event_attr(
   value = gsub("meet", "", V2(nmt_meetings)$name)
 )
 as_dynamic_an(nmt_meetings, use_attr = "meet")
-#> IGRAPH 602a2ab UN-B 46 64 -- 
+#> IGRAPH 65bdf35 UN-B 46 64 -- 
 #> + attr: type (v/l), name (v/c), meet (v/c), time (v/n)
-#> + edges from 602a2ab (vertex names):
+#> + edges from 65bdf35 (vertex names):
 #>  [1] Abdullah Sunata  --meet12 Abu Dujanah      --meet1 
 #>  [3] Abu Dujanah      --meet2  Abu Fida         --meet5 
 #>  [5] Abu Fida         --meet6  Abu Fida         --meet13

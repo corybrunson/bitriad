@@ -21,7 +21,7 @@ The package is not yet on CRAN; it can be installed using the
 
 ``` r
 
-devtools::install_github("corybrunson/bitriad")
+remotes::install_github("corybrunson/bitriad")
 ```
 
 ## Functionality

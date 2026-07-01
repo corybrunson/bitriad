@@ -37,9 +37,9 @@ Other modal queries and manipulations:
 ``` r
 data(women_clique)
 schedule(women_clique, actors = V1(women_clique)[seq(3)])
-#> IGRAPH 021258e UN-B 6 6 -- 
+#> IGRAPH 12cc654 UN-B 6 6 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from 021258e (vertex names):
+#> + edges from 12cc654 (vertex names):
 #> [1] Miss A--Bridge Miss A--Movies Miss A--Dance  Miss B--Movies Miss B--Dance 
 #> [6] Miss C--Bridge
 ```

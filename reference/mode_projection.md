@@ -59,9 +59,9 @@ data(chicago1960s)
 #> FALSE  TRUE 
 #>    20    24 
 ( proj <- actor_projection(chicago1960s) )
-#> IGRAPH 0f9d9f9 UNW- 20 137 -- 
+#> IGRAPH a3b5f50 UNW- 20 137 -- 
 #> + attr: name (v/c), weight (e/n)
-#> + edges from 0f9d9f9 (vertex names):
+#> + edges from a3b5f50 (vertex names):
 #>  [1] Barr --Block      Barr --Gale       Barr --Kennedy    Barr --Ward      
 #>  [5] Barr --Goodrich   Barr --Jarvis     Barr --McCormick  Barr --McDowell  
 #>  [9] Barr --Oates      Barr --Clark      Barr --Eberhard   Barr --Freeman   
@@ -75,9 +75,9 @@ vcount(proj) == tab[1]
 #> FALSE 
 #>  TRUE 
 ( proj <- event_projection(chicago1960s) )
-#> IGRAPH 08cf918 UNW- 24 134 -- 
+#> IGRAPH 3ce884c UNW- 24 134 -- 
 #> + attr: name (v/c), weight (e/n)
-#> + edges from 08cf918 (vertex names):
+#> + edges from 3ce884c (vertex names):
 #>  [1] Amour      --John.Hancock.Mutual           
 #>  [2] Amour      --Chicago                       
 #>  [3] Amour      --First.National.Bank.of.Chicago

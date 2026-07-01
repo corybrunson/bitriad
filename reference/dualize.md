@@ -42,9 +42,9 @@ data(women_clique)
 #> FALSE  TRUE 
 #>     5     5 
 ( proj <- actor_projection(dualize(women_clique)) )
-#> IGRAPH 91b91a8 UNW- 5 9 -- 
+#> IGRAPH 9912073 UNW- 5 9 -- 
 #> + attr: name (v/c), weight (e/n)
-#> + edges from 91b91a8 (vertex names):
+#> + edges from 9912073 (vertex names):
 #> [1] Bridge--Movies   Bridge--Dance    Bridge--Dinner   Bridge--Visiting
 #> [5] Dinner--Visiting Dinner--Movies   Dinner--Dance    Movies--Dance   
 #> [9] Dance --Visiting
