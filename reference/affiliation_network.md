@@ -58,7 +58,7 @@ Original **igraph** functions:
 [`is_igraph()`](https://r.igraph.org/reference/is_igraph.html)
 
 Other network testing and coercion:
-[`dynamic_an`](http://corybrunson.github.io/bitriad/reference/dynamic_an.md)
+[`dynamic_an`](https://corybrunson.codeberg.page/bitriad/reference/dynamic_an.md)
 
 ## Examples
 

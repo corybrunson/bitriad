@@ -32,10 +32,10 @@ Original **igraph** functions:
 [`ecount()`](https://r.igraph.org/reference/gsize.html)
 
 Other modal queries and manipulations:
-[`dualize()`](http://corybrunson.github.io/bitriad/reference/dualize.md),
-[`mode_addition`](http://corybrunson.github.io/bitriad/reference/mode_addition.md),
-[`modes`](http://corybrunson.github.io/bitriad/reference/modes.md),
-[`schedule()`](http://corybrunson.github.io/bitriad/reference/schedule.md)
+[`dualize()`](https://corybrunson.codeberg.page/bitriad/reference/dualize.md),
+[`mode_addition`](https://corybrunson.codeberg.page/bitriad/reference/mode_addition.md),
+[`modes`](https://corybrunson.codeberg.page/bitriad/reference/modes.md),
+[`schedule()`](https://corybrunson.codeberg.page/bitriad/reference/schedule.md)
 
 ## Examples
 

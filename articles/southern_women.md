@@ -43,7 +43,7 @@ nodes have a logical `type` attribute that distinguishes the two modes
 several routines in **bitriad** depend on a graph being truly
 bipartite–that is, on having links exclusively between actors and
 events–the function
-[`is_an()`](http://corybrunson.github.io/bitriad/reference/affiliation_network.md)
+[`is_an()`](https://corybrunson.codeberg.page/bitriad/reference/affiliation_network.md)
 verifies this thoroughly. By convention, the actors are assumed to be
 the nodes of `type` attribute `FALSE`, which correspond to the rows of
 the incidence matrix, and the events those of `type` `TRUE`.
@@ -51,7 +51,7 @@ the incidence matrix, and the events those of `type` `TRUE`.
 ### Visualization
 
 The function
-[`prettify_an()`](http://corybrunson.github.io/bitriad/reference/prettify.md)
+[`prettify_an()`](https://corybrunson.codeberg.page/bitriad/reference/prettify.md)
 assigns an affiliation network aesthetic attributes that help visually
 distinguish actors from events. It scales vertex sizes with the
 reciprocal of the vertex count (up to 100), and it adopts shape and
@@ -237,7 +237,7 @@ Another family of measures proposed by [Liebig and Rao
 (2014)](https://ieeexplore.ieee.org/abstract/document/7081566/) are
 partially implemented in **bitriad**, but will not be discussed here.
 See
-[`help(triad_closure)`](http://corybrunson.github.io/bitriad/reference/triad_closure.md)
+[`help(triad_closure)`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure.md)
 for details.
 
 ### Local triad closure
@@ -271,12 +271,12 @@ C_local
     ## 0.8333333 1.0000000 1.0000000 0.8333333 0.8333333
 
 Our higher-order measures (Opsahl and exclusive) are implemented using
-[`triad_closure()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md),
+[`triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure.md),
 a shell for the required “wedge” function that counts the open and
 closed wedges at an actor node. It is this function that determines the
 measure of triadic closure to be calculated. Once the wedges are
 tallied,
-[`triad_closure()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md),
+[`triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure.md),
 and the `triad_closure_*()` functions that pass arguments to it, compute
 from them the desired summary statistic. For example, here are the
 “exclusive” wedges among the five women:
@@ -509,7 +509,7 @@ metric for dense affiliation networks like Group I. For a more thorough
 comparison, see the accompanying paper.
 
 [^1]: The shell function
-    [`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+    [`triad_closure_from_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure_from_census.md)
     also passes to implementations that handle difference, binary, and
     simple census input, provided the desired measure of triad closure
     can be recovered therefrom.

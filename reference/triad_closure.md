@@ -104,7 +104,7 @@ triad_closure_projection(
 - ...:
 
   Measure specifications passed to
-  [wedges](http://corybrunson.github.io/bitriad/reference/wedges.md).
+  [wedges](https://corybrunson.codeberg.page/bitriad/reference/wedges.md).
 
 - method:
 
@@ -123,7 +123,7 @@ triad_closure_projection(
 - triad_list:
 
   A list of triad isomorphism classes in matrix format, as produced by
-  [centered_triads](http://corybrunson.github.io/bitriad/reference/wedges.md).
+  [centered_triads](https://corybrunson.codeberg.page/bitriad/reference/wedges.md).
 
 - measure:
 
@@ -259,10 +259,10 @@ Original **igraph** functions:
 [`transitivity()`](https://r.igraph.org/reference/transitivity.html)
 
 Other triad closure functions:
-[`dynamic_triad_closure()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md),
-[`project_transitivity()`](http://corybrunson.github.io/bitriad/reference/project_transitivity.md),
-[`transitivity_an()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md),
-[`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+[`dynamic_triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/dynamic_triad_closure.md),
+[`project_transitivity()`](https://corybrunson.codeberg.page/bitriad/reference/project_transitivity.md),
+[`transitivity_an()`](https://corybrunson.codeberg.page/bitriad/reference/transitivity_an.md),
+[`triad_closure_from_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure_from_census.md)
 
 ## Examples
 

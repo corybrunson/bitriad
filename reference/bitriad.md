@@ -23,7 +23,7 @@ Three triad censuses are implemented for affiliation networks:
   into a matrix with rows indexed by \\\lambda\\ and columns indexed by
   \\w\\, with the partitions \\\lambda\\ ordered according to the
   *revolving door ordering* (Kreher & Stinson, 1999). The main function
-  [triad_census_an](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [triad_census_an](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md)
   (called from `triad_census` when the `graph` argument is an
   `affiliation_network`) defaults to this census.
 
@@ -38,7 +38,7 @@ Three triad censuses are implemented for affiliation networks:
   congruent if the same subset of these weak inequalities are strictly
   satisfied. The resulting *difference triad census*, previously called
   the *uniformity triad census*, implemented as
-  [triad_census_difference](http://corybrunson.github.io/bitriad/reference/triad_census.md),
+  [triad_census_difference](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md),
   is organized into a \\8\times 2\\ matrix with the strictness of the
   first three inequalities determining the row and that of the last
   inequality determining the column.
@@ -50,30 +50,30 @@ Three triad censuses are implemented for affiliation networks:
   third, and if the corresponding triads both attended or did not attend
   at least one event together. The *binary triad census* (Brunson, 2015;
   therein called the *structural triad census*), implemented as
-  [triad_census_binary](http://corybrunson.github.io/bitriad/reference/triad_census.md),
+  [triad_census_binary](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md),
   records the number of triads in each congruence class.
 
 - The *simple triad census* is the 4-entry triad census on a traditional
   (non-affiliation) network indicating the number of triads of each
   isomorphism class, namely whether the triad contains zero, one, two,
   or three links. The function
-  [simple_triad_census](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+  [simple_triad_census](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md)
   computes the classical (undirected) triad census for an undirected
   traditional network, or for the actor projection of an affiliation
   network (if provided), using
-  [triad_census](http://corybrunson.github.io/bitriad/reference/triad_census.md);
+  [triad_census](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md);
   if the result doesn't make sense (i.e., the sum of the entries is not
   the number of triples of nodes), then it instead uses its own, much
   slower method.
 
 Each of these censuses can be projected from the previous using the
 function
-[project_census](http://corybrunson.github.io/bitriad/reference/project_census.md).
+[project_census](https://corybrunson.codeberg.page/bitriad/reference/project_census.md).
 A fourth census, called the *uniformity triad census* and implemented as
-[unif_triad_census](http://corybrunson.github.io/bitriad/reference/triad_census.md),
+[unif_triad_census](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md),
 is deprecated. Three-actor triad affiliation networks can be constructed
 and plotted using the
-[triad](http://corybrunson.github.io/bitriad/reference/triad.md)
+[triad](https://corybrunson.codeberg.page/bitriad/reference/triad.md)
 functions.
 
 The default method for the two affiliation network–specific triad

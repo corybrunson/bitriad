@@ -151,4 +151,4 @@ Science*, 3(4), 480–508.
 ## See also
 
 Other wedge functions:
-[`indequ_wedges()`](http://corybrunson.github.io/bitriad/reference/wedges.md)
+[`indequ_wedges()`](https://corybrunson.codeberg.page/bitriad/reference/wedges.md)

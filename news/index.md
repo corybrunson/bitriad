@@ -56,15 +56,15 @@ and minimally revised, with summaries copied below.
 ### Other changes
 
 Bugs were patched in
-[`as_an()`](http://corybrunson.github.io/bitriad/reference/affiliation_network.md),
-[`as_dynamic_an()`](http://corybrunson.github.io/bitriad/reference/dynamic_an.md),
+[`as_an()`](https://corybrunson.codeberg.page/bitriad/reference/affiliation_network.md),
+[`as_dynamic_an()`](https://corybrunson.codeberg.page/bitriad/reference/dynamic_an.md),
 and
-[`schedule()`](http://corybrunson.github.io/bitriad/reference/schedule.md).
+[`schedule()`](https://corybrunson.codeberg.page/bitriad/reference/schedule.md).
 
 Helpers
-[`actor_attr()`](http://corybrunson.github.io/bitriad/reference/modes.md)
+[`actor_attr()`](https://corybrunson.codeberg.page/bitriad/reference/modes.md)
 and
-[`event_attr()`](http://corybrunson.github.io/bitriad/reference/modes.md)
+[`event_attr()`](https://corybrunson.codeberg.page/bitriad/reference/modes.md)
 built on
 [`vertex_attr()`](https://r.igraph.org/reference/vertex_attr.html) were
 added.

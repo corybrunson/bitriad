@@ -28,18 +28,18 @@ remotes::install_github("corybrunson/bitriad")
 
 The package implements several tools from the paper, most importantly
 
-- [`triad_census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md),
+- [`triad_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md),
   which surveys the *triads* of an affiliation network and returns the
   census in a specified *scheme*; and
-- [`triad_closure()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md),
+- [`triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure.md),
   which surveys the *wedges* of an affiliation network and returns
   either global or local proportions of wedges that are *closed*.
 
 The parameters for these functions, in particular the census schemes and
 the definitions of wedge and closure, are thoroughly documented in
-[`help(triad_census)`](http://corybrunson.github.io/bitriad/reference/triad_census.md)
+[`help(triad_census)`](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md)
 and
-[`help(triad_closure)`](http://corybrunson.github.io/bitriad/reference/triad_closure.md).
+[`help(triad_closure)`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure.md).
 Both functions pass to their corresponding functions in **igraph** when
 the input graph is not an affiliation network.
 

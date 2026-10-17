@@ -35,7 +35,7 @@ nodes permuted to respect this attribute.
 ## See also
 
 Other network testing and coercion:
-[`affiliation_network`](http://corybrunson.github.io/bitriad/reference/affiliation_network.md)
+[`affiliation_network`](https://corybrunson.codeberg.page/bitriad/reference/affiliation_network.md)
 
 ## Examples
 
@@ -47,9 +47,9 @@ data(women_clique)
 is_dynamic_an(women_clique)
 #> [1] FALSE
 as_dynamic_an(women_clique)
-#> IGRAPH f0002c9 UN-B 10 14 -- 
+#> IGRAPH 72765a2 UN-B 10 14 -- 
 #> + attr: type (v/l), name (v/c), time (v/n)
-#> + edges from f0002c9 (vertex names):
+#> + edges from 72765a2 (vertex names):
 #>  [1] Miss A--Bridge   Miss A--Movies   Miss A--Dance    Miss B--Movies  
 #>  [5] Miss B--Dance    Miss C--Bridge   Miss C--Dinner   Miss C--Visiting
 #>  [9] Miss D--Bridge   Miss D--Dinner   Miss D--Movies   Miss E--Dinner  
@@ -60,9 +60,9 @@ nmt_meetings <- set_event_attr(
   value = gsub("meet", "", V2(nmt_meetings)$name)
 )
 as_dynamic_an(nmt_meetings, use_attr = "meet")
-#> IGRAPH 65bdf35 UN-B 46 64 -- 
+#> IGRAPH 8d3b8b3 UN-B 46 64 -- 
 #> + attr: type (v/l), name (v/c), meet (v/c), time (v/n)
-#> + edges from 65bdf35 (vertex names):
+#> + edges from 8d3b8b3 (vertex names):
 #>  [1] Abdullah Sunata  --meet12 Abu Dujanah      --meet1 
 #>  [3] Abu Dujanah      --meet2  Abu Fida         --meet5 
 #>  [5] Abu Fida         --meet6  Abu Fida         --meet13

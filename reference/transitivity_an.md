@@ -117,7 +117,7 @@ closed wedges centered at each actor.
 ## See also
 
 Other triad closure functions:
-[`dynamic_triad_closure()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md),
-[`project_transitivity()`](http://corybrunson.github.io/bitriad/reference/project_transitivity.md),
-[`triad_closure()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md),
-[`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+[`dynamic_triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/dynamic_triad_closure.md),
+[`project_transitivity()`](https://corybrunson.codeberg.page/bitriad/reference/project_transitivity.md),
+[`triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure.md),
+[`triad_closure_from_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure_from_census.md)

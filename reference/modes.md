@@ -59,10 +59,10 @@ Original **igraph** functions:
 [`set_vertex_attr()`](https://r.igraph.org/reference/set_vertex_attr.html)
 
 Other modal queries and manipulations:
-[`dualize()`](http://corybrunson.github.io/bitriad/reference/dualize.md),
-[`mode_addition`](http://corybrunson.github.io/bitriad/reference/mode_addition.md),
-[`mode_counts`](http://corybrunson.github.io/bitriad/reference/mode_counts.md),
-[`schedule()`](http://corybrunson.github.io/bitriad/reference/schedule.md)
+[`dualize()`](https://corybrunson.codeberg.page/bitriad/reference/dualize.md),
+[`mode_addition`](https://corybrunson.codeberg.page/bitriad/reference/mode_addition.md),
+[`mode_counts`](https://corybrunson.codeberg.page/bitriad/reference/mode_counts.md),
+[`schedule()`](https://corybrunson.codeberg.page/bitriad/reference/schedule.md)
 
 ## Examples
 

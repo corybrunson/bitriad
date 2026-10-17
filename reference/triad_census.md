@@ -81,7 +81,7 @@ simple.triad.census(graph, add.names = TRUE)
   `"batagelj_mrvar"` is implemented. `"projection"` calls an inefficient
   but reliable implementation in R from the first package version that
   invokes the `simple_triad_census()` of the
-  [`actor_projection()`](http://corybrunson.github.io/bitriad/reference/mode_projection.md)
+  [`actor_projection()`](https://corybrunson.codeberg.page/bitriad/reference/mode_projection.md)
   of `graph`.
 
 - use.integer:
@@ -163,11 +163,11 @@ Three triad censuses are implemented for affiliation networks:
 
 Each of these censuses can be projected from the previous using the
 function
-[project_census](http://corybrunson.github.io/bitriad/reference/project_census.md).
+[project_census](https://corybrunson.codeberg.page/bitriad/reference/project_census.md).
 A fourth census, called the *uniformity triad census* and implemented as
 unif_triad_census, is deprecated. Three-actor triad affiliation networks
 can be constructed and plotted using the
-[triad](http://corybrunson.github.io/bitriad/reference/triad.md)
+[triad](https://corybrunson.codeberg.page/bitriad/reference/triad.md)
 functions.
 
 The default method for the two affiliation network–specific triad
@@ -191,9 +191,9 @@ Science*, 3(4), 480–508.
 Original **igraph** functions: `triad_census()`
 
 Other triad census functions:
-[`project_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md),
-[`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md),
-[`triad_tallies`](http://corybrunson.github.io/bitriad/reference/triad_tallies.md)
+[`project_census()`](https://corybrunson.codeberg.page/bitriad/reference/project_census.md),
+[`triad_closure_from_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure_from_census.md),
+[`triad_tallies`](https://corybrunson.codeberg.page/bitriad/reference/triad_tallies.md)
 
 ## Examples
 

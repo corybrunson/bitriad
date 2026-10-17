@@ -6,7 +6,7 @@ associated with Noordin Mohammad Top.
 ## Format
 
 An affiliation network; see
-[is_an](http://corybrunson.github.io/bitriad/reference/affiliation_network.md).
+[is_an](https://corybrunson.codeberg.page/bitriad/reference/affiliation_network.md).
 
 ## Source
 

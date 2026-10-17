@@ -27,19 +27,19 @@ An `igraph` object induced from the input `graph`.
 ## See also
 
 Other modal queries and manipulations:
-[`dualize()`](http://corybrunson.github.io/bitriad/reference/dualize.md),
-[`mode_addition`](http://corybrunson.github.io/bitriad/reference/mode_addition.md),
-[`mode_counts`](http://corybrunson.github.io/bitriad/reference/mode_counts.md),
-[`modes`](http://corybrunson.github.io/bitriad/reference/modes.md)
+[`dualize()`](https://corybrunson.codeberg.page/bitriad/reference/dualize.md),
+[`mode_addition`](https://corybrunson.codeberg.page/bitriad/reference/mode_addition.md),
+[`mode_counts`](https://corybrunson.codeberg.page/bitriad/reference/mode_counts.md),
+[`modes`](https://corybrunson.codeberg.page/bitriad/reference/modes.md)
 
 ## Examples
 
 ``` r
 data(women_clique)
 schedule(women_clique, actors = V1(women_clique)[seq(3)])
-#> IGRAPH 12cc654 UN-B 6 6 -- 
+#> IGRAPH ff3b905 UN-B 6 6 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from 12cc654 (vertex names):
+#> + edges from ff3b905 (vertex names):
 #> [1] Miss A--Bridge Miss A--Movies Miss A--Dance  Miss B--Movies Miss B--Dance 
 #> [6] Miss C--Bridge
 ```

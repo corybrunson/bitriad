@@ -6,7 +6,7 @@ over a 9-month period.
 ## Format
 
 An affiliation network; see
-[is_an](http://corybrunson.github.io/bitriad/reference/affiliation_network.md).
+[is_an](https://corybrunson.codeberg.page/bitriad/reference/affiliation_network.md).
 Events carry a `time` attribute equal to the number of days since the
 previous 31 December.
 

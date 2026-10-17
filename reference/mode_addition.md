@@ -57,10 +57,10 @@ Original **igraph** functions:
 [`add_edges()`](https://r.igraph.org/reference/add_edges.html)
 
 Other modal queries and manipulations:
-[`dualize()`](http://corybrunson.github.io/bitriad/reference/dualize.md),
-[`mode_counts`](http://corybrunson.github.io/bitriad/reference/mode_counts.md),
-[`modes`](http://corybrunson.github.io/bitriad/reference/modes.md),
-[`schedule()`](http://corybrunson.github.io/bitriad/reference/schedule.md)
+[`dualize()`](https://corybrunson.codeberg.page/bitriad/reference/dualize.md),
+[`mode_counts`](https://corybrunson.codeberg.page/bitriad/reference/mode_counts.md),
+[`modes`](https://corybrunson.codeberg.page/bitriad/reference/modes.md),
+[`schedule()`](https://corybrunson.codeberg.page/bitriad/reference/schedule.md)
 
 ## Examples
 

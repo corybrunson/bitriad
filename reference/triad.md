@@ -2,7 +2,7 @@
 
 These functions create and operate on triads in affiliation networks. In
 this context, a *triad* is the
-[schedule](http://corybrunson.github.io/bitriad/reference/schedule.md)
+[schedule](https://corybrunson.codeberg.page/bitriad/reference/schedule.md)
 of a subset of three distinct actors.
 
 ## Usage

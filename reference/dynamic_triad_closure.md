@@ -80,10 +80,10 @@ A numeric vector of the same length as `actors`.
 ## See also
 
 Other triad closure functions:
-[`project_transitivity()`](http://corybrunson.github.io/bitriad/reference/project_transitivity.md),
-[`transitivity_an()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md),
-[`triad_closure()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md),
-[`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+[`project_transitivity()`](https://corybrunson.codeberg.page/bitriad/reference/project_transitivity.md),
+[`transitivity_an()`](https://corybrunson.codeberg.page/bitriad/reference/transitivity_an.md),
+[`triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure.md),
+[`triad_closure_from_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure_from_census.md)
 
 ## Examples
 

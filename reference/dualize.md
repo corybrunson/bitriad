@@ -28,10 +28,10 @@ The input `graph` with the `"type"` attribute logically negated.
 ## See also
 
 Other modal queries and manipulations:
-[`mode_addition`](http://corybrunson.github.io/bitriad/reference/mode_addition.md),
-[`mode_counts`](http://corybrunson.github.io/bitriad/reference/mode_counts.md),
-[`modes`](http://corybrunson.github.io/bitriad/reference/modes.md),
-[`schedule()`](http://corybrunson.github.io/bitriad/reference/schedule.md)
+[`mode_addition`](https://corybrunson.codeberg.page/bitriad/reference/mode_addition.md),
+[`mode_counts`](https://corybrunson.codeberg.page/bitriad/reference/mode_counts.md),
+[`modes`](https://corybrunson.codeberg.page/bitriad/reference/modes.md),
+[`schedule()`](https://corybrunson.codeberg.page/bitriad/reference/schedule.md)
 
 ## Examples
 
@@ -42,9 +42,9 @@ data(women_clique)
 #> FALSE  TRUE 
 #>     5     5 
 ( proj <- actor_projection(dualize(women_clique)) )
-#> IGRAPH 9912073 UNW- 5 9 -- 
+#> IGRAPH 12e2341 UNW- 5 9 -- 
 #> + attr: name (v/c), weight (e/n)
-#> + edges from 9912073 (vertex names):
+#> + edges from 12e2341 (vertex names):
 #> [1] Bridge--Movies   Bridge--Dance    Bridge--Dinner   Bridge--Visiting
 #> [5] Dinner--Visiting Dinner--Movies   Dinner--Dance    Movies--Dance   
 #> [9] Dance --Visiting

@@ -3,7 +3,7 @@
 Each clustering coefficient can be defined as the proportion of "wedges"
 that are "closed", for suitable definitions of both terms. The main
 function,
-[`transitivity_an()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md),
+[`transitivity_an()`](https://corybrunson.codeberg.page/bitriad/reference/transitivity_an.md),
 calls one of the wedge functions and computes the global or local
 clustering coefficient of the given affiliation network, and if the
 local, then at the given nodes. (`project_transitivity` cheats by using
@@ -45,7 +45,7 @@ closed wedges centered at each actor.
 ## See also
 
 Other triad closure functions:
-[`dynamic_triad_closure()`](http://corybrunson.github.io/bitriad/reference/dynamic_triad_closure.md),
-[`transitivity_an()`](http://corybrunson.github.io/bitriad/reference/transitivity_an.md),
-[`triad_closure()`](http://corybrunson.github.io/bitriad/reference/triad_closure.md),
-[`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+[`dynamic_triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/dynamic_triad_closure.md),
+[`transitivity_an()`](https://corybrunson.codeberg.page/bitriad/reference/transitivity_an.md),
+[`triad_closure()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure.md),
+[`triad_closure_from_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure_from_census.md)

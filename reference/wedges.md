@@ -234,4 +234,4 @@ Science*, 3(4), 480–508.
 ## See also
 
 Other wedge functions:
-[`dynamic_wedges()`](http://corybrunson.github.io/bitriad/reference/dynamic_wedges.md)
+[`dynamic_wedges()`](https://corybrunson.codeberg.page/bitriad/reference/dynamic_wedges.md)

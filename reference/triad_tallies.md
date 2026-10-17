@@ -33,6 +33,6 @@ threeTiedTriads(bigraph, graph = actor_projection(bigraph, name = "id"))
 ## See also
 
 Other triad census functions:
-[`project_census()`](http://corybrunson.github.io/bitriad/reference/project_census.md),
-[`triad_census()`](http://corybrunson.github.io/bitriad/reference/triad_census.md),
-[`triad_closure_from_census()`](http://corybrunson.github.io/bitriad/reference/triad_closure_from_census.md)
+[`project_census()`](https://corybrunson.codeberg.page/bitriad/reference/project_census.md),
+[`triad_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_census.md),
+[`triad_closure_from_census()`](https://corybrunson.codeberg.page/bitriad/reference/triad_closure_from_census.md)
