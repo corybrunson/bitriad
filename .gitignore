@@ -37,7 +37,13 @@ Thumbs.db
 ###############
 .Rhistory
 .RData
+.Rproj.user
 *sandbox*
 
-.Rproj.user
-docs
+# pkgdown site
+docs/**/*.md
+docs/llms.txt
+docs/sitemap.xml
+docs/pkgdown.yml
+docs/deps/data-deps.txt
+docs/**/*.map
