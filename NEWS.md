@@ -1,3 +1,9 @@
+# next version
+
+## Source code platform
+
+The source code has been migrated from GitHub to Codeberg, where ongoing development will take place.
+
 # bitriad 0.4.0
 
 ## Code (re)generation

@@ -1,0 +1,49 @@
+# format authors (based on `citation()`)
+author <- .read_authors_at_R_field(meta$`Authors@R`)
+author <- format(author, include = c("given", "family"))
+# formatted description fields
+descr <- list(
+  author = author,
+  year = sub("-.*", "", meta$Date),
+  title = paste0(meta$Package, ": ", meta$Title),
+  note = sprintf("R package version %s", meta$Version),
+  url = meta$URL
+)
+
+# Package citation
+
+bibentry(
+  bibtype = "Misc",
+  textVersion = paste0(
+    descr$author,
+    " (", descr$year, "). ",
+    descr$title, ". ",
+    descr$note, ". ",
+    descr$url
+  ),
+  header = gettextf("To cite package %s in publications, use:",
+                    sQuote("bitriad")),
+  key = "bitriad-package",
+  title = descr$title,
+  author = descr$author,
+  year = descr$year,
+  note = descr$note,
+  url = descr$url
+)
+
+# JOSS article citation
+
+bibentry(
+  bibtype = "Article",
+  header = gettextf("To cite original techniques implemented in %s:",
+                    sQuote("bitriad")),
+  key = "Brunson2015Triadic",
+  title = "Triadic analysis of affiliation networks",
+  author = "Jason Cory Brunson",
+  year = "2015",
+  journal = "Network Science",
+  volume = "3",
+  number = "4",
+  pages = "480–508",
+  doi = "10.1017/nws.2015.38"
+)
