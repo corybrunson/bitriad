@@ -7,6 +7,8 @@ on:
 jobs:
   deploy:
     runs-on: codeberg-tiny
+    env:
+      NODE_OPTIONS: --no-deprecation
     steps:
       - uses: https://github.com/actions/checkout@v4
 
